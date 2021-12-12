@@ -8,10 +8,11 @@ interface Props {
   text: string;
   buttonStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  callback: () => void;
 }
 
 export const CustomButton: React.FC<Props> = props => (
-  <TouchableOpacity style={[props.buttonStyle, styles.button]}>
+  <TouchableOpacity style={[props.buttonStyle, styles.button]} onPress={props.callback}>
     <AppText text={props.text} labelStyle={[props.labelStyle, styles.buttonText]} />
   </TouchableOpacity>
 );

@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     paddingVertical: 25,
     position: 'absolute',
-    zIndex: 10,
+    zIndex: 6,
     right: 0,
     left: 0,
     marginHorizontal: 30,

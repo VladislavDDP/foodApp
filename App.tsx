@@ -1,11 +1,11 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 
-import {Onboarding} from './src/screens/Onboarding.component';
+import {AppNavigator} from './src/navigation/MainStack';
 
 export const App = () => (
   <SafeAreaView style={styles.screenContainer}>
-    <Onboarding />
+    <AppNavigator />
   </SafeAreaView>
 );
 
