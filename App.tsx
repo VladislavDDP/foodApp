@@ -1,4 +1,16 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 
-export const App = () => <SafeAreaView />;
+import {Onboarding} from './src/screens/onboarding/Onboarding.component';
+
+export const App = () => (
+  <SafeAreaView style={styles.screenContainer}>
+    <Onboarding />
+  </SafeAreaView>
+);
+
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+  },
+});
