@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {AppText} from '../app-text/AppText.component';
+import {AppText} from '../../../components/app-text/AppText.component';
 
-import {CustomButton} from '../button/CustomButton.component';
-import {InputField} from '../input-field/InputField.component';
+import {CustomButton} from '../../../components/button/CustomButton.component';
+import {InputField} from '../../../components/input-field/InputField.component';
 import {styles} from './login.styles';
 
 export const Login = () => {

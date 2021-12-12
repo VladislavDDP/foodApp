@@ -1,13 +1,13 @@
 import React from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import logo from '../assets/images/mainLogo.png';
-import {Login} from '../components/login/Login.component';
-import {SignUp} from '../components/sign-up/SignUp.component';
-import {Screens} from '../navigation/routes.types';
-import {AppNavigatorScreenProps} from '../navigation/stack.types';
-import {styles} from './styles/authentication-tabs.styles';
+import {Login} from './login/Login.component';
+import {SignUp} from './sign-up/SignUp.component';
+import {Logo} from './logo/Logo.component';
+import {Screens} from '../../navigation/routes.types';
+import {AppNavigatorScreenProps} from '../../navigation/stack.types';
+import {styles} from '../styles/authentication-tabs.styles';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,9 +15,7 @@ interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
 
 export const AuthenticationTabs: React.FC<Props> = () => (
   <View style={styles.container}>
-    <View style={styles.logoContainer}>
-      <Image source={logo} />
-    </View>
+    <Logo />
     <View style={styles.tabsContainer}>
       <Tab.Navigator
         screenOptions={{

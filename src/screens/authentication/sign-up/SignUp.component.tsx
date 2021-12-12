@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 
-import {CustomButton} from '../button/CustomButton.component';
-import {InputField} from '../input-field/InputField.component';
+import {CustomButton} from '../../../components/button/CustomButton.component';
+import {InputField} from '../../../components/input-field/InputField.component';
 import {styles} from './sign-up.styles';
 
 export const SignUp = () => {

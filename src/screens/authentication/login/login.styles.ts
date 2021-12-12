@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {height} from '../../vars/variables';
+import {height} from '../../../vars/variables';
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,5 +17,9 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: '#fff',
+  },
+  passcodeLabel: {
+    color: '#FA4A0C',
+    marginVertical: 20,
   },
 });

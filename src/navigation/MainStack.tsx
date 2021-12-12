@@ -5,8 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {Screens} from './routes.types';
 import {StackParamList} from './stack.types';
-import {Onboarding} from '../screens/Onboarding';
-import {AuthenticationTabs} from '../screens/AuthentacationTabs';
+import {Onboarding} from '../screens/onboarding/Onboarding.component';
+import {AuthenticationTabs} from '../screens/authentication/AuthenticationTabs.component';
 
 const Stack = createStackNavigator<StackParamList>();
 
