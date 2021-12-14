@@ -1,18 +1,18 @@
 import React from 'react';
 import {Animated, TouchableOpacity} from 'react-native';
 
-import {AppText} from '../../../components/app-text/AppText.component';
+import {DefaultStyledText} from '../../../components/app-text/AppText.component';
 import {styles} from './navigation-tab.styles';
 
 interface Props {
   title: string;
-  height: Animated.Value;
+  height: Animated.AnimatedInterpolation;
   onPress: () => void;
 }
 
 export const NavigationTab: React.FC<Props> = props => (
   <TouchableOpacity onPress={props.onPress}>
-    <AppText children={props.title} style={styles.label} />
+    <DefaultStyledText style={styles.label}>{props.title}</DefaultStyledText>
     <Animated.View style={[{height: props.height}, styles.animatedLine]} />
   </TouchableOpacity>
 );

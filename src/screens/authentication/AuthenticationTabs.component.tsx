@@ -22,35 +22,29 @@ export const AuthenticationTabs: React.FC<Props> = props => {
     end: 100,
   };
   const value = useRef(new Animated.Value(animateState.start)).current;
-  const loginTab = new Animated.Value(maxOffset);
-  const signUpTab = new Animated.Value(minOffset);
 
   const timingProp = {duration: 300, useNativeDriver: false};
 
   const toSignInAnimate = () => {
     Animated.timing(value, {toValue: animateState.start, ...timingProp}).start();
-    Animated.timing(loginTab, {toValue: maxOffset, ...timingProp}).start();
-    Animated.timing(signUpTab, {toValue: minOffset, ...timingProp}).start();
   };
 
   const toLoginAnimate = () => {
     Animated.timing(value, {toValue: animateState.end, ...timingProp}).start();
-    Animated.timing(loginTab, {toValue: minOffset, ...timingProp}).start();
-    Animated.timing(signUpTab, {toValue: maxOffset, ...timingProp}).start();
   };
 
   const inputRange = Object.values(animateState);
   const offset = value.interpolate({inputRange, outputRange: [minOffset, -screenWidth]});
-  const heightLogin = {height: loginTab};
-  const heightSignUp = {height: signUpTab};
+  const loginHeight = value.interpolate({inputRange, outputRange: [maxOffset, minOffset]});
+  const signUpHeight = value.interpolate({inputRange, outputRange: [minOffset, maxOffset]});
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Logo />
         <View style={styles.tabs}>
-          <NavigationTab title="Login" onPress={toSignInAnimate} height={heightLogin.height} />
-          <NavigationTab title="Sign-up" onPress={toLoginAnimate} height={heightSignUp.height} />
+          <NavigationTab title="Login" onPress={toSignInAnimate} height={loginHeight} />
+          <NavigationTab title="Sign-up" onPress={toLoginAnimate} height={signUpHeight} />
         </View>
       </View>
       <Animated.View style={[styles.animatedContainer, {transform: [{translateX: offset}]}]}>

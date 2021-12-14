@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {AppText} from '../../components/app-text/AppText.component';
+import {DefaultStyledText} from '../../components/app-text/AppText.component';
 import {CustomButton} from '../../components/button/CustomButton.component';
 import {OnboardingLogo} from './Logo.component';
 import {PeopleScene} from './PeopleScene.component';
@@ -16,7 +16,7 @@ export const Onboarding: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <OnboardingLogo />
-      <AppText children="Food for Everyone" style={styles.title} />
+      <DefaultStyledText style={styles.title}>Food for Everyone</DefaultStyledText>
       <PeopleScene />
       <CustomButton text="Get Started" onPress={navigateToAuthentication} buttonStyle={styles.button} labelStyle={styles.label} />
     </View>

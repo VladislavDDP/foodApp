@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleProp, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
 
-import {AppText} from '../app-text/AppText.component';
+import {DefaultStyledText} from '../app-text/AppText.component';
 import {styles} from './custom-btn.styles';
 
 interface Props {
@@ -13,6 +13,6 @@ interface Props {
 
 export const CustomButton: React.FC<Props> = props => (
   <TouchableOpacity style={[props.buttonStyle, styles.button]} onPress={props.onPress}>
-    <AppText children={props.text} style={[props.labelStyle, styles.buttonText]} />
+    <DefaultStyledText style={[props.labelStyle, styles.buttonText]}>{props.text}</DefaultStyledText>
   </TouchableOpacity>
 );
