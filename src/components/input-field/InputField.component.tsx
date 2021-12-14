@@ -6,7 +6,7 @@ import {styles} from './input-field.styles';
 interface Props {
   label: string;
   placeholder: string;
-  isSecure: boolean;
+  isSecure?: boolean;
   value: string;
   setInput: (text: string) => void;
 }
@@ -17,7 +17,7 @@ export const InputField: React.FC<Props> = props => (
     <TextInput
       style={styles.input}
       value={props.value}
-      secureTextEntry={props.isSecure}
+      secureTextEntry={!!props.isSecure}
       onChangeText={props.setInput}
       placeholder={props.placeholder}
     />

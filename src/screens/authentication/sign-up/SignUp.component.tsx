@@ -17,9 +17,9 @@ export const SignUp = () => {
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
-        <InputField setInput={setEmail} value={email} label="Email address" placeholder="..." isSecure={false} />
-        <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure={true} />
-        <InputField setInput={setPasswordAgain} value={passwordAgain} label="Password again" placeholder="..." isSecure={true} />
+        <InputField setInput={setEmail} value={email} label="Email address" placeholder="..." />
+        <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure />
+        <InputField setInput={setPasswordAgain} value={passwordAgain} label="Password again" placeholder="..." isSecure />
       </View>
       <CustomButton text="Sign-up" onPress={signUp} buttonStyle={styles.button} labelStyle={styles.label} />
     </View>

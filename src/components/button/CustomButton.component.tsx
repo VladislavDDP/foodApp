@@ -13,6 +13,6 @@ interface Props {
 
 export const CustomButton: React.FC<Props> = props => (
   <TouchableOpacity style={[props.buttonStyle, styles.button]} onPress={props.onPress}>
-    <AppText text={props.text} labelStyle={[props.labelStyle, styles.buttonText]} />
+    <AppText children={props.text} style={[props.labelStyle, styles.buttonText]} />
   </TouchableOpacity>
 );
