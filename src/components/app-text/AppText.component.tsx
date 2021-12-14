@@ -8,4 +8,4 @@ interface Props {
   labelStyle?: StyleProp<TextStyle>;
 }
 
-export const AppText: React.FC<Props> = props => <Text style={[props.labelStyle, styles.text]}>{props.text}</Text>;
+export const AppText: React.FC<Props> = props => <Text style={[styles.text, props.labelStyle]}>{props.text}</Text>;

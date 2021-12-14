@@ -10,10 +10,6 @@ export const SignUp = () => {
   const [password, setPassword] = useState<string>('');
   const [passwordAgain, setPasswordAgain] = useState<string>('');
 
-  const setInputEmail = (text: string) => setEmail(text);
-  const setInputPassword = (text: string) => setPassword(text);
-  const setInputPasswordAgain = (text: string) => setPasswordAgain(text);
-
   const signUp = () => {
     // TODO: sign up action
   };
@@ -21,11 +17,11 @@ export const SignUp = () => {
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
-        <InputField setInput={setInputEmail} value={email} label="Email address" placeholder="..." isSecure={false} />
-        <InputField setInput={setInputPassword} value={password} label="Password" placeholder="..." isSecure={true} />
-        <InputField setInput={setInputPasswordAgain} value={passwordAgain} label="Password again" placeholder="..." isSecure={true} />
+        <InputField setInput={setEmail} value={email} label="Email address" placeholder="..." isSecure={false} />
+        <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure={true} />
+        <InputField setInput={setPasswordAgain} value={passwordAgain} label="Password again" placeholder="..." isSecure={true} />
       </View>
-      <CustomButton text="Sign-up" callback={signUp} buttonStyle={styles.button} labelStyle={styles.label} />
+      <CustomButton text="Sign-up" onPress={signUp} buttonStyle={styles.button} labelStyle={styles.label} />
     </View>
   );
 };
