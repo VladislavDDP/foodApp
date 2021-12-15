@@ -2,7 +2,7 @@ import {Platform, StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   text: {
-    fontFamily: Platform.OS === 'android' ? 'sans-serif' : 'Verdana-Bold',
-    fontWeight: '900',
+    fontFamily: Platform.select({ios: 'Verdana-Bold', android: 'sans-serif'}),
+    fontWeight: '600',
   },
 });
