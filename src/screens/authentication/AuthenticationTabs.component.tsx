@@ -35,16 +35,14 @@ export const AuthenticationTabs: React.FC<Props> = props => {
 
   const inputRange = Object.values(animateState);
   const offset = value.interpolate({inputRange, outputRange: [minOffset, -screenWidth]});
-  const loginHeight = value.interpolate({inputRange, outputRange: [maxOffset, minOffset]});
-  const signUpHeight = value.interpolate({inputRange, outputRange: [minOffset, maxOffset]});
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Logo />
         <View style={styles.tabs}>
-          <NavigationTab title="Login" onPress={toSignInAnimate} height={loginHeight} />
-          <NavigationTab title="Sign-up" onPress={toLoginAnimate} height={signUpHeight} />
+          <NavigationTab title="Login" onPress={toSignInAnimate} value={value} inputRange={inputRange} outputRange={[maxOffset, minOffset]} />
+          <NavigationTab title="Sign-up" onPress={toLoginAnimate} value={value} inputRange={inputRange} outputRange={[minOffset, maxOffset]} />
         </View>
       </View>
       <Animated.View style={[styles.animatedContainer, {transform: [{translateX: offset}]}]}>

@@ -6,13 +6,19 @@ import {styles} from './navigation-tab.styles';
 
 interface Props {
   title: string;
-  height: Animated.AnimatedInterpolation;
+  value: Animated.Value;
+  inputRange: Array<number>;
+  outputRange: Array<number>;
   onPress: () => void;
 }
 
-export const NavigationTab: React.FC<Props> = props => (
-  <TouchableOpacity onPress={props.onPress}>
-    <DefaultStyledText style={styles.label}>{props.title}</DefaultStyledText>
-    <Animated.View style={[{height: props.height}, styles.animatedLine]} />
-  </TouchableOpacity>
-);
+export const NavigationTab: React.FC<Props> = props => {
+  const height = props.value.interpolate({inputRange: props.inputRange, outputRange: props.outputRange});
+
+  return (
+    <TouchableOpacity onPress={props.onPress}>
+      <DefaultStyledText style={styles.label}>{props.title}</DefaultStyledText>
+      <Animated.View style={[{height: height}, styles.animatedLine]} />
+    </TouchableOpacity>
+  );
+};
