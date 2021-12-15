@@ -1,16 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
 
-import {Onboarding} from './src/screens/onboarding/Onboarding.component';
+import {RootNavigator} from './src/navigation/RootNavigator';
 
-export const App = () => (
-  <SafeAreaView style={styles.screenContainer}>
-    <Onboarding />
-  </SafeAreaView>
-);
-
-const styles = StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-  },
-});
+export const App = () => <RootNavigator />;
