@@ -33,7 +33,7 @@ export const AuthenticationTabs: React.FC<Props> = props => {
     Animated.timing(value, {toValue: animateState.end, ...timingProp}).start();
   };
 
-  const inputRange = Object.values(animateState);
+  const inputRange = [animateState.start, animateState.end];
   const offset = value.interpolate({inputRange, outputRange: [minOffset, -screenWidth]});
 
   return (

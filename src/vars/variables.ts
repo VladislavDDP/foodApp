@@ -1,6 +1,6 @@
 import {Dimensions, Platform} from 'react-native';
 
-const androidValue = 0.575;
+const androidValue = 0.545;
 const iosValue = 0.5;
 const proportion = Platform.select({ios: iosValue, android: androidValue});
 const {height, width} = Dimensions.get('window');
