@@ -1,0 +1,206 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin",
+      "password": "admin"
+    },
+    {
+      "id": 2,
+      "email": "vlad",
+      "password": "admin"
+    },
+    {
+      "id": 3,
+      "email": "god",
+      "password": "admin"
+    },
+    {
+      "id": 4,
+      "email": "",
+      "password": ""
+    }
+  ],
+  "categories": [
+    {
+      "id": 0,
+      "category": "Foods",
+      "food": [
+        {
+          "id": 1,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg"
+        },
+        {
+          "id": 4,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "category": "Drinks",
+      "food": [
+        {
+          "id": 1,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://images.absolutdrinks.com/drinkcollection-images/Raw/Absolut/595f1c61-2825-40fc-bd5f-d6235f1a9379.jpg?imwidth=500"
+        },
+        {
+          "id": 2,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://momfoodie.com/wp-content/uploads/Blue-Lagoon-Drink-500x500.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://delightfulmomfood.com/wp-content/uploads/2020/04/mango-cocktail-drink-500x500.jpg"
+        },
+        {
+          "id": 4,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://images.absolutdrinks.com/ingredient-images/Raw/Absolut/d0a126c8-e448-4d39-80e1-08876164c606.jpg?imwidth=500"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "Snacks",
+      "food": [
+        {
+          "id": 1,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg"
+        },
+        {
+          "id": 4,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "category": "Sauces",
+      "food": [
+        {
+          "id": 1,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg"
+        },
+        {
+          "id": 4,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "category": "Salads",
+      "food": [
+        {
+          "id": 1,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg"
+        },
+        {
+          "id": 4,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "category": "Alcohol",
+      "food": [
+        {
+          "id": 1,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg"
+        },
+        {
+          "id": 4,
+          "name": "Veggie tomato mix",
+          "price": "N1,900",
+          "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg"
+        }
+      ]
+    }
+  ]
+}

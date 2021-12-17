@@ -5,13 +5,19 @@ import {CustomButton} from '../../../components/button/CustomButton.component';
 import {InputField} from '../../../components/input-field/InputField.component';
 import {styles} from './sign-up.styles';
 
-export const SignUp = () => {
+interface Props {
+  navigate: () => void;
+}
+
+export const SignUp: React.FC<Props> = props => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordAgain, setPasswordAgain] = useState<string>('');
 
   const signUp = () => {
-    // TODO: sign up action
+    if (email && password === passwordAgain) {
+      props.navigate();
+    }
   };
 
   return (

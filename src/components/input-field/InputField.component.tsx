@@ -20,6 +20,7 @@ export const InputField: React.FC<Props> = props => (
       secureTextEntry={!!props.isSecure}
       onChangeText={props.setInput}
       placeholder={props.placeholder}
+      autoCapitalize="none"
     />
     <View style={styles.line} />
   </View>

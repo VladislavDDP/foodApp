@@ -16,7 +16,9 @@ interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
 const minOffset = 0;
 const maxOffset = 2;
 
-export const AuthenticationTabs: React.FC<Props> = props => {
+export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
+  const goToDashboard = () => navigation.navigate(Screens.DashboardStack);
+
   const animateState = {
     start: 0,
     end: 100,
@@ -46,8 +48,8 @@ export const AuthenticationTabs: React.FC<Props> = props => {
         </View>
       </View>
       <Animated.View style={[styles.animatedContainer, {transform: [{translateX: offset}]}]}>
-        <Login />
-        <SignUp />
+        <Login navigate={goToDashboard} />
+        <SignUp navigate={goToDashboard} />
       </Animated.View>
     </SafeAreaView>
   );
