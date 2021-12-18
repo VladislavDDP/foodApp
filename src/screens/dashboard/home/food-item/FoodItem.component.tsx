@@ -1,17 +1,24 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {TouchableOpacity, Image, Text, View} from 'react-native';
 
 import {Food} from '../../../../model/foodModel';
 import {styles} from './food-item.styles';
 
-export const FoodItem = ({item}: {item: Food}) => (
-  <View style={styles.container}>
-    <View style={styles.wrapper}>
-      <Image source={{uri: item.photo}} style={styles.image} />
-      <View style={styles.decriptionContainer}>
-        <Text style={styles.itemTitle}>{item.name}</Text>
-        <Text style={styles.itemPrice}>{item.price}</Text>
+interface Props {
+  item: Food;
+  onPress: () => void;
+}
+
+export const FoodItem: React.FC<Props> = props => (
+  <TouchableOpacity onPress={props.onPress}>
+    <View style={styles.container}>
+      <View style={styles.wrapper}>
+        <Image source={{uri: props.item.photo}} style={styles.image} />
+        <View style={styles.decriptionContainer}>
+          <Text style={styles.itemTitle}>{props.item.name}</Text>
+          <Text style={styles.itemPrice}>{props.item.price}</Text>
+        </View>
       </View>
     </View>
-  </View>
+  </TouchableOpacity>
 );

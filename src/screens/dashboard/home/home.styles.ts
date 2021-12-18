@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
   },
   category: {
     marginHorizontal: 30,
-    color: '#FA4A0C',
     fontSize: 17,
     fontWeight: '400',
     marginBottom: 40,

@@ -6,6 +6,7 @@ import {Onboarding} from '../../screens/onboarding/Onboarding.component';
 import {Screens} from './routes.types';
 import {StackParamList} from './stack.types';
 import {DashboardTabStack} from '../tab-navigation/DashboardTabStack.component';
+import {Details} from '../../screens/details/Details.component';
 
 const Stack = createStackNavigator<StackParamList>();
 
@@ -14,5 +15,6 @@ export const RootStack = () => (
     <Stack.Screen name={Screens.Onboarding} component={Onboarding} />
     <Stack.Screen name={Screens.Authentication} component={AuthenticationTabs} />
     <Stack.Screen name={Screens.DashboardStack} component={DashboardTabStack} />
+    <Stack.Screen name={Screens.Details} component={Details} />
   </Stack.Navigator>
 );

@@ -5,20 +5,22 @@ import {CustomButton} from '../../../components/button/CustomButton.component';
 import {InputField} from '../../../components/input-field/InputField.component';
 import {TextBtn} from '../text-btn/TextBtn.component';
 import {styles} from './login.styles';
-import db from '../../../db.json';
-
-const indexNotFound = -1;
 
 interface Props {
   navigate: () => void;
 }
+
+const success = 200;
+const failed = 404;
+
+const loginUser = (email: string, password: string) => (email === '' && password === '' ? success : failed);
 
 export const Login: React.FC<Props> = props => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const login = () => {
-    if (db.users.findIndex(user => user.email === email && user.password === password) > indexNotFound) {
+    if (loginUser(email, password) === success) {
       props.navigate();
     }
   };
