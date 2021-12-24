@@ -1,8 +1,8 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 export const Profile = () => (
-  <SafeAreaView>
+  <View>
     <Text>Profile</Text>
-  </SafeAreaView>
+  </View>
 );

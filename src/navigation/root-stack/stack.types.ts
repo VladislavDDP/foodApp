@@ -6,8 +6,8 @@ import {Screens} from './routes.types';
 export type StackParamList = {
   Onboarding: undefined;
   Authentication: undefined;
-  DashboardStack: undefined;
-  Details: {food: Food};
+  DrawerStack: undefined;
+  Details: {item: Food};
 };
 
 export interface AppNavigatorScreenProps<S extends Screens> extends NativeStackScreenProps<StackParamList, S> {}

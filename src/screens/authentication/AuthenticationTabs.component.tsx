@@ -17,7 +17,7 @@ const minOffset = 0;
 const maxOffset = 2;
 
 export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
-  const goToDashboard = () => navigation.navigate(Screens.DashboardStack);
+  const goToDashboard = () => navigation.navigate(Screens.DrawerStack);
 
   const animateState = {
     start: 0,

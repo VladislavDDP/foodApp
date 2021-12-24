@@ -5,18 +5,18 @@ import {Food} from '../../../../model/foodModel';
 import {styles} from './food-item.styles';
 
 interface Props {
-  item: Food;
-  onPress: () => void;
+  food: Food;
+  onPress: (food: Food) => void;
 }
 
 export const FoodItem: React.FC<Props> = props => (
-  <TouchableOpacity onPress={props.onPress}>
+  <TouchableOpacity onPress={() => props.onPress(props.food)}>
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Image source={{uri: props.item.photo}} style={styles.image} />
+        <Image source={{uri: props.food.photo}} style={styles.image} />
         <View style={styles.decriptionContainer}>
-          <Text style={styles.itemTitle}>{props.item.name}</Text>
-          <Text style={styles.itemPrice}>{props.item.price}</Text>
+          <Text style={styles.itemTitle}>{props.food.name}</Text>
+          <Text style={styles.itemPrice}>{props.food.price}</Text>
         </View>
       </View>
     </View>

@@ -1,6 +1,6 @@
 export enum Screens {
   Onboarding = 'Onboarding',
   Authentication = 'Authentication',
-  DashboardStack = 'DashboardStack',
+  DrawerStack = 'DrawerStack',
   Details = 'Details',
 }

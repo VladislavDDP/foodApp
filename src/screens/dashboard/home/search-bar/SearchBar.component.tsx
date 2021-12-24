@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {styles} from './search-bar.styles';
 
-export const SearchBar = () => {
-  const [input, setInput] = useState('');
+interface Props {
+  input: string;
+  setInput: (text: string) => void;
+}
 
-  return (
-    <View style={styles.searchBar}>
-      <Icon name="search" size={25} color="#333" />
-      <TextInput value={input} style={styles.searchInput} onChangeText={setInput} placeholder="Search" />
-    </View>
-  );
-};
+export const SearchBar: React.FC<Props> = props => (
+  <View style={styles.searchBar}>
+    <Icon name="search" size={25} color="#333" />
+    <TextInput value={props.input} style={styles.searchInput} onChangeText={props.setInput} placeholder="Search" />
+  </View>
+);

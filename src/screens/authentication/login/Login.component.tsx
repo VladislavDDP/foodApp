@@ -20,6 +20,7 @@ export const Login: React.FC<Props> = props => {
   const [password, setPassword] = useState<string>('');
 
   const login = () => {
+    // TODO: move logic to mobx
     if (loginUser(email, password) === success) {
       props.navigate();
     }

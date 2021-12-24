@@ -8,6 +8,6 @@ interface Props extends AppNavigatorScreenProps<Screens.Details> {}
 
 export const Details: React.FC<Props> = props => (
   <SafeAreaView>
-    <Text>{props.route.params.food.name}</Text>
+    <Text>{props.route.params.item.name}</Text>
   </SafeAreaView>
 );

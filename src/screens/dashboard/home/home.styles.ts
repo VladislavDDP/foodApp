@@ -18,12 +18,6 @@ export const styles = StyleSheet.create({
     marginLeft: 20,
     marginVertical: 10,
   },
-  category: {
-    marginHorizontal: 30,
-    fontSize: 17,
-    fontWeight: '400',
-    marginBottom: 40,
-  },
   bottomNavigation: {
     flexDirection: 'row',
     justifyContent: 'space-between',
