@@ -25,13 +25,13 @@ export const Home: React.FC<Props> = ({navigation}) => {
 
   useEffect(() => {
     setFoodCategories(categories.categories.map(mapToCategory));
-    setFoods(food.food.filter(item => item.category.includes(activeCategoryId)));
+    setFoods(food.filter(item => item.category.includes(activeCategoryId)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSelectCategory = (id: number) => {
     setActiveCategoryId(id);
-    setFoods(food.food.filter(item => item.category.includes(id)));
+    setFoods(food.filter(item => item.category.includes(id)));
   };
 
   const renderCategory = ({item}: {item: Category}) => (
