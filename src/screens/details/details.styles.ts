@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {colors} from '../../vars/variables';
+import {colors, screenHeight, screenWidth} from '../../vars/variables';
 
 export const styles = StyleSheet.create({
   container: {
@@ -25,8 +25,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   slider: {
-    flex: 0.8,
-    marginVertical: 20,
+    flex: 3,
+    marginVertical: 10,
     shadowColor: colors.light,
     shadowOpacity: 1,
     shadowRadius: 25,
@@ -40,5 +40,16 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: colors.white,
+  },
+  bg: {
+    position: 'absolute',
+    width: screenWidth,
+    height: screenHeight * 2,
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    padding: 15,
+    transform: [{translateY: 100}],
+    marginTop: 50,
+    paddingBottom: 200,
   },
 });

@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
-import {Text, Animated, SafeAreaView, View, FlatList} from 'react-native';
+import {Text, Animated, SafeAreaView, View, FlatList, ScrollView} from 'react-native';
+import {SharedElement} from 'react-navigation-shared-element';
 
 import {CustomButton} from '../../components/button/CustomButton.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
@@ -52,15 +53,18 @@ export const Details: React.FC<Props> = ({navigation, route}) => {
         <Text style={styles.foodTitle}>{name}</Text>
         <Text style={styles.foodPrice}>{price}</Text>
       </View>
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Section title="Delivery info" description="Delivered between monday aug and thursday 20 from 8pm to 91:32 pm" />
         <Section
           title="Return policy"
           description="All our foods are double checked before leaving our stores so
           by any case you found a broken food please contact our hotline immediately."
         />
-      </View>
+      </ScrollView>
       <CustomButton text="Add to card" buttonStyle={styles.button} labelStyle={styles.label} onPress={() => undefined} />
+      <SharedElement id="bg">
+        <View style={styles.bg} />
+      </SharedElement>
     </SafeAreaView>
   );
 };

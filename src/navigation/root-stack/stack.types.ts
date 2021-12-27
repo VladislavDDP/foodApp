@@ -7,6 +7,7 @@ export type StackParamList = {
   Onboarding: undefined;
   Authentication: undefined;
   DrawerStack: undefined;
+  Search: undefined;
   Details: {item: Food};
 };
 

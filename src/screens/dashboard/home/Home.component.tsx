@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import {SharedElement} from 'react-navigation-shared-element';
 
 import categories from '../../../categories.json';
 import food from '../../../food.json';
@@ -8,17 +10,18 @@ import {Food} from '../../../model/foodModel';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
 import {CategoryItem} from './category-item/CategoryItem.component';
+import {FakeSearch} from './fake-search/FakeSearch.component';
 import {FoodItem} from './food-item/FoodItem.component';
 import {styles} from './home.styles';
-import {SearchBar} from './search-bar/SearchBar.component';
 
 const startId = 1;
+const duration = 100;
+
 const mapToCategory = (item: {id: number; category: string}) => new Category(item.id, item.category);
 
 interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
-export const Home: React.FC<Props> = ({navigation}) => {
-  const [searchInput, setSearchInput] = useState('');
+export const Home: React.FC<Props> = ({navigation, ...props}) => {
   const [foods, setFoods] = useState<Array<Food>>([]);
   const [foodCategories, setFoodCategories] = useState<Array<Category>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
@@ -28,6 +31,8 @@ export const Home: React.FC<Props> = ({navigation}) => {
     setFoods(food.filter(item => item.category.includes(activeCategoryId)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const navigateToSearch = () => navigation.navigate(Screens.Search);
 
   const onSelectCategory = (id: number) => {
     setActiveCategoryId(id);
@@ -39,16 +44,21 @@ export const Home: React.FC<Props> = ({navigation}) => {
   );
 
   const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
-  const renderFoodItem = ({item}: {item: Food}) => <FoodItem food={item} onPress={goToDetails} />;
+
+  const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
+    <Animatable.View animation="zoomIn" delay={duration * index}>
+      <FoodItem food={item} onPress={goToDetails} />
+    </Animatable.View>
+  );
 
   const extractCategoryKey = (item: Category) => item.id.toString();
   const extractFoodItemKey = (item: Food) => item.id.toString();
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.wrapper}>
+      <ScrollView style={styles.wrapper}>
         <Text style={styles.title}>Delicious food for you</Text>
-        <SearchBar input={searchInput} setInput={setSearchInput} />
+        <FakeSearch onPress={navigateToSearch} />
         <FlatList
           style={styles.flatlist}
           data={foodCategories}
@@ -66,7 +76,10 @@ export const Home: React.FC<Props> = ({navigation}) => {
           renderItem={renderFoodItem}
           ListEmptyComponent={null}
         />
-      </View>
+        <SharedElement id="bg">
+          <View style={styles.bg} />
+        </SharedElement>
+      </ScrollView>
     </SafeAreaView>
   );
 };

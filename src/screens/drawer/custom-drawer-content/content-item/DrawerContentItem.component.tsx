@@ -14,7 +14,7 @@ interface Props {
 export const DrawerContentItem: React.FC<Props> = props => (
   <View>
     <TouchableOpacity onPress={() => props.goToDrawer(props.name)} style={styles.button}>
-      <Icon name={props.icon} size={20} color={props.color} />
+      <Icon name={props.icon} size={18} color={props.color} />
       <Text style={[styles.text, {color: props.color}]}>{props.name}</Text>
     </TouchableOpacity>
     <View style={styles.line} />
