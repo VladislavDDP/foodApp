@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontFamily: 'Verdana-Bold',
+    fontFamily: 'Verdana',
     fontSize: 16,
     fontWeight: '500',
     color: '#fff',

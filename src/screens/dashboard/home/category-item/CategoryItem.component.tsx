@@ -13,8 +13,10 @@ interface Props {
 export const CategoryItem: React.FC<Props> = ({item, onSelectCategory, activeCategoryId}) => {
   const color = item.id === activeCategoryId ? '#FA4A0C' : '#333';
 
+  const selectCategory = () => onSelectCategory(item.id);
+
   return (
-    <TouchableOpacity onPress={() => onSelectCategory(item.id)}>
+    <TouchableOpacity onPress={selectCategory}>
       <Text style={[styles.text, {color: color}]}>{item.category}</Text>
     </TouchableOpacity>
   );

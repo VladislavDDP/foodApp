@@ -1,8 +1,19 @@
 import {History} from '../../screens/dashboard/history/History.component';
 import {Home} from '../../screens/dashboard/home/Home.component';
 import {Like} from '../../screens/dashboard/like/Like.component';
+import {Screens} from '../root-stack/routes.types';
+import {AppNavigatorScreenProps} from '../root-stack/stack.types';
 
-export const tabScreens = [
+export type TabComponents = React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> | (() => JSX.Element);
+
+export interface TabProps {
+  id: number;
+  name: string;
+  icon: string;
+  component: TabComponents;
+}
+
+export const tabScreens: Array<TabProps> = [
   {
     id: 1,
     name: 'Home',

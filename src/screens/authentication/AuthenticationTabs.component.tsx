@@ -48,8 +48,8 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
         </View>
       </View>
       <Animated.View style={[styles.animatedContainer, {transform: [{translateX: offset}]}]}>
-        <Login navigate={goToDashboard} />
-        <SignUp navigate={goToDashboard} />
+        <Login navigateToDashboard={goToDashboard} />
+        <SignUp navigateToDashboard={goToDashboard} />
       </Animated.View>
     </SafeAreaView>
   );

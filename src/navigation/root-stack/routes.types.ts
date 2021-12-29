@@ -3,4 +3,5 @@ export enum Screens {
   Authentication = 'Authentication',
   DrawerStack = 'DrawerStack',
   Details = 'Details',
+  Search = 'Search',
 }

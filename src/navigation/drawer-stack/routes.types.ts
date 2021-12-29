@@ -6,7 +6,16 @@ import {Security} from '../../screens/drawer/Security.component';
 import {TabStack} from '../tab-navigation/TabStack.component';
 import {Drawers} from './drawer.types';
 
-export const drawerScreens = [
+export type DrawerComponents = () => JSX.Element;
+
+export interface DrawerProps {
+  id: number;
+  icon: string;
+  name: Drawers;
+  component: DrawerComponents;
+}
+
+export const drawerScreens: Array<DrawerProps> = [
   {
     id: 0,
     icon: 'shopping-bag',

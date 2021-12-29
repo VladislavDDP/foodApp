@@ -3,18 +3,18 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     padding: 20,
-    paddingTop: 30,
+    paddingTop: 20,
   },
   wrapper: {
     backgroundColor: '#fff',
     borderRadius: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   image: {
     position: 'relative',
-    top: -30,
-    width: 130,
-    height: 130,
+    top: -20,
+    width: 120,
+    height: 120,
     borderRadius: 70,
   },
   decriptionContainer: {
