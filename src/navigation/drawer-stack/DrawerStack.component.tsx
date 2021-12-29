@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {DrawerComponents, drawerScreens} from './routes.types';
+import {DrawerProps, drawerScreens} from './routes.types';
 import {CustomDrawerContent} from '../../screens/drawer/custom-drawer-content/CustomDrawerContent.component';
 import {styles} from './styles/drawer-stack.styles';
 import {colors} from '../../vars/variables';
@@ -12,13 +12,6 @@ import {AppNavigatorScreenProps} from '../root-stack/stack.types';
 import {Screens} from '../root-stack/routes.types';
 
 const Drawer = createDrawerNavigator();
-
-interface DrawerProps {
-  id: number;
-  icon: string;
-  name: Drawers;
-  component: DrawerComponents;
-}
 
 export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = () => {
   const navigateToCart = () => {

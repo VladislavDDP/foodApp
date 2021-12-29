@@ -8,7 +8,14 @@ import {Drawers} from './drawer.types';
 
 export type DrawerComponents = () => JSX.Element;
 
-export const drawerScreens = [
+export interface DrawerProps {
+  id: number;
+  icon: string;
+  name: Drawers;
+  component: DrawerComponents;
+}
+
+export const drawerScreens: Array<DrawerProps> = [
   {
     id: 0,
     icon: 'shopping-bag',

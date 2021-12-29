@@ -6,7 +6,14 @@ import {AppNavigatorScreenProps} from '../root-stack/stack.types';
 
 export type TabComponents = React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> | (() => JSX.Element);
 
-export const tabScreens = [
+export interface TabProps {
+  id: number;
+  name: string;
+  icon: string;
+  component: TabComponents;
+}
+
+export const tabScreens: Array<TabProps> = [
   {
     id: 1,
     name: 'Home',

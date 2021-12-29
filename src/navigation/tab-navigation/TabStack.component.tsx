@@ -2,16 +2,9 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {TabComponents, tabScreens} from './routes.types';
+import {TabProps, tabScreens} from './routes.types';
 
 const Tab = createBottomTabNavigator();
-
-interface TabProps {
-  id: number;
-  name: string;
-  icon: string;
-  component: TabComponents;
-}
 
 export const TabStack = () => {
   const renderTab = (tab: TabProps) => (
