@@ -1,0 +1,24 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "category": "Foods"
+    },
+    {
+      "id": 2,
+      "category": "Drinks"
+    },
+    {
+      "id": 3,
+      "category": "Snacks"
+    },
+    {
+      "id": 4,
+      "category": "Sauces"
+    },
+    {
+      "id": 5,
+      "category": "Salads"
+    }
+  ]
+}

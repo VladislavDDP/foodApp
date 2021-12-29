@@ -13,6 +13,7 @@ interface Props extends AppNavigatorScreenProps<Screens.Onboarding> {}
 
 export const Onboarding: React.FC<Props> = ({navigation}) => {
   const navigateToAuthentication = () => navigation.navigate(Screens.Authentication);
+
   return (
     <View style={styles.container}>
       <OnboardingLogo />

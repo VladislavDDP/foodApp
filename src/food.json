@@ -1,0 +1,123 @@
+{
+  "food": [
+    {
+      "id": 1,
+      "category": [1],
+      "name": "Veggie tomato mix",
+      "price": "N1,900",
+      "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg"
+    },
+    {
+      "id": 2,
+      "category": [1],
+      "name": "Potato mix",
+      "price": "N1,900",
+      "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg"
+    },
+    {
+      "id": 3,
+      "category": [1],
+      "name": "Meat and fish",
+      "price": "N1,900",
+      "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg"
+    },
+    {
+      "id": 4,
+      "category": [1],
+      "name": "Pizza",
+      "price": "N1,900",
+      "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg"
+    },
+    {
+      "id": 5,
+      "category": [2],
+      "name": "Fresh",
+      "price": "N1,900",
+      "photo": "https://images.absolutdrinks.com/drinkcollection-images/Raw/Absolut/595f1c61-2825-40fc-bd5f-d6235f1a9379.jpg?imwidth=500"
+    },
+    {
+      "id": 6,
+      "category": [2],
+      "name": "White tea",
+      "price": "N1,900",
+      "photo": "https://momfoodie.com/wp-content/uploads/Blue-Lagoon-Drink-500x500.jpg"
+    },
+    {
+      "id": 7,
+      "category": [2],
+      "name": "Coffee",
+      "price": "N1,900",
+      "photo": "https://delightfulmomfood.com/wp-content/uploads/2020/04/mango-cocktail-drink-500x500.jpg"
+    },
+    {
+      "id": 8,
+      "category": [2],
+      "name": "Tomato fresh",
+      "price": "N1,900",
+      "photo": "https://images.absolutdrinks.com/ingredient-images/Raw/Absolut/d0a126c8-e448-4d39-80e1-08876164c606.jpg?imwidth=500"
+    },
+    {
+      "id": 9,
+      "category": [3],
+      "name": "Avebe",
+      "price": "N1,900",
+      "photo": "https://www.avebe.com/app/uploads/2021/07/1714_iStock-614971130-500x500.jpg"
+    },
+    {
+      "id": 10,
+      "category": [3],
+      "name": "Maag boom mix",
+      "price": "N1,900",
+      "photo": "https://www.maag.de/images/maerkte/start/Sweets-Snacks-500x500.jpeg"
+    },
+    {
+      "id": 13,
+      "category": [4],
+      "name": "Set of spice sauces",
+      "price": "N1,900",
+      "photo": "https://www.sweetandsavorybyshinee.com/wp-content/uploads/2014/07/Baked-Steak-Fries-1-500x500.jpg"
+    },
+    {
+      "id": 14,
+      "category": [4],
+      "name": "Soup and avebe",
+      "price": "N1,900",
+      "photo": "https://www.avebe.com/app/uploads/2021/10/Sauces-500x500.jpg"
+    },
+    {
+      "id": 15,
+      "category": [4],
+      "name": "Cheddar cheese",
+      "price": "N1,900",
+      "photo": "https://4.imimg.com/data4/OQ/HJ/MY-764091/cheddar-cheese-sauce-500x500.jpg"
+    },
+    {
+      "id": 16,
+      "category": [4],
+      "name": "Spicy 2x plus",
+      "price": "N1,900",
+      "photo": "https://www.avebe.com/app/uploads/2021/10/dressing-500x500.jpg"
+    },
+    {
+      "id": 17,
+      "category": [5],
+      "name": "Greek chicken",
+      "price": "N1,900",
+      "photo": "https://simply-delicious-food.com/wp-content/uploads/2019/04/greek-chicken-salad-4-500x500.jpg"
+    },
+    {
+      "id": 18,
+      "category": [5],
+      "name": "Chopped fast & cheap",
+      "price": "N1,900",
+      "photo": "https://www.tablefortwoblog.com/wp-content/uploads/2018/05/quick-chopped-salad-recipe-photos-tablefortwoblog-3-500x500.jpg"
+    },
+    {
+      "id": 19,
+      "category": [5],
+      "name": "Simple greek",
+      "price": "N1,900",
+      "photo": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-500x500.jpg"
+    }
+  ]
+}
