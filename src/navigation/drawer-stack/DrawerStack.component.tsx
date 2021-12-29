@@ -1,19 +1,17 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerComponents, drawerScreens} from './routes.types';
-import {View} from 'react-native';
-import {AppNavigatorScreenProps} from '../root-stack/stack.types';
-import {Screens} from '../root-stack/routes.types';
 import {CustomDrawerContent} from '../../screens/drawer/custom-drawer-content/CustomDrawerContent.component';
 import {styles} from './styles/drawer-stack.styles';
 import {colors} from '../../vars/variables';
 import {Drawers} from './drawer.types';
+import {AppNavigatorScreenProps} from '../root-stack/stack.types';
+import {Screens} from '../root-stack/routes.types';
 
 const Drawer = createDrawerNavigator();
-
-interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 interface DrawerProps {
   id: number;
@@ -22,7 +20,7 @@ interface DrawerProps {
   component: DrawerComponents;
 }
 
-export const DrawerStack: React.FC<Props> = ({navigation}) => {
+export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = () => {
   const navigateToCart = () => {
     // TODO: navigation.navigate(Screens.ShoppingCart)
   };
