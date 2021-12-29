@@ -7,7 +7,7 @@ import {TextBtn} from '../text-btn/TextBtn.component';
 import {styles} from './login.styles';
 
 interface Props {
-  navigate: () => void;
+  navigateToDashboard: () => void;
 }
 
 const success = 200;
@@ -15,14 +15,14 @@ const failed = 404;
 
 const loginUser = (email: string, password: string) => (email === '' && password === '' ? success : failed);
 
-export const Login: React.FC<Props> = props => {
+export const Login: React.FC<Props> = ({navigateToDashboard}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const login = () => {
     // TODO: move logic to mobx
     if (loginUser(email, password) === success) {
-      props.navigate();
+      navigateToDashboard();
     }
   };
 

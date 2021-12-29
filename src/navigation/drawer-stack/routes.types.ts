@@ -6,6 +6,8 @@ import {Security} from '../../screens/drawer/Security.component';
 import {TabStack} from '../tab-navigation/TabStack.component';
 import {Drawers} from './drawer.types';
 
+export type DrawerComponents = typeof TabStack | typeof Profile | typeof Orders | typeof OfferPromo | typeof PrivacyPolicy | typeof Security;
+
 export const drawerScreens = [
   {
     id: 0,

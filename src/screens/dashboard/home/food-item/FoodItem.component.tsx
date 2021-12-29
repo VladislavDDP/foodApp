@@ -9,16 +9,20 @@ interface Props {
   onPress: (food: Food) => void;
 }
 
-export const FoodItem: React.FC<Props> = props => (
-  <TouchableOpacity onPress={() => props.onPress(props.food)}>
-    <View style={styles.container}>
-      <View style={styles.wrapper}>
-        <Image source={{uri: props.food.photo}} style={styles.image} />
-        <View style={styles.decriptionContainer}>
-          <Text style={styles.itemTitle}>{props.food.name}</Text>
-          <Text style={styles.itemPrice}>{props.food.price}</Text>
+export const FoodItem: React.FC<Props> = props => {
+  const selectFood = () => props.onPress(props.food);
+
+  return (
+    <TouchableOpacity onPress={selectFood}>
+      <View style={styles.container}>
+        <View style={styles.wrapper}>
+          <Image source={{uri: props.food.photo}} style={styles.image} />
+          <View style={styles.decriptionContainer}>
+            <Text style={styles.itemTitle}>{props.food.name}</Text>
+            <Text style={styles.itemPrice}>{props.food.price}</Text>
+          </View>
         </View>
       </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};

@@ -2,6 +2,8 @@ import {History} from '../../screens/dashboard/history/History.component';
 import {Home} from '../../screens/dashboard/home/Home.component';
 import {Like} from '../../screens/dashboard/like/Like.component';
 
+export type TabComponents = typeof Home | typeof History | typeof Like;
+
 export const tabScreens = [
   {
     id: 1,

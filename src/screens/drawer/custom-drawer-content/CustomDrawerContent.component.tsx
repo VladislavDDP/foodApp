@@ -12,24 +12,24 @@ import {colors} from '../../../vars/variables';
 
 interface Props extends DrawerContentComponentProps {}
 
-export const CustomDrawerContent: React.FC<Props> = props => {
-  const goToDrawer = (drawerName: Drawers) => props.navigation.navigate(drawerName);
+export const CustomDrawerContent: React.FC<Props> = ({navigation, state}) => {
+  const goToDrawer = (drawerName: Drawers) => navigation.navigate(drawerName);
 
   return (
-    <DrawerContentScrollView scrollEnabled={true} contentContainerStyle={styles.drawerContainer}>
+    <DrawerContentScrollView scrollEnabled contentContainerStyle={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
         <View style={styles.itemsContainer}>
           {drawerScreens.map(drawer => (
             <DrawerContentItem
               key={drawer.id}
               name={drawer.name}
-              color={props.state.index === drawer.id ? colors.dark : colors.white}
+              color={state.index === drawer.id ? colors.dark : colors.white}
               icon={drawer.icon}
               goToDrawer={goToDrawer}
             />
           ))}
         </View>
-        <SignOut {...props} />
+        <SignOut navigation={navigation} />
       </SafeAreaView>
     </DrawerContentScrollView>
   );

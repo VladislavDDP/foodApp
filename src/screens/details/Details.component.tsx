@@ -20,8 +20,6 @@ export const Details: React.FC<Props> = ({navigation, route}) => {
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef(null);
 
-  const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
-
   const navigateBack = () => navigation.goBack();
 
   const addToFavourite = () => {
@@ -42,7 +40,6 @@ export const Details: React.FC<Props> = ({navigation, route}) => {
           renderItem={renderSlide}
           onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false})}
           showsHorizontalScrollIndicator={false}
-          viewabilityConfig={viewConfig}
           scrollEventThrottle={32}
           ref={slidesRef}
           bounces={true}

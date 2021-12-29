@@ -6,13 +6,11 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './search.styles';
 import food from '../../food.json';
-import * as Animatable from 'react-native-animatable';
 import {Food} from '../../model/foodModel';
-import {FoodItem} from '../dashboard/home/food-item/FoodItem.component';
 import {SearchHeader} from './search-header/SearchHeader.component';
+import {AnimatedFoodItem} from './animated-food-item/AnimatedFoodItem.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Search> {}
-const duration = 300;
 
 export const Search: React.FC<Props> = ({navigation}) => {
   const [searchInput, setSearchInput] = useState('');
@@ -23,12 +21,10 @@ export const Search: React.FC<Props> = ({navigation}) => {
     setFoods(food);
   }, []);
 
+  const filterByCategory = (item: Food) => item.name.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase());
+
   const filterFood = () => {
-    if (searchInput) {
-      setFoods(food.filter((el: Food) => el.name.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase())));
-    } else {
-      setFoods(food);
-    }
+    setFoods(searchInput ? food.filter(filterByCategory) : food);
   };
 
   const onInputSearch = (text: string) => {
@@ -36,10 +32,10 @@ export const Search: React.FC<Props> = ({navigation}) => {
     filterFood();
   };
 
+  const goToFoodDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
+
   const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
-    <Animatable.View animation="bounceIn" delay={duration * index}>
-      <FoodItem food={item} onPress={() => navigation.navigate(Screens.Details, {item})} />
-    </Animatable.View>
+    <AnimatedFoodItem item={item} index={index} goToFoodDetails={goToFoodDetails} />
   );
 
   const extractItemKey = (item: Food) => item.id.toString();
