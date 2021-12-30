@@ -2,11 +2,13 @@ import {StyleSheet} from 'react-native';
 
 import {colors, screenHeight, screenWidth} from '../../vars/variables';
 
+const divider = 2;
+
 export const styles = StyleSheet.create({
   bg: {
     position: 'absolute',
     width: screenWidth,
-    height: screenHeight * 2,
+    height: screenHeight * divider,
     backgroundColor: colors.white,
     borderRadius: 20,
     padding: 15,
