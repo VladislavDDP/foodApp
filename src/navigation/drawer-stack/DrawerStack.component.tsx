@@ -1,25 +1,25 @@
 import React from 'react';
 import {View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerProps, drawerScreens} from './routes.types';
 import {CustomDrawerContent} from '../../screens/drawer/custom-drawer-content/CustomDrawerContent.component';
 import {styles} from './styles/drawer-stack.styles';
-import {colors} from '../../vars/variables';
-import {Drawers} from './drawer.types';
 import {AppNavigatorScreenProps} from '../root-stack/stack.types';
 import {Screens} from '../root-stack/routes.types';
+import {DrawerScreenContainer} from './screen-container/DrawerScreenContainer.component';
 
 const Drawer = createDrawerNavigator();
 
 export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = () => {
-  const navigateToCart = () => {
-    // TODO: navigation.navigate(Screens.ShoppingCart)
-  };
-
   const renderDrawerScreen = (value: DrawerProps) => (
-    <Drawer.Screen key={value.id} options={{headerShown: value.name === Drawers.Market}} name={value.name} component={value.component} />
+    <Drawer.Screen key={value.id} name={value.name}>
+      {props => (
+        <DrawerScreenContainer navigation={props.navigation}>
+          <value.component />
+        </DrawerScreenContainer>
+      )}
+    </Drawer.Screen>
   );
 
   return (
@@ -27,13 +27,8 @@ export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>>
       <Drawer.Navigator
         initialRouteName="Main"
         screenOptions={{
-          overlayColor: colors.overlay,
-          headerTitle: '',
-          headerTintColor: colors.dark,
-          headerLeftContainerStyle: styles.leftIcon,
-          headerRightContainerStyle: styles.rightIcon,
-          headerRight: () => <Icon name="shopping-cart" color="#999" size={25} onPress={navigateToCart} />,
-          headerStyle: styles.header,
+          headerShown: false,
+          overlayColor: 'transparent',
           sceneContainerStyle: styles.sceneContainer,
           drawerType: 'slide',
           drawerStyle: styles.drawerStyle,

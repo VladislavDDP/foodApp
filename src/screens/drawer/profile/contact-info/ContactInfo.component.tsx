@@ -1,4 +1,4 @@
-import React, {createRef, useState} from 'react';
+import React, {useState} from 'react';
 import {Image, TextInput, View} from 'react-native';
 
 import {Icon5Button} from '../../../../components/icon-button/Icon5Button.component';
@@ -12,14 +12,7 @@ export const ContactInfo = () => {
 
   const highllightInputField = editMode ? '#999' : 'transparent';
 
-  const input = createRef<TextInput>();
-
-  const editContactFields = () => {
-    setEditMode(!editMode);
-    if (input.current) {
-      input.current?.focus();
-    }
-  };
+  const editContactFields = () => setEditMode(!editMode);
 
   return (
     <View style={styles.informationContainer}>
@@ -33,24 +26,23 @@ export const ContactInfo = () => {
         <View style={styles.infoContacts}>
           <View style={styles.nameEmailContainer}>
             <TextInput
-              ref={input}
               autoFocus={true}
               autoCapitalize="none"
               autoCorrect={false}
-              editable={editMode}
               maxLength={20}
               style={[styles.nameText, {borderBottomColor: highllightInputField}]}
               onChangeText={setName}
               value={name}
+              editable={editMode}
             />
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
-              editable={editMode}
               maxLength={20}
               onChangeText={setEmail}
               style={[styles.emailText, {borderBottomColor: highllightInputField}]}
               value={email}
+              editable={editMode}
             />
           </View>
           <Icon5Button iconName="pen" onPress={editContactFields} color="#333" size={20} />
@@ -58,13 +50,13 @@ export const ContactInfo = () => {
         <TextInput
           autoCapitalize="none"
           autoCorrect={false}
-          editable={editMode}
           maxLength={60}
           multiline={true}
           numberOfLines={3}
           onChangeText={setAddress}
           style={[styles.addressText, {borderBottomColor: highllightInputField}]}
           value={address}
+          editable={editMode}
         />
       </View>
     </View>

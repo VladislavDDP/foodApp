@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#f3f3f3'},
   header: {backgroundColor: 'transparent', shadowColor: 'transparent'},
-  sceneContainer: {backgroundColor: 'transparent'},
+  sceneContainer: {backgroundColor: '#FA4A0C'},
   drawerStyle: {
     flex: 1,
     width: '70%',

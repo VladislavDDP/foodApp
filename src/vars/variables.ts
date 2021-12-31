@@ -16,3 +16,12 @@ export enum colors {
   black = '#000',
   overlay = 'rgba(100, 100, 100, 0.4)',
 }
+
+export const animationVars = {
+  start: 0,
+  end: 1,
+  minScale: 0.8,
+  maxScale: 1,
+  minRadius: 0,
+  maxRadius: 20,
+};

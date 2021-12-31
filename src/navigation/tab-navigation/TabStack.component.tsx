@@ -16,5 +16,9 @@ export const TabStack = () => {
     />
   );
 
-  return <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false}}>{tabScreens.map(renderTab)}</Tab.Navigator>;
+  return (
+    <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false, tabBarStyle: {borderBottomLeftRadius: 20}}}>
+      {tabScreens.map(renderTab)}
+    </Tab.Navigator>
+  );
 };

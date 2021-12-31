@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 40,
   },
   flatlist: {
-    marginLeft: 20,
+    paddingLeft: 20,
     marginVertical: 10,
   },
   bottomNavigation: {

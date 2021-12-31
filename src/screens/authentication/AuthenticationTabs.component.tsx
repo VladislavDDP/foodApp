@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
-import {Animated, View} from 'react-native';
+import {Animated, KeyboardAvoidingView, Platform, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView} from 'react-native-gesture-handler';
 
 import {Login} from './login/Login.component';
 import {SignUp} from './sign-up/SignUp.component';
@@ -13,44 +14,39 @@ import {NavigationTab} from './navigation-tab/NavigationTab.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
 
-const minOffset = 0;
-const maxOffset = 2;
+const startValue = 0;
 
 export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
+  const scrollX = useRef(new Animated.Value(startValue)).current;
+  const slidesRef = useRef<ScrollView>();
+
+  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * screenWidth});
+
   const goToDashboard = () => navigation.navigate(Screens.DrawerStack);
-
-  const animateState = {
-    start: 0,
-    end: 100,
-  };
-  const value = useRef(new Animated.Value(animateState.start)).current;
-
-  const timingProp = {duration: 300, useNativeDriver: false};
-
-  const toSignInAnimate = () => {
-    Animated.timing(value, {toValue: animateState.start, ...timingProp}).start();
-  };
-
-  const toLoginAnimate = () => {
-    Animated.timing(value, {toValue: animateState.end, ...timingProp}).start();
-  };
-
-  const inputRange = [animateState.start, animateState.end];
-  const offset = value.interpolate({inputRange, outputRange: [minOffset, -screenWidth]});
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Logo />
-        <View style={styles.tabs}>
-          <NavigationTab title="Login" onPress={toSignInAnimate} value={value} inputRange={inputRange} outputRange={[maxOffset, minOffset]} />
-          <NavigationTab title="Sign-up" onPress={toLoginAnimate} value={value} inputRange={inputRange} outputRange={[minOffset, maxOffset]} />
+      <KeyboardAvoidingView style={styles.keyboardContainer} behavior={Platform.select({ios: 'padding', android: 'height'})}>
+        <View style={styles.header}>
+          <Logo />
+          <View style={styles.tabs}>
+            <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAnother} />
+            <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAnother} />
+          </View>
         </View>
-      </View>
-      <Animated.View style={[styles.animatedContainer, {transform: [{translateX: offset}]}]}>
-        <Login navigateToDashboard={goToDashboard} />
-        <SignUp navigateToDashboard={goToDashboard} />
-      </Animated.View>
+
+        <Animated.ScrollView
+          ref={slidesRef}
+          onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false})}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={styles.animatedContainer}
+          pagingEnabled
+          horizontal>
+          <Login navigateToDashboard={goToDashboard} />
+          <SignUp navigateToDashboard={goToDashboard} />
+        </Animated.ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
