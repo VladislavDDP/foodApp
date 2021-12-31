@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -12,17 +12,24 @@ const defaultSelectedOption = 1;
 export const Profile = () => {
   const [paymentOption, setPaymentOption] = useState(defaultSelectedOption);
 
-  const renderOption = (option: PaymentOption) => (
-    <RadioButton
-      key={option.id}
-      id={option.id}
-      icon={option.icon}
-      text={option.text}
-      color={option.color}
-      selectedId={paymentOption}
-      onSelect={setPaymentOption}
-    />
-  );
+  // const onSelect = useCallback((id: number) => {
+  //   setPaymentOption(id);
+  // }, []);
+
+  const renderOption = (option: PaymentOption) => {
+    const onSelect = () => setPaymentOption(option.id);
+
+    return (
+      <RadioButton
+        key={option.id}
+        icon={option.icon}
+        text={option.text}
+        iconColor={option.color}
+        isSelected={paymentOption === option.id}
+        onSelect={onSelect}
+      />
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>

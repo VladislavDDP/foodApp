@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {colors, screenHeight, screenWidth} from '../../../vars/variables';
+import {colors, height, width} from '../../../vars/variables';
 
 export const styles = StyleSheet.create({
   container: {
@@ -32,12 +32,12 @@ export const styles = StyleSheet.create({
   },
   bg: {
     position: 'absolute',
-    width: screenWidth,
-    height: screenHeight * 2,
+    width: width,
+    height: height * 2,
     backgroundColor: colors.white,
     borderRadius: 20,
     padding: 15,
-    transform: [{translateY: screenHeight}],
+    transform: [{translateY: height}],
     marginTop: 50,
   },
 });

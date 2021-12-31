@@ -5,28 +5,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {styles} from './radio-button.styles';
 
 interface Props {
-  id: number;
   icon?: string;
   text: string;
-  color: string;
-  selectedId: number;
-  onSelect: (id: number) => void;
+  iconColor: string;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-export const RadioButton: React.FC<Props> = ({id, icon, text, color, selectedId, onSelect}) => {
-  const activeColor = selectedId === id ? 'red' : '#999';
-
-  const selectId = () => onSelect(id);
+export const RadioButton: React.FC<Props> = ({icon, text, iconColor, isSelected, onSelect}) => {
+  const activeColor = isSelected ? 'red' : '#999';
 
   return (
     <View>
-      <TouchableOpacity onPress={selectId}>
+      <TouchableOpacity onPress={onSelect}>
         <View style={styles.radioContainer}>
           <View style={[styles.radio, {borderColor: activeColor}]}>
-            <View style={selectedId === id ? styles.activeRadio : null} />
+            <View style={isSelected ? styles.activeRadio : null} />
           </View>
           {icon ? (
-            <View style={[styles.iconContainer, {backgroundColor: color}]}>
+            <View style={[styles.iconContainer, {backgroundColor: iconColor}]}>
               <Icon style={styles.icon} name={icon} size={20} />
             </View>
           ) : null}

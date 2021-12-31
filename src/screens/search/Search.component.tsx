@@ -50,6 +50,7 @@ export const Search: React.FC<Props> = ({navigation}) => {
         <View style={styles.bg}>
           <FlatList
             data={foods}
+            scrollEnabled={true}
             numColumns={numColumns}
             showsVerticalScrollIndicator={false}
             keyExtractor={extractItemKey}

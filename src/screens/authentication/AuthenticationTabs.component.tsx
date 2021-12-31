@@ -1,7 +1,8 @@
 import React, {useRef} from 'react';
-import {Animated, KeyboardAvoidingView, Platform, View} from 'react-native';
+import {Animated, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {Login} from './login/Login.component';
 import {SignUp} from './sign-up/SignUp.component';
@@ -9,7 +10,7 @@ import {Logo} from './logo/Logo.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
-import {screenWidth} from '../../vars/variables';
+import {height, width} from '../../vars/variables';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
@@ -20,13 +21,20 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
-  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * screenWidth});
+  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
   const goToDashboard = () => navigation.navigate(Screens.DrawerStack);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView style={styles.keyboardContainer} behavior={Platform.select({ios: 'padding', android: 'height'})}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={{height: height}}
+      extraHeight={70}
+      extraScrollHeight={10}
+      enableOnAndroid={true}
+      bounces={false}
+      keyboardShouldPersistTaps="never"
+      scrollEnabled={false}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Logo />
           <View style={styles.tabs}>
@@ -34,7 +42,6 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
             <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAnother} />
           </View>
         </View>
-
         <Animated.ScrollView
           ref={slidesRef}
           onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false})}
@@ -46,7 +53,7 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
           <Login navigateToDashboard={goToDashboard} />
           <SignUp navigateToDashboard={goToDashboard} />
         </Animated.ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };

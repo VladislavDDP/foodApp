@@ -2,7 +2,7 @@ import React from 'react';
 import {Animated, TouchableOpacity} from 'react-native';
 
 import {DefaultStyledText} from '../../../components/app-text/AppText.component';
-import {screenWidth} from '../../../vars/variables';
+import {width} from '../../../vars/variables';
 import {styles} from './navigation-tab.styles';
 
 const minOpacity = 0;
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const NavigationTab: React.FC<Props> = ({page, title, scrollX, scrollToAnother}) => {
-  const inputRange = [(page - step) * screenWidth, page * screenWidth, (page + step) * screenWidth];
+  const inputRange = [(page - step) * width, page * width, (page + step) * width];
   const opacity = scrollX.interpolate({inputRange, outputRange: [minOpacity, maxOpacity, minOpacity], extrapolate: 'clamp'});
 
   const scroll = () => scrollToAnother(page);

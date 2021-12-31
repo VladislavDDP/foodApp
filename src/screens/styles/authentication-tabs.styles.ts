@@ -4,19 +4,19 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#eee',
-    paddingVertical: -50,
-  },
-  keyboardContainer: {
-    flex: 1,
+    paddingVertical: 0,
+    position: 'relative',
   },
   animatedContainer: {
     flex: 1,
     backgroundColor: '#eee',
-    marginBottom: 15,
+    marginBottom: 0,
+    marginTop: 30,
     flexDirection: 'row',
   },
   header: {
     flex: 1,
+    paddingTop: 50,
     backgroundColor: '#fff',
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,

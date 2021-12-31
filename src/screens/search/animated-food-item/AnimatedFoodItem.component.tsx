@@ -13,11 +13,14 @@ interface Props {
 }
 
 export const AnimatedFoodItem: React.FC<Props> = ({item, index, goToFoodDetails}) => {
+  // eslint-disable-next-line no-magic-numbers
+  const marginTop = index % 2 ? 30 : 0;
+
   const goToDetails = () => goToFoodDetails(item);
 
   return (
-    <Animatable.View animation="bounceIn" delay={duration * index}>
-      <FoodItem food={item} onPress={goToDetails} />
+    <Animatable.View style={{marginTop}} animation="bounceIn" delay={duration * index}>
+      <FoodItem food={item} backColor="#f1f1f1" onPress={goToDetails} />
     </Animatable.View>
   );
 };

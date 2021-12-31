@@ -1,15 +1,11 @@
 import {StyleSheet} from 'react-native';
 
-import {screenHeight} from '../../../vars/variables';
-
-const screenDivider = 2;
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    top: screenHeight / screenDivider,
+    top: 100,
   },
   title: {
     fontSize: 28,

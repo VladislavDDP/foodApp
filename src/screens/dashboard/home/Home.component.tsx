@@ -47,7 +47,7 @@ export const Home: React.FC<Props> = ({navigation, ...props}) => {
 
   const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
     <Animatable.View animation="zoomIn" delay={duration * index}>
-      <FoodItem food={item} onPress={goToDetails} />
+      <FoodItem food={item} backColor="#fff" onPress={goToDetails} />
     </Animatable.View>
   );
 

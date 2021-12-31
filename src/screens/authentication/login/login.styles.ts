@@ -1,14 +1,13 @@
 import {StyleSheet} from 'react-native';
 
-import {screenHeight, screenWidth} from '../../../vars/variables';
+import {width} from '../../../vars/variables';
 
 export const styles = StyleSheet.create({
   container: {
-    height: screenHeight,
     backgroundColor: '#eee',
     paddingHorizontal: 30,
     paddingVertical: 30,
-    width: screenWidth,
+    width: width,
   },
   formContainer: {
     marginHorizontal: 20,
