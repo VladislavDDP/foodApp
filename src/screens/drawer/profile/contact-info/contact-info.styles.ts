@@ -21,25 +21,24 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingRight: 10,
   },
+  activeTextInput: {
+    backgroundColor: 'rgba(100, 100, 100, 0.2)',
+  },
   infoContacts: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   nameText: {
     textAlignVertical: 'top',
-    padding: 0,
     fontWeight: '600',
     marginBottom: 5,
     fontSize: 18,
-    borderBottomWidth: 1,
   },
   emailText: {
     marginVertical: 5,
     color: '#999',
     fontSize: 13,
-    borderBottomWidth: 1,
     textAlignVertical: 'center',
-    padding: 0,
   },
   nameEmailContainer: {
     flexDirection: 'column',
@@ -48,7 +47,5 @@ export const styles = StyleSheet.create({
   addressText: {
     color: '#999',
     fontSize: 13,
-    borderBottomWidth: 1,
-    padding: 0,
   },
 });
