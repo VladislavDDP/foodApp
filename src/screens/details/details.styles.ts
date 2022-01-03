@@ -25,8 +25,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   slider: {
-    flex: 3,
-    marginVertical: 10,
+    flex: 4,
     shadowColor: colors.light,
     shadowOpacity: 1,
     shadowRadius: 25,

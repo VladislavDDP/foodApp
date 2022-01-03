@@ -9,7 +9,7 @@ import food from '../../food.json';
 import {Food} from '../../model/foodModel';
 import {SearchHeader} from './search-header/SearchHeader.component';
 import {AnimatedFoodItem} from './animated-food-item/AnimatedFoodItem.component';
-import {ItemNotFound} from './item-not-found/ItemNotFound.component';
+import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Search> {}
 
@@ -39,6 +39,8 @@ export const Search: React.FC<Props> = ({navigation}) => {
     <AnimatedFoodItem item={item} index={index} goToFoodDetails={goToFoodDetails} />
   );
 
+  const renderListEmpty = () => <EmptyBox icon="search" title="Item not found" text="Try searching the item with a different keyword." />;
+
   const extractItemKey = (item: Food) => item.id.toString();
 
   const goBack = () => navigation.goBack();
@@ -50,12 +52,12 @@ export const Search: React.FC<Props> = ({navigation}) => {
         <View style={styles.bg}>
           <FlatList
             data={foods}
-            scrollEnabled={true}
+            scrollEnabled
             numColumns={numColumns}
             showsVerticalScrollIndicator={false}
             keyExtractor={extractItemKey}
             renderItem={renderFoodItem}
-            ListEmptyComponent={ItemNotFound}
+            ListEmptyComponent={renderListEmpty}
           />
         </View>
       </SharedElement>

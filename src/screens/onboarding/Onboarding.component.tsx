@@ -8,6 +8,7 @@ import {PeopleScene} from './PeopleScene.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './styles/onboarding.styles';
+import {height} from '../../vars/variables';
 
 interface Props extends AppNavigatorScreenProps<Screens.Onboarding> {}
 
@@ -16,9 +17,11 @@ export const Onboarding: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <OnboardingLogo />
-      <DefaultStyledText style={styles.title}>Food for Everyone</DefaultStyledText>
-      <PeopleScene />
+      <View style={styles.wrapper}>
+        <OnboardingLogo />
+        <DefaultStyledText style={styles.title}>Food for Everyone</DefaultStyledText>
+        <PeopleScene />
+      </View>
       <CustomButton text="Get Started" onPress={navigateToAuthentication} buttonStyle={styles.button} labelStyle={styles.label} />
     </View>
   );

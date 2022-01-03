@@ -4,4 +4,6 @@ export enum Screens {
   DrawerStack = 'DrawerStack',
   Details = 'Details',
   Search = 'Search',
+  Cart = 'Cart',
+  Checkout = 'Checkout',
 }

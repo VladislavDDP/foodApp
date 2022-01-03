@@ -9,6 +9,8 @@ export type StackParamList = {
   DrawerStack: undefined;
   Search: undefined;
   Details: {item: Food};
+  Cart: undefined;
+  Checkout: undefined;
 };
 
 export interface AppNavigatorScreenProps<S extends Screens> extends NativeStackScreenProps<StackParamList, S> {}

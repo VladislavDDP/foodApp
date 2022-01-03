@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import {Animated, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -28,8 +27,8 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{height: height}}
-      extraHeight={70}
-      extraScrollHeight={10}
+      extraHeight={20}
+      extraScrollHeight={80}
       enableOnAndroid={true}
       bounces={false}
       keyboardShouldPersistTaps="never"

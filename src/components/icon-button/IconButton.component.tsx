@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface Props {
@@ -10,7 +10,13 @@ interface Props {
 }
 
 export const IconButton: React.FC<Props> = props => (
-  <TouchableOpacity onPress={props.onPress}>
+  <TouchableOpacity style={styles.container} onPress={props.onPress}>
     <Icon name={props.iconName} size={props.size} color={props.color} />
   </TouchableOpacity>
 );
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 5,
+  },
+});

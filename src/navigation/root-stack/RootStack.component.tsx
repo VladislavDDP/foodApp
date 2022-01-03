@@ -9,6 +9,8 @@ import {StackParamList} from './stack.types';
 import {Details} from '../../screens/details/Details.component';
 import {DrawerStack} from '../drawer-stack/DrawerStack.component';
 import {Search} from '../../screens/search/Search.component';
+import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
+import {Checkout} from '../../screens/checkout/Checkout.component';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
@@ -36,6 +38,8 @@ export const RootStack = () => {
         component={Search}
       />
       <Stack.Screen name={Screens.Details} sharedElements={sharedElements} component={Details} />
+      <Stack.Screen name={Screens.Cart} component={ShoppingCart} />
+      <Stack.Screen name={Screens.Checkout} component={Checkout} />
     </Stack.Navigator>
   );
 };

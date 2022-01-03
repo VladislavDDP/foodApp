@@ -1,16 +1,17 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
-import {height, width} from '../../../vars/variables';
+import {width} from '../../../vars/variables';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#eee',
-    paddingHorizontal: 30,
-    paddingTop: 20,
+    flex: 2,
     width: width,
+    paddingTop: 10,
+    justifyContent: 'space-between',
   },
   formContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: 50,
+    paddingVertical: Platform.select({android: 0, ios: 50}),
   },
   button: {
     backgroundColor: '#FA4A0C',
