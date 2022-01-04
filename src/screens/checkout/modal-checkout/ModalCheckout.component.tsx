@@ -1,14 +1,15 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {styles} from './modal-checkout.styles';
+import {ModalButton} from './ModalButton.component';
 
 interface Props {
   setVisable: (value: boolean) => void;
 }
 
 export const ModalCheckout: React.FC<Props> = ({setVisable}) => {
-  const setUnVisable = () => setVisable(false);
+  const setUnvisable = () => setVisable(false);
 
   return (
     <View style={styles.container}>
@@ -24,12 +25,8 @@ export const ModalCheckout: React.FC<Props> = ({setVisable}) => {
           <Text style={styles.infoText}>N2000 - N3000</Text>
         </View>
         <View style={styles.controlButtons}>
-          <TouchableOpacity onPress={setUnVisable}>
-            <Text style={[styles.btnText, styles.leftBtn]}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rightBtn} onPress={setUnVisable}>
-            <Text style={[styles.btnText, styles.rightBtn]}>Proceed</Text>
-          </TouchableOpacity>
+          <ModalButton text="Cancel" onPress={setUnvisable} style={{...styles.btnText, ...styles.leftBtn}} />
+          <ModalButton text="Proceed" onPress={setUnvisable} style={{...styles.btnText, ...styles.rightBtn}} />
         </View>
       </View>
     </View>

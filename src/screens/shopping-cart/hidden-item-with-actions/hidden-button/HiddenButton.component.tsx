@@ -12,6 +12,6 @@ interface Props {
 
 export const HiddenButton: React.FC<Props> = ({icon, buttonStyle, onPress}) => (
   <TouchableOpacity onPress={onPress} style={[styles.backRightBtn, buttonStyle]}>
-    <Icon style={styles.icon} name={icon} size={16} color="#fff" />
+    <Icon name={icon} size={16} color="#fff" />
   </TouchableOpacity>
 );

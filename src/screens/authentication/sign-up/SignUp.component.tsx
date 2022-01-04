@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView} from 'react-native';
+import {View} from 'react-native';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
 import {InputField} from '../../../components/input-field/InputField.component';

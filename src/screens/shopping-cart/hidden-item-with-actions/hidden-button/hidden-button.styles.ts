@@ -6,11 +6,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
     width: 40,
     height: 40,
-  },
-  icon: {
-    position: 'absolute',
   },
 });

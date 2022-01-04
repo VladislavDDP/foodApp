@@ -14,54 +14,13 @@ import {CartItem} from './cart-item/CartItem.component';
 import {HiddenItemWithActions} from './hidden-item-with-actions/HiddenItemWithActions.component';
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 
-const foodInCart = [
-  {
-    id: 1,
-    // eslint-disable-next-line no-magic-numbers
-    category: [1],
-    name: 'Veggie tomato mix',
-    price: 'N2,500',
-    photo: 'https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg',
-    gallery: [
-      'https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg',
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-    ],
-  },
-  {
-    id: 2,
-    // eslint-disable-next-line no-magic-numbers
-    category: [1],
-    name: 'Potato mix',
-    price: 'N4,200',
-    photo: 'https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg',
-    gallery: [
-      'https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg',
-      'https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg',
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-    ],
-  },
-  {
-    id: 3,
-    // eslint-disable-next-line no-magic-numbers
-    category: [2],
-    name: 'Vegano',
-    price: 'N4,200',
-    photo: 'https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg',
-    gallery: [
-      'https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg',
-      'https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg',
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80',
-    ],
-  },
-];
-
 interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
 
 export const ShoppingCart: React.FC<Props> = ({navigation}) => {
   const [food, setFood] = useState<Array<Food>>([]);
 
   useEffect(() => {
-    setFood(foodInCart);
+    setFood([]);
   }, []);
 
   const likeRow = (rowKey: number) => {
@@ -75,8 +34,6 @@ export const ShoppingCart: React.FC<Props> = ({navigation}) => {
   const goToCheckout = () => {
     navigation.navigate(Screens.Checkout);
   };
-
-  const goBack = () => navigation.goBack();
 
   const renderItem = ({item}: {item: Food}) => <CartItem item={item} deleteRow={deleteRow} />;
 
@@ -95,7 +52,7 @@ export const ShoppingCart: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <CustomHeader title="Cart" onPress={goBack} />
+      <CustomHeader title="Cart" onPress={navigation.goBack} />
       <SwipeListView
         data={food}
         ListHeaderComponent={renderListHeader}

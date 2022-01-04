@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   imagesWrapper: {
-    bottom: -40,
     position: 'absolute',
+    bottom: 0,
     right: 0,
     left: 0,
   },

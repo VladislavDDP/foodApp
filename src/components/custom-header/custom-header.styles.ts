@@ -1,26 +1,24 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
 const {width} = Dimensions.get('window');
-const doubledMargin = 40;
+const hMargin = 20;
+const twice = 2;
+const containerWidth = width - hMargin * twice;
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginVertical: 20,
-    marginHorizontal: 20,
+    marginHorizontal: hMargin,
   },
   headerContainer: {
-    position: 'relative',
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    width: width - doubledMargin,
+    width: containerWidth,
     alignItems: 'center',
   },
   title: {
-    position: 'absolute',
-    zIndex: -1,
     color: '#000',
-    left: 0,
-    right: 0,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: '700',
