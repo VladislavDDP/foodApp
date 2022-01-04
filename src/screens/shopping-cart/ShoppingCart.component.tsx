@@ -64,11 +64,11 @@ export const ShoppingCart: React.FC<Props> = ({navigation}) => {
     setFood(foodInCart);
   }, []);
 
-  const likeRow = (rowMap: Partial<IUseSectionListProps<Food>>, rowKey: number) => {
+  const likeRow = (rowKey: number) => {
     // TODO: like item and add to Async Storage
   };
 
-  const deleteRow = (rowMap: Partial<IUseSectionListProps<Food>>, rowKey: number) => {
+  const deleteRow = (rowKey: number) => {
     setFood(food.filter((item: Food) => item.id !== rowKey));
   };
 
@@ -78,11 +78,11 @@ export const ShoppingCart: React.FC<Props> = ({navigation}) => {
 
   const goBack = () => navigation.goBack();
 
-  const renderItem = ({item}: {item: Food}) => <CartItem item={item} />;
+  const renderItem = ({item}: {item: Food}) => <CartItem item={item} deleteRow={deleteRow} />;
 
   const renderHiddenItem = (item: {item: Food}, rowMap: Partial<IUseSectionListProps<Food>>) => {
-    const likeItem = () => likeRow(rowMap, item.item.id);
-    const deleteItem = () => deleteRow(rowMap, item.item.id);
+    const likeItem = () => likeRow(item.item.id);
+    const deleteItem = () => deleteRow(item.item.id);
 
     return <HiddenItemWithActions onLike={likeItem} onDelete={deleteItem} />;
   };

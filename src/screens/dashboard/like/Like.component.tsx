@@ -17,9 +17,9 @@ export const Like = () => {
     <SafeAreaView>
       <Text style={styles.title}>Favourites</Text>
       <FlatList
+        scrollEnabled
         data={[]}
         style={styles.flatlist}
-        scrollEnabled
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={renderListEmpty}
         renderItem={renderItem}

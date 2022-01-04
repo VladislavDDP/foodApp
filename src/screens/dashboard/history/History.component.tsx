@@ -17,9 +17,9 @@ export const History = () => {
     <SafeAreaView>
       <Text style={styles.title}>History</Text>
       <FlatList
+        scrollEnabled
         data={[]}
         style={styles.flatlist}
-        scrollEnabled
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={renderListEmpty}
         renderItem={renderItem}

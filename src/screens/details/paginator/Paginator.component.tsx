@@ -1,9 +1,9 @@
 import React from 'react';
-import {Animated, View} from 'react-native';
+import {Animated, Dimensions, View} from 'react-native';
 
-import {width} from '../../../vars/variables';
 import {styles} from './paginator.styles';
 
+const {width} = Dimensions.get('window');
 const step = 1;
 const lowOpacity = 0.3;
 const maxOpacity = 1;

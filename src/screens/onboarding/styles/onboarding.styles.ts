@@ -1,10 +1,10 @@
-import {Platform, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 
-import {height} from '../../../vars/variables';
+const {height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    height: height,
+    height,
     backgroundColor: '#FF470B',
     paddingTop: Platform.select({android: 20, ios: 50}),
     paddingBottom: 0,

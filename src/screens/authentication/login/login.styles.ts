@@ -1,6 +1,6 @@
-import {Platform, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 
-import {width} from '../../../vars/variables';
+const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {

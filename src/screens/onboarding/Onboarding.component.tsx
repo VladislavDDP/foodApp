@@ -8,7 +8,6 @@ import {PeopleScene} from './PeopleScene.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './styles/onboarding.styles';
-import {height} from '../../vars/variables';
 
 interface Props extends AppNavigatorScreenProps<Screens.Onboarding> {}
 

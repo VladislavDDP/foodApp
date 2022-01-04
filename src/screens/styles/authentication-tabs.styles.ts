@@ -1,10 +1,15 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const {height, width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#eee',
     position: 'relative',
+  },
+  contentContainer: {
+    height,
   },
   animatedContainer: {
     flex: 1,

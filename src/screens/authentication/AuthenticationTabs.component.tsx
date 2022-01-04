@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Animated, View} from 'react-native';
+import {Animated, Dimensions, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -9,12 +9,12 @@ import {Logo} from './logo/Logo.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
-import {height, width} from '../../vars/variables';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
 
 const startValue = 0;
+const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
   const scrollX = useRef(new Animated.Value(startValue)).current;
@@ -26,7 +26,7 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{height: height}}
+      contentContainerStyle={styles.contentContainer}
       extraHeight={20}
       extraScrollHeight={80}
       enableOnAndroid={true}

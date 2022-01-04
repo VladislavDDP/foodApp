@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
-import {width} from '../../vars/variables';
+const {width} = Dimensions.get('window');
+const doubledMargin = 40;
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
   headerContainer: {
     position: 'relative',
     flexDirection: 'row',
-    width: width - 40,
+    width: width - doubledMargin,
     alignItems: 'center',
   },
   title: {

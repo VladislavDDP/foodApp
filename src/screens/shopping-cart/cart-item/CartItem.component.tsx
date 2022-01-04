@@ -9,14 +9,21 @@ const step = 1;
 
 interface Props {
   item: Food;
+  deleteRow: (id: number) => void;
 }
 
-export const CartItem: React.FC<Props> = ({item}) => {
+export const CartItem: React.FC<Props> = ({item, deleteRow}) => {
   const [quantity, setQuantity] = useState(step);
 
   const increaseQty = () => setQuantity(quantity + step);
 
-  const decreaseQty = () => setQuantity(quantity ? quantity - step : quantity);
+  const decreaseQty = () => {
+    if (quantity - step) {
+      setQuantity(quantity - step);
+    } else {
+      deleteRow(item.id);
+    }
+  };
 
   return (
     <View style={styles.container}>

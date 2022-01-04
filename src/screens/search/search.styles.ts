@@ -1,12 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
-import {colors, height, width} from '../../vars/variables';
+import {colors} from '../../vars/variables';
+
+const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   bg: {
     position: 'absolute',
-    width: width,
-    height: height,
+    width,
+    height,
     backgroundColor: colors.white,
     borderRadius: 20,
     padding: 15,
