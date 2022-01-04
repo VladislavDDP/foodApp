@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const {height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,6 +8,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#eee',
     paddingVertical: 0,
     position: 'relative',
+  },
+  contentContainer: {
+    height,
   },
   animatedContainer: {
     flex: 1,

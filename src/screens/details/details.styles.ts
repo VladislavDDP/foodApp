@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
   },
   bg: {
     position: 'absolute',
-    width: width,
+    width,
     height: height * extra,
     backgroundColor: colors.white,
     borderRadius: 20,

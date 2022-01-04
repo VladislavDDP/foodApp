@@ -14,7 +14,7 @@ import {NavigationTab} from './navigation-tab/NavigationTab.component';
 interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
 
 const startValue = 0;
-const {height, width} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
   const scrollX = useRef(new Animated.Value(startValue)).current;
@@ -26,7 +26,7 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{height: height}}
+      contentContainerStyle={styles.contentContainer}
       extraHeight={70}
       extraScrollHeight={10}
       enableOnAndroid={true}

@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#eee',
     paddingHorizontal: 30,
     paddingTop: 20,
-    width: width,
+    width,
   },
   formContainer: {
     marginHorizontal: 20,

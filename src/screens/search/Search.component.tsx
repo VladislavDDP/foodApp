@@ -49,7 +49,7 @@ export const Search: React.FC<Props> = ({navigation}) => {
       <SharedElement id="bg" style={StyleSheet.absoluteFill}>
         <View style={styles.bg}>
           <FlatList
-            scrollEnabled={true}
+            scrollEnabled
             data={foods}
             numColumns={numColumns}
             showsVerticalScrollIndicator={false}
