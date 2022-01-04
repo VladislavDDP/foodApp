@@ -5,6 +5,9 @@ import {Food} from '../../../model/foodModel';
 import {FoodItem} from '../../dashboard/home/food-item/FoodItem.component';
 
 const duration = 300;
+const divider = 2;
+const maxMargin = 30;
+const minMargin = 0;
 
 interface Props {
   item: Food;
@@ -13,8 +16,7 @@ interface Props {
 }
 
 export const AnimatedFoodItem: React.FC<Props> = ({item, index, goToFoodDetails}) => {
-  // eslint-disable-next-line no-magic-numbers
-  const marginTop = index % 2 ? 30 : 0;
+  const marginTop = index % divider ? maxMargin : minMargin;
 
   const goToDetails = () => goToFoodDetails(item);
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -11,10 +11,6 @@ const defaultSelectedOption = 1;
 
 export const Profile = () => {
   const [paymentOption, setPaymentOption] = useState(defaultSelectedOption);
-
-  // const onSelect = useCallback((id: number) => {
-  //   setPaymentOption(id);
-  // }, []);
 
   const renderOption = (option: PaymentOption) => {
     const onSelect = () => setPaymentOption(option.id);

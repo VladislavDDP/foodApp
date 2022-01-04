@@ -1,10 +1,10 @@
 import React from 'react';
-import {Animated, TouchableOpacity} from 'react-native';
+import {Animated, Dimensions, TouchableOpacity} from 'react-native';
 
 import {DefaultStyledText} from '../../../components/app-text/AppText.component';
-import {width} from '../../../vars/variables';
 import {styles} from './navigation-tab.styles';
 
+const {width} = Dimensions.get('window');
 const minOpacity = 0;
 const maxOpacity = 1;
 const step = 1;

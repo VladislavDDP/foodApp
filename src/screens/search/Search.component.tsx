@@ -49,8 +49,8 @@ export const Search: React.FC<Props> = ({navigation}) => {
       <SharedElement id="bg" style={StyleSheet.absoluteFill}>
         <View style={styles.bg}>
           <FlatList
-            data={foods}
             scrollEnabled={true}
+            data={foods}
             numColumns={numColumns}
             showsVerticalScrollIndicator={false}
             keyExtractor={extractItemKey}

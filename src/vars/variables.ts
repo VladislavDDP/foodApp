@@ -1,7 +1,3 @@
-import {Dimensions} from 'react-native';
-
-export const {height, width} = Dimensions.get('window');
-
 export enum colors {
   orange = '#FF460A',
   white = '#fff',
