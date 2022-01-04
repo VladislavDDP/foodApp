@@ -6,6 +6,7 @@ import {styles} from './food-item.styles';
 
 interface Props {
   food: Food;
+  backColor: string;
   onPress: (food: Food) => void;
 }
 
@@ -15,7 +16,7 @@ export const FoodItem: React.FC<Props> = props => {
   return (
     <TouchableOpacity onPress={selectFood}>
       <View style={styles.container}>
-        <View style={styles.wrapper}>
+        <View style={[styles.wrapper, {backgroundColor: props.backColor}]}>
           <Image source={{uri: props.food.photo}} style={styles.image} />
           <View style={styles.decriptionContainer}>
             <Text style={styles.itemTitle}>{props.food.name}</Text>

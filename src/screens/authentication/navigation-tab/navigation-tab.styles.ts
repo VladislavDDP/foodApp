@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
   },
   animatedLine: {
     width: 80,
+    height: 3,
     backgroundColor: '#FA4A0C',
   },
 });

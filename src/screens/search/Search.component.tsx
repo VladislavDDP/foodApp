@@ -9,6 +9,7 @@ import food from '../../food.json';
 import {Food} from '../../model/foodModel';
 import {SearchHeader} from './search-header/SearchHeader.component';
 import {AnimatedFoodItem} from './animated-food-item/AnimatedFoodItem.component';
+import {ItemNotFound} from './item-not-found/ItemNotFound.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Search> {}
 
@@ -48,11 +49,13 @@ export const Search: React.FC<Props> = ({navigation}) => {
       <SharedElement id="bg" style={StyleSheet.absoluteFill}>
         <View style={styles.bg}>
           <FlatList
+            scrollEnabled
             data={foods}
             numColumns={numColumns}
             showsVerticalScrollIndicator={false}
             keyExtractor={extractItemKey}
             renderItem={renderFoodItem}
+            ListEmptyComponent={ItemNotFound}
           />
         </View>
       </SharedElement>

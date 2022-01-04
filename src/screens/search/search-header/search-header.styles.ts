@@ -1,13 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
-import {screenWidth} from '../../../vars/variables';
+const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
     marginLeft: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    width: screenWidth,
+    width,
     height: 150,
     position: 'absolute',
   },

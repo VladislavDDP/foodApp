@@ -1,17 +1,16 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  button: {
-    borderRadius: 30,
-    paddingVertical: 20,
-    position: 'absolute',
-    zIndex: 10,
-    bottom: 20,
-    right: 0,
-    left: 0,
-    marginHorizontal: 30,
+  container: {
+    flexDirection: 'row',
+    marginVertical: 20,
+    marginHorizontal: 40,
   },
-  buttonText: {
+  title: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
     textAlign: 'center',
+    zIndex: -1,
   },
 });

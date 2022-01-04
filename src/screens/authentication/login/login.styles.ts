@@ -1,14 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
-import {screenHeight} from '../../../vars/variables';
+const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    height: screenHeight,
     backgroundColor: '#eee',
     paddingHorizontal: 30,
-    paddingVertical: 50,
-    width: '100%',
+    paddingVertical: 30,
+    width,
   },
   formContainer: {
     marginHorizontal: 20,

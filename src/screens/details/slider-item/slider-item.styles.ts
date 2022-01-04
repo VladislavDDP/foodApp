@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
-import {screenWidth} from '../../../vars/variables';
+const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: screenWidth,
+    width,
     justifyContent: 'center',
     alignItems: 'center',
   },
