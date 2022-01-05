@@ -25,8 +25,8 @@ export const ModalCheckout: React.FC<Props> = ({setVisable}) => {
           <Text style={styles.infoText}>N2000 - N3000</Text>
         </View>
         <View style={styles.controlButtons}>
-          <ModalButton text="Cancel" onPress={setUnvisable} style={{...styles.btnText, ...styles.leftBtn}} />
-          <ModalButton text="Proceed" onPress={setUnvisable} style={{...styles.btnText, ...styles.rightBtn}} />
+          <ModalButton text="Cancel" onPress={setUnvisable} style={[styles.btnText, styles.leftBtn]} />
+          <ModalButton text="Proceed" onPress={setUnvisable} style={[styles.btnText, styles.rightBtn]} />
         </View>
       </View>
     </View>
