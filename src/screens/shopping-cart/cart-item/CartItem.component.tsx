@@ -1,28 +1,22 @@
-import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Image, Text, View} from 'react-native';
 
 import {IconButton} from '../../../components/icon-button/IconButton.component';
-import {Food} from '../../../model/foodModel';
+import {CartFood} from '../../../store/cart';
 import {colors} from '../../../vars/variables';
-
-const step = 1;
+import {styles} from './cart-item.styles';
 
 interface Props {
-  item: Food;
-  deleteRow: (id: number) => void;
+  item: CartFood;
+  increaseQty: (id: number) => void;
+  decreaseQty: (id: number) => void;
 }
 
-export const CartItem: React.FC<Props> = ({item, deleteRow}) => {
-  const [quantity, setQuantity] = useState(step);
+export const CartItem: React.FC<Props> = ({item, increaseQty, decreaseQty}) => {
+  const addOneMoreItem = () => increaseQty(item.id);
 
-  const increaseQty = () => setQuantity(quantity + step);
-
-  const decreaseQty = () => {
-    if (quantity - step) {
-      setQuantity(quantity - step);
-    } else {
-      deleteRow(item.id);
-    }
+  const removeOneMoreItem = () => {
+    decreaseQty(item.id);
   };
 
   return (
@@ -33,58 +27,10 @@ export const CartItem: React.FC<Props> = ({item, deleteRow}) => {
         <Text style={styles.itemPrice}>{item.price}</Text>
       </View>
       <View style={styles.qtyContainer}>
-        <IconButton iconName="minus" size={10} color={colors.white} onPress={decreaseQty} />
-        <Text style={styles.qtyNumber}>{quantity}</Text>
-        <IconButton iconName="plus" size={10} color={colors.white} onPress={increaseQty} />
+        <IconButton iconName="minus" size={10} color={colors.white} onPress={removeOneMoreItem} />
+        <Text style={styles.qtyNumber}>{item.qty}</Text>
+        <IconButton iconName="plus" size={10} color={colors.white} onPress={addOneMoreItem} />
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-    marginHorizontal: 20,
-    borderRadius: 20,
-    padding: 10,
-    position: 'relative',
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.white,
-  },
-  itemDescription: {
-    flexDirection: 'column',
-  },
-  itemImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 50,
-    marginRight: 10,
-  },
-  itemName: {
-    fontSize: 17,
-    fontWeight: '700',
-  },
-  itemPrice: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: colors.orange,
-  },
-  qtyContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.orange,
-    borderRadius: 15,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
-    position: 'absolute',
-    right: 10,
-    bottom: 10,
-  },
-  qtyNumber: {
-    color: colors.white,
-    fontSize: 15,
-    width: 20,
-    textAlign: 'center',
-  },
-});
