@@ -16,9 +16,11 @@ export const Onboarding: React.FC<Props> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <OnboardingLogo />
-      <DefaultStyledText style={styles.title}>Food for Everyone</DefaultStyledText>
-      <PeopleScene />
+      <View style={styles.wrapper}>
+        <OnboardingLogo />
+        <DefaultStyledText style={styles.title}>Food for Everyone</DefaultStyledText>
+        <PeopleScene />
+      </View>
       <CustomButton text="Get Started" onPress={navigateToAuthentication} buttonStyle={styles.button} labelStyle={styles.label} />
     </View>
   );

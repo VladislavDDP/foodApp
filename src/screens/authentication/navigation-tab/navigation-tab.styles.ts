@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     fontWeight: '300',
   },
   animatedLine: {
-    width: 80,
+    width: 100,
     height: 3,
     backgroundColor: '#FA4A0C',
   },

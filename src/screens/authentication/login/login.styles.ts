@@ -1,16 +1,16 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#eee',
-    paddingHorizontal: 30,
-    paddingVertical: 30,
-    width,
+    flex: 1,
+    width: width,
+    justifyContent: 'space-between',
   },
   formContainer: {
-    marginHorizontal: 20,
+    marginHorizontal: 50,
+    paddingVertical: Platform.select({android: 0, ios: 50}),
   },
   button: {
     backgroundColor: '#FA4A0C',

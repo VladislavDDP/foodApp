@@ -8,11 +8,12 @@ interface Props {
   text: string;
   buttonStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  disabled?: boolean;
   onPress: () => void;
 }
 
 export const CustomButton: React.FC<Props> = props => (
-  <TouchableOpacity style={[props.buttonStyle, styles.button]} onPress={props.onPress}>
+  <TouchableOpacity disabled={props.disabled} style={[props.buttonStyle, styles.button]} onPress={props.onPress}>
     <DefaultStyledText style={[props.labelStyle, styles.buttonText]}>{props.text}</DefaultStyledText>
   </TouchableOpacity>
 );

@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    top: 100,
+    marginTop: 100,
   },
   title: {
     fontSize: 28,
@@ -17,5 +17,6 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     marginTop: 20,
+    marginHorizontal: 40,
   },
 });

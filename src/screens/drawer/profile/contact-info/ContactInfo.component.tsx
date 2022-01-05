@@ -1,18 +1,56 @@
+import {Formik} from 'formik';
 import React, {useState} from 'react';
-import {Image, TextInput, View} from 'react-native';
+import {Image, NativeSyntheticEvent, Text, TextInput, TextInputFocusEventData, View} from 'react-native';
 
 import {Icon5Button} from '../../../../components/icon-button/Icon5Button.component';
 import {styles} from './contact-info.styles';
+import {FormUserContacts} from './form-user-contacts/FormUserContacts.component';
+
+export interface UserContacts {
+  name: string;
+  email: string;
+  address: string;
+}
+
+export interface UserContactsFormikTypes {
+  handleChange: {
+    <T = string | React.ChangeEvent<TextInput>>(field: T): T extends React.ChangeEvent<TextInput>
+      ? void
+      : (e: string | React.ChangeEvent<TextInput>) => void;
+  };
+  handleBlur: {
+    <T = TextInput>(fieldOrEvent: T): T extends string ? (e: NativeSyntheticEvent<TextInputFocusEventData>) => void : void;
+  };
+  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  values: UserContacts;
+}
 
 export const ContactInfo = () => {
-  const [name, setName] = useState('Marvis Ighodesa');
-  const [email, setEmail] = useState('dosamarvis@gmail.com');
-  const [address, setAddress] = useState('No 15 uti street off ovie palace road effurun delta state');
+  const [userContacts, setUserContacts] = useState<UserContacts>({
+    name: 'Marvis Ighodesa',
+    email: 'dosamarvis@gmail.com',
+    address: 'No 15 uti street off ovie palace road effurun delta state',
+  });
   const [editMode, setEditMode] = useState(false);
 
   const highllightInputField = editMode ? '#999' : 'transparent';
 
-  const editContactFields = () => setEditMode(!editMode);
+  const switchEditMode = () => setEditMode(!editMode);
+
+  const submitEditing = (values: UserContacts) => {
+    setUserContacts({...values});
+    switchEditMode();
+  };
+
+  const renderForm = ({handleChange, handleBlur, handleSubmit, values}: UserContactsFormikTypes) => (
+    <FormUserContacts
+      switchEditMode={switchEditMode}
+      handleChange={handleChange}
+      handleBlur={handleBlur}
+      handleSubmit={handleSubmit}
+      values={values}
+    />
+  );
 
   return (
     <View style={styles.informationContainer}>
@@ -22,43 +60,24 @@ export const ContactInfo = () => {
         }}
         style={styles.image}
       />
-      <View style={styles.infoText}>
-        <View style={styles.infoContacts}>
-          <View style={styles.nameEmailContainer}>
-            <TextInput
-              autoFocus={true}
-              autoCapitalize="none"
-              autoCorrect={false}
-              maxLength={20}
-              style={[styles.nameText, {borderBottomColor: highllightInputField}]}
-              onChangeText={setName}
-              value={name}
-              editable={editMode}
-            />
-            <TextInput
-              autoCapitalize="none"
-              autoCorrect={false}
-              maxLength={20}
-              onChangeText={setEmail}
-              style={[styles.emailText, {borderBottomColor: highllightInputField}]}
-              value={email}
-              editable={editMode}
-            />
+      {editMode ? (
+        <Formik initialValues={userContacts} onSubmit={submitEditing}>
+          {renderForm}
+        </Formik>
+      ) : (
+        <View style={styles.infoText}>
+          <View style={styles.infoContacts}>
+            <View style={styles.nameEmailContainer}>
+              <Text style={styles.nameText}>{userContacts.name}</Text>
+              <Text style={styles.emailText}>{userContacts.email}</Text>
+            </View>
+            <Icon5Button iconName="pen" onPress={switchEditMode} color="#333" size={20} />
           </View>
-          <Icon5Button iconName="pen" onPress={editContactFields} color="#333" size={20} />
+          <Text numberOfLines={3} style={styles.addressText}>
+            {userContacts.address}
+          </Text>
         </View>
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          maxLength={60}
-          multiline={true}
-          numberOfLines={3}
-          onChangeText={setAddress}
-          style={[styles.addressText, {borderBottomColor: highllightInputField}]}
-          value={address}
-          editable={editMode}
-        />
-      </View>
+      )}
     </View>
   );
 };

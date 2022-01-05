@@ -7,12 +7,13 @@ import {styles} from './radio-button.styles';
 interface Props {
   icon?: string;
   text: string;
-  iconColor: string;
+  iconColor?: string;
   isSelected: boolean;
+  shouldSeparate: boolean;
   onSelect: () => void;
 }
 
-export const RadioButton: React.FC<Props> = ({icon, text, iconColor, isSelected, onSelect}) => {
+export const RadioButton: React.FC<Props> = ({icon, text, iconColor, isSelected, shouldSeparate, onSelect}) => {
   const activeColor = isSelected ? 'red' : '#999';
 
   return (
@@ -30,7 +31,7 @@ export const RadioButton: React.FC<Props> = ({icon, text, iconColor, isSelected,
           <Text>{text}</Text>
         </View>
       </TouchableOpacity>
-      <View style={styles.line} />
+      {shouldSeparate ? <View style={styles.line} /> : null}
     </View>
   );
 };

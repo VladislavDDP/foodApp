@@ -27,8 +27,8 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.contentContainer}
-      extraHeight={70}
-      extraScrollHeight={10}
+      extraHeight={20}
+      extraScrollHeight={80}
       enableOnAndroid={true}
       bounces={false}
       keyboardShouldPersistTaps="never"

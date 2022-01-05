@@ -4,16 +4,16 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
 import {ContactInfo} from './contact-info/ContactInfo.component';
-import {PaymentOption, paymentOptions} from './payment.types';
+import {PaymentOption, paymentOptions} from './paymentOption.types';
 import {styles} from './profile.styles';
 
 const defaultSelectedOption = 1;
 
 export const Profile = () => {
-  const [paymentOption, setPaymentOption] = useState(defaultSelectedOption);
+  const [paymentOptionId, setPaymentOptionId] = useState(defaultSelectedOption);
 
   const renderOption = (option: PaymentOption) => {
-    const onSelect = () => setPaymentOption(option.id);
+    const onSelect = () => setPaymentOptionId(option.id);
 
     return (
       <RadioButton
@@ -21,7 +21,8 @@ export const Profile = () => {
         icon={option.icon}
         text={option.text}
         iconColor={option.color}
-        isSelected={paymentOption === option.id}
+        isSelected={paymentOptionId === option.id}
+        shouldSeparate={option.id !== paymentOptions.length}
         onSelect={onSelect}
       />
     );
