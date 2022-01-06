@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 
 import {IconButton} from '../../../components/icon-button/IconButton.component';
-import {CartFood} from '../../../store/cart';
+import {CartFood} from '../../../model/cartFoodModel';
 import {colors} from '../../../vars/variables';
 import {styles} from './cart-item.styles';
 

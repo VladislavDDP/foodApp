@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
-import {CartFood} from './cart';
+import {CartFood} from '../model/cartFoodModel';
 
 export class ShoppingHistory {
   public items: Array<CartFood> = [];
@@ -9,8 +9,8 @@ export class ShoppingHistory {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public appendHistory(item: CartFood) {
-    this.items.push(item);
+  public appendHistory(items: Array<CartFood>) {
+    this.items = [...this.items, ...items];
   }
 
   public clearHistory() {

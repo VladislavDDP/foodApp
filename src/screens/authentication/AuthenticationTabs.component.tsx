@@ -19,7 +19,8 @@ const startValue = 0;
 const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
-  const {authorized, login, register} = useStore().authentication;
+  const {authentication} = useStore();
+
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
@@ -28,10 +29,10 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (authorized) {
+    if (authentication.authorized) {
       goToDashboard();
     }
-  }, [authorized, goToDashboard, navigation]);
+  }, [authentication.authorized, goToDashboard, navigation]);
 
   const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
@@ -60,8 +61,8 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
           style={styles.animatedContainer}
           pagingEnabled
           horizontal>
-          <Login login={login} />
-          <SignUp register={register} />
+          <Login login={authentication.login} />
+          <SignUp register={authentication.register} />
         </Animated.ScrollView>
       </View>
     </KeyboardAwareScrollView>

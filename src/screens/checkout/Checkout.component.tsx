@@ -22,7 +22,7 @@ interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState(defaultSelectedOption);
-  const {totalCartPrice} = useStore().cart;
+  const {shoppingHistory, cart} = useStore();
 
   const renderOption = (option: DeliveryOption) => {
     const setOption = () => setDeliveryOption(option.id);
@@ -38,6 +38,11 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
     );
   };
 
+  const approvePayment = () => {
+    shoppingHistory.appendHistory(cart.cartItems);
+    cart.clearCart();
+  };
+
   const setVisable = () => setModalVisible(true);
 
   const onRequestClose = () => setModalVisible(!modalVisible);
@@ -47,7 +52,7 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
       <CustomHeader title="Checkout" onPress={navigation.goBack} />
       <View style={styles.wrapper}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
-          <ModalCheckout setVisable={setModalVisible} />
+          <ModalCheckout approvePayment={approvePayment} setVisable={setModalVisible} />
         </Modal>
         <Text style={styles.title}>Delivery</Text>
         <DeliveryDetails />
@@ -55,7 +60,7 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
           <Text style={styles.sectionTitle}>Delivery method</Text>
           <View style={styles.deliveryMethodContainer}>{deliveryOptions.map(renderOption)}</View>
         </View>
-        <TotalPrice totalCartPrice={totalCartPrice()} />
+        <TotalPrice totalCartPrice={cart.totalCartPrice} />
       </View>
       <CustomButton text="Proceed to payment" buttonStyle={styles.button} labelStyle={styles.label} onPress={setVisable} />
     </View>

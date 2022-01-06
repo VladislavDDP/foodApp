@@ -3,7 +3,7 @@
     "id": 1,
     "category": [1],
     "name": "Veggie tomato mix",
-    "price": "2500",
+    "price": 2.5,
     "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg",
     "gallery": ["https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "category": [1],
     "name": "Potato mix",
-    "price": "4200",
+    "price": 4.2,
     "photo": "https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg",
     "gallery": ["https://simply-delicious-food.com/wp-content/uploads/2017/10/easy-tomato-cream-rigatoni-3-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "category": [1],
     "name": "Meat and fish",
-    "price": "10100",
+    "price": 10.1,
     "photo": "https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg",
     "gallery": ["https://5.imimg.com/data5/WX/BQ/MY-64410820/indian-food-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "category": [1],
     "name": "Pizza",
-    "price": "2300",
+    "price": 2.3,
     "photo": "https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg",
     "gallery": ["https://mrfood.com.ua/wp-content/uploads/2021/11/pyczczamenyu-1.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "category": [2],
     "name": "Fresh",
-    "price": "1000",
+    "price": 1.0,
     "photo": "https://images.absolutdrinks.com/drinkcollection-images/Raw/Absolut/595f1c61-2825-40fc-bd5f-d6235f1a9379.jpg?imwidth=500",
     "gallery": ["https://images.absolutdrinks.com/drinkcollection-images/Raw/Absolut/595f1c61-2825-40fc-bd5f-d6235f1a9379.jpg?imwidth=500", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "category": [2],
     "name": "White tea",
-    "price": "3800",
+    "price": 3.8,
     "photo": "https://momfoodie.com/wp-content/uploads/Blue-Lagoon-Drink-500x500.jpg",
     "gallery": ["https://momfoodie.com/wp-content/uploads/Blue-Lagoon-Drink-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "category": [2],
     "name": "Coffee",
-    "price": "7700",
+    "price": 7.7,
     "photo": "https://delightfulmomfood.com/wp-content/uploads/2020/04/mango-cocktail-drink-500x500.jpg",
     "gallery": ["https://delightfulmomfood.com/wp-content/uploads/2020/04/mango-cocktail-drink-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -59,7 +59,7 @@
     "id": 8,
     "category": [2],
     "name": "Tomato fresh",
-    "price": "2700",
+    "price": 2.7,
     "photo": "https://images.absolutdrinks.com/ingredient-images/Raw/Absolut/d0a126c8-e448-4d39-80e1-08876164c606.jpg?imwidth=500",
     "gallery": ["https://images.absolutdrinks.com/ingredient-images/Raw/Absolut/d0a126c8-e448-4d39-80e1-08876164c606.jpg?imwidth=500", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -67,7 +67,7 @@
     "id": 9,
     "category": [3],
     "name": "Avebe",
-    "price": "14300",
+    "price": 14.3,
     "photo": "https://www.avebe.com/app/uploads/2021/07/1714_iStock-614971130-500x500.jpg",
     "gallery": ["https://www.avebe.com/app/uploads/2021/07/1714_iStock-614971130-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -75,7 +75,7 @@
     "id": 10,
     "category": [3],
     "name": "Maag boom mix",
-    "price": "3000",
+    "price": 3.0,
     "photo": "https://www.maag.de/images/maerkte/start/Sweets-Snacks-500x500.jpeg",
     "gallery": ["https://www.maag.de/images/maerkte/start/Sweets-Snacks-500x500.jpeg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -83,7 +83,7 @@
     "id": 13,
     "category": [4],
     "name": "Set of spice sauces",
-    "price": "1500",
+    "price": 1.5,
     "photo": "https://www.sweetandsavorybyshinee.com/wp-content/uploads/2014/07/Baked-Steak-Fries-1-500x500.jpg",
     "gallery": ["https://www.sweetandsavorybyshinee.com/wp-content/uploads/2014/07/Baked-Steak-Fries-1-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -91,7 +91,7 @@
     "id": 14,
     "category": [4],
     "name": "Soup and avebe",
-    "price": "2800",
+    "price": 2.8,
     "photo": "https://www.avebe.com/app/uploads/2021/10/Sauces-500x500.jpg",
     "gallery": ["https://www.avebe.com/app/uploads/2021/10/Sauces-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -99,7 +99,7 @@
     "id": 15,
     "category": [4],
     "name": "Cheddar cheese",
-    "price": "5500",
+    "price": 5.5,
     "photo": "https://4.imimg.com/data4/OQ/HJ/MY-764091/cheddar-cheese-sauce-500x500.jpg",
     "gallery": ["https://4.imimg.com/data4/OQ/HJ/MY-764091/cheddar-cheese-sauce-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -107,7 +107,7 @@
     "id": 16,
     "category": [4],
     "name": "Spicy 2x plus",
-    "price": "2100",
+    "price": 2.1,
     "photo": "https://www.avebe.com/app/uploads/2021/10/dressing-500x500.jpg",
     "gallery": ["https://www.avebe.com/app/uploads/2021/10/dressing-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -115,7 +115,7 @@
     "id": 17,
     "category": [5],
     "name": "Greek chicken",
-    "price": "8500",
+    "price": 8.5,
     "photo": "https://simply-delicious-food.com/wp-content/uploads/2019/04/greek-chicken-salad-4-500x500.jpg",
     "gallery": ["https://simply-delicious-food.com/wp-content/uploads/2019/04/greek-chicken-salad-4-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -123,7 +123,7 @@
     "id": 18,
     "category": [5],
     "name": "Chopped fast & cheap",
-    "price": "11000",
+    "price": 11.0,
     "photo": "https://www.tablefortwoblog.com/wp-content/uploads/2018/05/quick-chopped-salad-recipe-photos-tablefortwoblog-3-500x500.jpg",
     "gallery": ["https://www.tablefortwoblog.com/wp-content/uploads/2018/05/quick-chopped-salad-recipe-photos-tablefortwoblog-3-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   },
@@ -131,7 +131,7 @@
     "id": 19,
     "category": [5],
     "name": "Simple greek",
-    "price": "2100",
+    "price": 2.1,
     "photo": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-500x500.jpg",
     "gallery": ["https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-500x500.jpg", "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg", "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"]
   }

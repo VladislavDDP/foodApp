@@ -13,18 +13,18 @@ import {ListHeader} from './list-header/ListHeader.component';
 import {CartItem} from './cart-item/CartItem.component';
 import {HiddenItemWithActions} from './hidden-item-with-actions/HiddenItemWithActions.component';
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
-import {CartFood} from '../../store/cart';
 import {useStore} from '../../store/store';
+import {CartFood} from '../../model/cartFoodModel';
 
 interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
 
 export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
   const [food, setFood] = useState<Array<CartFood>>([]);
-  const {cartItems, increaseQty, decreaseQty, removeFromCart} = useStore().cart;
+  const {cart} = useStore();
 
   useEffect(() => {
-    setFood(cartItems);
-  }, [cartItems]);
+    setFood(cart.cartItems);
+  }, [cart.cartItems]);
 
   const likeRow = (rowKey: number) => {
     // TODO: like item and add to Async Storage
@@ -34,11 +34,11 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
     navigation.navigate(Screens.Checkout);
   };
 
-  const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} increaseQty={increaseQty} decreaseQty={decreaseQty} />;
+  const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} increaseQty={cart.increaseQty} decreaseQty={cart.decreaseQty} />;
 
   const renderHiddenItem = (item: {item: CartFood}) => {
     const likeItem = () => likeRow(item.item.id);
-    const deleteItem = () => removeFromCart(item.item.id);
+    const deleteItem = () => cart.removeFromCart(item.item.id);
 
     return <HiddenItemWithActions onLike={likeItem} onDelete={deleteItem} />;
   };

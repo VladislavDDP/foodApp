@@ -12,13 +12,12 @@ export class Searcher {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public search(query: string) {
-    if (this.allItems.length && this.searchedItems) {
-      this.searchedItems = this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query));
-    }
+  public get searchedItemsQty() {
+    return this.searchedItems.length;
   }
 
-  public searchedItemsQty() {
-    return this.searchedItems.length;
+  public search(query: string): Array<Food> {
+    this.searchedItems = this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query));
+    return this.searchedItems;
   }
 }

@@ -4,7 +4,6 @@ import {Text, Animated, SafeAreaView, View, FlatList, ScrollView, Modal} from 'r
 import {SharedElement} from 'react-navigation-shared-element';
 
 import {CustomButton} from '../../components/button/CustomButton.component';
-import {Food} from '../../model/foodModel';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './details.styles';
@@ -20,21 +19,20 @@ const startValue = 0;
 interface Props extends AppNavigatorScreenProps<Screens.Details> {}
 
 export const Details: React.FC<Props> = observer(({navigation, route}) => {
-  const {name, price, gallery} = route.params.item;
-  const {addToCart} = useStore().cart;
+  const foodItem = route.params.item;
+  const {cart, favourites} = useStore();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef(null);
 
-  const navigateBack = () => navigation.goBack();
-
-  const addToFavourite = () => {
-    // TODO: add to favourite logic
+  const likeFood = () => {
+    favourites.addToFavourite(foodItem);
   };
 
   const addFoodToCart = () => {
-    addToCart(route.params.item);
+    cart.addToCart(foodItem);
     setModalVisible(true);
   };
 
@@ -45,15 +43,15 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <IconBtn icon="chevron-left" onPress={navigateBack} />
-        <IconBtn icon="heart" onPress={addToFavourite} />
+        <IconBtn icon="chevron-left" onPress={navigation.goBack} />
+        <IconBtn icon="heart" onPress={likeFood} />
       </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
         <SuccessModal title="Done!" btnText="get it" onPress={onRequestClose} />
       </Modal>
       <View style={styles.slider}>
         <FlatList
-          data={gallery}
+          data={foodItem.gallery}
           renderItem={renderSlide}
           onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false})}
           showsHorizontalScrollIndicator={false}
@@ -63,9 +61,9 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
           pagingEnabled
           horizontal
         />
-        <Paginator gallery={gallery} scrollX={scrollX} />
-        <Text style={styles.foodTitle}>{name}</Text>
-        <Text style={styles.foodPrice}>{price}</Text>
+        <Paginator gallery={foodItem.gallery} scrollX={scrollX} />
+        <Text style={styles.foodTitle}>{foodItem.name}</Text>
+        <Text style={styles.foodPrice}>{foodItem.price}</Text>
       </View>
       <ScrollView style={styles.content}>
         <Section title="Delivery info" description="Delivered between monday aug and thursday 20 from 8pm to 91:32 pm" />

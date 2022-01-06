@@ -5,13 +5,19 @@ import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/s
 
 import {Screens} from '../../../../navigation/root-stack/routes.types';
 import {styles} from './sign-out.styles';
+import {useStore} from '../../../../store/store';
 
 interface Props {
   navigation: DrawerNavigationHelpers;
 }
 
 export const SignOut: React.FC<Props> = ({navigation}) => {
-  const goToAuthentication = () => navigation.navigate(Screens.Authentication);
+  const {authentication} = useStore();
+
+  const goToAuthentication = () => {
+    authentication.logout();
+    navigation.navigate(Screens.Authentication);
+  };
 
   return (
     <TouchableOpacity onPress={goToAuthentication} style={styles.button}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {observer} from 'mobx-react';
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -17,17 +17,14 @@ interface Props extends AppNavigatorScreenProps<Screens.Search> {}
 export const Search: React.FC<Props> = observer(({navigation}) => {
   const [searchInput, setSearchInput] = useState('');
   const [foods, setFoods] = useState<Array<Food>>([]);
-  const {searchedItems, searchedItemsQty, search} = useStore().searcher;
+  const {searcher} = useStore();
 
   const numColumns = 2;
 
-  useEffect(() => {
-    setFoods(searchedItems);
-  }, [searchedItems]);
-
-  const onInputSearch = (text: string) => {
+  const onInputSearch = async (text: string) => {
     setSearchInput(text);
-    search(text);
+    const food = await searcher.search(text);
+    setFoods(food);
   };
 
   const goToFoodDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
@@ -45,7 +42,7 @@ export const Search: React.FC<Props> = observer(({navigation}) => {
       <SearchHeader value={searchInput} onPress={navigation.goBack} onChangeText={onInputSearch} />
       <SharedElement id="bg" style={StyleSheet.absoluteFill}>
         <View style={styles.bg}>
-          <Text style={styles.text}>Found {searchedItemsQty()} results</Text>
+          <Text style={styles.text}>Found {searcher.searchedItemsQty} results</Text>
           <FlatList
             scrollEnabled
             data={foods.slice()}
