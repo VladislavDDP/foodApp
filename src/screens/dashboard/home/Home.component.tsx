@@ -1,3 +1,4 @@
+import {observer} from 'mobx-react';
 import React, {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -9,6 +10,7 @@ import {Category} from '../../../model/categoryModel';
 import {Food} from '../../../model/foodModel';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
+import {useStore} from '../../../store/store';
 import {CategoryItem} from './category-item/CategoryItem.component';
 import {FakeSearch} from './fake-search/FakeSearch.component';
 import {FoodItem} from './food-item/FoodItem.component';
@@ -21,12 +23,15 @@ const mapToCategory = (item: {id: number; category: string}) => new Category(ite
 
 interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
-export const Home: React.FC<Props> = ({navigation, ...props}) => {
+export const Home: React.FC<Props> = observer(({navigation}) => {
+  const {foodHome} = useStore();
   const [foods, setFoods] = useState<Array<Food>>([]);
   const [foodCategories, setFoodCategories] = useState<Array<Category>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
 
   useEffect(() => {
+    // foodHome.getCategories();
+    foodHome.getFoodByCategory();
     setFoodCategories(categories.categories.map(mapToCategory));
     setFoods(food.filter(item => item.category.includes(activeCategoryId)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,4 +87,4 @@ export const Home: React.FC<Props> = ({navigation, ...props}) => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+});

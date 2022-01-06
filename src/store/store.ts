@@ -3,11 +3,13 @@ import React from 'react';
 import {Authentication} from './authentication';
 import {Cart} from './cart';
 import {Favourites} from './favourites';
+import {FoodHome} from './foodHome';
 import {Searcher} from './searcher';
 import {ShoppingHistory} from './shoppingHistory';
 
 export class Store {
   public authentication: Authentication;
+  public foodHome: FoodHome;
   public cart: Cart;
   public favourites: Favourites;
   public shoppingHistory: ShoppingHistory;
@@ -15,6 +17,7 @@ export class Store {
 
   public constructor() {
     this.authentication = new Authentication();
+    this.foodHome = new FoodHome();
     this.cart = new Cart();
     this.favourites = new Favourites();
     this.shoppingHistory = new ShoppingHistory();
