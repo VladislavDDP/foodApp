@@ -5,7 +5,6 @@ import {Food} from '../model/foodModel';
 
 export class Searcher {
   public allItems: Array<Food> = [];
-  public searchedItems: Array<Food> = [];
 
   public constructor() {
     this.allItems = food;
@@ -13,7 +12,6 @@ export class Searcher {
   }
 
   public search(query: string): Array<Food> {
-    this.searchedItems = this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query));
-    return [...this.searchedItems];
+    return [...this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query))];
   }
 }
