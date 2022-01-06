@@ -16,4 +16,11 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     paddingBottom: 120,
   },
+  text: {
+    fontSize: 25,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 30,
+  },
 });

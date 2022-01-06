@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
+import {observer} from 'mobx-react';
 import {Animated, Dimensions, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -10,19 +11,29 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
+import {useStore} from '../../store/store';
 
 interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
 
 const startValue = 0;
 const {width} = Dimensions.get('window');
 
-export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
+export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
+  const {authorized, login, register} = useStore().authentication;
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
-  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * width});
+  const goToDashboard = useCallback(() => {
+    navigation.navigate(Screens.DrawerStack);
+  }, [navigation]);
 
-  const goToDashboard = () => navigation.navigate(Screens.DrawerStack);
+  useEffect(() => {
+    if (authorized) {
+      goToDashboard();
+    }
+  }, [authorized, goToDashboard, navigation]);
+
+  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
   return (
     <KeyboardAwareScrollView
@@ -49,10 +60,10 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
           style={styles.animatedContainer}
           pagingEnabled
           horizontal>
-          <Login navigateToDashboard={goToDashboard} />
-          <SignUp navigateToDashboard={goToDashboard} />
+          <Login login={login} />
+          <SignUp register={register} />
         </Animated.ScrollView>
       </View>
     </KeyboardAwareScrollView>
   );
-};
+});

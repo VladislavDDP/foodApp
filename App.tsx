@@ -1,15 +1,10 @@
 import React from 'react';
-import {Provider} from 'mobx-react';
 
 import {RootNavigator} from './src/navigation/RootNavigator';
-import {store} from './src/store/store';
+import {store, StoreContext} from './src/store/store';
 
-export const App = () => {
-  const appStore = store();
-
-  return (
-    <Provider {...appStore}>
-      <RootNavigator />
-    </Provider>
-  );
-};
+export const App = () => (
+  <StoreContext.Provider value={store()}>
+    <RootNavigator />
+  </StoreContext.Provider>
+);

@@ -9,4 +9,19 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  iconContainer: {
+    position: 'relative',
+    padding: 5,
+  },
+  qtyContainer: {
+    position: 'absolute',
+    right: 0,
+    borderRadius: 50,
+    backgroundColor: 'red',
+    paddingHorizontal: 5,
+  },
+  qtyText: {
+    color: '#fff',
+    textAlign: 'center',
+  },
 });

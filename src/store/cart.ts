@@ -38,6 +38,10 @@ export class Cart {
     }
   }
 
+  public cartItemsQty() {
+    return this.cartItems.length;
+  }
+
   public decreaseQty(id: number) {
     const index = this.findIndex(id);
     if (index > indexOutOfRange) {

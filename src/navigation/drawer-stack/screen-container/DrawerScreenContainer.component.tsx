@@ -6,7 +6,6 @@ import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/s
 import {DrawerHeader} from '../header/DrawerHeader.component';
 import {styles} from './drawer-screen-container.styles';
 import {Screens} from '../../root-stack/routes.types';
-import {AppNavigatorScreenProps} from '../../root-stack/stack.types';
 
 const animationVars = {
   start: 0,

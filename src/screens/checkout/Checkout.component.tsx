@@ -1,5 +1,5 @@
-import {inject, observer} from 'mobx-react';
 import React, {useState} from 'react';
+import {observer} from 'mobx-react';
 import {Modal, Text} from 'react-native';
 import {View} from 'react-native-animatable';
 
@@ -13,58 +13,51 @@ import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.comp
 import {DeliveryOption, deliveryOptions} from './deliveryOptions.types';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
+import {useStore} from '../../store/store';
 
 const defaultSelectedOption = 1;
 
-interface Props extends AppNavigatorScreenProps<Screens.Checkout> {
-  cart: {
-    totalCartPrice: () => number;
-  };
-}
+interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 
-export const Checkout: React.FC<Props> = inject('cart')(
-  observer(({navigation, ...props}) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [deliveryOption, setDeliveryOption] = useState(defaultSelectedOption);
-    const {totalCartPrice} = props.cart;
+export const Checkout: React.FC<Props> = observer(({navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [deliveryOption, setDeliveryOption] = useState(defaultSelectedOption);
+  const {totalCartPrice} = useStore().cart;
 
-    const renderOption = (option: DeliveryOption) => {
-      const setOption = () => setDeliveryOption(option.id);
-
-      return (
-        <RadioButton
-          key={option.id}
-          text={option.text}
-          isSelected={deliveryOption === option.id}
-          shouldSeparate={option.id !== deliveryOptions.length}
-          onSelect={setOption}
-        />
-      );
-    };
-
-    const setVisable = () => setModalVisible(true);
-
-    const onRequestClose = () => setModalVisible(!modalVisible);
-
-    const goBack = () => navigation.goBack();
+  const renderOption = (option: DeliveryOption) => {
+    const setOption = () => setDeliveryOption(option.id);
 
     return (
-      <View style={styles.container}>
-        <CustomHeader title="Checkout" onPress={goBack} />
-        <View style={styles.wrapper}>
-          <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
-            <ModalCheckout setVisable={setModalVisible} />
-          </Modal>
-          <Text style={styles.title}>Delivery</Text>
-          <DeliveryDetails />
-          <View>
-            <Text style={styles.sectionTitle}>Delivery method</Text>
-            <View style={styles.deliveryMethodContainer}>{deliveryOptions.map(renderOption)}</View>
-          </View>
-          <TotalPrice totalCartPrice={totalCartPrice()} />
-        </View>
-        <CustomButton text="Proceed to payment" buttonStyle={styles.button} labelStyle={styles.label} onPress={setVisable} />
-      </View>
+      <RadioButton
+        key={option.id}
+        text={option.text}
+        isSelected={deliveryOption === option.id}
+        shouldSeparate={option.id !== deliveryOptions.length}
+        onSelect={setOption}
+      />
     );
-  }),
-);
+  };
+
+  const setVisable = () => setModalVisible(true);
+
+  const onRequestClose = () => setModalVisible(!modalVisible);
+
+  return (
+    <View style={styles.container}>
+      <CustomHeader title="Checkout" onPress={navigation.goBack} />
+      <View style={styles.wrapper}>
+        <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
+          <ModalCheckout setVisable={setModalVisible} />
+        </Modal>
+        <Text style={styles.title}>Delivery</Text>
+        <DeliveryDetails />
+        <View>
+          <Text style={styles.sectionTitle}>Delivery method</Text>
+          <View style={styles.deliveryMethodContainer}>{deliveryOptions.map(renderOption)}</View>
+        </View>
+        <TotalPrice totalCartPrice={totalCartPrice()} />
+      </View>
+      <CustomButton text="Proceed to payment" buttonStyle={styles.button} labelStyle={styles.label} onPress={setVisable} />
+    </View>
+  );
+});
