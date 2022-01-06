@@ -2,10 +2,10 @@ import React from 'react';
 import {Provider} from 'mobx-react';
 
 import {RootNavigator} from './src/navigation/RootNavigator';
-import {store} from './src/store/store';
+import {rootStore} from './src/store/store';
 
 export const App = () => (
-  <Provider value={store}>
+  <Provider value={rootStore}>
     <RootNavigator />
   </Provider>
 );

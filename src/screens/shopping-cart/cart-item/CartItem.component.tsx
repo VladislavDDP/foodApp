@@ -1,23 +1,22 @@
+import {observer} from 'mobx-react';
 import React from 'react';
 import {Image, Text, View} from 'react-native';
 
 import {IconButton} from '../../../components/icon-button/IconButton.component';
 import {CartFood} from '../../../model/cartFoodModel';
+import {useStore} from '../../../store/store';
 import {colors} from '../../../vars/variables';
 import {styles} from './cart-item.styles';
 
 interface Props {
   item: CartFood;
-  increaseQty: (id: number) => void;
-  decreaseQty: (id: number) => void;
 }
 
-export const CartItem: React.FC<Props> = ({item, increaseQty, decreaseQty}) => {
-  const addOneMoreItem = () => increaseQty(item.id);
+export const CartItem: React.FC<Props> = observer(({item}) => {
+  const {cart} = useStore();
 
-  const removeOneMoreItem = () => {
-    decreaseQty(item.id);
-  };
+  const addOneMoreItem = () => cart.increaseQty(item.id);
+  const removeOneMoreItem = () => cart.decreaseQty(item.id);
 
   return (
     <View style={styles.container}>
@@ -33,4 +32,4 @@ export const CartItem: React.FC<Props> = ({item, increaseQty, decreaseQty}) => {
       </View>
     </View>
   );
-};
+});

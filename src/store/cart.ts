@@ -23,7 +23,7 @@ export class Cart {
   }
 
   public addToCart(item: Food) {
-    const index = this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === item.id);
+    const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
       this.cartItems[index].qty++;
     } else {
@@ -36,19 +36,21 @@ export class Cart {
   }
 
   public increaseQty(id: number) {
-    const index = this.findIndex(id);
+    const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       const current = this.cartItems[index];
       this.cartItems[index] = {...current, qty: current.qty + one};
+      this.cartItems = [...this.cartItems];
     }
   }
 
   public decreaseQty(id: number) {
-    const index = this.findIndex(id);
+    const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       if (this.cartItems[index].qty - one) {
         const current = this.cartItems[index];
         this.cartItems[index] = {...current, qty: current.qty - one};
+        this.cartItems = [...this.cartItems];
       } else {
         this.removeFromCart(id);
       }
@@ -59,7 +61,7 @@ export class Cart {
     this.cartItems = [];
   }
 
-  private findIndex(id: number): number {
+  private findCartItemIndex(id: number): number {
     return this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === id);
   }
 }

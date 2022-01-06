@@ -1,4 +1,5 @@
 import React from 'react';
+import {observer} from 'mobx-react';
 import {SafeAreaView, Text, FlatList} from 'react-native';
 
 import {Food} from '../../../model/foodModel';
@@ -6,7 +7,6 @@ import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
 import {FavouriteItem} from './favourite-item/FavouriteItem.component';
 import {styles} from './like.styles';
 import {useStore} from '../../../store/store';
-import {observer} from 'mobx-react';
 
 export const Like = observer(() => {
   const {favourites} = useStore();

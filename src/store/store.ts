@@ -6,7 +6,7 @@ import {Favourites} from './favourites';
 import {Searcher} from './searcher';
 import {ShoppingHistory} from './shoppingHistory';
 
-export class Store {
+export class RootStore {
   public authentication: Authentication;
   public cart: Cart;
   public favourites: Favourites;
@@ -22,8 +22,8 @@ export class Store {
   }
 }
 
-export const store = new Store();
+export const rootStore = new RootStore();
 
-const StoreContext = React.createContext(store);
+const StoreContext = React.createContext(rootStore);
 
 export const useStore = () => React.useContext(StoreContext);

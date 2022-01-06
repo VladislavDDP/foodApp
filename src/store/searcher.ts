@@ -12,12 +12,8 @@ export class Searcher {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public get searchedItemsQty() {
-    return this.searchedItems.length;
-  }
-
   public search(query: string): Array<Food> {
     this.searchedItems = this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query));
-    return this.searchedItems;
+    return [...this.searchedItems];
   }
 }
