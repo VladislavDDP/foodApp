@@ -19,12 +19,7 @@ import {CartFood} from '../../model/cartFoodModel';
 interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
 
 export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
-  const [food, setFood] = useState<Array<CartFood>>([]);
   const {cart} = useStore();
-
-  useEffect(() => {
-    setFood(cart.cartItems);
-  }, [cart.cartItems]);
 
   const likeRow = (rowKey: number) => {
     // TODO: like item and add to Async Storage
@@ -34,7 +29,7 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
     navigation.navigate(Screens.Checkout);
   };
 
-  const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} increaseQty={cart.increaseQty} decreaseQty={cart.decreaseQty} />;
+  const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} />;
 
   const renderHiddenItem = (item: {item: CartFood}) => {
     const likeItem = () => likeRow(item.item.id);
@@ -43,7 +38,7 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
     return <HiddenItemWithActions onLike={likeItem} onDelete={deleteItem} />;
   };
 
-  const renderListHeader = () => (food.length ? <ListHeader /> : null);
+  const renderListHeader = () => (cart.cartItemsQty ? <ListHeader /> : null);
 
   const renderListEmpty = () => <EmptyBox icon="shopping-cart" title="Cart is empty" text="Add new items to cart" />;
 
@@ -53,7 +48,7 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
     <View style={styles.container}>
       <CustomHeader title="Cart" onPress={navigation.goBack} />
       <SwipeListView
-        data={food}
+        data={cart.cartItems}
         ListHeaderComponent={renderListHeader}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
@@ -63,9 +58,9 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
         disableRightSwipe
       />
       <CustomButton
-        disabled={!food.length}
+        disabled={!cart.cartItemsQty}
         labelStyle={styles.label}
-        buttonStyle={{backgroundColor: food.length ? colors.orange : colors.light}}
+        buttonStyle={{backgroundColor: cart.cartItemsQty ? colors.orange : colors.light}}
         text="Checkout"
         onPress={goToCheckout}
       />

@@ -1,10 +1,11 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {styles} from './drawer-header.styles';
 import {useStore} from '../../../store/store';
+import {ShoppingCartIcon} from './shopping-cart/ShoppingCartIcon.component';
 
 interface Props {
   openDrawer: () => void;
@@ -17,18 +18,7 @@ export const DrawerHeader: React.FC<Props> = observer(({openDrawer, navigateToCa
   return (
     <View style={styles.container}>
       <Icon name="bars" color="#999" size={25} onPress={openDrawer} />
-      {cart.cartItemsQty ? (
-        <TouchableOpacity onPress={navigateToCart}>
-          <View style={styles.iconContainer}>
-            <Icon name="shopping-cart" color="#999" size={25} onPress={navigateToCart} />
-            <View style={styles.qtyContainer}>
-              <Text style={styles.qtyText}>{cart.cartItemsQty}</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      ) : (
-        <Icon name="shopping-cart" color="#999" size={25} onPress={navigateToCart} />
-      )}
+      <ShoppingCartIcon qty={cart.cartItemsQty} onPress={navigateToCart} />
     </View>
   );
 });

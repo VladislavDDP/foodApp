@@ -11,7 +11,7 @@ import {DrawerScreenContainer} from './screen-container/DrawerScreenContainer.co
 
 const Drawer = createDrawerNavigator();
 
-export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = () => {
+export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
   const renderDrawerScreen = (value: DrawerProps) => (
     <Drawer.Screen key={value.id} name={value.name}>
       {props => (
@@ -33,7 +33,7 @@ export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>>
           drawerType: 'slide',
           drawerStyle: styles.drawerStyle,
         }}
-        drawerContent={props => <CustomDrawerContent {...props} />}>
+        drawerContent={props => <CustomDrawerContent stackNavigation={navigation} state={props.state} drawerNavigation={props.navigation} />}>
         {drawerScreens.map(renderDrawerScreen)}
       </Drawer.Navigator>
     </View>

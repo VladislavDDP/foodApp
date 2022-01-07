@@ -1,14 +1,15 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {Screens} from '../../../../navigation/root-stack/routes.types';
 import {styles} from './sign-out.styles';
 import {useStore} from '../../../../store/store';
+import {StackParamList} from '../../../../navigation/root-stack/stack.types';
 
 interface Props {
-  navigation: DrawerNavigationHelpers;
+  navigation: NativeStackNavigationProp<StackParamList, Screens.DrawerStack>;
 }
 
 export const SignOut: React.FC<Props> = ({navigation}) => {
@@ -16,7 +17,7 @@ export const SignOut: React.FC<Props> = ({navigation}) => {
 
   const goToAuthentication = () => {
     authentication.logout();
-    navigation.navigate(Screens.Authentication);
+    navigation.pop();
   };
 
   return (

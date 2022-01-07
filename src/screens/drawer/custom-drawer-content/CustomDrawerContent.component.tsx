@@ -1,7 +1,9 @@
 import React from 'react';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {SafeAreaView, View} from 'react-native';
-import {DrawerContentComponentProps} from '@react-navigation/drawer/lib/typescript/src/types';
+import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
+import type {DrawerNavigationState, ParamListBase} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {DrawerContentItem} from './content-item/DrawerContentItem.component';
 import {drawerScreens} from '../../../navigation/drawer-stack/routes.types';
@@ -9,11 +11,17 @@ import {styles} from './custom-drawer-content.styles';
 import {SignOut} from './sign-out/SignOut.component';
 import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
 import {colors} from '../../../vars/variables';
+import {StackParamList} from '../../../navigation/root-stack/stack.types';
+import {Screens} from '../../../navigation/root-stack/routes.types';
 
-interface Props extends DrawerContentComponentProps {}
+interface Props {
+  state: DrawerNavigationState<ParamListBase>;
+  stackNavigation: NativeStackNavigationProp<StackParamList, Screens.DrawerStack>;
+  drawerNavigation: DrawerNavigationHelpers;
+}
 
-export const CustomDrawerContent: React.FC<Props> = ({navigation, state}) => {
-  const goToDrawer = (drawerName: Drawers) => navigation.navigate(drawerName);
+export const CustomDrawerContent: React.FC<Props> = ({stackNavigation, drawerNavigation, state}) => {
+  const goToDrawer = (drawerName: Drawers) => drawerNavigation.navigate(drawerName);
 
   return (
     <DrawerContentScrollView scrollEnabled contentContainerStyle={styles.drawerContainer}>
@@ -29,7 +37,7 @@ export const CustomDrawerContent: React.FC<Props> = ({navigation, state}) => {
             />
           ))}
         </View>
-        <SignOut navigation={navigation} />
+        <SignOut navigation={stackNavigation} />
       </SafeAreaView>
     </DrawerContentScrollView>
   );

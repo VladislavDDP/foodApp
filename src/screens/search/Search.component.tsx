@@ -12,14 +12,14 @@ import {AnimatedFoodItem} from './animated-food-item/AnimatedFoodItem.component'
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../store/store';
 
+const numColumns = 2;
+
 interface Props extends AppNavigatorScreenProps<Screens.Search> {}
 
 export const Search: React.FC<Props> = observer(({navigation}) => {
   const [searchInput, setSearchInput] = useState('');
   const [foods, setFoods] = useState<Array<Food>>([]);
   const {searcher} = useStore();
-
-  const numColumns = 2;
 
   const onInputSearch = async (text: string) => {
     setSearchInput(text);
@@ -42,10 +42,10 @@ export const Search: React.FC<Props> = observer(({navigation}) => {
       <SearchHeader value={searchInput} onPress={navigation.goBack} onChangeText={onInputSearch} />
       <SharedElement id="bg" style={StyleSheet.absoluteFill}>
         <View style={styles.bg}>
-          <Text style={styles.text}>Found {searcher.searchedItemsQty} results</Text>
+          <Text style={styles.text}>Found {foods.length} results</Text>
           <FlatList
             scrollEnabled
-            data={foods.slice()}
+            data={foods}
             numColumns={numColumns}
             showsVerticalScrollIndicator={false}
             keyExtractor={extractItemKey}
