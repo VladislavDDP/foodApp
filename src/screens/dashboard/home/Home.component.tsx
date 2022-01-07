@@ -1,11 +1,9 @@
 import {observer} from 'mobx-react';
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
 
-import categories from '../../../categories.json';
-import food from '../../../food.json';
 import {Category} from '../../../model/categoryModel';
 import {Food} from '../../../model/foodModel';
 import {Screens} from '../../../navigation/root-stack/routes.types';
@@ -25,15 +23,23 @@ interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const Home: React.FC<Props> = observer(({navigation}) => {
   const {foodHome} = useStore();
-  const [foods, setFoods] = useState<Array<Food>>([]);
+  const [food, setFood] = useState<Array<Food>>([]);
   const [foodCategories, setFoodCategories] = useState<Array<Category>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
 
+  const getFood = async (id: number) => {
+    const foodItem = await foodHome.getFoodByCategory(id);
+    setFood(foodItem);
+  };
+
+  const getCategories = async () => {
+    const categories = await foodHome.getCategories();
+    setFoodCategories(categories);
+  };
+
   useEffect(() => {
-    // foodHome.getCategories();
-    foodHome.getFoodByCategory();
-    setFoodCategories(categories.categories.map(mapToCategory));
-    setFoods(food.filter(item => item.category.includes(activeCategoryId)));
+    getFood(activeCategoryId);
+    getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,7 +47,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
 
   const onSelectCategory = (id: number) => {
     setActiveCategoryId(id);
-    setFoods(food.filter(item => item.category.includes(id)));
+    getFood(id);
   };
 
   const renderCategory = ({item}: {item: Category}) => (
@@ -71,15 +77,16 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
           keyExtractor={extractCategoryKey}
           renderItem={renderCategory}
           horizontal
+          ListEmptyComponent={<ActivityIndicator size="large" color="#FF460A" />}
         />
         <FlatList
           style={styles.flatlist}
-          data={foods}
+          data={food}
           showsHorizontalScrollIndicator={false}
           keyExtractor={extractFoodItemKey}
           horizontal
           renderItem={renderFoodItem}
-          ListEmptyComponent={null}
+          ListEmptyComponent={<ActivityIndicator size="large" color="#FF460A" />}
         />
         <SharedElement id="bg">
           <View style={styles.bg} />

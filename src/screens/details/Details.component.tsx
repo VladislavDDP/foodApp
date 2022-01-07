@@ -28,6 +28,7 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
   const slidesRef = useRef(null);
 
   const likeFood = () => {
+    foodItem.isLiked = true;
     favourites.addToFavourite(foodItem);
   };
 
@@ -44,7 +45,7 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <IconBtn icon="chevron-left" onPress={navigation.goBack} />
-        <IconBtn icon="heart" onPress={likeFood} />
+        {foodItem.isLiked ? null : <IconBtn icon="heart" onPress={likeFood} />}
       </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
         <SuccessModal title="Done!" btnText="get it" onPress={onRequestClose} />
