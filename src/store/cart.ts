@@ -39,7 +39,7 @@ export class Cart {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       const current = this.cartItems[index];
-      this.cartItems[index] = {...current, qty: current.qty + one};
+      this.cartItems[index] = new CartFood(current.id, current.name, current.price, current.photo, current.gallery, current.qty + one);
       this.cartItems = [...this.cartItems];
     }
   }
@@ -49,7 +49,7 @@ export class Cart {
     if (index > indexOutOfRange) {
       if (this.cartItems[index].qty - one) {
         const current = this.cartItems[index];
-        this.cartItems[index] = {...current, qty: current.qty - one};
+        this.cartItems[index] = new CartFood(current.id, current.name, current.price, current.photo, current.gallery, current.qty - one);
         this.cartItems = [...this.cartItems];
       } else {
         this.removeFromCart(id);

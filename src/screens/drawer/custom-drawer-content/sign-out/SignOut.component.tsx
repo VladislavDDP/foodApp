@@ -15,9 +15,9 @@ interface Props {
 export const SignOut: React.FC<Props> = ({navigation}) => {
   const {authentication} = useStore();
 
-  const goToAuthentication = () => {
-    authentication.logout();
-    navigation.pop();
+  const goToAuthentication = async () => {
+    await authentication.logout();
+    navigation.replace(Screens.Authentication);
   };
 
   return (

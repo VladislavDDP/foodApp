@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {type DrawerContentComponentProps, createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerProps, drawerScreens} from './routes.types';
 import {CustomDrawerContent} from '../../screens/drawer/custom-drawer-content/CustomDrawerContent.component';
@@ -22,6 +22,10 @@ export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>>
     </Drawer.Screen>
   );
 
+  const renderDrawerContent = (props: DrawerContentComponentProps) => (
+    <CustomDrawerContent stackNavigation={navigation} state={props.state} drawerNavigation={props.navigation} />
+  );
+
   return (
     <View style={styles.container}>
       <Drawer.Navigator
@@ -33,7 +37,7 @@ export const DrawerStack: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>>
           drawerType: 'slide',
           drawerStyle: styles.drawerStyle,
         }}
-        drawerContent={props => <CustomDrawerContent stackNavigation={navigation} state={props.state} drawerNavigation={props.navigation} />}>
+        drawerContent={renderDrawerContent}>
         {drawerScreens.map(renderDrawerScreen)}
       </Drawer.Navigator>
     </View>
