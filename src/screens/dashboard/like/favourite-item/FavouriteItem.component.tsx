@@ -1,50 +1,25 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import {Food} from '../../../../model/foodModel';
-import {colors} from '../../../../vars/variables';
+import {styles} from './favourite-item.styles';
 
 interface Props {
   item: Food;
+  deleteItem: (id: number) => void;
 }
 
-export const FavouriteItem: React.FC<Props> = ({item}) => (
-  <View style={styles.container}>
-    <Image source={{uri: item.photo}} style={styles.itemImage} />
-    <View style={styles.itemDescription}>
-      <Text style={styles.itemName}>{item.name}</Text>
-      <Text style={styles.itemPrice}>{item.price}</Text>
-    </View>
-  </View>
-);
+export const FavouriteItem: React.FC<Props> = ({item, deleteItem}) => {
+  const deleteOnLongPress = () => deleteItem(item.id);
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-    marginHorizontal: 40,
-    borderRadius: 20,
-    padding: 10,
-    position: 'relative',
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.white,
-  },
-  itemDescription: {
-    flexDirection: 'column',
-  },
-  itemImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 50,
-    marginRight: 10,
-  },
-  itemName: {
-    fontSize: 17,
-    fontWeight: '700',
-  },
-  itemPrice: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: colors.orange,
-  },
-});
+  return (
+    <TouchableOpacity onLongPress={deleteOnLongPress} style={styles.container}>
+      <Image source={{uri: item.photo}} style={styles.itemImage} />
+      <View style={styles.itemDescription}>
+        <Text style={styles.itemName}>{item.name}</Text>
+        <Text style={styles.itemPrice}>{item.price}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};

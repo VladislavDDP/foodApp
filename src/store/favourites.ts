@@ -7,12 +7,17 @@ export class Favourites {
   public items: Array<Food> = [];
 
   public constructor() {
+    this.getFavouriteFood();
     makeAutoObservable(this, {}, {autoBind: true});
+  }
+
+  public async getFavouriteFood() {
+    this.items = await storage.getLikedFood();
   }
 
   public addToFavourite(item: Food) {
     storage.addToFavourite(item);
-    this.items.push(item);
+    this.items = [...this.items, new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, true)];
   }
 
   public removeFromFavourites(id: number) {

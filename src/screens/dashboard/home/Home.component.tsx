@@ -17,8 +17,6 @@ import {styles} from './home.styles';
 const startId = 1;
 const duration = 100;
 
-const mapToCategory = (item: {id: number; category: string}) => new Category(item.id, item.category);
-
 interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const Home: React.FC<Props> = observer(({navigation}) => {
@@ -65,6 +63,8 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   const extractCategoryKey = (item: Category) => item.id.toString();
   const extractFoodItemKey = (item: Food) => item.id.toString();
 
+  const renderListEmptyElement = () => <ActivityIndicator size="large" color="#FF460A" />;
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.wrapper}>
@@ -77,7 +77,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
           keyExtractor={extractCategoryKey}
           renderItem={renderCategory}
           horizontal
-          ListEmptyComponent={<ActivityIndicator size="large" color="#FF460A" />}
+          ListEmptyComponent={renderListEmptyElement}
         />
         <FlatList
           style={styles.flatlist}
@@ -86,7 +86,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
           keyExtractor={extractFoodItemKey}
           horizontal
           renderItem={renderFoodItem}
-          ListEmptyComponent={<ActivityIndicator size="large" color="#FF460A" />}
+          ListEmptyComponent={renderListEmptyElement}
         />
         <SharedElement id="bg">
           <View style={styles.bg} />

@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
+import {foodApi} from '../api/foodApi/food-api';
 import {Food} from '../model/foodModel';
-import {mapToFood} from './foodHome';
 
 export class Searcher {
   public allItems: Array<Food> = [];
@@ -10,16 +10,9 @@ export class Searcher {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public async getFood() {
-    const response = await fetch('https://rn-delivery-api.herokuapp.com/api/foods?populate=*');
-    const food = await response.json();
-    const mappedFood = food.data.map(mapToFood);
-    return mappedFood;
-  }
-
   public async search(query: string) {
     if (!this.allItems.length) {
-      this.allItems = await this.getFood();
+      this.allItems = await foodApi.getFood();
     }
     return [...this.filterItems(query)];
   }
