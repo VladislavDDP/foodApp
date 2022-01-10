@@ -2,8 +2,6 @@ import React from 'react';
 import {createSharedElementStackNavigator, type SharedElementsComponentConfig} from 'react-navigation-shared-element';
 import type {StackCardStyleInterpolator} from '@react-navigation/stack';
 
-import {AuthenticationTabs} from '../../screens/authentication/AuthenticationTabs.component';
-import {Onboarding} from '../../screens/onboarding/Onboarding.component';
 import {Screens} from './routes.types';
 import {StackParamList} from './stack.types';
 import {Details} from '../../screens/details/Details.component';
@@ -11,6 +9,7 @@ import {DrawerStack} from '../drawer-stack/DrawerStack.component';
 import {Search} from '../../screens/search/Search.component';
 import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
+import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
@@ -24,9 +23,8 @@ export const RootStack = () => {
   });
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name={Screens.Onboarding} component={Onboarding} />
-      <Stack.Screen name={Screens.Authentication} component={AuthenticationTabs} />
+    <Stack.Navigator initialRouteName={Screens.AuthFlowStack} screenOptions={{headerShown: false}}>
+      <Stack.Screen name={Screens.AuthFlowStack} component={AuthFlowStack} />
       <Stack.Screen name={Screens.DrawerStack} component={DrawerStack} />
       <Stack.Screen
         name={Screens.Search}

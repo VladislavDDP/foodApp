@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {observer} from 'mobx-react';
 import {Modal, Text} from 'react-native';
 import {View} from 'react-native-animatable';
 
@@ -12,14 +13,16 @@ import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.comp
 import {DeliveryOption, deliveryOptions} from './deliveryOptions.types';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
+import {useStore} from '../../store/store';
 
 const defaultSelectedOption = 1;
 
 interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 
-export const Checkout: React.FC<Props> = ({navigation}) => {
+export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState(defaultSelectedOption);
+  const {shoppingHistory, cart} = useStore();
 
   const renderOption = (option: DeliveryOption) => {
     const setOption = () => setDeliveryOption(option.id);
@@ -35,18 +38,21 @@ export const Checkout: React.FC<Props> = ({navigation}) => {
     );
   };
 
+  const approvePayment = () => {
+    shoppingHistory.appendHistory(cart.cartItems);
+    cart.clearCart();
+  };
+
   const setVisable = () => setModalVisible(true);
 
   const onRequestClose = () => setModalVisible(!modalVisible);
 
-  const goBack = () => navigation.goBack();
-
   return (
     <View style={styles.container}>
-      <CustomHeader title="Checkout" onPress={goBack} />
+      <CustomHeader title="Checkout" onPress={navigation.goBack} />
       <View style={styles.wrapper}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
-          <ModalCheckout setVisable={setModalVisible} />
+          <ModalCheckout approvePayment={approvePayment} setVisable={setModalVisible} />
         </Modal>
         <Text style={styles.title}>Delivery</Text>
         <DeliveryDetails />
@@ -54,9 +60,9 @@ export const Checkout: React.FC<Props> = ({navigation}) => {
           <Text style={styles.sectionTitle}>Delivery method</Text>
           <View style={styles.deliveryMethodContainer}>{deliveryOptions.map(renderOption)}</View>
         </View>
-        <TotalPrice />
+        <TotalPrice totalCartPrice={cart.totalCartPrice} />
       </View>
       <CustomButton text="Proceed to payment" buttonStyle={styles.button} labelStyle={styles.label} onPress={setVisable} />
     </View>
   );
-};
+});

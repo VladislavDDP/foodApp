@@ -8,6 +8,7 @@ const extra = 2;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
   },
   header: {
     justifyContent: 'space-between',

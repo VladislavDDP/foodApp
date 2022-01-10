@@ -5,14 +5,14 @@ import {DefaultStyledText} from '../../components/app-text/AppText.component';
 import {CustomButton} from '../../components/button/CustomButton.component';
 import {OnboardingLogo} from './Logo.component';
 import {PeopleScene} from './PeopleScene.component';
-import {Screens} from '../../navigation/root-stack/routes.types';
-import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './styles/onboarding.styles';
+import {AuthFlowScreens} from '../../navigation/auth-flow-stack/routes.types';
+import {AuthFlowNavigatorScreenProps} from '../../navigation/auth-flow-stack/stack.types';
 
-interface Props extends AppNavigatorScreenProps<Screens.Onboarding> {}
+interface Props extends AuthFlowNavigatorScreenProps<AuthFlowScreens.Onboarding> {}
 
 export const Onboarding: React.FC<Props> = ({navigation}) => {
-  const navigateToAuthentication = () => navigation.navigate(Screens.Authentication);
+  const navigateToAuthentication = () => navigation.navigate(AuthFlowScreens.Authentication);
 
   return (
     <View style={styles.container}>

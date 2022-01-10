@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {View} from 'react-native';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
 import {InputField} from '../../../components/input-field/InputField.component';
@@ -7,23 +7,15 @@ import {TextBtn} from '../text-btn/TextBtn.component';
 import {styles} from './login.styles';
 
 interface Props {
-  navigateToDashboard: () => void;
+  login: (email: string, password: string) => void;
 }
 
-const success = 200;
-const failed = 404;
-
-const loginUser = (email: string, password: string) => (email === '' && password === '' ? success : failed);
-
-export const Login: React.FC<Props> = ({navigateToDashboard}) => {
+export const Login: React.FC<Props> = ({login}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const login = () => {
-    // TODO: move logic to mobx
-    if (loginUser(email, password) === success) {
-      navigateToDashboard();
-    }
+  const loginUser = () => {
+    login(email, password);
   };
 
   const forgotPasscode = () => {
@@ -37,7 +29,7 @@ export const Login: React.FC<Props> = ({navigateToDashboard}) => {
         <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure />
         <TextBtn title="Forgot passcode?" onPress={forgotPasscode} />
       </View>
-      <CustomButton text="Login" onPress={login} buttonStyle={styles.button} labelStyle={styles.label} />
+      <CustomButton text="Login" onPress={loginUser} buttonStyle={styles.button} labelStyle={styles.label} />
     </View>
   );
 };

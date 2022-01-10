@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
+import {observer} from 'mobx-react';
 import {Animated, Dimensions, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -10,19 +11,38 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
+import {useStore} from '../../store/store';
 
-interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
+interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
 
 const startValue = 0;
 const {width} = Dimensions.get('window');
 
-export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
+export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
+  const {authentication} = useStore();
+
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
-  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * width});
+  const goToDashboard = useCallback(() => {
+    navigation.replace(Screens.DrawerStack);
+  }, [navigation]);
 
-  const goToDashboard = () => navigation.navigate(Screens.DrawerStack);
+  const login = async (email: string, password: string) => {
+    const response = await authentication.login(email, password);
+    if (response) {
+      goToDashboard();
+    }
+  };
+
+  const register = async (email: string, password: string, passwordAgain: string) => {
+    const response = await authentication.register(email, password, passwordAgain);
+    if (response) {
+      goToDashboard();
+    }
+  };
+
+  const scrollToAuthProcess = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
   return (
     <KeyboardAwareScrollView
@@ -37,8 +57,8 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
         <View style={styles.header}>
           <Logo />
           <View style={styles.tabs}>
-            <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAnother} />
-            <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAnother} />
+            <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
+            <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
           </View>
         </View>
         <Animated.ScrollView
@@ -49,10 +69,10 @@ export const AuthenticationTabs: React.FC<Props> = ({navigation}) => {
           style={styles.animatedContainer}
           pagingEnabled
           horizontal>
-          <Login navigateToDashboard={goToDashboard} />
-          <SignUp navigateToDashboard={goToDashboard} />
+          <Login login={login} />
+          <SignUp register={register} />
         </Animated.ScrollView>
       </View>
     </KeyboardAwareScrollView>
   );
-};
+});

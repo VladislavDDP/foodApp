@@ -4,8 +4,7 @@ import {Food} from '../../model/foodModel';
 import {Screens} from './routes.types';
 
 export type StackParamList = {
-  Onboarding: undefined;
-  Authentication: undefined;
+  AuthFlowStack: undefined;
   DrawerStack: undefined;
   Search: undefined;
   Details: {item: Food};

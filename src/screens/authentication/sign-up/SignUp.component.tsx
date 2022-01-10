@@ -6,18 +6,16 @@ import {InputField} from '../../../components/input-field/InputField.component';
 import {styles} from './sign-up.styles';
 
 interface Props {
-  navigateToDashboard: () => void;
+  register: (email: string, password: string, passwordAgain: string) => void;
 }
 
-export const SignUp: React.FC<Props> = ({navigateToDashboard}) => {
+export const SignUp: React.FC<Props> = ({register}) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordAgain, setPasswordAgain] = useState<string>('');
 
   const signUp = () => {
-    if (email && password === passwordAgain) {
-      navigateToDashboard();
-    }
+    register(email, password, passwordAgain);
   };
 
   return (
