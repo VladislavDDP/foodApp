@@ -31,9 +31,9 @@ export class Cart {
     }
   }
 
-  public updateCart(item: Food) {
+  public updateCart(item: CartFood) {
     const index = this.findCartItemIndex(item.id);
-    this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked);
+    this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, item.isLiked);
     this.cartItems = [...this.cartItems];
   }
 

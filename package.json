@@ -32,6 +32,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "3.10.1",
     "react-native-shared-element": "0.8.3",
+    "react-native-splash-screen": "3.3.0",
     "react-native-swipe-list-view": "3.2.9",
     "react-native-vector-icons": "9.0.0",
     "react-navigation-shared-element": "3.1.3"

@@ -1,10 +1,8 @@
 import {Dimensions, Platform, StyleSheet} from 'react-native';
 
-const {height} = Dimensions.get('window');
-
 export const styles = StyleSheet.create({
   container: {
-    height,
+    flex: 1,
     backgroundColor: '#FF470B',
     paddingTop: Platform.select({android: 20, ios: 50}),
     paddingBottom: 0,
