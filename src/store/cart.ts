@@ -25,7 +25,8 @@ export class Cart {
   public addToCart(item: Food) {
     const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
-      this.cartItems[index].qty++;
+      const current = this.cartItems[index];
+      this.cartItems[index] = new CartFood(current.id, current.name, current.price, current.photo, current.gallery, current.qty + one);
     } else {
       this.cartItems.push(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
     }
