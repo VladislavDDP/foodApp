@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {observer} from 'mobx-react';
 import {Animated, Dimensions, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -25,16 +25,24 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
   const slidesRef = useRef<ScrollView>();
 
   const goToDashboard = useCallback(() => {
-    navigation.navigate(Screens.DrawerStack);
+    navigation.replace(Screens.DrawerStack);
   }, [navigation]);
 
-  useEffect(() => {
-    if (authentication.authorized) {
+  const login = async (email: string, password: string) => {
+    const response = await authentication.login(email, password);
+    if (response) {
       goToDashboard();
     }
-  }, [authentication.authorized, goToDashboard, navigation]);
+  };
 
-  const scrollToAnother = (page: number) => slidesRef.current?.scrollTo({x: page * width});
+  const register = async (email: string, password: string, passwordAgain: string) => {
+    const response = await authentication.register(email, password, passwordAgain);
+    if (response) {
+      goToDashboard();
+    }
+  };
+
+  const scrollToAuthProcess = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
   return (
     <KeyboardAwareScrollView
@@ -49,8 +57,8 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
         <View style={styles.header}>
           <Logo />
           <View style={styles.tabs}>
-            <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAnother} />
-            <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAnother} />
+            <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
+            <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
           </View>
         </View>
         <Animated.ScrollView
@@ -61,8 +69,8 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
           style={styles.animatedContainer}
           pagingEnabled
           horizontal>
-          <Login login={authentication.login} />
-          <SignUp register={authentication.register} />
+          <Login login={login} />
+          <SignUp register={register} />
         </Animated.ScrollView>
       </View>
     </KeyboardAwareScrollView>
