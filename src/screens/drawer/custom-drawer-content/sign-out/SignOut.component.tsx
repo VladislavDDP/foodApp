@@ -7,6 +7,8 @@ import {Screens} from '../../../../navigation/root-stack/routes.types';
 import {styles} from './sign-out.styles';
 import {useStore} from '../../../../store/store';
 import {StackParamList} from '../../../../navigation/root-stack/stack.types';
+import {AuthFlowScreens} from '../../../../navigation/auth-flow-stack/routes.types';
+import {CommonActions} from '@react-navigation/native';
 
 interface Props {
   navigation: NativeStackNavigationProp<StackParamList, Screens.DrawerStack>;
@@ -17,7 +19,12 @@ export const SignOut: React.FC<Props> = ({navigation}) => {
 
   const goToAuthentication = async () => {
     await authentication.logout();
-    navigation.replace(Screens.Authentication);
+    navigation.dispatch({
+      ...CommonActions.reset({
+        index: 1,
+        routes: [{name: Screens.AuthFlowStack, state: {routes: [{name: AuthFlowScreens.Authentication}]}}],
+      }),
+    });
   };
 
   return (

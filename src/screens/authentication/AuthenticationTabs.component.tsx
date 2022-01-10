@@ -13,7 +13,7 @@ import {styles} from '../styles/authentication-tabs.styles';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
 import {useStore} from '../../store/store';
 
-interface Props extends AppNavigatorScreenProps<Screens.Authentication> {}
+interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
 
 const startValue = 0;
 const {width} = Dimensions.get('window');
