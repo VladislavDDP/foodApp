@@ -25,16 +25,16 @@ export class Cart {
   public addToCart(item: Food) {
     const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
-      const current = this.cartItems[index];
-      this.cartItems[index] = new CartFood(current.id, current.name, current.price, current.photo, current.gallery, current.qty + one);
+      const cur = this.cartItems[index];
+      this.cartItems[index] = new CartFood(cur.id, cur.name, cur.price, cur.photo, cur.gallery, cur.qty + one, cur.categories, cur.isLiked);
     } else {
-      this.cartItems.push(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
+      this.cartItems.unshift(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
     }
   }
 
-  public updateCart(item: Food) {
+  public updateCart(item: CartFood) {
     const index = this.findCartItemIndex(item.id);
-    this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked);
+    this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, item.isLiked);
     this.cartItems = [...this.cartItems];
   }
 

@@ -39,8 +39,10 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
   };
 
   const approvePayment = () => {
+    setModalVisible(false);
     shoppingHistory.appendHistory(cart.cartItems);
     cart.clearCart();
+    navigation.navigate(Screens.DrawerStack);
   };
 
   const setVisable = () => setModalVisible(true);

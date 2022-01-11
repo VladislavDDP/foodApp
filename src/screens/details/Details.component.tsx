@@ -40,6 +40,11 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
     favourites.addToFavourite(foodItem);
   };
 
+  const removeLike = () => {
+    setLikedFood(false);
+    favourites.removeFromFavourites(foodItem.id);
+  };
+
   const addFoodToCart = () => {
     cart.addToCart({...foodItem, isLiked: likedFood});
     setModalVisible(true);
@@ -53,7 +58,7 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <IconBtn icon="chevron-left" onPress={navigation.goBack} />
-        {likedFood ? null : <IconBtn icon="heart" onPress={likeFood} />}
+        {likedFood ? <IconBtn icon="heart" onPress={removeLike} /> : <IconBtn icon="heart-o" onPress={likeFood} />}
       </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
         <SuccessModal title="Done!" btnText="get it" onPress={onRequestClose} />

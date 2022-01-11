@@ -17,7 +17,7 @@ export class Favourites {
 
   public addToFavourite(item: Food) {
     storage.addToFavourite(item);
-    this.items = [...this.items, new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, true)];
+    this.items = [new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, true), ...this.items];
   }
 
   public removeFromFavourites(id: number) {

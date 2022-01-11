@@ -16,7 +16,7 @@ export class ShoppingHistory {
   }
 
   public appendHistory(items: Array<CartFood>) {
-    this.items = [...this.items, ...items];
+    this.items = [...items, ...this.items];
     storage.saveShoppingHistory(this.items);
   }
 
