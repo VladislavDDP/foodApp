@@ -21,7 +21,9 @@ export const Like = observer(() => {
   }, [foodStore]);
 
   useEffect(() => {
-    getLikedFood();
+    if (isFocused) {
+      getLikedFood();
+    }
   }, [getLikedFood, isFocused]);
 
   const deleteItem = (id: number) => {

@@ -38,8 +38,10 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   };
 
   useEffect(() => {
-    getFood(activeCategoryId);
-    getCategories();
+    if (isFocused) {
+      getFood(activeCategoryId);
+      getCategories();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 

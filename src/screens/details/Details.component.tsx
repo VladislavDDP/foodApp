@@ -31,11 +31,13 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
 
   const likeFood = () => {
     setLikedFood(true);
+    cart.updateCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, true));
     foodStore.addToFavourite(foodItem);
   };
 
   const removeLike = () => {
     setLikedFood(false);
+    cart.updateCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, false));
     foodStore.removeFromFavourites(foodItem.id);
   };
 

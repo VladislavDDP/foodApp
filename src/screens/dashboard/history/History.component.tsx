@@ -20,7 +20,9 @@ export const History = observer(() => {
   }, [foodStore]);
 
   useEffect(() => {
-    getHistory();
+    if (isFocused) {
+      getHistory();
+    }
   }, [getHistory, isFocused]);
 
   const deleteItem = (id: number) => {
