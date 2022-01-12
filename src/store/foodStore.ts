@@ -8,10 +8,10 @@ import {Storage} from '../storage/storage';
 
 export class FoodStore {
   public allItems: Array<Food> = [];
-  public categories: Array<Category> = [];
-  public orders: Array<CartFood> = [];
-  public favourites: Array<Food> = [];
 
+  private allCategories: Array<Category> = [];
+  private orderedItems: Array<CartFood> = [];
+  private favouriteItems: Array<Food> = [];
   private foodApi: FoodApi;
   private storage: Storage;
 
@@ -22,19 +22,31 @@ export class FoodStore {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
+  public get favourites() {
+    return this.favouriteItems;
+  }
+
+  public get orders() {
+    return this.orderedItems;
+  }
+
+  public get categories() {
+    return this.allCategories;
+  }
+
   public async getFoodByCategory(categoryId: number) {
     const food = await this.foodApi.getFood();
     return food.filter((item: Food) => item.categories.map((category: Category) => category.id).includes(categoryId));
   }
 
   public async addToFavourite(item: Food) {
-    this.favourites.unshift(item);
-    this.favourites = [...this.favourites];
+    this.favouriteItems.unshift(item);
+    this.favouriteItems = [...this.favourites];
     await this.storage.addToFavourite(item);
   }
 
   public async removeFromFavourites(id: number) {
-    this.favourites = this.favourites.filter((item: Food) => item.id !== id);
+    this.favouriteItems = this.favourites.filter((item: Food) => item.id !== id);
     await this.storage.removeLike(id);
   }
 
@@ -44,20 +56,20 @@ export class FoodStore {
   }
 
   public appendHistory(items: Array<CartFood>) {
-    this.orders = [...items, ...this.orders];
+    this.orderedItems = [...items, ...this.orders];
     this.storage.updateShoppingHistory(items);
   }
 
   public removeItemFromHistory(id: number) {
-    this.orders = this.orders.filter((item: CartFood) => item.id !== id);
+    this.orderedItems = this.orders.filter((item: CartFood) => item.id !== id);
     this.storage.removeFromShoppingHistory(id);
   }
 
   private getAllNeededStuff() {
     runInAction(async () => {
-      this.categories = await this.foodApi.getCategories();
-      this.favourites = await this.storage.getLikedFood();
-      this.orders = await this.storage.getShoppingHistory();
+      this.allCategories = await this.foodApi.getCategories();
+      this.favouriteItems = await this.storage.getLikedFood();
+      this.orderedItems = await this.storage.getShoppingHistory();
     });
   }
 
