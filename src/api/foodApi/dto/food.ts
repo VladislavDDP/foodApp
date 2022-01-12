@@ -1,6 +1,6 @@
-import {RowCategory} from './categories-in';
+import {Category} from './category';
 
-export interface RowFood {
+export interface Food {
   id: number;
   attributes: {
     name: string;
@@ -11,7 +11,7 @@ export interface RowFood {
     updatedAt: string;
     publishedAt: string;
     categories: {
-      data: Array<RowCategory>;
+      data: Array<Category>;
     };
   };
 }

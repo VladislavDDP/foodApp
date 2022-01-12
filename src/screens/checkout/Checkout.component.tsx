@@ -22,7 +22,7 @@ interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState(defaultSelectedOption);
-  const {shoppingHistory, cart} = useStore();
+  const {foodStore, cart} = useStore();
 
   const renderOption = (option: DeliveryOption) => {
     const setOption = () => setDeliveryOption(option.id);
@@ -40,9 +40,9 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
 
   const approvePayment = () => {
     setModalVisible(false);
-    shoppingHistory.appendHistory(cart.cartItems);
+    foodStore.appendHistory(cart.cartItems);
     cart.clearCart();
-    navigation.navigate(Screens.DrawerStack);
+    navigation.replace(Screens.DrawerStack);
   };
 
   const setVisable = () => setModalVisible(true);

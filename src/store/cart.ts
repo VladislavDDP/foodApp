@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
-import {CartFood} from '../model/cartFoodModel';
-import {Food} from '../model/foodModel';
+import {CartFood} from '../model/cartFood';
+import {Food} from '../model/food';
 
 const defaultCartPrice = 0;
 const indexOutOfRange = -1;
@@ -34,8 +34,10 @@ export class Cart {
 
   public updateCart(item: CartFood) {
     const index = this.findCartItemIndex(item.id);
-    this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, item.isLiked);
-    this.cartItems = [...this.cartItems];
+    if (index > indexOutOfRange) {
+      this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, item.isLiked);
+      this.cartItems = [...this.cartItems];
+    }
   }
 
   public removeFromCart(id: number) {

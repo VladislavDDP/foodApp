@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-import {Food} from '../../../../model/foodModel';
+import {Food} from '../../../../model/food';
 import {styles} from './favourite-item.styles';
 
 interface Props {

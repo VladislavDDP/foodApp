@@ -5,8 +5,6 @@ import {LogBox} from 'react-native';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import {rootStore} from './src/store/store';
 
-LogBox.ignoreLogs(['Sending']);
-
 export const App = () => (
   <Provider value={rootStore}>
     <RootNavigator />

@@ -1,39 +1,44 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {CartFood} from '../model/cartFoodModel';
-import {Food} from '../model/foodModel';
+import {CartFood} from '../model/cartFood';
+import {Food} from '../model/food';
 import {StorageKeys} from './asyncKeys';
 
-class Storage {
-  private likedFood: Array<Food> = [];
-
-  public constructor() {
-    this.getLikedFood();
-  }
-
+export class Storage {
   public getLikedFood = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.LikedItems);
-    this.likedFood = response ? JSON.parse(response) : [];
-    return this.likedFood;
+    return response ? JSON.parse(response) : [];
   };
 
   public getShoppingHistory = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.ShoppingHistory);
-    return response ? JSON.parse(response) : '';
+    return response ? JSON.parse(response) : [];
   };
 
-  public addToFavourite = (item: Food) => {
-    this.likedFood.push(item);
-    AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify(this.likedFood));
+  public addToFavourite = async (item: Food) => {
+    const items = await this.getLikedFood();
+    AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify([item, ...items]));
   };
 
   public removeLike = async (id: number) => {
-    this.likedFood = this.likedFood.filter((item: Food) => item.id !== id);
-    AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify(this.likedFood));
+    const response = await this.getLikedFood();
+    const items = response.filter((item: Food) => item.id !== id);
+    AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify(items));
   };
 
-  public saveShoppingHistory = (items: Array<CartFood>) => {
-    AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify(items));
+  public updateShoppingHistory = async (newItems: Array<CartFood>) => {
+    const items = await this.getShoppingHistory();
+    AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify([...newItems, ...items]));
+  };
+
+  public removeFromShoppingHistory = async (id: number) => {
+    const response = await this.getShoppingHistory();
+    const filteredItems = response.filter((item: Food) => item.id !== id);
+    AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify(filteredItems));
+  };
+
+  public clearStorage = () => {
+    AsyncStorage.clear();
   };
 }
 

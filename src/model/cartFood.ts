@@ -1,5 +1,5 @@
-import {Category} from './categoryModel';
-import {Food} from './foodModel';
+import {Category} from './category';
+import {Food} from './food';
 
 export class CartFood extends Food {
   public qty: number;
