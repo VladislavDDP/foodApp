@@ -17,12 +17,11 @@ export const HiddenItemWithActions: React.FC<Props> = observer(({item, onDelete}
 
   const toggleLike = () => {
     if (item.isLiked) {
-      cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, false));
       foodStore.removeFromFavourites(item.id);
     } else {
-      cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, true));
       foodStore.addToFavourite(item);
     }
+    cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, !item.isLiked));
   };
 
   return (

@@ -1,7 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import {observer} from 'mobx-react';
 import {SafeAreaView, Text, FlatList} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
 
 import {Food} from '../../../model/food';
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
@@ -12,22 +11,8 @@ import {ListHeader} from '../../../components/list-header/ListHeader.component';
 
 export const Like = observer(() => {
   const {foodStore} = useStore();
-  const [food, setFood] = useState<Array<Food>>([]);
-  const isFocused = useIsFocused();
-
-  const getLikedFood = useCallback(async () => {
-    const likedFood = await foodStore.getFavouriteFood();
-    setFood(likedFood);
-  }, [foodStore]);
-
-  useEffect(() => {
-    if (isFocused) {
-      getLikedFood();
-    }
-  }, [getLikedFood, isFocused]);
 
   const deleteItem = (id: number) => {
-    setFood(food.filter((item: Food) => item.id !== id));
     foodStore.removeFromFavourites(id);
   };
 
@@ -35,7 +20,7 @@ export const Like = observer(() => {
 
   const renderListEmpty = () => <EmptyBox icon="heart-o" title="No liked food" text="Add new items to favourites" />;
 
-  const renderListHeader = () => (food.length ? <ListHeader iconName="hand-pointer-o" text="long press to delete" /> : null);
+  const renderListHeader = () => (foodStore.favourites.length ? <ListHeader iconName="hand-pointer-o" text="long press to delete" /> : null);
 
   const extractKey = (item: Food) => item.id.toString();
 
@@ -44,7 +29,7 @@ export const Like = observer(() => {
       <Text style={styles.title}>Favourites</Text>
       <FlatList
         scrollEnabled
-        data={food}
+        data={foodStore.favourites}
         ListHeaderComponent={renderListHeader}
         style={styles.flatlist}
         showsVerticalScrollIndicator={false}

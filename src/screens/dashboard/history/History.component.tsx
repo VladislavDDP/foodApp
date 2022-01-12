@@ -1,6 +1,5 @@
-import {useIsFocused} from '@react-navigation/native';
+import React from 'react';
 import {observer} from 'mobx-react';
-import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, Text} from 'react-native';
 
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
@@ -11,22 +10,8 @@ import {styles} from './history.styles';
 
 export const History = observer(() => {
   const {foodStore} = useStore();
-  const [items, setItems] = useState<Array<CartFood>>([]);
-  const isFocused = useIsFocused();
-
-  const getHistory = useCallback(async () => {
-    const itemsFromHistory = await foodStore.getShoppingHistory();
-    setItems(itemsFromHistory);
-  }, [foodStore]);
-
-  useEffect(() => {
-    if (isFocused) {
-      getHistory();
-    }
-  }, [getHistory, isFocused]);
 
   const deleteItem = (id: number) => {
-    setItems(items.filter((item: CartFood) => item.id !== id));
     foodStore.removeItemFromHistory(id);
   };
 
@@ -41,7 +26,7 @@ export const History = observer(() => {
       <Text style={styles.title}>History</Text>
       <FlatList
         scrollEnabled
-        data={items}
+        data={foodStore.orders}
         style={styles.flatlist}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={renderListEmpty}

@@ -12,8 +12,8 @@ export class RootStore {
   public foodStore: FoodStore;
   public cart: Cart;
 
-  public foodApi: FoodApi;
-  public storage: Storage;
+  private foodApi: FoodApi;
+  private storage: Storage;
 
   public constructor() {
     this.storage = new Storage();

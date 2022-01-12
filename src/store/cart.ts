@@ -35,16 +35,7 @@ export class Cart {
   public updateCart(item: CartFood | Food) {
     const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
-      this.cartItems[index] = new CartFood(
-        item.id,
-        item.name,
-        item.price,
-        item.photo,
-        item.gallery,
-        this.cartItems[index].qty,
-        item.categories,
-        item.isLiked,
-      );
+      this.cartItems[index].isLiked = item.isLiked;
       this.cartItems = [...this.cartItems];
     }
   }

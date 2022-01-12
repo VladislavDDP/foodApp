@@ -1,6 +1,6 @@
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import {observer} from 'mobx-react';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -22,9 +22,7 @@ interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const Home: React.FC<Props> = observer(({navigation}) => {
   const {foodStore} = useStore();
-  const isFocused = useIsFocused();
   const [foods, setFoods] = useState<Array<Food>>([]);
-  const [foodCategories, setFoodCategories] = useState<Array<Category>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
 
   const getFood = async (id: number) => {
@@ -32,18 +30,9 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
     setFoods(food);
   };
 
-  const getCategories = async () => {
-    const categories = await foodStore.getCategories();
-    setFoodCategories(categories);
-  };
-
-  useEffect(() => {
-    if (isFocused) {
-      getFood(activeCategoryId);
-      getCategories();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  useFocusEffect(() => {
+    getFood(activeCategoryId);
+  });
 
   const navigateToSearch = () => navigation.navigate(Screens.Search);
 
@@ -76,7 +65,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
         <FakeSearch onPress={navigateToSearch} />
         <FlatList
           style={styles.flatlist}
-          data={foodCategories}
+          data={foodStore.categories}
           showsHorizontalScrollIndicator={false}
           keyExtractor={extractCategoryKey}
           renderItem={renderCategory}

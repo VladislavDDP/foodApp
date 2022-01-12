@@ -17,27 +17,27 @@ export class Storage {
 
   public addToFavourite = async (item: Food) => {
     const items = await this.getLikedFood();
-    AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify([item, ...items]));
+    await AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify([item, ...items]));
   };
 
   public removeLike = async (id: number) => {
     const response = await this.getLikedFood();
     const items = response.filter((item: Food) => item.id !== id);
-    AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify(items));
+    await AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify(items));
   };
 
   public updateShoppingHistory = async (newItems: Array<CartFood>) => {
     const items = await this.getShoppingHistory();
-    AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify([...newItems, ...items]));
+    await AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify([...newItems, ...items]));
   };
 
   public removeFromShoppingHistory = async (id: number) => {
     const response = await this.getShoppingHistory();
     const filteredItems = response.filter((item: Food) => item.id !== id);
-    AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify(filteredItems));
+    await AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify(filteredItems));
   };
 
-  public clearStorage = () => {
-    AsyncStorage.clear();
+  public clearStorage = async () => {
+    await AsyncStorage.clear();
   };
 }

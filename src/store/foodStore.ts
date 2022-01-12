@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, runInAction} from 'mobx';
 
 import {FoodApi} from '../api/foodApi/food-api';
 import {CartFood} from '../model/cartFood';
@@ -8,24 +8,18 @@ import {Storage} from '../storage/storage';
 
 export class FoodStore {
   public allItems: Array<Food> = [];
+  public categories: Array<Category> = [];
+  public orders: Array<CartFood> = [];
+  public favourites: Array<Food> = [];
 
-  public foodApi: FoodApi;
-  public storage: Storage;
+  private foodApi: FoodApi;
+  private storage: Storage;
 
   public constructor(foodApi: FoodApi, storage: Storage) {
     this.foodApi = foodApi;
     this.storage = storage;
+    this.getAllNeededStuff();
     makeAutoObservable(this, {}, {autoBind: true});
-  }
-
-  public async getFavouriteFood() {
-    const favouriteFood = await this.storage.getLikedFood();
-    return favouriteFood;
-  }
-
-  public async getCategories() {
-    const categories = await this.foodApi.getCategories();
-    return categories;
   }
 
   public async getFoodByCategory(categoryId: number) {
@@ -34,10 +28,13 @@ export class FoodStore {
   }
 
   public async addToFavourite(item: Food) {
+    this.favourites.unshift(item);
+    this.favourites = [...this.favourites];
     await this.storage.addToFavourite(item);
   }
 
   public async removeFromFavourites(id: number) {
+    this.favourites = this.favourites.filter((item: Food) => item.id !== id);
     await this.storage.removeLike(id);
   }
 
@@ -46,17 +43,22 @@ export class FoodStore {
     return [...this.filterItems(query)];
   }
 
-  public async getShoppingHistory() {
-    const shoppingHistoryItems = await this.storage.getShoppingHistory();
-    return shoppingHistoryItems;
-  }
-
   public appendHistory(items: Array<CartFood>) {
+    this.orders = [...items, ...this.orders];
     this.storage.updateShoppingHistory(items);
   }
 
   public removeItemFromHistory(id: number) {
+    this.orders = this.orders.filter((item: CartFood) => item.id !== id);
     this.storage.removeFromShoppingHistory(id);
+  }
+
+  private getAllNeededStuff() {
+    runInAction(async () => {
+      this.categories = await this.foodApi.getCategories();
+      this.favourites = await this.storage.getLikedFood();
+      this.orders = await this.storage.getShoppingHistory();
+    });
   }
 
   private filterItems(query: string) {
