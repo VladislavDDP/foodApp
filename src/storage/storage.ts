@@ -41,5 +41,3 @@ export class Storage {
     AsyncStorage.clear();
   };
 }
-
-export const storage = new Storage();

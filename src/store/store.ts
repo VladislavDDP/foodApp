@@ -16,10 +16,9 @@ export class RootStore {
   public storage: Storage;
 
   public constructor() {
-    const httpApi = new HttpApi();
-    this.foodApi = new FoodApi(httpApi);
     this.storage = new Storage();
-
+    const httpApi = new HttpApi();
+    this.foodApi = new FoodApi(httpApi, this.storage);
     this.authentication = new Authentication();
     this.foodStore = new FoodStore(this.foodApi, this.storage);
     this.cart = new Cart();

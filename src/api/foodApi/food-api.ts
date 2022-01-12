@@ -3,7 +3,7 @@ import {Food} from '../../model/food';
 import {HttpApi} from '../http-api';
 import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
-import {storage} from '../../storage/storage';
+import {Storage} from '../../storage/storage';
 
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
@@ -14,16 +14,18 @@ export const mapToCategories = (data: CategoryIn) => new Category(data.id, data.
 
 export class FoodApi {
   public http: HttpApi;
+  public storage: Storage;
   private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
 
-  public constructor(http: HttpApi) {
+  public constructor(http: HttpApi, storage: Storage) {
+    this.storage = storage;
     this.http = http;
     this.http.setBaseURL(this.baseURL);
   }
 
   public getFood = async () => {
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods?populate=*');
-    const favoriteFood = await storage.getLikedFood();
+    const favoriteFood = await this.storage.getLikedFood();
 
     const food = response.data.map((value: FoodIn) =>
       mapToFood(
