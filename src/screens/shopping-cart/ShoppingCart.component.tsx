@@ -14,13 +14,12 @@ import {CartItem} from './cart-item/CartItem.component';
 import {HiddenItemWithActions} from './hidden-item-with-actions/HiddenItemWithActions.component';
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../store/store';
-import {CartFood} from '../../model/cartFoodModel';
-import {Food} from '../../model/foodModel';
+import {CartFood} from '../../model/cartFood';
 
 interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
 
 export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
-  const {cart, favourites} = useStore();
+  const {cart, foodStore} = useStore();
 
   const goToCheckout = () => {
     navigation.navigate(Screens.Checkout);
@@ -28,22 +27,18 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
 
   const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} />;
 
-  const renderHiddenItem = (item: {item: CartFood}) => {
-    const compareItemsId = (favoriteItem: Food) => item.item.id === favoriteItem.id;
-
-    const likeItem = () => {
-      cart.updateCart({...item.item, isLiked: true});
-      favourites.addToFavourite(item.item);
-    };
-    const dislikeItem = () => {
-      cart.updateCart({...item.item, isLiked: true});
-      favourites.removeFromFavourites(item.item.id);
-    };
-    const deleteItem = () => cart.removeFromCart(item.item.id);
-    const checkIfFavorite = favourites.items.some(compareItemsId);
-
-    return <HiddenItemWithActions isLiked={checkIfFavorite} onLike={likeItem} onDislike={dislikeItem} onDelete={deleteItem} />;
+  const toggleLike = (item: CartFood) => {
+    if (item.isLiked) {
+      foodStore.removeFromFavourites(item.id);
+    } else {
+      foodStore.addToFavourite(item);
+    }
+    cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, !item.isLiked));
   };
+
+  const deleteItem = (id: number) => cart.removeFromCart(id);
+
+  const renderHiddenItem = ({item}: {item: CartFood}) => <HiddenItemWithActions item={item} toggleLike={toggleLike} onDelete={deleteItem} />;
 
   const renderListHeader = () => (cart.cartItemsQty ? <ListHeader iconName="hand-pointer-o" text="swipe on an item to delete" /> : null);
 

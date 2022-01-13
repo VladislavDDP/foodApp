@@ -14,6 +14,7 @@ export class Authentication {
       this.email = email;
       this.password = password;
       this.authorized = true;
+      return true;
     }
   }
 
@@ -22,6 +23,7 @@ export class Authentication {
       this.email = email;
       this.password = password;
       this.authorized = true;
+      return true;
     }
   }
 

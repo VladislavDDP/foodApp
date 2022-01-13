@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
-import {CartFood} from '../model/cartFoodModel';
-import {Food} from '../model/foodModel';
+import {CartFood} from '../model/cartFood';
+import {Food} from '../model/food';
 
 const defaultCartPrice = 0;
 const indexOutOfRange = -1;
@@ -25,16 +25,19 @@ export class Cart {
   public addToCart(item: Food) {
     const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
-      this.cartItems[index].qty++;
+      const cur = this.cartItems[index];
+      this.cartItems[index] = new CartFood(cur.id, cur.name, cur.price, cur.photo, cur.gallery, cur.qty + one, cur.categories, cur.isLiked);
     } else {
-      this.cartItems.push(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
+      this.cartItems.unshift(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
     }
   }
 
-  public updateCart(item: CartFood) {
+  public updateCart(item: CartFood | Food) {
     const index = this.findCartItemIndex(item.id);
-    this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, item.isLiked);
-    this.cartItems = [...this.cartItems];
+    if (index > indexOutOfRange) {
+      this.cartItems[index].isLiked = item.isLiked;
+      this.cartItems = [...this.cartItems];
+    }
   }
 
   public removeFromCart(id: number) {

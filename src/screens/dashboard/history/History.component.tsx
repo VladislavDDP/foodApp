@@ -1,18 +1,19 @@
-import {observer} from 'mobx-react';
 import React from 'react';
+import {observer} from 'mobx-react';
 import {FlatList, SafeAreaView, Text} from 'react-native';
 
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
-import {CartFood} from '../../../model/cartFoodModel';
+import {CartFood} from '../../../model/cartFood';
 import {useStore} from '../../../store/store';
-import {FavouriteItem} from '../like/favourite-item/FavouriteItem.component';
 import {HistoryItem} from './history-item/HistoryItem.component';
 import {styles} from './history.styles';
 
 export const History = observer(() => {
-  const {shoppingHistory} = useStore();
+  const {foodStore} = useStore();
 
-  const deleteItem = (id: number) => shoppingHistory.removeItemFromHistory(id);
+  const deleteItem = (id: number) => {
+    foodStore.removeItemFromHistory(id);
+  };
 
   const renderItem = ({item}: {item: CartFood}) => <HistoryItem item={item} deleteItem={deleteItem} />;
 
@@ -25,7 +26,7 @@ export const History = observer(() => {
       <Text style={styles.title}>History</Text>
       <FlatList
         scrollEnabled
-        data={shoppingHistory.items}
+        data={foodStore.orders}
         style={styles.flatlist}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={renderListEmpty}

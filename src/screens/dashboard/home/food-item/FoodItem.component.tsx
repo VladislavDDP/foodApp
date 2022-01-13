@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Image, Text, View} from 'react-native';
 
-import {Food} from '../../../../model/foodModel';
+import {Food} from '../../../../model/food';
 import {styles} from './food-item.styles';
 
 interface Props {

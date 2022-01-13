@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 
-import {CartFood} from '../../../../model/cartFoodModel';
+import {CartFood} from '../../../../model/cartFood';
 import {styles} from './history-item.styles';
 
 const fixedPoints = 1;

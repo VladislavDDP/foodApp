@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {observer} from 'mobx-react';
 import {Text, Animated, SafeAreaView, View, FlatList, ScrollView, Modal} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -13,35 +13,36 @@ import {Section} from './section/Section.component';
 import {SliderItem} from './slider-item/SliderItem.component';
 import {SuccessModal} from './success-modal/SuccessModal.component';
 import {useStore} from '../../store/store';
-import {Food} from '../../model/foodModel';
+import {Food} from '../../model/food';
 
 const startValue = 0;
 
 interface Props extends AppNavigatorScreenProps<Screens.Details> {}
 
 export const Details: React.FC<Props> = observer(({navigation, route}) => {
-  const [likedFood, setLikedFood] = useState(false);
   const foodItem = route.params.item;
-  const {cart, favourites} = useStore();
+  const {cart, foodStore} = useStore();
 
+  const [likedFood, setLikedFood] = useState(foodItem.isLiked);
   const [modalVisible, setModalVisible] = useState(false);
 
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef(null);
 
-  const compareId = useCallback((item: Food) => item.id === foodItem.id, [foodItem.id]);
-
-  useEffect(() => {
-    setLikedFood(favourites.items.some(compareId));
-  }, [compareId, favourites.items]);
-
   const likeFood = () => {
     setLikedFood(true);
-    favourites.addToFavourite(foodItem);
+    cart.updateCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, true));
+    foodStore.addToFavourite(foodItem);
+  };
+
+  const removeLike = () => {
+    setLikedFood(false);
+    cart.updateCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, false));
+    foodStore.removeFromFavourites(foodItem.id);
   };
 
   const addFoodToCart = () => {
-    cart.addToCart({...foodItem, isLiked: likedFood});
+    cart.addToCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, likedFood));
     setModalVisible(true);
   };
 
@@ -53,7 +54,7 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <IconBtn icon="chevron-left" onPress={navigation.goBack} />
-        {likedFood ? null : <IconBtn icon="heart" onPress={likeFood} />}
+        {likedFood ? <IconBtn icon="heart" onPress={removeLike} /> : <IconBtn icon="heart-o" onPress={likeFood} />}
       </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
         <SuccessModal title="Done!" btnText="get it" onPress={onRequestClose} />

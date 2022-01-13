@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Animatable from 'react-native-animatable';
 
-import {Food} from '../../../model/foodModel';
+import {Food} from '../../../model/food';
 import {FoodItem} from '../../dashboard/home/food-item/FoodItem.component';
 
 const duration = 300;

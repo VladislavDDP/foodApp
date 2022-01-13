@@ -4,6 +4,7 @@ import {colors} from '../../../vars/variables';
 
 const {height, width} = Dimensions.get('window');
 const extra = 2;
+const halfLargeIndicator = 18;
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,6 +13,9 @@ export const styles = StyleSheet.create({
   },
   wrapper: {
     marginHorizontal: 0,
+  },
+  activityIndicator: {
+    marginLeft: width / extra - halfLargeIndicator,
   },
   title: {
     fontSize: 35,

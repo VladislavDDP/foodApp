@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 
-import {Category} from '../../../../model/categoryModel';
+import {Category} from '../../../../model/category';
 import {styles} from './category-item.styles';
 
 interface Props {

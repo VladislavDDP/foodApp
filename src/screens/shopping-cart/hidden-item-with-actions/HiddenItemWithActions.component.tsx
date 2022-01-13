@@ -1,24 +1,25 @@
+import {observer} from 'mobx-react';
 import React from 'react';
 import {View} from 'react-native';
 
+import {CartFood} from '../../../model/cartFood';
 import {HiddenButton} from './hidden-button/HiddenButton.component';
 import {styles} from './hidden-item-with-actions.styles';
 
 interface Props {
-  isLiked: boolean;
-  onLike: () => void;
-  onDislike: () => void;
-  onDelete: () => void;
+  item: CartFood;
+  toggleLike: (item: CartFood) => void;
+  onDelete: (id: number) => void;
 }
 
-export const HiddenItemWithActions: React.FC<Props> = ({isLiked, onLike, onDislike, onDelete}) => (
-  <View style={styles.container}>
-    {isLiked ? (
-      <HiddenButton icon="heart" buttonStyle={styles.backRightBtnLeft} onPress={onDislike} />
-    ) : (
-      <HiddenButton icon="heart-o" buttonStyle={styles.backRightBtnLeft} onPress={onLike} />
-    )}
+export const HiddenItemWithActions: React.FC<Props> = observer(({item, toggleLike, onDelete}) => {
+  const toggleLikeOnItem = () => toggleLike(item);
+  const onDeleteItem = () => onDelete(item.id);
 
-    <HiddenButton icon="trash" buttonStyle={styles.backRightBtnRight} onPress={onDelete} />
-  </View>
-);
+  return (
+    <View style={styles.container}>
+      <HiddenButton icon={item.isLiked ? 'heart' : 'heart-o'} buttonStyle={styles.backRightBtnLeft} onPress={toggleLikeOnItem} />
+      <HiddenButton icon="trash" buttonStyle={styles.backRightBtnRight} onPress={onDeleteItem} />
+    </View>
+  );
+});

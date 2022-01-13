@@ -8,11 +8,11 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {DrawerContentItem} from './content-item/DrawerContentItem.component';
 import {drawerScreens} from '../../../navigation/drawer-stack/routes.types';
 import {styles} from './custom-drawer-content.styles';
-import {SignOut} from './sign-out/SignOut.component';
 import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
 import {colors} from '../../../vars/variables';
 import {StackParamList} from '../../../navigation/root-stack/stack.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
+import {SignOut} from './sign-out/SignOut.component';
 
 interface Props {
   state: DrawerNavigationState<ParamListBase>;
