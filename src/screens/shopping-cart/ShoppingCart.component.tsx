@@ -19,7 +19,7 @@ import {CartFood} from '../../model/cartFood';
 interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
 
 export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
-  const {cart} = useStore();
+  const {cart, foodStore} = useStore();
 
   const goToCheckout = () => {
     navigation.navigate(Screens.Checkout);
@@ -27,10 +27,18 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
 
   const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} />;
 
-  const renderHiddenItem = (item: {item: CartFood}) => {
-    const deleteItem = () => cart.removeFromCart(item.item.id);
+  const toggleLike = (item: CartFood) => {
+    if (item.isLiked) {
+      foodStore.removeFromFavourites(item.id);
+    } else {
+      foodStore.addToFavourite(item);
+    }
+    cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, !item.isLiked));
+  };
 
-    return <HiddenItemWithActions item={item.item} onDelete={deleteItem} />;
+  const renderHiddenItem = ({item}: {item: CartFood}) => {
+    const deleteItem = () => cart.removeFromCart(item.id);
+    return <HiddenItemWithActions item={item} toggleLike={toggleLike} onDelete={deleteItem} />;
   };
 
   const renderListHeader = () => (cart.cartItemsQty ? <ListHeader iconName="hand-pointer-o" text="swipe on an item to delete" /> : null);

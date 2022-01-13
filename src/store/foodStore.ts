@@ -55,14 +55,14 @@ export class FoodStore {
     return [...this.filterItems(query)];
   }
 
-  public appendHistory(items: Array<CartFood>) {
+  public async appendHistory(items: Array<CartFood>) {
     this.orderedItems = [...items, ...this.orders];
-    this.storage.updateShoppingHistory(items);
+    await this.storage.updateShoppingHistory(items);
   }
 
-  public removeItemFromHistory(id: number) {
+  public async removeItemFromHistory(id: number) {
     this.orderedItems = this.orders.filter((item: CartFood) => item.id !== id);
-    this.storage.removeFromShoppingHistory(id);
+    await this.storage.removeFromShoppingHistory(id);
   }
 
   private getAllNeededStuff() {
