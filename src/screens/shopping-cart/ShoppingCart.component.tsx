@@ -36,10 +36,9 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
     cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, !item.isLiked));
   };
 
-  const renderHiddenItem = ({item}: {item: CartFood}) => {
-    const deleteItem = () => cart.removeFromCart(item.id);
-    return <HiddenItemWithActions item={item} toggleLike={toggleLike} onDelete={deleteItem} />;
-  };
+  const deleteItem = (id: number) => cart.removeFromCart(id);
+
+  const renderHiddenItem = ({item}: {item: CartFood}) => <HiddenItemWithActions item={item} toggleLike={toggleLike} onDelete={deleteItem} />;
 
   const renderListHeader = () => (cart.cartItemsQty ? <ListHeader iconName="hand-pointer-o" text="swipe on an item to delete" /> : null);
 
