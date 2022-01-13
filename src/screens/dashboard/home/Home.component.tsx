@@ -1,7 +1,7 @@
 import {useFocusEffect} from '@react-navigation/native';
 import {observer} from 'mobx-react';
 import React, {useState} from 'react';
-import {ActivityIndicator, Dimensions, FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
 
