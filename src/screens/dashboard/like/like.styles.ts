@@ -11,4 +11,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 100,
     marginBottom: 60,
   },
+  listHeader: {
+    marginTop: 10,
+    textAlign: 'center',
+  },
 });

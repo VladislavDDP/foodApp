@@ -1,6 +1,6 @@
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {Food} from '../../model/foodModel';
+import {Food} from '../../model/food';
 import {Screens} from './routes.types';
 
 export type StackParamList = {
