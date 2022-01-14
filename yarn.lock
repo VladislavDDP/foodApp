@@ -6587,6 +6587,11 @@ react-native-shared-element@0.8.3:
   resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.8.3.tgz#c49b6acdca9e5ac27acc73ec7e7ddbaa7af35248"
   integrity sha512-mbL0gWBaZgWc5YQUwwlzyUOToMbfE+QdNxlSK8MdRGX6ItssVH+JLbq8ilLRTNEO+cTFFosXdQwqBUAC4IPSww==
 
+react-native-splash-screen@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
+  integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
+
 react-native-swipe-list-view@3.2.9:
   version "3.2.9"
   resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-3.2.9.tgz#d725c7cdf481dd5df12a00dbfe0120013b5f2e59"

@@ -56,7 +56,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   const extractCategoryKey = (item: Category) => item.id.toString();
   const extractFoodItemKey = (item: Food) => item.id.toString();
 
-  const renderListEmptyElement = () => <ActivityIndicator size="large" color="#FF460A" />;
+  const renderListEmptyElement = () => <ActivityIndicator style={styles.activityIndicator} size="large" color="#FF460A" />;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,6 +66,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
         <FlatList
           style={styles.flatlist}
           data={foodStore.categories}
+          contentContainerStyle={foodStore.categories.length ? null : styles.activityIndicator}
           showsHorizontalScrollIndicator={false}
           keyExtractor={extractCategoryKey}
           renderItem={renderCategory}
@@ -75,6 +76,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
         <FlatList
           style={styles.flatlist}
           data={foods}
+          contentContainerStyle={foods.length ? null : styles.activityIndicator}
           showsHorizontalScrollIndicator={false}
           keyExtractor={extractFoodItemKey}
           horizontal

@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
   wrapper: {
     marginHorizontal: 0,
   },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
     fontSize: 35,
     fontWeight: '700',
