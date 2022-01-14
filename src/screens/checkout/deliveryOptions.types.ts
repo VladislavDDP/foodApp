@@ -3,7 +3,12 @@ export interface DeliveryOption {
   text: string;
 }
 
+export enum DeliveryOptionValue {
+  DoorDelivery = 'DoorDelivery',
+  PickUp = 'PickUp',
+}
+
 export const deliveryOptions = [
-  {id: 1, text: 'Door delivery'},
-  {id: 2, text: 'Pick up'},
+  {id: 1, text: DeliveryOptionValue.DoorDelivery},
+  {id: 2, text: DeliveryOptionValue.PickUp},
 ];

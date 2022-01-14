@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {observer} from 'mobx-react';
 import {Animated, Dimensions, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -20,6 +20,7 @@ const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
   const {authentication} = useStore();
+  const [error, setError] = useState('');
 
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
@@ -29,9 +30,14 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
   }, [navigation]);
 
   const login = async (email: string, password: string) => {
-    const response = await authentication.login(email, password);
-    if (response) {
-      goToDashboard();
+    try {
+      const response = await authentication.login(email, password);
+      if (response) {
+        setError('');
+        goToDashboard();
+      }
+    } catch (e) {
+      setError(e as string);
     }
   };
 
@@ -69,7 +75,7 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
           style={styles.animatedContainer}
           pagingEnabled
           horizontal>
-          <Login login={login} />
+          <Login login={login} error={error} />
           <SignUp register={register} />
         </Animated.ScrollView>
       </View>

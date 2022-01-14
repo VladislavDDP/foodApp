@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Provider} from 'mobx-react';
 import SplashScreen from 'react-native-splash-screen';
 
 import {RootNavigator} from './src/navigation/RootNavigator';
-import {rootStore} from './src/store/store';
+import {rootStore, useStore} from './src/store/store';
 
 export const App = () => {
-  React.useEffect(() => {
+  const {authentication} = useStore();
+
+  const checkIfAuthorized = useCallback(async () => {
+    await authentication.checkIfAuthorized();
     SplashScreen.hide();
-  }, []);
+  }, [authentication]);
+
+  useEffect(() => {
+    checkIfAuthorized();
+  }, [checkIfAuthorized]);
 
   return (
     <Provider value={rootStore}>

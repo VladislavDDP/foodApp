@@ -10,12 +10,15 @@ import {Search} from '../../screens/search/Search.component';
 import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
 import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
+import {useStore} from '../../store/store';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
-const sharedElements: SharedElementsComponentConfig = (route, otherRoute, showing) => [{id: 'bg'}];
+const sharedElements: SharedElementsComponentConfig = (_route, _otherRoute, _showing) => [{id: 'bg'}];
 
 export const RootStack = () => {
+  const {authentication} = useStore();
+
   const setAnimation: StackCardStyleInterpolator = ({current: {progress}}) => ({
     cardStyle: {
       opacity: progress,
@@ -23,7 +26,7 @@ export const RootStack = () => {
   });
 
   return (
-    <Stack.Navigator initialRouteName={Screens.AuthFlowStack} screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName={authentication.authorized ? Screens.DrawerStack : Screens.AuthFlowStack} screenOptions={{headerShown: false}}>
       <Stack.Screen name={Screens.AuthFlowStack} component={AuthFlowStack} />
       <Stack.Screen name={Screens.DrawerStack} component={DrawerStack} />
       <Stack.Screen

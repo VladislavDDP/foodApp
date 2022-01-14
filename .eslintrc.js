@@ -76,6 +76,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': ['error'],
     'no-template-curly-in-string': 'error',
     '@typescript-eslint/no-misused-new': 'error',
+    '@typescript-eslint/adjacent-overload-signatures': 0,
     'no-return-await': 'error',
     'no-sparse-arrays': 'error',
     'dot-notation': 'error',

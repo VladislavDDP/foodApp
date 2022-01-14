@@ -7,14 +7,16 @@ import {styles} from './favourite-item.styles';
 
 interface Props {
   item: Food;
+  onPress: (item: Food) => void;
   deleteItem: (id: number) => void;
 }
 
-export const FavouriteItem: React.FC<Props> = ({item, deleteItem}) => {
+export const FavouriteItem: React.FC<Props> = ({item, onPress, deleteItem}) => {
+  const goToDetailsOnPress = () => onPress(item);
   const deleteOnLongPress = () => deleteItem(item.id);
 
   return (
-    <TouchableOpacity onLongPress={deleteOnLongPress} style={styles.container}>
+    <TouchableOpacity onPress={goToDetailsOnPress} onLongPress={deleteOnLongPress} style={styles.container}>
       <Image source={{uri: item.photo}} style={styles.itemImage} />
       <View style={styles.itemDescription}>
         <Text style={styles.itemName}>{item.name}</Text>

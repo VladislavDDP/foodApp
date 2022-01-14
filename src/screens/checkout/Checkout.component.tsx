@@ -15,23 +15,20 @@ import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
 import {useStore} from '../../store/store';
 
-const defaultSelectedOption = 1;
-
 interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 
 export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [deliveryOption, setDeliveryOption] = useState(defaultSelectedOption);
-  const {foodStore, cart} = useStore();
+  const {foodStore, cart, profile} = useStore();
 
   const renderOption = (option: DeliveryOption) => {
-    const setOption = () => setDeliveryOption(option.id);
+    const setOption = () => profile.setDeliveryMethod(option.text);
 
     return (
       <RadioButton
         key={option.id}
         text={option.text}
-        isSelected={deliveryOption === option.id}
+        isSelected={profile.deliveryOption === option.text}
         shouldSeparate={option.id !== deliveryOptions.length}
         onSelect={setOption}
       />

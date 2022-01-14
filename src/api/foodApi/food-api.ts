@@ -5,6 +5,20 @@ import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
 
+interface Auth {
+  jwt: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+    provider: string;
+    confirmed: boolean;
+    blocked: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
   return new Food(data.id, data.attributes.name, data.attributes.price, data.attributes.photo, data.attributes.gallery, categories, isLiked);
@@ -22,6 +36,18 @@ export class FoodApi {
     this.http = http;
     this.http.setBaseURL(this.baseURL);
   }
+
+  public authorizeUser = async (email: string, password: string) => {
+    try {
+      const response = await this.http.post<Auth>('/auth/local', {
+        identifier: email,
+        password: password,
+      });
+      return response.user;
+    } catch (e) {
+      throw new Error('Incorrect login or password');
+    }
+  };
 
   public getFood = async () => {
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods?populate=*');

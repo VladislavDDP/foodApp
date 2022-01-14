@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
+import {observer} from 'mobx-react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
+import {useStore} from '../../../store/store';
 import {ContactInfo} from './contact-info/ContactInfo.component';
 import {PaymentOption, paymentOptions} from './paymentOption.types';
 import {styles} from './profile.styles';
 
-const defaultSelectedOption = 1;
-
-export const Profile = () => {
-  const [paymentOptionId, setPaymentOptionId] = useState(defaultSelectedOption);
+export const Profile = observer(() => {
+  const {profile} = useStore();
 
   const renderOption = (option: PaymentOption) => {
-    const onSelect = () => setPaymentOptionId(option.id);
+    const onSelect = () => profile.setPaymentMethod(option.text);
 
     return (
       <RadioButton
@@ -21,7 +21,7 @@ export const Profile = () => {
         icon={option.icon}
         text={option.text}
         iconColor={option.color}
-        isSelected={paymentOptionId === option.id}
+        isSelected={profile.paymentOption === option.text}
         shouldSeparate={option.id !== paymentOptions.length}
         onSelect={onSelect}
       />
@@ -41,4 +41,4 @@ export const Profile = () => {
       </View>
     </SafeAreaView>
   );
-};
+});

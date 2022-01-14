@@ -5,18 +5,24 @@ import {SafeAreaView, Text, FlatList} from 'react-native';
 import {Food} from '../../../model/food';
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
 import {FavouriteItem} from './favourite-item/FavouriteItem.component';
-import {styles} from './like.styles';
+import {styles} from './favourites.styles';
 import {useStore} from '../../../store/store';
 import {ListHeader} from '../../../components/list-header/ListHeader.component';
+import {Screens} from '../../../navigation/root-stack/routes.types';
+import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
 
-export const Like = observer(() => {
+interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
+
+export const Favourites: React.FC<Props> = observer(({navigation}) => {
   const {foodStore} = useStore();
+
+  const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
 
   const deleteItem = (id: number) => {
     foodStore.removeFromFavourites(id);
   };
 
-  const renderItem = ({item}: {item: Food}) => <FavouriteItem item={item} deleteItem={deleteItem} />;
+  const renderItem = ({item}: {item: Food}) => <FavouriteItem item={item} onPress={goToDetails} deleteItem={deleteItem} />;
 
   const renderListEmpty = () => <EmptyBox icon="heart-o" title="No liked food" text="Add new items to favourites" />;
 

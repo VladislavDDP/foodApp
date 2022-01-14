@@ -1,28 +1,41 @@
 import {makeAutoObservable} from 'mobx';
 
+import {FoodApi} from '../api/foodApi/food-api';
+import {Storage} from '../storage/storage';
+
 export class Authentication {
   public email: string = '';
-  public password: string = '';
   public authorized: boolean = false;
 
-  public constructor() {
+  private foodApi: FoodApi;
+  private storage: Storage;
+
+  public constructor(foodApi: FoodApi, storage: Storage) {
+    this.foodApi = foodApi;
+    this.storage = storage;
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public login(email: string, password: string) {
-    if (email === '' && password === '') {
-      this.email = email;
-      this.password = password;
+  public async checkIfAuthorized() {
+    const key = await this.storage.checkIfAuthorized();
+    if (key) {
       this.authorized = true;
-      return true;
     }
+  }
+
+  public async login(email: string, password: string) {
+    const response = await this.foodApi.authorizeUser(email, password);
+    this.email = response.email;
+    this.authorized = true;
+    this.storage.addAuthenticationKey();
+    return true;
   }
 
   public register(email: string, password: string, passwordAgain: string) {
     if (email === '' && password === '' && password === passwordAgain) {
       this.email = email;
-      this.password = password;
       this.authorized = true;
+      this.storage.addAuthenticationKey();
       return true;
     }
   }
@@ -33,7 +46,7 @@ export class Authentication {
 
   public logout() {
     this.email = '';
-    this.password = '';
     this.authorized = false;
+    this.storage.removeAuthenticationKey();
   }
 }

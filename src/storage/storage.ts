@@ -5,6 +5,19 @@ import {Food} from '../model/food';
 import {StorageKeys} from './asyncKeys';
 
 export class Storage {
+  public addAuthenticationKey = async () => {
+    AsyncStorage.setItem(StorageKeys.Authorized, 'kekekek');
+  };
+
+  public removeAuthenticationKey = async () => {
+    AsyncStorage.setItem(StorageKeys.Authorized, '');
+  };
+
+  public checkIfAuthorized = async () => {
+    const response = await AsyncStorage.getItem(StorageKeys.Authorized);
+    return response;
+  };
+
   public getLikedFood = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.LikedItems);
     return response ? JSON.parse(response) : [];

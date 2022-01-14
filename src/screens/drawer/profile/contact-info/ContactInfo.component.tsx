@@ -1,8 +1,10 @@
 import {Formik} from 'formik';
+import {observer} from 'mobx-react';
 import React, {useState} from 'react';
 import {Image, NativeSyntheticEvent, Text, TextInput, TextInputFocusEventData, View} from 'react-native';
 
 import {Icon5Button} from '../../../../components/icon-button/Icon5Button.component';
+import {useStore} from '../../../../store/store';
 import {styles} from './contact-info.styles';
 import {FormUserContacts} from './form-user-contacts/FormUserContacts.component';
 
@@ -25,20 +27,20 @@ export interface UserContactsFormikTypes {
   values: UserContacts;
 }
 
-export const ContactInfo = () => {
+export const ContactInfo = observer(() => {
+  const {profile} = useStore();
   const [userContacts, setUserContacts] = useState<UserContacts>({
-    name: 'Marvis Ighodesa',
-    email: 'dosamarvis@gmail.com',
-    address: 'No 15 uti street off ovie palace road effurun delta state',
+    name: profile.name,
+    email: profile.email,
+    address: profile.address,
   });
   const [editMode, setEditMode] = useState(false);
-
-  const highllightInputField = editMode ? '#999' : 'transparent';
 
   const switchEditMode = () => setEditMode(!editMode);
 
   const submitEditing = (values: UserContacts) => {
     setUserContacts({...values});
+    profile.updateUserProfile(values.name, values.address, values.email);
     switchEditMode();
   };
 
@@ -80,4 +82,4 @@ export const ContactInfo = () => {
       )}
     </View>
   );
-};
+});
