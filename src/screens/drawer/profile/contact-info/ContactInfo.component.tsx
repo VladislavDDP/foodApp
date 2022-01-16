@@ -29,17 +29,11 @@ export interface UserContactsFormikTypes {
 
 export const ContactInfo = observer(() => {
   const {profile} = useStore();
-  const [userContacts, setUserContacts] = useState<UserContacts>({
-    name: profile.name,
-    email: profile.email,
-    address: profile.address,
-  });
   const [editMode, setEditMode] = useState(false);
 
   const switchEditMode = () => setEditMode(!editMode);
 
   const submitEditing = (values: UserContacts) => {
-    setUserContacts({...values});
     profile.updateUserProfile(values.name, values.address, values.email);
     switchEditMode();
   };
@@ -63,20 +57,20 @@ export const ContactInfo = observer(() => {
         style={styles.image}
       />
       {editMode ? (
-        <Formik initialValues={userContacts} onSubmit={submitEditing}>
+        <Formik initialValues={{name: profile.name, email: profile.email, address: profile.address}} onSubmit={submitEditing}>
           {renderForm}
         </Formik>
       ) : (
         <View style={styles.infoText}>
           <View style={styles.infoContacts}>
             <View style={styles.nameEmailContainer}>
-              <Text style={styles.nameText}>{userContacts.name}</Text>
-              <Text style={styles.emailText}>{userContacts.email}</Text>
+              <Text style={styles.nameText}>{profile.name}</Text>
+              <Text style={styles.emailText}>{profile.email}</Text>
             </View>
             <Icon5Button iconName="pen" onPress={switchEditMode} color="#333" size={20} />
           </View>
           <Text numberOfLines={3} style={styles.addressText}>
-            {userContacts.address}
+            {profile.address}
           </Text>
         </View>
       )}

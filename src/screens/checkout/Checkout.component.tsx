@@ -10,7 +10,7 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './checkout.styles';
 import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.component';
-import {DeliveryOption, deliveryOptions} from './deliveryOptions.types';
+import {DeliveryType} from './deliveryOptions.types';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
 import {useStore} from '../../store/store';
@@ -20,20 +20,6 @@ interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const {foodStore, cart, profile} = useStore();
-
-  const renderOption = (option: DeliveryOption) => {
-    const setOption = () => profile.setDeliveryMethod(option.text);
-
-    return (
-      <RadioButton
-        key={option.id}
-        text={option.text}
-        isSelected={profile.deliveryOption === option.text}
-        shouldSeparate={option.id !== deliveryOptions.length}
-        onSelect={setOption}
-      />
-    );
-  };
 
   const approvePayment = () => {
     setModalVisible(false);
@@ -46,6 +32,8 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
 
   const onRequestClose = () => setModalVisible(!modalVisible);
 
+  const setOption = (option: DeliveryType) => profile.setDeliveryMethod(option);
+
   return (
     <View style={styles.container}>
       <CustomHeader title="Checkout" onPress={navigation.goBack} />
@@ -57,7 +45,20 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
         <DeliveryDetails />
         <View>
           <Text style={styles.sectionTitle}>Delivery method</Text>
-          <View style={styles.deliveryMethodContainer}>{deliveryOptions.map(renderOption)}</View>
+          <View style={styles.deliveryMethodContainer}>
+            <RadioButton
+              text={DeliveryType.DoorDelivery}
+              isSelected={profile.deliveryOption === DeliveryType.DoorDelivery}
+              shouldSeparate={true}
+              onSelect={() => setOption(DeliveryType.DoorDelivery)}
+            />
+            <RadioButton
+              text={DeliveryType.PickUp}
+              isSelected={profile.deliveryOption === DeliveryType.PickUp}
+              shouldSeparate={false}
+              onSelect={() => setOption(DeliveryType.PickUp)}
+            />
+          </View>
         </View>
         <TotalPrice totalCartPrice={cart.totalCartPrice} />
       </View>

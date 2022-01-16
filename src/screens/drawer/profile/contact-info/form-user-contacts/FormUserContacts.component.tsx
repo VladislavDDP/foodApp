@@ -9,7 +9,7 @@ interface Props extends UserContactsFormikTypes {
   switchEditMode: () => void;
 }
 
-export const FormUserContacts: React.FC<Props> = ({handleChange, handleBlur, handleSubmit, switchEditMode, values}) => (
+export const FormUserContacts: React.FC<Props> = ({handleChange, handleBlur, handleSubmit, values}) => (
   <View style={styles.infoText}>
     <View style={styles.infoContacts}>
       <View style={styles.nameEmailContainer}>

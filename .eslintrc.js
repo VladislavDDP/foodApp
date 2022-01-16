@@ -71,6 +71,7 @@ module.exports = {
     'no-cond-assign': 'error',
     'no-debugger': 'error',
     'no-console': 'error',
+    'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/no-dynamic-delete': 'error',
     'no-empty-function': 'off',
     '@typescript-eslint/no-empty-function': ['error'],

@@ -1,25 +1,25 @@
 import {makeAutoObservable} from 'mobx';
 
-import {PaymentOptionValue} from '../screens/drawer/profile/paymentOption.types';
-import {DeliveryOptionValue} from '../screens/checkout/deliveryOptions.types';
+import {DeliveryType} from '../screens/checkout/deliveryOptions.types';
+import {PaymentType} from '../screens/drawer/profile/paymentOption.types';
 
 export class Profile {
   public name: string = 'Username';
   public address: string = 'Unknown';
   public phone: string = '+380999999999';
   public email: string = 'mymail@gmail.com';
-  public paymentOption: string = PaymentOptionValue.Card;
-  public deliveryOption: string = DeliveryOptionValue.DoorDelivery;
+  public paymentOption: PaymentType = PaymentType.Card;
+  public deliveryOption: DeliveryType = DeliveryType.DoorDelivery;
 
   public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public setPaymentMethod(value: string) {
+  public setPaymentMethod(value: PaymentType) {
     this.paymentOption = value;
   }
 
-  public setDeliveryMethod(value: string) {
+  public setDeliveryMethod(value: DeliveryType) {
     this.deliveryOption = value;
   }
 
@@ -27,5 +27,11 @@ export class Profile {
     this.name = name;
     this.address = address;
     this.email = email;
+  }
+
+  public updateDeliveryDetails(name: string, address: string, phone: string) {
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
   }
 }

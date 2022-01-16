@@ -15,7 +15,7 @@ export const App = () => {
 
   useEffect(() => {
     checkIfAuthorized();
-  }, [checkIfAuthorized]);
+  }, []);
 
   return (
     <Provider value={rootStore}>

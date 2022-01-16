@@ -4,20 +4,7 @@ import {HttpApi} from '../http-api';
 import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
-
-interface Auth {
-  jwt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+import {Auth} from './dto/auth';
 
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
@@ -43,9 +30,13 @@ export class FoodApi {
         identifier: email,
         password: password,
       });
-      return response.user;
+      return response;
     } catch (e) {
-      throw new Error('Incorrect login or password');
+      if ((e as string) === 'Request failed with status code 400') {
+        throw new Error('Invalid email or password');
+      } else {
+        throw new Error('Unknown error');
+      }
     }
   };
 

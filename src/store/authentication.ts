@@ -17,7 +17,7 @@ export class Authentication {
   }
 
   public async checkIfAuthorized() {
-    const key = await this.storage.checkIfAuthorized();
+    const key = await this.storage.getToken();
     if (key) {
       this.authorized = true;
     }
@@ -25,17 +25,16 @@ export class Authentication {
 
   public async login(email: string, password: string) {
     const response = await this.foodApi.authorizeUser(email, password);
-    this.email = response.email;
+    this.email = response.user.email;
     this.authorized = true;
-    this.storage.addAuthenticationKey();
+    this.storage.addAuthenticationKey(response.jwt);
     return true;
   }
 
   public register(email: string, password: string, passwordAgain: string) {
-    if (email === '' && password === '' && password === passwordAgain) {
+    if (email === 'email@gmail.com' && password === '1' && password === passwordAgain) {
       this.email = email;
       this.authorized = true;
-      this.storage.addAuthenticationKey();
       return true;
     }
   }

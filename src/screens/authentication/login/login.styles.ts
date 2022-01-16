@@ -12,6 +12,21 @@ export const styles = StyleSheet.create({
     marginHorizontal: 50,
     paddingVertical: Platform.select({android: 0, ios: 50}),
   },
+  error: {
+    color: 'red',
+    marginBottom: 10,
+  },
+  redline: {
+    borderBottomColor: 'red',
+  },
+  input: {
+    height: 40,
+    fontWeight: '600',
+    fontSize: 17,
+    borderBottomWidth: 1,
+    borderBottomColor: '#999',
+    marginBottom: 10,
+  },
   button: {
     backgroundColor: '#FA4A0C',
   },

@@ -1,5 +1,5 @@
 export enum StorageKeys {
-  Authorized = 'Authorized',
+  JwtKey = 'JwtKey',
   LikedItems = 'LikedItems',
   ShoppingHistory = 'ShoppingHistory',
 }

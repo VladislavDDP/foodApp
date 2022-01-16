@@ -1,31 +1,89 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {Field, Formik} from 'formik';
+import {ActivityIndicator, Text, TextInput, View} from 'react-native';
+import {observer} from 'mobx-react';
+import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
-import {InputField} from '../../../components/input-field/InputField.component';
+import {useStore} from '../../../store/store';
 import {styles} from './sign-up.styles';
+import {TextField} from '../text-field/TextField.component';
 
 interface Props {
-  register: (email: string, password: string, passwordAgain: string) => void;
+  goToDashboard: () => void;
 }
 
-export const SignUp: React.FC<Props> = ({register}) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordAgain, setPasswordAgain] = useState<string>('');
+interface SignUpValues {
+  email: string;
+  password: string;
+  passwordAgain: string;
+}
 
-  const signUp = () => {
-    register(email, password, passwordAgain);
+export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
+  const {authentication} = useStore();
+  const [loading, setLoading] = useState(false);
+  const password = useRef<TextInput>(null);
+  const passwordAgain = useRef<TextInput>(null);
+
+  const SignUpSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().required('Required'),
+    passwordAgain: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Required'),
+  });
+
+  const submitSignUp = async (values: SignUpValues) => {
+    try {
+      setLoading(true);
+      const response = await authentication.register(values.email, values.password, values.passwordAgain);
+      if (response) {
+        goToDashboard();
+      }
+    } catch (e) {
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const focusPasswordField = () => password.current?.focus();
+  const focusPasswordAgainField = () => passwordAgain.current?.focus();
 
   return (
     <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <InputField setInput={setEmail} value={email} label="Email address" placeholder="..." />
-        <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure />
-        <InputField setInput={setPasswordAgain} value={passwordAgain} label="Password again" placeholder="..." isSecure />
-      </View>
-      <CustomButton text="Sign-up" onPress={signUp} buttonStyle={styles.button} labelStyle={styles.label} />
+      <Formik initialValues={{email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
+        {({handleSubmit, errors}) => (
+          <>
+            <View style={styles.formContainer}>
+              {loading ? (
+                <ActivityIndicator size="large" color="#FF460A" />
+              ) : (
+                <>
+                  <Text style={styles.error}>{errors.email}</Text>
+                  <Field label="Email" component={TextField} name="email" autoCompleteType="email" onSubmitEditing={focusPasswordField} />
+                  <Field
+                    label="Password"
+                    innerRef={password}
+                    component={TextField}
+                    name="password"
+                    secureTextEntry
+                    onSubmitEditing={focusPasswordAgainField}
+                  />
+                  <Field
+                    label="Password again"
+                    innerRef={passwordAgain}
+                    component={TextField}
+                    name="passwordAgain"
+                    secureTextEntry
+                    onSubmitEditing={handleSubmit}
+                  />
+                </>
+              )}
+            </View>
+            <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+          </>
+        )}
+      </Formik>
     </View>
   );
-};
+});

@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {NativeSyntheticEvent, Text, TextInput, TextInputFocusEventData, View} from 'react-native';
+import {observer} from 'mobx-react';
 import {Formik} from 'formik';
 
 import {ChangeButton} from '../change-button/ChangeButton.component';
 import {TextRecipientInfo} from './text-recipient-info/TextRecipientInfo.component';
 import {styles} from './delivery-details.styles';
 import {FormRecipientInfo} from './form-recipient-info/FormRecipientInfo.component';
+import {useStore} from '../../../store/store';
 
 interface RecipientData {
   name: string;
@@ -26,16 +28,12 @@ export interface DeliveryFormikTypes {
   values: RecipientData;
 }
 
-export const DeliveryDetails = () => {
+export const DeliveryDetails = observer(() => {
+  const {profile} = useStore();
   const [editMode, setEditMode] = useState(false);
-  const [recipientData, setRecipientData] = useState<RecipientData>({
-    name: 'Marvis Kparobo',
-    address: 'Km 5 refinery road oppsite republic road, effurun, delta state',
-    phone: '+234 9011039271',
-  });
 
   const submitEditing = (values: RecipientData) => {
-    setRecipientData({...values});
+    profile.updateDeliveryDetails(values.name, values.address, values.phone);
     changeEditMode();
   };
 
@@ -53,13 +51,13 @@ export const DeliveryDetails = () => {
       </View>
       <View style={styles.addressTextContainer}>
         {editMode ? (
-          <Formik initialValues={recipientData} onSubmit={submitEditing}>
+          <Formik initialValues={{name: profile.name, address: profile.address, phone: profile.phone}} onSubmit={submitEditing}>
             {renderForm}
           </Formik>
         ) : (
-          <TextRecipientInfo {...recipientData} />
+          <TextRecipientInfo {...{name: profile.name, address: profile.address, phone: profile.phone}} />
         )}
       </View>
     </View>
   );
-};
+});

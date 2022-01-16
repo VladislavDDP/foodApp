@@ -14,7 +14,7 @@ import {useStore} from '../../store/store';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
-const sharedElements: SharedElementsComponentConfig = (_route, _otherRoute, _showing) => [{id: 'bg'}];
+const sharedElements: SharedElementsComponentConfig = () => [{id: 'bg'}];
 
 export const RootStack = () => {
   const {authentication} = useStore();

@@ -1,24 +1,49 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {observer} from 'mobx-react';
+import {Field, Formik, type FormikHelpers} from 'formik';
+import {ActivityIndicator, Text, TextInput, View} from 'react-native';
+import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
-import {InputField} from '../../../components/input-field/InputField.component';
 import {TextBtn} from '../text-btn/TextBtn.component';
 import {styles} from './login.styles';
+import {useStore} from '../../../store/store';
+import {TextField} from '../text-field/TextField.component';
 
 interface Props {
-  error: string;
-  login: (email: string, password: string) => void;
+  goToDashboard: () => void;
 }
 
-export const Login: React.FC<Props> = ({error, login}) => {
-  const [email, setEmail] = useState<string>('vladyslav.kucheruk@computools.com');
-  const [password, setPassword] = useState<string>('fVRMzwemhBKgfT6');
-  const loginError = error ? {backgroundColor: 'red'} : {};
+export interface LoginValues {
+  email: string;
+  password: string;
+}
 
-  const loginUser = () => {
-    login(email, password);
+export const Login: React.FC<Props> = observer(({goToDashboard}) => {
+  const {authentication} = useStore();
+  const [loading, setLoading] = useState(false);
+  const password = useRef<TextInput>(null);
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().required('Required'),
+  });
+
+  const submitLogin = async (values: LoginValues, actions: FormikHelpers<LoginValues>) => {
+    try {
+      setLoading(true);
+      const response = await authentication.login(values.email, values.password);
+      if (response) {
+        goToDashboard();
+      }
+    } catch (e) {
+      actions.setErrors({email: 'Incorrent email or password', password: 'Incorrent email or password'});
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const focusPasswordField = () => password.current?.focus();
 
   const forgotPasscode = () => {
     // TODO: forgot passcode action
@@ -26,12 +51,37 @@ export const Login: React.FC<Props> = ({error, login}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <InputField setInput={setEmail} error={loginError} value={email} label="Email address" />
-        <InputField setInput={setPassword} error={loginError} value={password} label="Password" isSecure />
-        <TextBtn title="Forgot passcode?" onPress={forgotPasscode} />
-      </View>
-      <CustomButton text="Login" onPress={loginUser} buttonStyle={styles.button} labelStyle={styles.label} />
+      <Formik
+        initialValues={{email: 'vladyslav.kucheruk@computools.com', password: 'fVRMzwemhBKgfT6'}}
+        validationSchema={LoginSchema}
+        onSubmit={submitLogin}>
+        {({handleSubmit, errors}) => (
+          <>
+            <View style={styles.formContainer}>
+              {loading ? (
+                <ActivityIndicator size="large" color="#FF460A" />
+              ) : (
+                <>
+                  <Text style={styles.error}>{errors.email}</Text>
+                  <View>
+                    <Field label="Email" component={TextField} name="email" autoCompleteType="email" onSubmitEditing={focusPasswordField} />
+                    <Field
+                      label="Password"
+                      innerRef={password}
+                      component={TextField}
+                      name="password"
+                      secureTextEntry
+                      onSubmitEditing={handleSubmit}
+                    />
+                  </View>
+                  <TextBtn title="Forgot passcode?" onPress={forgotPasscode} />
+                </>
+              )}
+            </View>
+            <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+          </>
+        )}
+      </Formik>
     </View>
   );
-};
+});

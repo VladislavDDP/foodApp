@@ -13,6 +13,10 @@ export const styles = StyleSheet.create({
     marginHorizontal: 50,
     paddingVertical: Platform.select({android: 0, ios: 50}),
   },
+  error: {
+    color: 'red',
+    marginBottom: 10,
+  },
   button: {
     backgroundColor: '#FA4A0C',
   },
