@@ -1,15 +1,19 @@
 const defaultPrice = 0;
+const fixedPoints = 1;
 
-interface RecieptItem {
+export interface RecieptItem {
   id: number;
-  name: string;
-  photo: string;
-  price: number;
-  gallery: Array<string>;
-  categories: Array<{id: number; name: string}>;
+  qty: number;
+  attributes: {
+    name: string;
+    photo: string;
+    price: number;
+    gallery: Array<string>;
+    categories: Array<{id: number; name: string}>;
+  };
 }
 
-export class Receipt {
+export class Reciept {
   public id: number;
   public address: string;
   public phone: string;
@@ -17,7 +21,7 @@ export class Receipt {
   public payment: string;
   public createdAt: string;
   public items: Array<RecieptItem>;
-  public totalPrice: number;
+  public totalPrice: string;
 
   public constructor(
     id: number,
@@ -33,8 +37,8 @@ export class Receipt {
     this.payment = payment;
     this.phone = phone;
     this.deliveryMethod = deliveryMethod;
-    this.createdAt = createdAt;
+    this.createdAt = new Date(createdAt).toDateString();
     this.items = items;
-    this.totalPrice = items.reduce((acc: number, item: RecieptItem) => acc + item.price, defaultPrice);
+    this.totalPrice = items.reduce((acc: number, item: RecieptItem) => acc + item.attributes.price * item.qty, defaultPrice).toFixed(fixedPoints);
   }
 }

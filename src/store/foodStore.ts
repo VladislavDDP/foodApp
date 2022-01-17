@@ -4,13 +4,14 @@ import {FoodApi} from '../api/foodApi/food-api';
 import {CartFood} from '../model/cartFood';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
+import {Reciept} from '../model/reciept';
 import {Storage} from '../storage/storage';
 
 export class FoodStore {
   public allItems: Array<Food> = [];
 
   private allCategories: Array<Category> = [];
-  private orderedItems: Array<CartFood> = [];
+  private orderedItems: Array<Reciept> = [];
   private favouriteItems: Array<Food> = [];
   private foodApi: FoodApi;
   private storage: Storage;
@@ -56,20 +57,21 @@ export class FoodStore {
   }
 
   public async appendHistory(items: Array<CartFood>) {
-    this.orderedItems = [...items, ...this.orders];
+    // this.orderedItems = [...items, ...this.orders];
     await this.storage.updateShoppingHistory(items);
   }
 
   public async removeItemFromHistory(id: number) {
-    this.orderedItems = this.orders.filter((item: CartFood) => item.id !== id);
+    // this.orderedItems = this.orders.filter((item: CartFood) => item.id !== id);
     await this.storage.removeFromShoppingHistory(id);
   }
 
   private getAllNeededStuff() {
     runInAction(async () => {
+      const id = 2;
+      this.orderedItems = await this.foodApi.getShoppingHistory(id);
       this.allCategories = await this.foodApi.getCategories();
       this.favouriteItems = await this.storage.getLikedFood();
-      this.orderedItems = await this.storage.getShoppingHistory();
     });
   }
 

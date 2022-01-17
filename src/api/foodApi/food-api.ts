@@ -5,6 +5,8 @@ import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
 import {Auth} from './dto/auth';
+import {Reciept as RecieptIn} from './dto/reciept';
+import {Reciept} from '../../model/reciept';
 
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
@@ -12,6 +14,17 @@ export const mapToFood = (data: FoodIn, isLiked: boolean) => {
 };
 
 export const mapToCategories = (data: CategoryIn) => new Category(data.id, data.attributes.name);
+
+const mapToOrders = (data: RecieptIn) =>
+  new Reciept(
+    data.id,
+    data.attributes.address,
+    data.attributes.payment,
+    data.attributes.phone,
+    data.attributes.delivery_method,
+    data.attributes.createdAt,
+    data.attributes.items,
+  );
 
 export class FoodApi {
   public http: HttpApi;
@@ -66,5 +79,11 @@ export class FoodApi {
     const response = await this.http.get<{data: Array<CategoryIn>}>('/categories?populate=*');
     const categories = response.data.map(mapToCategories);
     return categories;
+  };
+
+  public getShoppingHistory = async (id: number) => {
+    const response = await this.http.get<{data: Array<RecieptIn>}>(`/orders?populate=*&filters[users_permissions_user][id][$eq]=${id}`);
+    const orders = response.data.map(mapToOrders);
+    return orders;
   };
 }
