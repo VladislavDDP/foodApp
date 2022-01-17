@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx';
 
-import {FoodApi} from '../api/foodApi/food-api';
+import {FoodApi} from '../api/food-api/food-api';
 import {CartFood} from '../model/cartFood';
 import {Category} from '../model/category';
 import {Food} from '../model/food';

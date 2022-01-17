@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Formik} from 'formik';
+import {Formik, type FormikValues} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
 import {observer} from 'mobx-react';
 import * as Yup from 'yup';
@@ -44,17 +44,19 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
     }
   };
 
+  const renderForm = ({handleSubmit}: FormikValues) => (
+    <>
+      <View style={styles.formContainer}>
+        {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <SignUpForm handleSubmit={handleSubmit} />}
+      </View>
+      <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+    </>
+  );
+
   return (
     <View style={styles.container}>
       <Formik initialValues={{email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
-        {({handleSubmit}) => (
-          <>
-            <View style={styles.formContainer}>
-              {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <SignUpForm handleSubmit={handleSubmit} />}
-            </View>
-            <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
-          </>
-        )}
+        {renderForm}
       </Formik>
     </View>
   );

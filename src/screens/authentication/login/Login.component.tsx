@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {observer} from 'mobx-react';
-import {Formik, type FormikHelpers} from 'formik';
+import {Formik, type FormikValues, type FormikHelpers} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
 import * as Yup from 'yup';
 
@@ -41,6 +41,15 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
     }
   };
 
+  const renderForm = ({handleSubmit}: FormikValues) => (
+    <>
+      <View style={styles.formContainer}>
+        {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <LoginForm resetPassword={resetPassword} handleSubmit={handleSubmit} />}
+      </View>
+      <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+    </>
+  );
+
   const resetPassword = () => {
     // TODO: reset passcode action
   };
@@ -51,14 +60,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
         initialValues={{email: 'vladyslav.kucheruk@computools.com', password: 'fVRMzwemhBKgfT6'}}
         validationSchema={LoginSchema}
         onSubmit={submitLogin}>
-        {({handleSubmit}) => (
-          <>
-            <View style={styles.formContainer}>
-              {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <LoginForm resetPassword={resetPassword} handleSubmit={handleSubmit} />}
-            </View>
-            <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
-          </>
-        )}
+        {renderForm}
       </Formik>
     </View>
   );
