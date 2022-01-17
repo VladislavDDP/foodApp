@@ -24,6 +24,14 @@ export class FoodApi {
     this.http.setBaseURL(this.baseURL);
   }
 
+  public setHttpToken = (token: string) => {
+    this.http.addHeader('Authorization', `Bearer ${token}`);
+  };
+
+  public removeHeaders = () => {
+    this.http.cleanHeaders();
+  };
+
   public authorizeUser = async (email: string, password: string) => {
     try {
       const response = await this.http.post<Auth>('/auth/local', {

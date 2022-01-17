@@ -19,15 +19,17 @@ export class Authentication {
   public async checkIfAuthorized() {
     const key = await this.storage.getToken();
     if (key) {
+      this.foodApi.setHttpToken(key);
       this.authorized = true;
     }
   }
 
   public async login(email: string, password: string) {
     const response = await this.foodApi.authorizeUser(email, password);
+    this.foodApi.setHttpToken(response.jwt);
+    this.storage.addAuthenticationKey(response.jwt);
     this.email = response.user.email;
     this.authorized = true;
-    this.storage.addAuthenticationKey(response.jwt);
     return true;
   }
 
@@ -47,5 +49,6 @@ export class Authentication {
     this.email = '';
     this.authorized = false;
     this.storage.removeAuthenticationKey();
+    this.foodApi.removeHeaders();
   }
 }
