@@ -1,7 +1,6 @@
 import {observer} from 'mobx-react';
 import React from 'react';
-import {Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, View, SafeAreaView} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
 import {useStore} from '../../../store/store';
@@ -29,7 +28,7 @@ export const Profile = observer(() => {
             text={PaymentType.Card}
             iconColor="orange"
             isSelected={profile.paymentOption === PaymentType.Card}
-            shouldSeparate={true}
+            shouldSeparate
             onSelect={() => setOption(PaymentType.Card)}
           />
           <RadioButton
@@ -37,7 +36,7 @@ export const Profile = observer(() => {
             text={PaymentType.BankAccount}
             iconColor="violet"
             isSelected={profile.paymentOption === PaymentType.BankAccount}
-            shouldSeparate={true}
+            shouldSeparate
             onSelect={() => setOption(PaymentType.BankAccount)}
           />
           <RadioButton
@@ -45,7 +44,6 @@ export const Profile = observer(() => {
             text={PaymentType.Paypal}
             iconColor="blue"
             isSelected={profile.paymentOption === PaymentType.Paypal}
-            shouldSeparate={false}
             onSelect={() => setOption(PaymentType.Paypal)}
           />
         </View>

@@ -4,7 +4,6 @@ import {HttpApi} from '../http-api';
 import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
-import {Auth} from './dto/auth';
 
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
@@ -24,28 +23,8 @@ export class FoodApi {
     this.http.setBaseURL(this.baseURL);
   }
 
-  public setHttpToken = (token: string) => {
-    this.http.addHeader('Authorization', `Bearer ${token}`);
-  };
-
   public removeHeaders = () => {
     this.http.cleanHeaders();
-  };
-
-  public authorizeUser = async (email: string, password: string) => {
-    try {
-      const response = await this.http.post<Auth>('/auth/local', {
-        identifier: email,
-        password: password,
-      });
-      return response;
-    } catch (e) {
-      if ((e as string) === 'Request failed with status code 400') {
-        throw new Error('Invalid email or password');
-      } else {
-        throw new Error('Unknown error');
-      }
-    }
   };
 
   public getFood = async () => {

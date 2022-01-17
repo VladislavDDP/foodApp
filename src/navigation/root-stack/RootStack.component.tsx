@@ -18,6 +18,7 @@ const sharedElements: SharedElementsComponentConfig = () => [{id: 'bg'}];
 
 export const RootStack = () => {
   const {authentication} = useStore();
+  const initialRouteName = authentication.authorized ? Screens.DrawerStack : Screens.AuthFlowStack;
 
   const setAnimation: StackCardStyleInterpolator = ({current: {progress}}) => ({
     cardStyle: {
@@ -26,7 +27,7 @@ export const RootStack = () => {
   });
 
   return (
-    <Stack.Navigator initialRouteName={authentication.authorized ? Screens.DrawerStack : Screens.AuthFlowStack} screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{headerShown: false}}>
       <Stack.Screen name={Screens.AuthFlowStack} component={AuthFlowStack} />
       <Stack.Screen name={Screens.DrawerStack} component={DrawerStack} />
       <Stack.Screen

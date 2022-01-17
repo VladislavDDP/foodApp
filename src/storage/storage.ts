@@ -10,7 +10,7 @@ export class Storage {
   };
 
   public removeAuthenticationKey = async () => {
-    AsyncStorage.setItem(StorageKeys.JwtKey, '');
+    await AsyncStorage.removeItem(StorageKeys.JwtKey);
   };
 
   public getToken = async () => {

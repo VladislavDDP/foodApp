@@ -49,13 +49,12 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
             <RadioButton
               text={DeliveryType.DoorDelivery}
               isSelected={profile.deliveryOption === DeliveryType.DoorDelivery}
-              shouldSeparate={true}
+              shouldSeparate
               onSelect={() => setOption(DeliveryType.DoorDelivery)}
             />
             <RadioButton
               text={DeliveryType.PickUp}
               isSelected={profile.deliveryOption === DeliveryType.PickUp}
-              shouldSeparate={false}
               onSelect={() => setOption(DeliveryType.PickUp)}
             />
           </View>
