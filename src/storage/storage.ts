@@ -13,10 +13,7 @@ export class Storage {
     await AsyncStorage.removeItem(StorageKeys.JwtKey);
   };
 
-  public getToken = async () => {
-    const response = await AsyncStorage.getItem(StorageKeys.JwtKey);
-    return response;
-  };
+  public getToken = async () => AsyncStorage.getItem(StorageKeys.JwtKey);
 
   public getLikedFood = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.LikedItems);

@@ -16,11 +16,9 @@ interface Auth {
 
 export class UserApi {
   public http: HttpApi;
-  private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
 
   public constructor(http: HttpApi) {
     this.http = http;
-    this.http.setBaseURL(this.baseURL);
   }
 
   public authorizeUser = async (email: string, password: string) => {
@@ -39,11 +37,11 @@ export class UserApi {
     }
   };
 
-  public setHttpToken = (token: string) => {
+  public setUserToken = (token: string) => {
     this.http.addHeader('Authorization', `Bearer ${token}`);
   };
 
-  public removeHeaders = () => {
-    this.http.cleanHeaders();
+  public removeUserToken = () => {
+    this.http.removeHeader('Authorization');
   };
 }

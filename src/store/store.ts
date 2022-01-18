@@ -20,6 +20,7 @@ export class RootStore {
   public cart: Cart;
   public profile: Profile;
 
+  private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
   private userApi: UserApi;
   private foodApi: FoodApi;
   private storage: Storage;
@@ -27,6 +28,8 @@ export class RootStore {
   public constructor() {
     this.storage = new Storage();
     const httpApi = new HttpApi();
+    httpApi.setBaseURL(this.baseURL);
+
     this.userApi = new UserApi(httpApi);
     this.foodApi = new FoodApi(httpApi, this.storage);
     this.authentication = new Authentication(this.userApi, this.storage);

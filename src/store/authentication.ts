@@ -19,14 +19,14 @@ export class Authentication {
   public async checkIfAuthorized() {
     const key = await this.storage.getToken();
     if (key) {
-      this.userApi.setHttpToken(key);
+      this.userApi.setUserToken(key);
       this.authorized = true;
     }
   }
 
   public async login(email: string, password: string) {
     const response = await this.userApi.authorizeUser(email, password);
-    this.userApi.setHttpToken(response.jwt);
+    this.userApi.setUserToken(response.jwt);
     this.storage.addAuthenticationKey(response.jwt);
     this.email = response.user.email;
     this.authorized = true;
@@ -43,10 +43,10 @@ export class Authentication {
     // TODO: logic of password reset
   }
 
-  public logout() {
+  public async logout() {
     this.email = '';
     this.authorized = false;
-    this.storage.removeAuthenticationKey();
-    this.userApi.removeHeaders();
+    await this.storage.removeAuthenticationKey();
+    this.userApi.removeUserToken();
   }
 }
