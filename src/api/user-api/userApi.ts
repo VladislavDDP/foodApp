@@ -1,18 +1,11 @@
+import {User} from '../../model/user';
 import {HttpApi} from '../http-api';
+import {Auth} from './dto/auth';
 
-interface Auth {
-  jwt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+const mapToUser = (item: Auth) => {
+  const {id, username, email, createdAt, updatedAt} = item.user;
+  return new User(id, username, email, createdAt, updatedAt);
+};
 
 export class UserApi {
   public http: HttpApi;
@@ -27,7 +20,9 @@ export class UserApi {
         identifier: email,
         password: password,
       });
-      return response;
+      const user = mapToUser(response);
+      const jwt = response.jwt;
+      return {jwt, user};
     } catch (e) {
       if ((e as string) === 'Request failed with status code 400') {
         throw new Error('Invalid email or password');
