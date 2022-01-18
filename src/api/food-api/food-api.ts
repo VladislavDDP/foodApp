@@ -15,12 +15,10 @@ export const mapToCategories = (data: CategoryIn) => new Category(data.id, data.
 export class FoodApi {
   public http: HttpApi;
   public storage: Storage;
-  private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
 
   public constructor(http: HttpApi, storage: Storage) {
     this.storage = storage;
     this.http = http;
-    this.http.setBaseURL(this.baseURL);
   }
 
   public getFood = async () => {

@@ -27,6 +27,12 @@ export class HttpApi implements HttpClient {
     this.createAxiosInstance();
   }
 
+  public removeHeader(header: string) {
+    const {[header]: _, ...rest} = this.headers;
+    this.headers = rest;
+    this.createAxiosInstance();
+  }
+
   public cleanHeaders() {
     this.headers = {};
     this.createAxiosInstance();

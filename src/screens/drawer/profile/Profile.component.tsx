@@ -1,32 +1,17 @@
-import React, {useState} from 'react';
-import {Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {observer} from 'mobx-react';
+import React from 'react';
+import {Text, View, SafeAreaView} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
+import {useStore} from '../../../store/store';
 import {ContactInfo} from './contact-info/ContactInfo.component';
-import {PaymentOption, paymentOptions} from './paymentOption.types';
+import {PaymentType} from './paymentOption.types';
 import {styles} from './profile.styles';
 
-const defaultSelectedOption = 1;
+export const Profile = observer(() => {
+  const {profile} = useStore();
 
-export const Profile = () => {
-  const [paymentOptionId, setPaymentOptionId] = useState(defaultSelectedOption);
-
-  const renderOption = (option: PaymentOption) => {
-    const onSelect = () => setPaymentOptionId(option.id);
-
-    return (
-      <RadioButton
-        key={option.id}
-        icon={option.icon}
-        text={option.text}
-        iconColor={option.color}
-        isSelected={paymentOptionId === option.id}
-        shouldSeparate={option.id !== paymentOptions.length}
-        onSelect={onSelect}
-      />
-    );
-  };
+  const setOption = (option: PaymentType) => profile.setPaymentMethod(option);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,8 +22,32 @@ export const Profile = () => {
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Payment Method</Text>
-        <View style={styles.paymentContainer}>{paymentOptions.map(renderOption)}</View>
+        <View style={styles.paymentContainer}>
+          <RadioButton
+            icon="credit-card"
+            text={PaymentType.Card}
+            iconColor="orange"
+            isSelected={profile.paymentOption === PaymentType.Card}
+            shouldSeparate
+            onSelect={() => setOption(PaymentType.Card)}
+          />
+          <RadioButton
+            icon="bank"
+            text={PaymentType.BankAccount}
+            iconColor="violet"
+            isSelected={profile.paymentOption === PaymentType.BankAccount}
+            shouldSeparate
+            onSelect={() => setOption(PaymentType.BankAccount)}
+          />
+          <RadioButton
+            icon="paypal"
+            text={PaymentType.Paypal}
+            iconColor="blue"
+            isSelected={profile.paymentOption === PaymentType.Paypal}
+            onSelect={() => setOption(PaymentType.Paypal)}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
-};
+});

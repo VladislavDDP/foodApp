@@ -1,8 +1,8 @@
-import {OfferPromo} from '../../screens/drawer/OfferPromo.component';
-import {Orders} from '../../screens/drawer/Orders.component';
-import {PrivacyPolicy} from '../../screens/drawer/PrivacyPolicy.component';
+import {OfferPromo} from '../../screens/drawer/offer-promo/OfferPromo.component';
+import {Orders} from '../../screens/drawer/orders/Orders.component';
+import {PrivacyPolicy} from '../../screens/drawer/privacy-policy/PrivacyPolicy.component';
 import {Profile} from '../../screens/drawer/profile/Profile.component';
-import {Security} from '../../screens/drawer/Security.component';
+import {Security} from '../../screens/drawer/security/Security.component';
 import {TabStack} from '../tab-navigation/TabStack.component';
 import {Drawers} from './drawer.types';
 

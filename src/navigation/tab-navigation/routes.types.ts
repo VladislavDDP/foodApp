@@ -2,7 +2,7 @@ import React from 'react';
 
 import {History} from '../../screens/dashboard/history/History.component';
 import {Home} from '../../screens/dashboard/home/Home.component';
-import {Like} from '../../screens/dashboard/like/Like.component';
+import {Favourites} from '../../screens/dashboard/favourites/Favourites.component';
 import {Profile} from '../../screens/drawer/profile/Profile.component';
 import {Screens} from '../root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../root-stack/stack.types';
@@ -25,9 +25,9 @@ export const tabScreens: Array<TabProps> = [
   },
   {
     id: 2,
-    name: 'Like',
+    name: 'Favourites',
     icon: 'heart-o',
-    component: Like,
+    component: Favourites,
   },
   {
     id: 3,

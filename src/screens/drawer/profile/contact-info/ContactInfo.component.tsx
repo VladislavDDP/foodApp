@@ -1,48 +1,31 @@
-import {Formik} from 'formik';
+import {Formik, type FormikValues} from 'formik';
+import {observer} from 'mobx-react';
 import React, {useState} from 'react';
-import {Image, NativeSyntheticEvent, Text, TextInput, TextInputFocusEventData, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 
 import {Icon5Button} from '../../../../components/icon-button/Icon5Button.component';
+import {useStore} from '../../../../store/store';
 import {styles} from './contact-info.styles';
 import {FormUserContacts} from './form-user-contacts/FormUserContacts.component';
 
-export interface UserContacts {
+interface UserContacts {
   name: string;
   email: string;
   address: string;
 }
 
-export interface UserContactsFormikTypes {
-  handleChange: {
-    <T = string | React.ChangeEvent<TextInput>>(field: T): T extends React.ChangeEvent<TextInput>
-      ? void
-      : (e: string | React.ChangeEvent<TextInput>) => void;
-  };
-  handleBlur: {
-    <T = TextInput>(fieldOrEvent: T): T extends string ? (e: NativeSyntheticEvent<TextInputFocusEventData>) => void : void;
-  };
-  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
-  values: UserContacts;
-}
-
-export const ContactInfo = () => {
-  const [userContacts, setUserContacts] = useState<UserContacts>({
-    name: 'Marvis Ighodesa',
-    email: 'dosamarvis@gmail.com',
-    address: 'No 15 uti street off ovie palace road effurun delta state',
-  });
+export const ContactInfo = observer(() => {
+  const {profile} = useStore();
   const [editMode, setEditMode] = useState(false);
-
-  const highllightInputField = editMode ? '#999' : 'transparent';
 
   const switchEditMode = () => setEditMode(!editMode);
 
   const submitEditing = (values: UserContacts) => {
-    setUserContacts({...values});
+    profile.updateUserProfile(values.name, values.address, values.email);
     switchEditMode();
   };
 
-  const renderForm = ({handleChange, handleBlur, handleSubmit, values}: UserContactsFormikTypes) => (
+  const renderForm = ({handleChange, handleBlur, handleSubmit, values}: FormikValues) => (
     <FormUserContacts
       switchEditMode={switchEditMode}
       handleChange={handleChange}
@@ -61,23 +44,23 @@ export const ContactInfo = () => {
         style={styles.image}
       />
       {editMode ? (
-        <Formik initialValues={userContacts} onSubmit={submitEditing}>
+        <Formik initialValues={{name: profile.name, email: profile.email, address: profile.address}} onSubmit={submitEditing}>
           {renderForm}
         </Formik>
       ) : (
         <View style={styles.infoText}>
           <View style={styles.infoContacts}>
             <View style={styles.nameEmailContainer}>
-              <Text style={styles.nameText}>{userContacts.name}</Text>
-              <Text style={styles.emailText}>{userContacts.email}</Text>
+              <Text style={styles.nameText}>{profile.name}</Text>
+              <Text style={styles.emailText}>{profile.email}</Text>
             </View>
             <Icon5Button iconName="pen" onPress={switchEditMode} color="#333" size={20} />
           </View>
           <Text numberOfLines={3} style={styles.addressText}>
-            {userContacts.address}
+            {profile.address}
           </Text>
         </View>
       )}
     </View>
   );
-};
+});

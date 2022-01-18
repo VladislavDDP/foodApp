@@ -1,12 +1,12 @@
 import React, {createRef} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {Text, TextInput, View, ViewStyle} from 'react-native';
 
 import {styles} from './input-field.styles';
 
 interface Props {
   label: string;
-  placeholder: string;
   isSecure?: boolean;
+  error?: ViewStyle;
   value: string;
   setInput: (text: string) => void;
 }
@@ -25,11 +25,10 @@ export const InputField: React.FC<Props> = props => {
         value={props.value}
         secureTextEntry={!!props.isSecure}
         onChangeText={props.setInput}
-        placeholder={props.placeholder}
         autoCapitalize="none"
         onBlur={blurInput}
       />
-      <View style={styles.line} />
+      <View style={[styles.line, props.error]} />
     </View>
   );
 };

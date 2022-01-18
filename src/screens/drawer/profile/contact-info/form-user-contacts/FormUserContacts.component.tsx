@@ -1,15 +1,15 @@
 import React from 'react';
+import type {FormikValues} from 'formik';
 import {TextInput, View} from 'react-native';
 
 import {SubmitButton} from '../../../../../components/submit-button/SubmitButton.component';
 import {styles} from '../contact-info.styles';
-import {UserContactsFormikTypes} from '../ContactInfo.component';
 
-interface Props extends UserContactsFormikTypes {
+interface Props {
   switchEditMode: () => void;
 }
 
-export const FormUserContacts: React.FC<Props> = ({handleChange, handleBlur, handleSubmit, switchEditMode, values}) => (
+export const FormUserContacts: React.FC<Props & FormikValues> = ({handleChange, handleBlur, handleSubmit, values}) => (
   <View style={styles.infoText}>
     <View style={styles.infoContacts}>
       <View style={styles.nameEmailContainer}>

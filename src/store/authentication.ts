@@ -1,39 +1,52 @@
 import {makeAutoObservable} from 'mobx';
 
+import {UserApi} from '../api/user-api/userApi';
+import {Storage} from '../storage/storage';
+
 export class Authentication {
   public email: string = '';
-  public password: string = '';
   public authorized: boolean = false;
 
-  public constructor() {
+  private userApi: UserApi;
+  private storage: Storage;
+
+  public constructor(userApi: UserApi, storage: Storage) {
+    this.userApi = userApi;
+    this.storage = storage;
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public login(email: string, password: string) {
-    if (email === '' && password === '') {
-      this.email = email;
-      this.password = password;
+  public async checkIfAuthorized() {
+    const key = await this.storage.getToken();
+    if (key) {
+      this.userApi.setUserToken(key);
       this.authorized = true;
-      return true;
     }
   }
 
-  public register(email: string, password: string, passwordAgain: string) {
-    if (email === '' && password === '' && password === passwordAgain) {
-      this.email = email;
-      this.password = password;
-      this.authorized = true;
-      return true;
-    }
+  public async login(email: string, password: string) {
+    const response = await this.userApi.authorizeUser(email, password);
+    this.userApi.setUserToken(response.jwt);
+    this.storage.addAuthenticationKey(response.jwt);
+    this.email = response.user.email;
+    this.authorized = true;
+    return true;
+  }
+
+  public register(email: string) {
+    this.email = email;
+    this.authorized = true;
+    return true;
   }
 
   public resetPassword() {
     // TODO: logic of password reset
   }
 
-  public logout() {
+  public async logout() {
     this.email = '';
-    this.password = '';
     this.authorized = false;
+    await this.storage.removeAuthenticationKey();
+    this.userApi.removeUserToken();
   }
 }

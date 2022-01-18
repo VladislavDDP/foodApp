@@ -5,6 +5,14 @@ import {Food} from '../model/food';
 import {StorageKeys} from './asyncKeys';
 
 export class Storage {
+  public addAuthenticationKey = async (jwtKey: string) => AsyncStorage.setItem(StorageKeys.JwtKey, jwtKey);
+
+  public removeAuthenticationKey = async () => {
+    await AsyncStorage.removeItem(StorageKeys.JwtKey);
+  };
+
+  public getToken = async () => AsyncStorage.getItem(StorageKeys.JwtKey);
+
   public getLikedFood = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.LikedItems);
     return response ? JSON.parse(response) : [];

@@ -1,35 +1,67 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {observer} from 'mobx-react';
+import {Formik, type FormikValues, type FormikHelpers} from 'formik';
+import {ActivityIndicator, View} from 'react-native';
+import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
-import {InputField} from '../../../components/input-field/InputField.component';
-import {TextBtn} from '../text-btn/TextBtn.component';
 import {styles} from './login.styles';
+import {useStore} from '../../../store/store';
+import {LoginForm} from './login-form/LoginForm.component';
 
 interface Props {
-  login: (email: string, password: string) => void;
+  goToDashboard: () => void;
 }
 
-export const Login: React.FC<Props> = ({login}) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+export interface LoginValues {
+  email: string;
+  password: string;
+}
 
-  const loginUser = () => {
-    login(email, password);
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
+
+export const Login: React.FC<Props> = observer(({goToDashboard}) => {
+  const {authentication} = useStore();
+  const [loading, setLoading] = useState(false);
+
+  const submitLogin = async (values: LoginValues, actions: FormikHelpers<LoginValues>) => {
+    try {
+      setLoading(true);
+      const response = await authentication.login(values.email, values.password);
+      if (response) {
+        goToDashboard();
+      }
+    } catch (e) {
+      actions.setErrors({email: 'Incorrent email or password', password: 'Incorrent email or password'});
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const forgotPasscode = () => {
-    // TODO: forgot passcode action
+  const renderForm = ({handleSubmit}: FormikValues) => (
+    <>
+      <View style={styles.formContainer}>
+        {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <LoginForm resetPassword={resetPassword} handleSubmit={handleSubmit} />}
+      </View>
+      <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+    </>
+  );
+
+  const resetPassword = () => {
+    // TODO: reset passcode action
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <InputField setInput={setEmail} value={email} label="Email address" placeholder="..." />
-        <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure />
-        <TextBtn title="Forgot passcode?" onPress={forgotPasscode} />
-      </View>
-      <CustomButton text="Login" onPress={loginUser} buttonStyle={styles.button} labelStyle={styles.label} />
+      <Formik
+        initialValues={{email: 'vladyslav.kucheruk@computools.com', password: 'fVRMzwemhBKgfT6'}}
+        validationSchema={LoginSchema}
+        onSubmit={submitLogin}>
+        {renderForm}
+      </Formik>
     </View>
   );
-};
+});

@@ -11,7 +11,6 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
-import {useStore} from '../../store/store';
 
 interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
 
@@ -19,28 +18,12 @@ const startValue = 0;
 const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
-  const {authentication} = useStore();
-
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
   const goToDashboard = useCallback(() => {
     navigation.replace(Screens.DrawerStack);
   }, [navigation]);
-
-  const login = async (email: string, password: string) => {
-    const response = await authentication.login(email, password);
-    if (response) {
-      goToDashboard();
-    }
-  };
-
-  const register = async (email: string, password: string, passwordAgain: string) => {
-    const response = await authentication.register(email, password, passwordAgain);
-    if (response) {
-      goToDashboard();
-    }
-  };
 
   const scrollToAuthProcess = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
@@ -69,8 +52,8 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
           style={styles.animatedContainer}
           pagingEnabled
           horizontal>
-          <Login login={login} />
-          <SignUp register={register} />
+          <Login goToDashboard={goToDashboard} />
+          <SignUp goToDashboard={goToDashboard} />
         </Animated.ScrollView>
       </View>
     </KeyboardAwareScrollView>

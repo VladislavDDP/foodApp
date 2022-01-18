@@ -1,31 +1,63 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {Formik, type FormikValues} from 'formik';
+import {ActivityIndicator, View} from 'react-native';
+import {observer} from 'mobx-react';
+import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
-import {InputField} from '../../../components/input-field/InputField.component';
+import {useStore} from '../../../store/store';
 import {styles} from './sign-up.styles';
+import {SignUpForm} from './sign-up-form/SignUpForm.component';
 
-interface Props {
-  register: (email: string, password: string, passwordAgain: string) => void;
+interface SignUpValues {
+  email: string;
+  password: string;
+  passwordAgain: string;
 }
 
-export const SignUp: React.FC<Props> = ({register}) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordAgain, setPasswordAgain] = useState<string>('');
+const SignUpSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+  passwordAgain: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Required'),
+});
 
-  const signUp = () => {
-    register(email, password, passwordAgain);
+interface Props {
+  goToDashboard: () => void;
+}
+
+export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
+  const {authentication} = useStore();
+  const [loading, setLoading] = useState(false);
+
+  const submitSignUp = async (values: SignUpValues) => {
+    try {
+      setLoading(true);
+      const response = await authentication.register(values.email);
+      if (response) {
+        goToDashboard();
+      }
+    } catch (e) {
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const renderForm = ({handleSubmit}: FormikValues) => (
+    <>
+      <View style={styles.formContainer}>
+        {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <SignUpForm handleSubmit={handleSubmit} />}
+      </View>
+      <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+    </>
+  );
 
   return (
     <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <InputField setInput={setEmail} value={email} label="Email address" placeholder="..." />
-        <InputField setInput={setPassword} value={password} label="Password" placeholder="..." isSecure />
-        <InputField setInput={setPasswordAgain} value={passwordAgain} label="Password again" placeholder="..." isSecure />
-      </View>
-      <CustomButton text="Sign-up" onPress={signUp} buttonStyle={styles.button} labelStyle={styles.label} />
+      <Formik initialValues={{email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
+        {renderForm}
+      </Formik>
     </View>
   );
-};
+});
