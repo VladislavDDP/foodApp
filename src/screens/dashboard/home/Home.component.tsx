@@ -30,9 +30,11 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
     setFoods(food);
   };
 
-  useFocusEffect(() => {
-    getFood(activeCategoryId);
-  });
+  useFocusEffect(
+    React.useCallback(() => {
+      getFood(activeCategoryId);
+    }, []),
+  );
 
   const navigateToSearch = () => navigation.navigate(Screens.Search);
 

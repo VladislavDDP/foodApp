@@ -8,6 +8,7 @@ const mapToUser = (item: Auth) => {
 };
 
 export class UserApi {
+  public static user: User;
   public http: HttpApi;
 
   public constructor(http: HttpApi) {
@@ -22,6 +23,7 @@ export class UserApi {
       });
       const user = mapToUser(response);
       const jwt = response.jwt;
+      UserApi.user = user;
       return {jwt, user};
     } catch (e) {
       if ((e as string) === 'Request failed with status code 400') {

@@ -1,10 +1,9 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import {makeAutoObservable} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
-import {CartFood} from '../model/cartFood';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
-import {Reciept} from '../model/reciept';
+import {Reciept, RecieptItem} from '../model/reciept';
 import {Storage} from '../storage/storage';
 
 export class FoodStore {
@@ -41,9 +40,10 @@ export class FoodStore {
   }
 
   public async addToFavourite(item: Food) {
-    this.favouriteItems.unshift(item);
+    const newItem = new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, true);
+    this.favouriteItems.unshift(newItem);
     this.favouriteItems = [...this.favourites];
-    await this.storage.addToFavourite(item);
+    await this.storage.addToFavourite(newItem);
   }
 
   public async removeFromFavourites(id: number) {
@@ -56,23 +56,14 @@ export class FoodStore {
     return [...this.filterItems(query)];
   }
 
-  public async appendHistory(items: Array<CartFood>) {
-    // this.orderedItems = [...items, ...this.orders];
-    await this.storage.updateShoppingHistory(items);
+  public async appendHistory(_item: RecieptItem) {
+    // TODO: create order with api endpoint
   }
 
-  public async removeItemFromHistory(id: number) {
-    // this.orderedItems = this.orders.filter((item: CartFood) => item.id !== id);
-    await this.storage.removeFromShoppingHistory(id);
-  }
-
-  private getAllNeededStuff() {
-    runInAction(async () => {
-      const id = 2;
-      this.orderedItems = await this.foodApi.getShoppingHistory(id);
-      this.allCategories = await this.foodApi.getCategories();
-      this.favouriteItems = await this.storage.getLikedFood();
-    });
+  public async getAllNeededStuff() {
+    this.allCategories = await this.foodApi.getCategories();
+    this.favouriteItems = await this.storage.getLikedFood();
+    this.orderedItems = await this.foodApi.getShoppingHistory();
   }
 
   private filterItems(query: string) {
