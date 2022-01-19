@@ -9,7 +9,7 @@ interface Props {
   text: string;
   iconColor?: string;
   isSelected: boolean;
-  shouldSeparate: boolean;
+  shouldSeparate?: boolean;
   onSelect: () => void;
 }
 

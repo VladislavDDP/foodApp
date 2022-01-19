@@ -1,14 +1,13 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {observer} from 'mobx-react';
-import {Field, Formik, type FormikHelpers} from 'formik';
-import {ActivityIndicator, Text, TextInput, View} from 'react-native';
+import {Formik, type FormikValues, type FormikHelpers} from 'formik';
+import {ActivityIndicator, View} from 'react-native';
 import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/button/CustomButton.component';
-import {TextBtn} from '../text-btn/TextBtn.component';
 import {styles} from './login.styles';
 import {useStore} from '../../../store/store';
-import {TextField} from '../text-field/TextField.component';
+import {LoginForm} from './login-form/LoginForm.component';
 
 interface Props {
   goToDashboard: () => void;
@@ -19,15 +18,14 @@ export interface LoginValues {
   password: string;
 }
 
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+});
+
 export const Login: React.FC<Props> = observer(({goToDashboard}) => {
   const {authentication} = useStore();
   const [loading, setLoading] = useState(false);
-  const password = useRef<TextInput>(null);
-
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().required('Required'),
-  });
 
   const submitLogin = async (values: LoginValues, actions: FormikHelpers<LoginValues>) => {
     try {
@@ -43,10 +41,17 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
     }
   };
 
-  const focusPasswordField = () => password.current?.focus();
+  const renderForm = ({handleSubmit}: FormikValues) => (
+    <>
+      <View style={styles.formContainer}>
+        {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <LoginForm resetPassword={resetPassword} handleSubmit={handleSubmit} />}
+      </View>
+      <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+    </>
+  );
 
-  const forgotPasscode = () => {
-    // TODO: forgot passcode action
+  const resetPassword = () => {
+    // TODO: reset passcode action
   };
 
   return (
@@ -55,32 +60,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
         initialValues={{email: 'vladyslav.kucheruk@computools.com', password: 'fVRMzwemhBKgfT6'}}
         validationSchema={LoginSchema}
         onSubmit={submitLogin}>
-        {({handleSubmit, errors}) => (
-          <>
-            <View style={styles.formContainer}>
-              {loading ? (
-                <ActivityIndicator size="large" color="#FF460A" />
-              ) : (
-                <>
-                  <Text style={styles.error}>{errors.email}</Text>
-                  <View>
-                    <Field label="Email" component={TextField} name="email" autoCompleteType="email" onSubmitEditing={focusPasswordField} />
-                    <Field
-                      label="Password"
-                      innerRef={password}
-                      component={TextField}
-                      name="password"
-                      secureTextEntry
-                      onSubmitEditing={handleSubmit}
-                    />
-                  </View>
-                  <TextBtn title="Forgot passcode?" onPress={forgotPasscode} />
-                </>
-              )}
-            </View>
-            <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
-          </>
-        )}
+        {renderForm}
       </Formik>
     </View>
   );

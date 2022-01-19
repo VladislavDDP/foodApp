@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {NativeSyntheticEvent, Text, TextInput, TextInputFocusEventData, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {observer} from 'mobx-react';
-import {Formik} from 'formik';
+import {Formik, type FormikValues} from 'formik';
 
 import {ChangeButton} from '../change-button/ChangeButton.component';
 import {TextRecipientInfo} from './text-recipient-info/TextRecipientInfo.component';
@@ -9,35 +9,22 @@ import {styles} from './delivery-details.styles';
 import {FormRecipientInfo} from './form-recipient-info/FormRecipientInfo.component';
 import {useStore} from '../../../store/store';
 
-interface RecipientData {
+interface Recipient {
   name: string;
   address: string;
   phone: string;
-}
-
-export interface DeliveryFormikTypes {
-  handleChange: {
-    <T = string | React.ChangeEvent<TextInput>>(field: T): T extends React.ChangeEvent<TextInput>
-      ? void
-      : (e: string | React.ChangeEvent<TextInput>) => void;
-  };
-  handleBlur: {
-    <T = TextInput>(fieldOrEvent: T): T extends string ? (e: NativeSyntheticEvent<TextInputFocusEventData>) => void : void;
-  };
-  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
-  values: RecipientData;
 }
 
 export const DeliveryDetails = observer(() => {
   const {profile} = useStore();
   const [editMode, setEditMode] = useState(false);
 
-  const submitEditing = (values: RecipientData) => {
+  const submitEditing = (values: Recipient) => {
     profile.updateDeliveryDetails(values.name, values.address, values.phone);
     changeEditMode();
   };
 
-  const renderForm = ({handleChange, handleBlur, handleSubmit, values}: DeliveryFormikTypes) => (
+  const renderForm = ({handleChange, handleBlur, handleSubmit, values}: FormikValues) => (
     <FormRecipientInfo handleChange={handleChange} handleBlur={handleBlur} handleSubmit={handleSubmit} values={values} />
   );
 

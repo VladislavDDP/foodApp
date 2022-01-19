@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   error: {
     color: 'red',
+    marginBottom: 5,
   },
   redline: {
     borderBottomColor: 'red',

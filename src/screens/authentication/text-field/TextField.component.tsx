@@ -34,6 +34,7 @@ export const TextField = (props: FieldProps & OtherProps) => {
         ref={innerRef}
         {...inputProps}
       />
+      <Text style={styles.error}>{errors[name]}</Text>
     </View>
   );
 };

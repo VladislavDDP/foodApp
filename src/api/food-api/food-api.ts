@@ -4,7 +4,6 @@ import {HttpApi} from '../http-api';
 import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
-import {Auth} from './dto/auth';
 import {Reciept as RecieptIn} from './dto/reciept';
 import {Reciept} from '../../model/reciept';
 
@@ -29,37 +28,11 @@ const mapToOrders = (data: RecieptIn) =>
 export class FoodApi {
   public http: HttpApi;
   public storage: Storage;
-  private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
 
   public constructor(http: HttpApi, storage: Storage) {
     this.storage = storage;
     this.http = http;
-    this.http.setBaseURL(this.baseURL);
   }
-
-  public setHttpToken = (token: string) => {
-    this.http.addHeader('Authorization', `Bearer ${token}`);
-  };
-
-  public removeHeaders = () => {
-    this.http.cleanHeaders();
-  };
-
-  public authorizeUser = async (email: string, password: string) => {
-    try {
-      const response = await this.http.post<Auth>('/auth/local', {
-        identifier: email,
-        password: password,
-      });
-      return response;
-    } catch (e) {
-      if ((e as string) === 'Request failed with status code 400') {
-        throw new Error('Invalid email or password');
-      } else {
-        throw new Error('Unknown error');
-      }
-    }
-  };
 
   public getFood = async () => {
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods?populate=*');
