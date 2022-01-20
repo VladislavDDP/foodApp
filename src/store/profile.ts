@@ -15,23 +15,23 @@ export class Profile {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public setPaymentMethod(value: PaymentType) {
+  public setPaymentMethod = (value: PaymentType) => {
     this.paymentOption = value;
-  }
+  };
 
-  public setDeliveryMethod(value: DeliveryType) {
+  public setDeliveryMethod = (value: DeliveryType) => {
     this.deliveryOption = value;
-  }
+  };
 
-  public updateUserProfile(name: string, address: string, email: string) {
+  public updateUserProfile = (name: string, address: string, email: string) => {
     this.name = name;
     this.address = address;
     this.email = email;
-  }
+  };
 
-  public updateDeliveryDetails(name: string, address: string, phone: string) {
+  public updateDeliveryDetails = (name: string, address: string, phone: string) => {
     this.name = name;
     this.address = address;
     this.phone = phone;
-  }
+  };
 }

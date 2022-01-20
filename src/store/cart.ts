@@ -22,7 +22,7 @@ export class Cart {
     return this.cartItems.reduce((acc: number, item: CartFood) => acc + item.price * item.qty, defaultCartPrice);
   }
 
-  public addToCart(item: Food) {
+  public addToCart = (item: Food) => {
     const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
       const cur = this.cartItems[index];
@@ -30,30 +30,30 @@ export class Cart {
     } else {
       this.cartItems.unshift(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
     }
-  }
+  };
 
-  public updateCart(item: CartFood | Food) {
+  public updateCart = (item: CartFood | Food) => {
     const index = this.findCartItemIndex(item.id);
     if (index > indexOutOfRange) {
       this.cartItems[index].isLiked = item.isLiked;
       this.cartItems = [...this.cartItems];
     }
-  }
+  };
 
   public removeFromCart(id: number) {
     this.cartItems = this.cartItems.filter((item: CartFood) => item.id !== id);
   }
 
-  public increaseQty(id: number) {
+  public increaseQty = (id: number) => {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       const item = this.cartItems[index];
       this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty + one, item.categories, item.isLiked);
       this.cartItems = [...this.cartItems];
     }
-  }
+  };
 
-  public decreaseQty(id: number) {
+  public decreaseQty = (id: number) => {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       if (this.cartItems[index].qty - one) {
@@ -64,13 +64,11 @@ export class Cart {
         this.removeFromCart(id);
       }
     }
-  }
+  };
 
-  public clearCart() {
+  public clearCart = () => {
     this.cartItems = [];
-  }
+  };
 
-  private findCartItemIndex(id: number): number {
-    return this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === id);
-  }
+  private findCartItemIndex = (id: number): number => this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === id);
 }
