@@ -32,7 +32,7 @@ export class UserApi {
     try {
       const response = await this.http.post<Auth>('/auth/local', {
         identifier: email,
-        password: password,
+        password,
       });
       const user = mapToUser(response);
       const jwt = response.jwt;
@@ -41,6 +41,22 @@ export class UserApi {
     } catch (e) {
       if ((e as string) === 'Request failed with status code 400') {
         throw new Error('Invalid email or password');
+      } else {
+        throw new Error('Unknown error');
+      }
+    }
+  };
+
+  public registerUser = async (email: string, username: string, password: string) => {
+    try {
+      const response = await this.http.post<Auth>('auth/local/register', {username, email, password});
+      const user = mapToUser(response);
+      this.user = user;
+      const jwt = response.jwt;
+      return {jwt, user};
+    } catch (e) {
+      if ((e as string) === 'Request failed with status code 400') {
+        throw new Error('Email is already taken');
       } else {
         throw new Error('Unknown error');
       }

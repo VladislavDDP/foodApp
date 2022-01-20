@@ -1,6 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
 import {UserApi} from '../api/user-api/userApi';
+import {User} from '../model/user';
 import {Storage} from '../storage/storage';
 
 export class Authentication {
@@ -27,17 +28,13 @@ export class Authentication {
 
   public async login(email: string, password: string) {
     const response = await this.userApi.authorizeUser(email, password);
-    this.userApi.setUserToken(response.jwt);
-    this.storage.addAuthenticationKey(response.jwt);
-    this.storage.addUserData(response.user);
-    this.userApi.setUser(response.user);
-    this.authorized = true;
+    this.defaultAuthenticationSetUp(response.jwt, response.user);
     return true;
   }
 
-  public register(_email: string) {
-    // TODO: add user data to profile
-    this.authorized = true;
+  public async register(email: string, username: string, password: string) {
+    const response = await this.userApi.registerUser(email, username, password);
+    this.defaultAuthenticationSetUp(response.jwt, response.user);
     return true;
   }
 
@@ -51,5 +48,12 @@ export class Authentication {
     await this.storage.removeAuthenticationKey();
     await this.storage.removeUserData();
     this.userApi.removeUserToken();
+  }
+
+  private defaultAuthenticationSetUp(jwt: string, user: User) {
+    this.userApi.setUserToken(jwt);
+    this.storage.addAuthenticationKey(jwt);
+    this.storage.addUserData(user);
+    this.authorized = true;
   }
 }

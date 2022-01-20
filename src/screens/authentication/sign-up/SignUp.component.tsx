@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Formik, type FormikValues} from 'formik';
+import {Formik, type FormikHelpers, type FormikValues} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
 import {observer} from 'mobx-react';
 import * as Yup from 'yup';
@@ -10,17 +10,19 @@ import {styles} from './sign-up.styles';
 import {SignUpForm} from './sign-up-form/SignUpForm.component';
 
 interface SignUpValues {
+  username: string;
   email: string;
   password: string;
   passwordAgain: string;
 }
 
 const SignUpSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
+  username: Yup.string().required('Username required'),
+  email: Yup.string().email('Invalid email').required('Email required'),
+  password: Yup.string().required('Password required'),
   passwordAgain: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Required'),
+    .required('Password again required'),
 });
 
 interface Props {
@@ -31,14 +33,15 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
   const {authentication} = useStore();
   const [loading, setLoading] = useState(false);
 
-  const submitSignUp = async (values: SignUpValues) => {
+  const submitSignUp = async (values: SignUpValues, actions: FormikHelpers<SignUpValues>) => {
     try {
       setLoading(true);
-      const response = await authentication.register(values.email);
+      const response = await authentication.register(values.email, values.username, values.password);
       if (response) {
         goToDashboard();
       }
     } catch (e) {
+      actions.setErrors({email: 'Email already exists'});
     } finally {
       setLoading(false);
     }
@@ -55,7 +58,7 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
 
   return (
     <View style={styles.container}>
-      <Formik initialValues={{email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
+      <Formik initialValues={{username: '', email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
         {renderForm}
       </Formik>
     </View>
