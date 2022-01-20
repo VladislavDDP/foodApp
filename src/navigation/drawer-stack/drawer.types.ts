@@ -1,12 +1,12 @@
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export type DrawerParamList = {
-  Market: undefined;
-  Profile: undefined;
-  Orders: undefined;
-  OfferPromo: undefined;
-  PrivacyPolicy: undefined;
-  Security: undefined;
+  [Drawers.Market]: undefined;
+  [Drawers.Profile]: undefined;
+  [Drawers.Orders]: undefined;
+  [Drawers.OfferPromo]: undefined;
+  [Drawers.PrivacyPolicy]: undefined;
+  [Drawers.Security]: undefined;
 };
 
 export enum Drawers {
