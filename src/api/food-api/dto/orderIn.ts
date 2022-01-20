@@ -1,4 +1,4 @@
-export interface Reciept {
+export interface OrderIn {
   id: number;
   attributes: {
     address: string;

@@ -1,8 +1,9 @@
+import {Provider} from 'mobx-react';
 import React, {useCallback, useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
-import {RootNavigator} from './navigation/RootNavigator';
-import {useStore} from './store/store';
+import {RootNavigator} from './src/navigation/RootNavigator';
+import {rootStore, useStore} from './src/store/store';
 
 export const App = () => {
   const {authentication} = useStore();
@@ -16,5 +17,9 @@ export const App = () => {
     checkIfAuthorized();
   }, []);
 
-  return <RootNavigator />;
+  return (
+    <Provider value={rootStore}>
+      <RootNavigator />
+    </Provider>
+  );
 };

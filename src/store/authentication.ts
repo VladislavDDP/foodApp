@@ -4,7 +4,6 @@ import {UserApi} from '../api/user-api/userApi';
 import {Storage} from '../storage/storage';
 
 export class Authentication {
-  public email: string = '';
   public authorized: boolean = false;
 
   private userApi: UserApi;
@@ -19,6 +18,8 @@ export class Authentication {
   public async checkIfAuthorized() {
     const key = await this.storage.getToken();
     if (key) {
+      const user = await this.storage.getUserData();
+      this.userApi.setUser(user);
       this.userApi.setUserToken(key);
       this.authorized = true;
     }
@@ -28,13 +29,14 @@ export class Authentication {
     const response = await this.userApi.authorizeUser(email, password);
     this.userApi.setUserToken(response.jwt);
     this.storage.addAuthenticationKey(response.jwt);
-    this.email = response.user.email;
+    this.storage.addUserData(response.user);
+    this.userApi.setUser(response.user);
     this.authorized = true;
     return true;
   }
 
-  public register(email: string) {
-    this.email = email;
+  public register(_email: string) {
+    // TODO: add user data to profile
     this.authorized = true;
     return true;
   }
@@ -44,9 +46,10 @@ export class Authentication {
   }
 
   public async logout() {
-    this.email = '';
     this.authorized = false;
+    this.userApi.logoutUser();
     await this.storage.removeAuthenticationKey();
+    await this.storage.removeUserData();
     this.userApi.removeUserToken();
   }
 }

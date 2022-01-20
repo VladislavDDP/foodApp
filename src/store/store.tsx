@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {configure} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
@@ -33,20 +33,13 @@ export class RootStore {
     this.userApi = new UserApi(httpApi);
     this.foodApi = new FoodApi(httpApi, this.storage);
     this.authentication = new Authentication(this.userApi, this.storage);
-    this.foodStore = new FoodStore(this.foodApi, this.storage);
+    this.foodStore = new FoodStore(this.foodApi, this.userApi, this.storage);
     this.cart = new Cart();
     this.profile = new Profile();
   }
 }
 
-let store: RootStore;
+export const rootStore = new RootStore();
 
-const StoreContext = React.createContext<RootStore>({} as RootStore);
-
-export const RootStoreProvider = ({children}: {children: React.ReactNode}) => {
-  const root = store ?? new RootStore();
-
-  return <StoreContext.Provider value={root}>{children}</StoreContext.Provider>;
-};
-
-export const useStore = () => useContext(StoreContext);
+const StoreContext = React.createContext(rootStore);
+export const useStore = () => React.useContext(StoreContext);

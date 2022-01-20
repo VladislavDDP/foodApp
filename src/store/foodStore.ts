@@ -1,9 +1,11 @@
 import {makeAutoObservable} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
+import {UserApi} from '../api/user-api/userApi';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
-import {Reciept, RecieptItem} from '../model/reciept';
+import {Reciept} from '../model/reciept';
+import {RecieptItem} from '../model/recieptItem';
 import {Storage} from '../storage/storage';
 
 export class FoodStore {
@@ -13,12 +15,14 @@ export class FoodStore {
   private orderedItems: Array<Reciept> = [];
   private favouriteItems: Array<Food> = [];
   private foodApi: FoodApi;
+  private userApi: UserApi;
   private storage: Storage;
 
-  public constructor(foodApi: FoodApi, storage: Storage) {
+  public constructor(foodApi: FoodApi, userApi: UserApi, storage: Storage) {
     this.foodApi = foodApi;
+    this.userApi = userApi;
     this.storage = storage;
-    this.getAllNeededStuff();
+    this.initializeData();
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
@@ -56,14 +60,20 @@ export class FoodStore {
     return [...this.filterItems(query)];
   }
 
+  public async getShoppingHistory() {
+    const id = this.userApi.user?.id;
+    if (id) {
+      this.orderedItems = await this.userApi.getShoppingHistory(id);
+    }
+  }
+
   public async appendHistory(_item: RecieptItem) {
     // TODO: create order with api endpoint
   }
 
-  public async getAllNeededStuff() {
+  public async initializeData() {
     this.allCategories = await this.foodApi.getCategories();
     this.favouriteItems = await this.storage.getLikedFood();
-    this.orderedItems = await this.foodApi.getShoppingHistory();
   }
 
   private filterItems(query: string) {

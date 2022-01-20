@@ -1,14 +1,27 @@
 import {User} from '../../model/user';
+import {Reciept} from '../../model/reciept';
 import {HttpApi} from '../http-api';
 import {Auth} from './dto/auth';
+import {OrderIn} from '../food-api/dto/orderIn';
 
 const mapToUser = (item: Auth) => {
   const {id, username, email, createdAt, updatedAt} = item.user;
   return new User(id, username, email, createdAt, updatedAt);
 };
 
+const mapToOrders = (data: OrderIn) =>
+  new Reciept(
+    data.id,
+    data.attributes.address,
+    data.attributes.payment,
+    data.attributes.phone,
+    data.attributes.delivery_method,
+    data.attributes.createdAt,
+    data.attributes.items,
+  );
+
 export class UserApi {
-  public static user: User;
+  public user?: User | null;
   public http: HttpApi;
 
   public constructor(http: HttpApi) {
@@ -23,7 +36,7 @@ export class UserApi {
       });
       const user = mapToUser(response);
       const jwt = response.jwt;
-      UserApi.user = user;
+      this.user = user;
       return {jwt, user};
     } catch (e) {
       if ((e as string) === 'Request failed with status code 400') {
@@ -38,7 +51,26 @@ export class UserApi {
     this.http.addHeader('Authorization', `Bearer ${token}`);
   };
 
+  public setUser = (user: User) => {
+    this.user = user;
+  };
+
+  public logoutUser = () => {
+    this.user = null;
+  };
+
   public removeUserToken = () => {
     this.http.removeHeader('Authorization');
+  };
+
+  public getShoppingHistory = async (id: number) => {
+    const response = await this.http.get<{data: Array<OrderIn>}>(`/orders`, {
+      params: {
+        populate: '*',
+        'filters[users_permissions_user][id][$eq]': id,
+      },
+    });
+    const orders = response.data.map(mapToOrders);
+    return orders;
   };
 }

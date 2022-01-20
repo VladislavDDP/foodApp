@@ -8,10 +8,10 @@ export type StackParamList = {
   AuthFlowStack: undefined;
   DrawerStack: undefined;
   Search: undefined;
-  Details: {item: Food};
+  [Screens.Details]: {item: Food};
   Cart: undefined;
   Checkout: undefined;
-  Reciept: {item: Reciept};
+  [Screens.Reciept]: {item: Reciept};
 };
 
 export interface AppNavigatorScreenProps<S extends Screens> extends NativeStackScreenProps<StackParamList, S> {}

@@ -1,17 +1,7 @@
+import {RecieptItem} from './recieptItem';
+
 const defaultPrice = 0;
 const fixedPoints = 1;
-
-export interface RecieptItem {
-  id: number;
-  qty: number;
-  attributes: {
-    name: string;
-    photo: string;
-    price: number;
-    gallery: Array<string>;
-    categories: Array<{id: number; name: string}>;
-  };
-}
 
 export class Reciept {
   public id: number;

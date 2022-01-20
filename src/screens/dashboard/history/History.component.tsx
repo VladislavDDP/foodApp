@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {observer} from 'mobx-react';
 import {FlatList, SafeAreaView, Text} from 'react-native';
 
@@ -14,6 +14,10 @@ interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const History: React.FC<Props> = observer(({navigation}) => {
   const {foodStore} = useStore();
+
+  useEffect(() => {
+    foodStore.getShoppingHistory();
+  }, []);
 
   const goToRecieptDetails = (item: Reciept) => navigation.navigate(Screens.Reciept, {item});
 
