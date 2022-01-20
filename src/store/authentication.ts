@@ -35,7 +35,7 @@ export class Authentication {
     return true;
   }
 
-  public register(_email: string) {
+  public register(email: string) {
     // TODO: add user data to profile
     this.authorized = true;
     return true;

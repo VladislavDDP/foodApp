@@ -5,12 +5,12 @@ import {Reciept} from '../../model/reciept';
 import {Screens} from './routes.types';
 
 export type StackParamList = {
-  AuthFlowStack: undefined;
-  DrawerStack: undefined;
-  Search: undefined;
+  [Screens.AuthFlowStack]: undefined;
+  [Screens.DrawerStack]: undefined;
+  [Screens.Search]: undefined;
   [Screens.Details]: {item: Food};
-  Cart: undefined;
-  Checkout: undefined;
+  [Screens.Cart]: undefined;
+  [Screens.Checkout]: undefined;
   [Screens.Reciept]: {item: Reciept};
 };
 
