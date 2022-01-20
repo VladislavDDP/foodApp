@@ -5,4 +5,5 @@ export enum Screens {
   Search = 'Search',
   Cart = 'Cart',
   Checkout = 'Checkout',
+  Reciept = 'Reciept',
 }

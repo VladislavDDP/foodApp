@@ -33,7 +33,7 @@ export class RootStore {
     this.userApi = new UserApi(httpApi);
     this.foodApi = new FoodApi(httpApi, this.storage);
     this.authentication = new Authentication(this.userApi, this.storage);
-    this.foodStore = new FoodStore(this.foodApi, this.storage);
+    this.foodStore = new FoodStore(this.foodApi, this.userApi, this.storage);
     this.cart = new Cart();
     this.profile = new Profile();
   }

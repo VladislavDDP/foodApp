@@ -22,7 +22,7 @@ export class FoodApi {
   }
 
   public getFood = async () => {
-    const response = await this.http.get<{data: Array<FoodIn>}>('/foods?populate=*');
+    const response = await this.http.get<{data: Array<FoodIn>}>('/foods', {params: {populate: '*'}});
     const favoriteFood = await this.storage.getLikedFood();
 
     const food = response.data.map((value: FoodIn) =>
@@ -36,7 +36,7 @@ export class FoodApi {
   };
 
   public getCategories = async () => {
-    const response = await this.http.get<{data: Array<CategoryIn>}>('/categories?populate=*');
+    const response = await this.http.get<{data: Array<CategoryIn>}>('/categories', {params: {populate: '*'}});
     const categories = response.data.map(mapToCategories);
     return categories;
   };

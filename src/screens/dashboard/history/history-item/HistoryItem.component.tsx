@@ -1,30 +1,26 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
-import {CartFood} from '../../../../model/cartFood';
+import {Reciept} from '../../../../model/reciept';
 import {styles} from './history-item.styles';
 
-const fixedPoints = 1;
-
 interface Props {
-  item: CartFood;
-  deleteItem: (id: number) => void;
+  item: Reciept;
+  goToRecieptDetails: (item: Reciept) => void;
 }
 
-export const HistoryItem: React.FC<Props> = ({item, deleteItem}) => {
-  const deleteOnLongPress = () => deleteItem(item.id);
+export const HistoryItem: React.FC<Props> = ({item, goToRecieptDetails}) => {
+  const goToDetails = () => goToRecieptDetails(item);
 
   return (
-    <TouchableOpacity onLongPress={deleteOnLongPress} style={styles.container}>
-      <Image source={{uri: item.photo}} style={styles.itemImage} />
-      <View style={styles.itemDescription}>
-        <Text style={styles.itemName}>{item.name}</Text>
-        <View style={styles.priceContainer}>
-          <Text style={styles.itemPrice}>{item.price}</Text>
-          <Text> x {item.qty}</Text>
+    <View>
+      <TouchableOpacity onPress={goToDetails} style={styles.container}>
+        <View style={styles.itemDescription}>
+          <Text style={styles.itemName}>Order #{item.id}</Text>
+          <Text style={styles.itemDate}>{item.createdAt}</Text>
         </View>
-      </View>
-      <Text style={styles.totalPrice}>Total: {(item.price * item.qty).toFixed(fixedPoints)}</Text>
-    </TouchableOpacity>
+        <Text style={styles.totalPrice}>Total: {item.totalPrice}</Text>
+      </TouchableOpacity>
+    </View>
   );
 };

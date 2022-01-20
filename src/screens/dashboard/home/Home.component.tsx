@@ -1,6 +1,5 @@
-import {useFocusEffect} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import React, {useState} from 'react';
 import {ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -30,9 +29,13 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
     setFoods(food);
   };
 
-  useFocusEffect(() => {
-    getFood(activeCategoryId);
-  });
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getFood(activeCategoryId);
+    });
+
+    return unsubscribe;
+  }, [navigation, activeCategoryId]);
 
   const navigateToSearch = () => navigation.navigate(Screens.Search);
 

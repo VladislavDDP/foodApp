@@ -11,6 +11,7 @@ import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
 import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
 import {useStore} from '../../store/store';
+import {RecieptDetails} from '../../screens/reciept-details/RecieptDetails.component';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
@@ -42,6 +43,7 @@ export const RootStack = () => {
       <Stack.Screen name={Screens.Details} sharedElements={sharedElements} component={Details} />
       <Stack.Screen name={Screens.Cart} component={ShoppingCart} />
       <Stack.Screen name={Screens.Checkout} component={Checkout} />
+      <Stack.Screen name={Screens.Reciept} component={RecieptDetails} />
     </Stack.Navigator>
   );
 };

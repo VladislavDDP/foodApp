@@ -17,7 +17,7 @@ export const CategoryItem: React.FC<Props> = ({item, onSelectCategory, activeCat
 
   return (
     <TouchableOpacity onPress={selectCategory}>
-      <Text style={[styles.text, {color: color}]}>{item.category}</Text>
+      <Text style={[styles.text, {color: color}]}>{item.name}</Text>
     </TouchableOpacity>
   );
 };

@@ -26,6 +26,10 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '700',
   },
+  itemDate: {
+    color: '#666',
+    marginVertical: 5,
+  },
   itemPrice: {
     fontSize: 15,
     fontWeight: '700',

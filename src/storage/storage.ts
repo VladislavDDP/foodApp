@@ -1,14 +1,20 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {CartFood} from '../model/cartFood';
 import {Food} from '../model/food';
+import {User} from '../model/user';
 import {StorageKeys} from './asyncKeys';
 
 export class Storage {
   public addAuthenticationKey = async (jwtKey: string) => AsyncStorage.setItem(StorageKeys.JwtKey, jwtKey);
 
+  public addUserData = async (user: User) => AsyncStorage.setItem(StorageKeys.UserData, JSON.stringify(user));
+
   public removeAuthenticationKey = async () => {
     await AsyncStorage.removeItem(StorageKeys.JwtKey);
+  };
+
+  public removeUserData = async () => {
+    await AsyncStorage.removeItem(StorageKeys.UserData);
   };
 
   public getToken = async () => AsyncStorage.getItem(StorageKeys.JwtKey);
@@ -18,9 +24,9 @@ export class Storage {
     return response ? JSON.parse(response) : [];
   };
 
-  public getShoppingHistory = async () => {
-    const response = await AsyncStorage.getItem(StorageKeys.ShoppingHistory);
-    return response ? JSON.parse(response) : [];
+  public getUserData = async () => {
+    const response = await AsyncStorage.getItem(StorageKeys.UserData);
+    return response ? JSON.parse(response) : null;
   };
 
   public addToFavourite = async (item: Food) => {
@@ -32,17 +38,6 @@ export class Storage {
     const response = await this.getLikedFood();
     const items = response.filter((item: Food) => item.id !== id);
     await AsyncStorage.setItem(StorageKeys.LikedItems, JSON.stringify(items));
-  };
-
-  public updateShoppingHistory = async (newItems: Array<CartFood>) => {
-    const items = await this.getShoppingHistory();
-    await AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify([...newItems, ...items]));
-  };
-
-  public removeFromShoppingHistory = async (id: number) => {
-    const response = await this.getShoppingHistory();
-    const filteredItems = response.filter((item: Food) => item.id !== id);
-    await AsyncStorage.setItem(StorageKeys.ShoppingHistory, JSON.stringify(filteredItems));
   };
 
   public clearStorage = async () => {

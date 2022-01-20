@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, View, SafeAreaView} from 'react-native';
 
 import {IconButton} from '../icon-button/IconButton.component';
 import {styles} from './custom-header.styles';
