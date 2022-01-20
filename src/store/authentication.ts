@@ -16,7 +16,7 @@ export class Authentication {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public async checkIfAuthorized() {
+  public checkIfAuthorized = async () => {
     const key = await this.storage.getToken();
     if (key) {
       const user = await this.storage.getUserData();
@@ -24,36 +24,36 @@ export class Authentication {
       this.userApi.setUserToken(key);
       this.authorized = true;
     }
-  }
+  };
 
-  public async login(email: string, password: string) {
+  public login = async (email: string, password: string) => {
     const response = await this.userApi.authorizeUser(email, password);
     this.defaultAuthenticationSetUp(response.jwt, response.user);
     return true;
-  }
+  };
 
-  public async register(email: string, username: string, password: string) {
+  public register = async (email: string, username: string, password: string) => {
     const response = await this.userApi.registerUser(email, username, password);
     this.defaultAuthenticationSetUp(response.jwt, response.user);
     return true;
-  }
+  };
 
-  public resetPassword() {
+  public resetPassword = () => {
     // TODO: logic of password reset
-  }
+  };
 
-  public async logout() {
+  public logout = async () => {
     this.authorized = false;
     this.userApi.logoutUser();
     await this.storage.removeAuthenticationKey();
     await this.storage.removeUserData();
     this.userApi.removeUserToken();
-  }
+  };
 
-  private defaultAuthenticationSetUp(jwt: string, user: User) {
+  private defaultAuthenticationSetUp = async (jwt: string, user: User) => {
     this.userApi.setUserToken(jwt);
-    this.storage.addAuthenticationKey(jwt);
-    this.storage.addUserData(user);
+    await this.storage.addAuthenticationKey(jwt);
+    await this.storage.addUserData(user);
     this.authorized = true;
-  }
+  };
 }
