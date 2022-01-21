@@ -1,5 +1,5 @@
 export enum PaymentType {
-  Card = 'Card',
-  BankAccount = 'BankAccount',
-  Paypal = 'Paypal',
+  Card = 'card',
+  BankAccount = 'bankAccount',
+  Paypal = 'paypal',
 }

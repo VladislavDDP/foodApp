@@ -119,7 +119,7 @@ export class UserApi {
         address: item.address,
         phone: item.phone,
         delivery_method: item.delivery_method,
-        payment: 'card',
+        payment: item.payment,
         users_permissions_user: this.user?.id,
         items,
       },
