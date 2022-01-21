@@ -2,11 +2,21 @@ import {makeAutoObservable} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
 import {UserApi} from '../api/user-api/userApi';
+import {CartFood} from '../model/cartFood';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
 import {Reciept} from '../model/reciept';
-import {RecieptItem} from '../model/recieptItem';
+import {DeliveryType} from '../screens/checkout/deliveryOptions.types';
+import {PaymentType} from '../screens/drawer/profile/paymentOption.types';
 import {Storage} from '../storage/storage';
+
+interface RecieptDetails {
+  address: string;
+  phone: string;
+  delivery_method: DeliveryType;
+  payment: PaymentType;
+  items: Array<CartFood>;
+}
 
 export class FoodStore {
   public allItems: Array<Food> = [];
@@ -67,8 +77,8 @@ export class FoodStore {
     }
   };
 
-  public appendHistory = async (item: RecieptItem) => {
-    // TODO: create order with api endpoint
+  public appendHistory = async (item: RecieptDetails) => {
+    this.userApi.purchaseFood(item);
   };
 
   public initializeData = async () => {

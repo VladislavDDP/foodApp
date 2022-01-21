@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
+import {UserApi} from '../api/user-api/userApi';
 import {DeliveryType} from '../screens/checkout/deliveryOptions.types';
 import {PaymentType} from '../screens/drawer/profile/paymentOption.types';
 
@@ -11,9 +12,19 @@ export class Profile {
   public paymentOption: PaymentType = PaymentType.Card;
   public deliveryOption: DeliveryType = DeliveryType.DoorDelivery;
 
-  public constructor() {
+  private userApi: UserApi;
+
+  public constructor(userApi: UserApi) {
+    this.userApi = userApi;
     makeAutoObservable(this, {}, {autoBind: true});
   }
+
+  public setUserData = () => {
+    if (this.userApi.user) {
+      this.name = this.userApi.user?.username;
+      this.email = this.userApi.user?.email;
+    }
+  };
 
   public setPaymentMethod = (value: PaymentType) => {
     this.paymentOption = value;

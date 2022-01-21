@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import {Modal, Text} from 'react-native';
 import {View} from 'react-native-animatable';
@@ -21,9 +21,20 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const {foodStore, cart, profile} = useStore();
 
+  useEffect(() => {
+    profile.setUserData();
+  }, []);
+
   const approvePayment = () => {
     setModalVisible(false);
-    foodStore.appendHistory(cart.cartItems);
+    const item = {
+      address: profile.address,
+      phone: profile.phone,
+      delivery_method: profile.deliveryOption,
+      payment: profile.paymentOption,
+      items: cart.cartItems,
+    };
+    foodStore.appendHistory(item);
     cart.clearCart();
     navigation.replace(Screens.DrawerStack);
   };
