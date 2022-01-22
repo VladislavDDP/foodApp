@@ -23,6 +23,10 @@ export class Authentication {
       this.userApi.setUser(user);
       this.userApi.setUserToken(key);
       this.authorized = true;
+      return true;
+    } else {
+      this.authorized = false;
+      return false;
     }
   };
 

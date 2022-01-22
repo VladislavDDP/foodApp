@@ -78,7 +78,10 @@ export class FoodStore {
   };
 
   public appendHistory = async (item: RecieptDetails) => {
-    this.userApi.purchaseFood(item);
+    const response = await this.userApi.purchaseFood(item);
+    if (response) {
+      return true;
+    }
   };
 
   public initializeData = async () => {

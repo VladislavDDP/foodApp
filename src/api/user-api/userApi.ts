@@ -125,6 +125,8 @@ export class UserApi {
       },
     };
 
-    await this.http.post<Orders>('/orders', data);
+    const response = await this.http.post<Orders>('/orders', data);
+
+    return response.data.id;
   };
 }

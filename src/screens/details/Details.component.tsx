@@ -48,7 +48,10 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
 
   const renderSlide = ({item}: {item: string}) => <SliderItem imageUrl={item} />;
 
-  const onRequestClose = () => setModalVisible(!modalVisible);
+  const onRequestClose = () => {
+    navigation.goBack();
+    setModalVisible(!modalVisible);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
