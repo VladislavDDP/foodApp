@@ -19,7 +19,7 @@ export class Profile {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public setUserData = () => {
+  public getUserData = () => {
     if (this.userApi.user) {
       this.name = this.userApi.user?.username;
       this.email = this.userApi.user?.email;

@@ -3,18 +3,6 @@ import {Reciept} from '../../model/reciept';
 import {HttpApi} from '../http-api';
 import {Auth} from './dto/auth';
 import {OrderIn} from '../food-api/dto/orderIn';
-import {DeliveryType} from '../../screens/checkout/deliveryOptions.types';
-import {PaymentType} from '../../screens/drawer/profile/paymentOption.types';
-import {CartFood} from '../../model/cartFood';
-import {Orders} from './dto/orderIn';
-
-interface RecieptDetails {
-  address: string;
-  phone: string;
-  delivery_method: DeliveryType;
-  payment: PaymentType;
-  items: Array<CartFood>;
-}
 
 const mapToUser = (item: Auth) => {
   const {id, username, email, createdAt, updatedAt} = item.user;
@@ -100,33 +88,5 @@ export class UserApi {
     });
     const orders = response.data.map(mapToOrders);
     return orders;
-  };
-
-  public purchaseFood = async (item: RecieptDetails) => {
-    const items = item.items.map(el => ({
-      id: el.id,
-      qty: el.qty,
-      attributes: {
-        name: el.name,
-        photo: el.photo,
-        price: el.price,
-        gallery: el.gallery,
-      },
-    }));
-
-    const data = {
-      data: {
-        address: item.address,
-        phone: item.phone,
-        delivery_method: item.delivery_method,
-        payment: item.payment,
-        users_permissions_user: this.user?.id,
-        items,
-      },
-    };
-
-    const response = await this.http.post<Orders>('/orders', data);
-
-    return response.data.id;
   };
 }

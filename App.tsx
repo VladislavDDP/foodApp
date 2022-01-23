@@ -23,5 +23,13 @@ export const App = () => {
     checkIfAuthorized();
   }, []);
 
-  return <Provider value={rootStore}>{loading ? <LoadingScreen title="Initing..." /> : <RootNavigator />}</Provider>;
+  if (loading) {
+    return <LoadingScreen title="Initing..." />;
+  }
+
+  return (
+    <Provider value={rootStore}>
+      <RootNavigator />
+    </Provider>
+  );
 };

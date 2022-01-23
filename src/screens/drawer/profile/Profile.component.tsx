@@ -12,7 +12,7 @@ export const Profile = observer(() => {
   const {profile} = useStore();
 
   useEffect(() => {
-    profile.setUserData();
+    profile.getUserData();
   }, []);
 
   const setOption = (option: PaymentType) => profile.setPaymentMethod(option);
