@@ -19,9 +19,9 @@ export class Authentication {
   public checkIfAuthorized = async () => {
     const key = await this.storage.getToken();
     if (key) {
+      this.userApi.setUserToken(key);
       const user = await this.storage.getUserData();
       this.userApi.setUser(user);
-      this.userApi.setUserToken(key);
       this.authorized = true;
       return true;
     } else {

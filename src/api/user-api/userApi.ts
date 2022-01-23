@@ -92,6 +92,7 @@ export class UserApi {
   };
 
   public getShoppingHistory = async (id: number) => {
+    this.removeUserToken();
     const response = await this.http.get<{data: Array<OrderIn>}>(`/orders`, {
       params: {
         populate: '*',
