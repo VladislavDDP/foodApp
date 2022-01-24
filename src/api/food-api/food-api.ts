@@ -58,6 +58,7 @@ export class FoodApi {
   public purchaseFood = async (item: OrderDetails, id: number) => {
     try {
       const items = item.items.map(mapFoodOut);
+      console.log(item);
 
       const data = {
         data: {
@@ -69,11 +70,14 @@ export class FoodApi {
           items,
         },
       };
+      console.log(data);
 
       const response = await this.http.post<Orders>('/orders', data);
 
       return response.id;
     } catch (e) {
+      console.log('error');
+      console.log(e);
       if ((e as string) === 'Request failed with status code 401') {
         throw new Error('User not auth');
       } else {

@@ -30,10 +30,11 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const approvePayment = async () => {
     setLoading(true);
     setModalVisible(false);
+
     const item = {
       address: profile.address,
       phone: profile.phone,
-      delivery_method: profile.deliveryOption,
+      deliveryMethod: profile.deliveryOption,
       payment: profile.paymentOption,
       items: cart.cartItems,
     };
