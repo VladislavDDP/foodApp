@@ -28,26 +28,26 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
   });
 
   const approvePayment = async () => {
+    setLoading(true);
+    setModalVisible(false);
+    const item = {
+      address: profile.address,
+      phone: profile.phone,
+      delivery_method: profile.deliveryOption,
+      payment: profile.paymentOption,
+      items: cart.cartItems,
+    };
+
     try {
-      setLoading(true);
-      setModalVisible(false);
-      const item = {
-        address: profile.address,
-        phone: profile.phone,
-        delivery_method: profile.deliveryOption,
-        payment: profile.paymentOption,
-        items: cart.cartItems,
-      };
       const response = await foodStore.appendHistory(item);
       if (response) {
         cart.clearCart();
         navigation.replace(Screens.DrawerStack);
-        setLoading(false);
-      } else {
-        setLoading(false);
       }
     } catch (e) {
       // TODO: catch the error
+    } finally {
+      setLoading(false);
     }
   };
 

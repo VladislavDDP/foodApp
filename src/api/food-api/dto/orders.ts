@@ -21,6 +21,4 @@ export interface Orders {
       publishedAt: string;
     };
   };
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  meta: {};
 }

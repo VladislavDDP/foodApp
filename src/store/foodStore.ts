@@ -79,8 +79,12 @@ export class FoodStore {
 
   public appendHistory = async (item: RecieptDetails) => {
     if (this.userApi.user) {
-      await this.foodApi.purchaseFood(item, this.userApi.user?.id);
-      return true;
+      try {
+        await this.foodApi.purchaseFood(item, this.userApi.user?.id);
+        return true;
+      } catch (e) {
+        // TODO: handle error
+      }
     }
     return false;
   };

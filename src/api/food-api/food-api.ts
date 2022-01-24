@@ -4,18 +4,9 @@ import {HttpApi} from '../http-api';
 import {Food as FoodIn} from './dto/food';
 import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
-import {DeliveryType} from '../../screens/checkout/deliveryOptions.types';
-import {PaymentType} from '../../screens/drawer/profile/paymentOption.types';
 import {CartFood} from '../../model/cartFood';
 import {Orders} from './dto/orders';
-
-interface RecieptDetails {
-  address: string;
-  phone: string;
-  delivery_method: DeliveryType;
-  payment: PaymentType;
-  items: Array<CartFood>;
-}
+import {RecieptDetails} from './dto/recieptDetails';
 
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
