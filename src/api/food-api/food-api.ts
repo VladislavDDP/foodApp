@@ -6,7 +6,7 @@ import {Category as CategoryIn} from './dto/category';
 import {Storage} from '../../storage/storage';
 import {CartFood} from '../../model/cartFood';
 import {Orders} from './dto/orders';
-import {RecieptDetails} from './dto/recieptDetails';
+import {OrderDetails} from '../../model/orderDetails';
 
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
@@ -36,7 +36,6 @@ export class FoodApi {
   }
 
   public getFood = async () => {
-    this.http.removeHeader('Authorization');
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods', {params: {populate: '*'}});
     const favoriteFood = await this.storage.getLikedFood();
 
@@ -56,7 +55,7 @@ export class FoodApi {
     return categories;
   };
 
-  public purchaseFood = async (item: RecieptDetails, id: number) => {
+  public purchaseFood = async (item: OrderDetails, id: number) => {
     try {
       const items = item.items.map(mapFoodOut);
 
@@ -64,7 +63,7 @@ export class FoodApi {
         data: {
           address: item.address,
           phone: item.phone,
-          delivery_method: item.delivery_method,
+          delivery_method: item.deliveryMethod,
           payment: item.payment,
           users_permissions_user: id,
           items,
@@ -73,9 +72,13 @@ export class FoodApi {
 
       const response = await this.http.post<Orders>('/orders', data);
 
-      return response.data.id;
+      return response.id;
     } catch (e) {
-      // TODO: handle error
+      if ((e as string) === 'Request failed with status code 401') {
+        throw new Error('User not auth');
+      } else {
+        throw new Error('Unknown error');
+      }
     }
   };
 }
