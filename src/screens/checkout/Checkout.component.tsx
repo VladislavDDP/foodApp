@@ -9,7 +9,7 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './checkout.styles';
 import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.component';
-import {DeliveryType} from './deliveryOptions.types';
+import {DeliveryType} from '../../model/deliveryType';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
 import {useStore} from '../../store/store';

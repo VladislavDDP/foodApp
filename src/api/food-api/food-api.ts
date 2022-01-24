@@ -8,6 +8,8 @@ import {CartFood} from '../../model/cartFood';
 import {Orders} from './dto/orders';
 import {OrderDetails} from '../../model/orderDetails';
 
+const unauthorizedError = 401;
+
 export const mapToFood = (data: FoodIn, isLiked: boolean) => {
   const categories = data.attributes.categories.data.map(mapToCategories);
   return new Food(data.id, data.attributes.name, data.attributes.price, data.attributes.photo, data.attributes.gallery, categories, isLiked);
@@ -74,7 +76,7 @@ export class FoodApi {
 
       return response.id;
     } catch (e) {
-      if ((e as string) === 'Request failed with status code 401') {
+      if (e.response.status === unauthorizedError) {
         throw new Error('User not auth');
       } else {
         throw new Error('Unknown error');

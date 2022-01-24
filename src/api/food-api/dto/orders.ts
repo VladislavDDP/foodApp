@@ -1,18 +1,11 @@
+import {OrderedItem} from './item';
+
 export interface Orders {
   id: number;
   attributes: {
     address: string;
     phone: string;
-    items: Array<{
-      id: number;
-      qty: number;
-      attributes: {
-        name: string;
-        photo: string;
-        price: number;
-        gallery: Array<string>;
-      };
-    }>;
+    items: Array<OrderedItem>;
     delivery_method: string;
     payment: string;
     createdAt: string;

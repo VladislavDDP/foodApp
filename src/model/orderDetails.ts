@@ -1,6 +1,6 @@
 import {CartFood} from './cartFood';
-import {DeliveryType} from '../screens/checkout/deliveryOptions.types';
-import {PaymentType} from '../screens/drawer/profile/paymentOption.types';
+import {DeliveryType} from './deliveryType';
+import {PaymentType} from './PaymentType';
 
 export class OrderDetails {
   public address: string;
