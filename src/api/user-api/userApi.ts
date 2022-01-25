@@ -57,7 +57,7 @@ export class UserApi {
       const jwt = response.jwt;
       return {jwt, user};
     } catch (e) {
-      if ((e as string) === 'Request failed with status code 400') {
+      if (e.response.status === badRequestError) {
         throw new Error('Email is already taken');
       } else {
         throw new Error('Unknown error');
@@ -82,7 +82,6 @@ export class UserApi {
   };
 
   public getShoppingHistory = async (id: number) => {
-    this.removeUserToken();
     const response = await this.http.get<{data: Array<OrderIn>}>(`/orders`, {
       params: {
         populate: '*',

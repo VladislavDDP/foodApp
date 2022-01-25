@@ -38,7 +38,6 @@ export class FoodStore {
   }
 
   public getFoodByCategory = async (categoryId: number) => {
-    this.userApi.removeUserToken();
     const food = await this.foodApi.getFood();
     return food.filter((item: Food) => item.categories.map((category: Category) => category.id).includes(categoryId));
   };
