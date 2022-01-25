@@ -35,7 +35,7 @@ export class RootStore {
     this.authentication = new Authentication(this.userApi, this.storage);
     this.foodStore = new FoodStore(this.foodApi, this.userApi, this.storage);
     this.cart = new Cart();
-    this.profile = new Profile();
+    this.profile = new Profile(this.userApi);
   }
 }
 

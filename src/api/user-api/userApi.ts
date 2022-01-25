@@ -4,6 +4,8 @@ import {HttpApi} from '../http-api';
 import {Auth} from './dto/auth';
 import {OrderIn} from '../food-api/dto/orderIn';
 
+const badRequestError = 400;
+
 const mapToUser = (item: Auth) => {
   const {id, username, email, createdAt, updatedAt} = item.user;
   return new User(id, username, email, createdAt, updatedAt);
@@ -39,7 +41,7 @@ export class UserApi {
       this.user = user;
       return {jwt, user};
     } catch (e) {
-      if ((e as string) === 'Request failed with status code 400') {
+      if (e.response.status === badRequestError) {
         throw new Error('Invalid email or password');
       } else {
         throw new Error('Unknown error');

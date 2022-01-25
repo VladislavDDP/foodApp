@@ -1,15 +1,19 @@
 import {observer} from 'mobx-react';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View, SafeAreaView} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
 import {useStore} from '../../../store/store';
 import {ContactInfo} from './contact-info/ContactInfo.component';
-import {PaymentType} from './paymentOption.types';
+import {PaymentType} from '../../../model/PaymentType';
 import {styles} from './profile.styles';
 
 export const Profile = observer(() => {
   const {profile} = useStore();
+
+  useEffect(() => {
+    profile.getUserData();
+  }, []);
 
   const setOption = (option: PaymentType) => profile.setPaymentMethod(option);
 

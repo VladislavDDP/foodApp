@@ -1,31 +1,55 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
 import {Modal, Text} from 'react-native';
 import {View} from 'react-native-animatable';
 
 import {CustomButton} from '../../components/button/CustomButton.component';
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
-import {RadioButton} from '../../components/radio-button/RadioButton.components';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './checkout.styles';
 import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.component';
-import {DeliveryType} from './deliveryOptions.types';
+import {DeliveryType} from '../../model/deliveryType';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
 import {useStore} from '../../store/store';
+import {LoadingScreen} from '../../components/loading-screen/LoadingScreen.component';
+import {DeliveryOptionsBox} from './delivery-options-box/DeliveryOptionsBox.component';
 
 interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
 
 export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {foodStore, cart, profile} = useStore();
 
-  const approvePayment = () => {
+  useEffect(() => {
+    profile.getUserData();
+  });
+
+  const approvePayment = async () => {
+    setLoading(true);
     setModalVisible(false);
-    foodStore.appendHistory(cart.cartItems);
-    cart.clearCart();
-    navigation.replace(Screens.DrawerStack);
+
+    const item = {
+      address: profile.address,
+      phone: profile.phone,
+      deliveryMethod: profile.deliveryOption,
+      payment: profile.paymentOption,
+      items: cart.cartItems,
+    };
+
+    try {
+      const response = await foodStore.appendHistory(item);
+      if (response) {
+        cart.clearCart();
+        navigation.replace(Screens.DrawerStack);
+      }
+    } catch (e) {
+      // TODO: catch the error
+    } finally {
+      setLoading(false);
+    }
   };
 
   const setVisable = () => setModalVisible(true);
@@ -33,6 +57,10 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
   const onRequestClose = () => setModalVisible(!modalVisible);
 
   const setOption = (option: DeliveryType) => profile.setDeliveryMethod(option);
+
+  if (loading) {
+    return <LoadingScreen title="Ordering..." />;
+  }
 
   return (
     <View style={styles.container}>
@@ -43,22 +71,7 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
         </Modal>
         <Text style={styles.title}>Delivery</Text>
         <DeliveryDetails />
-        <View>
-          <Text style={styles.sectionTitle}>Delivery method</Text>
-          <View style={styles.deliveryMethodContainer}>
-            <RadioButton
-              text={DeliveryType.DoorDelivery}
-              isSelected={profile.deliveryOption === DeliveryType.DoorDelivery}
-              shouldSeparate
-              onSelect={() => setOption(DeliveryType.DoorDelivery)}
-            />
-            <RadioButton
-              text={DeliveryType.PickUp}
-              isSelected={profile.deliveryOption === DeliveryType.PickUp}
-              onSelect={() => setOption(DeliveryType.PickUp)}
-            />
-          </View>
-        </View>
+        <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
         <TotalPrice totalCartPrice={cart.totalCartPrice} />
       </View>
       <CustomButton text="Proceed to payment" buttonStyle={styles.button} labelStyle={styles.label} onPress={setVisable} />

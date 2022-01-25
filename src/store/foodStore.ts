@@ -4,8 +4,8 @@ import {FoodApi} from '../api/food-api/food-api';
 import {UserApi} from '../api/user-api/userApi';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
+import {OrderDetails} from '../model/orderDetails';
 import {Reciept} from '../model/reciept';
-import {RecieptItem} from '../model/recieptItem';
 import {Storage} from '../storage/storage';
 
 export class FoodStore {
@@ -67,8 +67,16 @@ export class FoodStore {
     }
   };
 
-  public appendHistory = async (item: RecieptItem) => {
-    // TODO: create order with api endpoint
+  public appendHistory = async (item: OrderDetails) => {
+    if (this.userApi.user) {
+      try {
+        await this.foodApi.purchaseFood(item, this.userApi.user?.id);
+        return true;
+      } catch (e) {
+        throw new Error('User not auth');
+      }
+    }
+    return false;
   };
 
   public initializeData = async () => {

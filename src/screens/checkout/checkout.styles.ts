@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../vars/variables';
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,20 +11,10 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
   },
-  deliveryMethodContainer: {
-    borderRadius: 20,
-    padding: 20,
-    backgroundColor: colors.white,
-    marginTop: 20,
-  },
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: '700',
-  },
   button: {
-    backgroundColor: colors.orange,
+    backgroundColor: '#FF460A',
   },
   label: {
-    color: colors.white,
+    color: '#fff',
   },
 });

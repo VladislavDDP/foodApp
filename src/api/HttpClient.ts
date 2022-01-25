@@ -1,4 +1,4 @@
-export type anyJson = {[key: string]: number | string | anyJson | undefined | null};
+export type anyJson = string | number | boolean | null | undefined | {[x: string]: anyJson} | Array<anyJson>;
 
 export interface RequestConfig {
   params?: anyJson;
