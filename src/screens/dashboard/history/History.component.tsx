@@ -10,19 +10,23 @@ import {Reciept} from '../../../model/reciept';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 
-const minLength = 0;
-
 interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const History: React.FC<Props> = observer(({navigation}) => {
   const {foodStore} = useStore();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
+  const getShoppingHistory = async () => {
+    try {
       await foodStore.getShoppingHistory();
+    } catch (e) {
+    } finally {
       setLoading(false);
-    })();
+    }
+  };
+
+  useEffect(() => {
+    getShoppingHistory();
   });
 
   const goToRecieptDetails = (item: Reciept) => navigation.navigate(Screens.Reciept, {item});
@@ -48,7 +52,6 @@ export const History: React.FC<Props> = observer(({navigation}) => {
         ListEmptyComponent={renderListEmpty}
         renderItem={renderItem}
         keyExtractor={extractKey}
-        inverted={foodStore.orders.length > minLength}
       />
     </SafeAreaView>
   );

@@ -62,7 +62,8 @@ export class FoodStore {
   public getShoppingHistory = async () => {
     const id = this.userApi.user?.id;
     if (id) {
-      this.orderedItems = await this.userApi.getShoppingHistory(id);
+      const response = await this.userApi.getShoppingHistory(id);
+      this.orderedItems = response.reverse();
     }
   };
 
