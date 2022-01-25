@@ -1,12 +1,12 @@
 import React, {createRef} from 'react';
-import {Text, TextInput, View, ViewStyle} from 'react-native';
+import {StyleProp, Text, TextInput, View, ViewStyle} from 'react-native';
 
 import {styles} from './input-field.styles';
 
 interface Props {
   label: string;
   isSecure?: boolean;
-  error?: ViewStyle;
+  error?: StyleProp<ViewStyle>;
   value: string;
   setInput: (text: string) => void;
 }

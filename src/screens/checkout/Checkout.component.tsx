@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import {Modal, Text} from 'react-native';
 import {View} from 'react-native-animatable';
 
-import {CustomButton} from '../../components/button/CustomButton.component';
+import {CustomButton} from '../../components/custom-button/CustomButton.component';
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';

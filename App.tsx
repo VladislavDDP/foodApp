@@ -5,6 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {LoadingScreen} from './src/components/loading-screen/LoadingScreen.component';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import {rootStore, useStore} from './src/store/store';
+import {NetworkChecker} from './src/utils/network-checker/NetworkChecker.component';
 
 export const App = () => {
   const [loading, setLoading] = useState(true);
@@ -28,8 +29,10 @@ export const App = () => {
   }
 
   return (
-    <Provider value={rootStore}>
-      <RootNavigator />
-    </Provider>
+    <NetworkChecker>
+      <Provider value={rootStore}>
+        <RootNavigator />
+      </Provider>
+    </NetworkChecker>
   );
 };

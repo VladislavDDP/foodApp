@@ -22,7 +22,6 @@ export class FoodStore {
     this.foodApi = foodApi;
     this.userApi = userApi;
     this.storage = storage;
-    this.initializeData();
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
@@ -63,7 +62,8 @@ export class FoodStore {
   public getShoppingHistory = async () => {
     const id = this.userApi.user?.id;
     if (id) {
-      this.orderedItems = await this.userApi.getShoppingHistory(id);
+      const response = await this.userApi.getShoppingHistory(id);
+      this.orderedItems = response.reverse();
     }
   };
 

@@ -4,7 +4,7 @@ import {Formik, type FormikValues, type FormikHelpers} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
 import * as Yup from 'yup';
 
-import {CustomButton} from '../../../components/button/CustomButton.component';
+import {CustomButton} from '../../../components/custom-button/CustomButton.component';
 import {styles} from './login.styles';
 import {useStore} from '../../../store/store';
 import {LoginForm} from './login-form/LoginForm.component';

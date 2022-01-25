@@ -4,7 +4,7 @@ import {ActivityIndicator, View} from 'react-native';
 import {observer} from 'mobx-react';
 import * as Yup from 'yup';
 
-import {CustomButton} from '../../../components/button/CustomButton.component';
+import {CustomButton} from '../../../components/custom-button/CustomButton.component';
 import {useStore} from '../../../store/store';
 import {styles} from './sign-up.styles';
 import {SignUpForm} from './sign-up-form/SignUpForm.component';
