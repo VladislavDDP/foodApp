@@ -19,16 +19,4 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
     color: '#666',
   },
-  refreshButton: {
-    borderRadius: 30,
-    backgroundColor: '#FA4A0C',
-    paddingVertical: 20,
-    width: '100%',
-    marginVertical: 20,
-  },
-  btnText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontWeight: '600',
-  },
 });

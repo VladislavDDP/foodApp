@@ -1,8 +1,8 @@
 import {makeAutoObservable} from 'mobx';
 
 import {UserApi} from '../api/user-api/userApi';
-import {DeliveryType} from '../screens/checkout/deliveryOptions.types';
-import {PaymentType} from '../screens/drawer/profile/paymentOption.types';
+import {DeliveryType} from '../model/deliveryType';
+import {PaymentType} from '../model/PaymentType';
 
 export class Profile {
   public name: string = 'Username';
@@ -19,7 +19,7 @@ export class Profile {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public setUserData = () => {
+  public getUserData = () => {
     if (this.userApi.user) {
       this.name = this.userApi.user?.username;
       this.email = this.userApi.user?.email;

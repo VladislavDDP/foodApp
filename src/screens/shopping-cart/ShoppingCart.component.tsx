@@ -7,7 +7,7 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {colors} from '../../vars/variables';
 import {styles} from './shopping-cart.styles';
-import {CustomButton} from '../../components/button/CustomButton.component';
+import {CustomButton} from '../../components/custom-button/CustomButton.component';
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
 import {ListHeader} from '../../components/list-header/ListHeader.component';
 import {CartItem} from './cart-item/CartItem.component';

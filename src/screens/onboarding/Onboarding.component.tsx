@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 
 import {DefaultStyledText} from '../../components/app-text/AppText.component';
-import {CustomButton} from '../../components/button/CustomButton.component';
+import {CustomButton} from '../../components/custom-button/CustomButton.component';
 import {OnboardingLogo} from './Logo.component';
 import {PeopleScene} from './PeopleScene.component';
 import {styles} from './styles/onboarding.styles';

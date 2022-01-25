@@ -5,19 +5,24 @@ import {User} from '../model/user';
 import {StorageKeys} from './asyncKeys';
 
 export class Storage {
-  public addAuthenticationKey = async (jwtKey: string) => AsyncStorage.setItem(StorageKeys.JwtKey, jwtKey);
+  public addAuthenticationData = async (email: string, password: string) => {
+    await AsyncStorage.setItem(StorageKeys.AuthData, JSON.stringify({email, password}));
+  };
 
   public addUserData = async (user: User) => AsyncStorage.setItem(StorageKeys.UserData, JSON.stringify(user));
 
-  public removeAuthenticationKey = async () => {
-    await AsyncStorage.removeItem(StorageKeys.JwtKey);
+  public removeAuthenticationData = async () => {
+    await AsyncStorage.removeItem(StorageKeys.AuthData);
   };
 
   public removeUserData = async () => {
     await AsyncStorage.removeItem(StorageKeys.UserData);
   };
 
-  public getToken = async () => AsyncStorage.getItem(StorageKeys.JwtKey);
+  public getAuthData = async (): Promise<{email: string; password: string}> => {
+    const response = await AsyncStorage.getItem(StorageKeys.AuthData);
+    return response ? JSON.parse(response) : {};
+  };
 
   public getLikedFood = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.LikedItems);

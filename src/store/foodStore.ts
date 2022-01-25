@@ -2,21 +2,11 @@ import {makeAutoObservable} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
 import {UserApi} from '../api/user-api/userApi';
-import {CartFood} from '../model/cartFood';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
+import {OrderDetails} from '../model/orderDetails';
 import {Reciept} from '../model/reciept';
-import {DeliveryType} from '../screens/checkout/deliveryOptions.types';
-import {PaymentType} from '../screens/drawer/profile/paymentOption.types';
 import {Storage} from '../storage/storage';
-
-interface RecieptDetails {
-  address: string;
-  phone: string;
-  delivery_method: DeliveryType;
-  payment: PaymentType;
-  items: Array<CartFood>;
-}
 
 export class FoodStore {
   public allItems: Array<Food> = [];
@@ -77,11 +67,16 @@ export class FoodStore {
     }
   };
 
-  public appendHistory = async (item: RecieptDetails) => {
-    const response = await this.userApi.purchaseFood(item);
-    if (response) {
-      return true;
+  public appendHistory = async (item: OrderDetails) => {
+    if (this.userApi.user) {
+      try {
+        await this.foodApi.purchaseFood(item, this.userApi.user?.id);
+        return true;
+      } catch (e) {
+        throw new Error('User not auth');
+      }
     }
+    return false;
   };
 
   public initializeData = async () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
-import {DeliveryType} from '../deliveryOptions.types';
+import {DeliveryType} from '../../../model/deliveryType';
 import {styles} from './delivery-options-box.styles';
 
 interface Props {

@@ -19,9 +19,11 @@ export const History: React.FC<Props> = observer(({navigation}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    foodStore.getShoppingHistory();
-    setLoading(false);
-  }, []);
+    (async () => {
+      await foodStore.getShoppingHistory();
+      setLoading(false);
+    })();
+  });
 
   const goToRecieptDetails = (item: Reciept) => navigation.navigate(Screens.Reciept, {item});
 
@@ -32,7 +34,7 @@ export const History: React.FC<Props> = observer(({navigation}) => {
   const extractKey = (item: Reciept) => item.id.toString();
 
   if (loading) {
-    return <ActivityIndicator size="large" color="orange" />;
+    return <ActivityIndicator size="large" color="#000" />;
   }
 
   return (

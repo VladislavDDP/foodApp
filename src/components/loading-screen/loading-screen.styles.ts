@@ -2,6 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   activityIndicatorBox: {
+    left: 0,
+    top: 0,
     height: '100%',
     width: '100%',
     position: 'absolute',

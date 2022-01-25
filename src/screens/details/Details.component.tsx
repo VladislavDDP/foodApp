@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import {Text, Animated, SafeAreaView, View, FlatList, ScrollView, Modal} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
 
-import {CustomButton} from '../../components/button/CustomButton.component';
+import {CustomButton} from '../../components/custom-button/CustomButton.component';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './details.styles';

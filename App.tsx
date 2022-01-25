@@ -46,9 +46,13 @@ export const App = () => {
     return <DisconnectedScreen onPress={checkConnection} />;
   }
 
+  if (loading) {
+    return <LoadingScreen title="Initing..." />;
+  }
+
   return (
-    <React.Fragment>
-      <Provider value={rootStore}>{loading ? <LoadingScreen title="Initing..." /> : <RootNavigator />}</Provider>
-    </React.Fragment>
+    <Provider value={rootStore}>
+      <RootNavigator />
+    </Provider>
   );
 };

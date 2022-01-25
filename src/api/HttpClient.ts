@@ -1,10 +1,4 @@
-interface JSONObject {
-  [x: string]: anyJson;
-}
-
-interface JSONArray extends Array<anyJson> {}
-
-export type anyJson = string | number | boolean | null | undefined | JSONObject | JSONArray;
+export type anyJson = string | number | boolean | null | undefined | {[x: string]: anyJson} | Array<anyJson>;
 
 export interface RequestConfig {
   params?: anyJson;
