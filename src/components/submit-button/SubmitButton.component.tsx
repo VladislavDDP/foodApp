@@ -1,13 +1,13 @@
 import React from 'react';
-import {Text, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
+import {StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
 
 import {styles} from './submit-button.styles';
 
 interface Props {
   title: string;
   onPress: () => void;
-  buttonStyle?: ViewStyle;
-  textStyle?: TextStyle;
+  buttonStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export const SubmitButton: React.FC<Props> = ({title, buttonStyle, textStyle, onPress}) => (

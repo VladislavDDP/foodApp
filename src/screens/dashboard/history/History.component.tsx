@@ -19,7 +19,6 @@ export const History: React.FC<Props> = observer(({navigation}) => {
   const getShoppingHistory = async () => {
     try {
       await foodStore.getShoppingHistory();
-    } catch (e) {
     } finally {
       setLoading(false);
     }

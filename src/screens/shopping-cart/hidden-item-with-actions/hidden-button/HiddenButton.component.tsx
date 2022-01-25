@@ -1,12 +1,12 @@
 import React from 'react';
-import {TouchableOpacity, ViewStyle} from 'react-native';
+import {StyleProp, TouchableOpacity, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {styles} from './hidden-button.styles';
 
 interface Props {
   icon: string;
-  buttonStyle: ViewStyle;
+  buttonStyle: StyleProp<ViewStyle>;
   onPress: () => void;
 }
 

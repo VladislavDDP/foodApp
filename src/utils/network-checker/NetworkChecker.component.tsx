@@ -28,5 +28,5 @@ export const NetworkChecker: React.FC = observer(({children}) => {
     return <DisconnectedScreen onPress={checkConnection} />;
   }
 
-  return <React.Fragment>{children}</React.Fragment>;
+  return <>{children}</>;
 });
