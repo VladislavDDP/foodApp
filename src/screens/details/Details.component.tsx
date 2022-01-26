@@ -7,20 +7,20 @@ import {CustomButton} from '../../components/custom-button/CustomButton.componen
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './details.styles';
-import {IconBtn} from './icon-btn/IconBtn.component';
 import {Paginator} from './paginator/Paginator.component';
 import {Section} from './section/Section.component';
 import {SliderItem} from './slider-item/SliderItem.component';
 import {SuccessModal} from './success-modal/SuccessModal.component';
 import {useStore} from '../../store/store';
 import {Food} from '../../model/food';
+import {useTheme} from '../../theme/theme';
+import {IconButton} from '../../components/icon-button/IconButton.component';
 
 const startValue = 0;
 
-interface Props extends AppNavigatorScreenProps<Screens.Details> {}
-
-export const Details: React.FC<Props> = observer(({navigation, route}) => {
+export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = observer(({navigation, route}) => {
   const foodItem = route.params.item;
+  const {theme} = useTheme();
   const {cart, foodStore} = useStore();
 
   const [likedFood, setLikedFood] = useState(foodItem.isLiked);
@@ -54,10 +54,10 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
       <View style={styles.header}>
-        <IconBtn icon="chevron-left" onPress={navigation.goBack} />
-        {likedFood ? <IconBtn icon="heart" onPress={removeLike} /> : <IconBtn icon="heart-o" onPress={likeFood} />}
+        <IconButton name="chevron-left" onPress={navigation.goBack} />
+        {likedFood ? <IconButton name="heart" onPress={removeLike} /> : <IconButton name="heart-o" onPress={likeFood} />}
       </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
         <SuccessModal title="Done!" btnText="get it" onPress={onRequestClose} />
@@ -75,7 +75,7 @@ export const Details: React.FC<Props> = observer(({navigation, route}) => {
           horizontal
         />
         <Paginator gallery={foodItem.gallery} scrollX={scrollX} />
-        <Text style={styles.foodTitle}>{foodItem.name}</Text>
+        <Text style={[styles.foodTitle, {color: theme.colorScheme.primaryText}]}>{foodItem.name}</Text>
         <Text style={styles.foodPrice}>{foodItem.price}</Text>
       </View>
       <ScrollView style={styles.content}>

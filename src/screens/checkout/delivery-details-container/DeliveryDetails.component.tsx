@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {observer} from 'mobx-react';
 import {Formik, type FormikValues} from 'formik';
 
@@ -8,6 +8,8 @@ import {TextRecipientInfo} from './text-recipient-info/TextRecipientInfo.compone
 import {styles} from './delivery-details.styles';
 import {FormRecipientInfo} from './form-recipient-info/FormRecipientInfo.component';
 import {useStore} from '../../../store/store';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
+import {useTheme} from '../../../theme/theme';
 
 interface Recipient {
   name: string;
@@ -16,6 +18,7 @@ interface Recipient {
 }
 
 export const DeliveryDetails = observer(() => {
+  const {theme} = useTheme();
   const {profile} = useStore();
   const [editMode, setEditMode] = useState(false);
 
@@ -33,10 +36,10 @@ export const DeliveryDetails = observer(() => {
   return (
     <View style={styles.addressContainer}>
       <View style={styles.addressHeader}>
-        <Text style={styles.sectionTitle}>Address details</Text>
+        <TextWrapper style={styles.sectionTitle}>Address details</TextWrapper>
         {editMode ? null : <ChangeButton onPress={changeEditMode} />}
       </View>
-      <View style={styles.addressTextContainer}>
+      <View style={[styles.addressTextContainer, {backgroundColor: theme.colorScheme.primaryBackgroundDark}]}>
         {editMode ? (
           <Formik initialValues={{name: profile.name, address: profile.address, phone: profile.phone}} onSubmit={submitEditing}>
             {renderForm}

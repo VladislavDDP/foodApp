@@ -3,4 +3,5 @@ export enum StorageKeys {
   UserData = 'UserData',
   LikedItems = 'LikedItems',
   ShoppingHistory = 'ShoppingHistory',
+  Theme = 'Theme',
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Image, Text, View} from 'react-native';
 
+import {TextWrapper} from '../../../../components/text-wrapper/TextWrapper.component';
 import {Food} from '../../../../model/food';
 import {styles} from './food-item.styles';
 
@@ -19,7 +20,7 @@ export const FoodItem: React.FC<Props> = props => {
         <View style={[styles.wrapper, {backgroundColor: props.backColor}]}>
           <Image source={{uri: props.food.photo}} style={styles.image} />
           <View style={styles.decriptionContainer}>
-            <Text style={styles.itemTitle}>{props.food.name}</Text>
+            <TextWrapper style={styles.itemTitle}>{props.food.name}</TextWrapper>
             <Text style={styles.itemPrice}>{props.food.price}</Text>
           </View>
         </View>

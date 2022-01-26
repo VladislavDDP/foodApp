@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
+import {TextWrapper} from '../../../../components/text-wrapper/TextWrapper.component';
 import {styles} from './text-recipient-info.styles';
 
 interface Props {
@@ -11,10 +12,10 @@ interface Props {
 
 export const TextRecipientInfo: React.FC<Props> = ({name, address, phone}) => (
   <View>
-    <Text style={styles.customerName}>{name}</Text>
+    <TextWrapper style={styles.customerName}>{name}</TextWrapper>
     <View style={styles.separator} />
-    <Text>{address}</Text>
+    <TextWrapper>{address}</TextWrapper>
     <View style={styles.separator} />
-    <Text>{phone}</Text>
+    <TextWrapper>{phone}</TextWrapper>
   </View>
 );

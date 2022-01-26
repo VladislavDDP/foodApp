@@ -1,7 +1,9 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {useTheme} from '../../theme/theme';
+import {TextWrapper} from '../text-wrapper/TextWrapper.component';
 import {styles} from './list-header.styles';
 
 interface Props {
@@ -9,9 +11,13 @@ interface Props {
   text: string;
 }
 
-export const ListHeader: React.FC<Props> = ({iconName, text}) => (
-  <View style={styles.container}>
-    <Icon name={iconName} size={10} color="#000" />
-    <Text style={styles.headerListText}>{text}</Text>
-  </View>
-);
+export const ListHeader: React.FC<Props> = ({iconName, text}) => {
+  const {theme} = useTheme();
+
+  return (
+    <View style={styles.container}>
+      <Icon name={iconName} size={10} color={theme.colorScheme.primaryText} />
+      <TextWrapper style={styles.headerListText}>{text}</TextWrapper>
+    </View>
+  );
+};

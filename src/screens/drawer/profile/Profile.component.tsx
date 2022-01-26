@@ -7,8 +7,10 @@ import {useStore} from '../../../store/store';
 import {ContactInfo} from './contact-info/ContactInfo.component';
 import {PaymentType} from '../../../model/PaymentType';
 import {styles} from './profile.styles';
+import {useTheme} from '../../../theme/theme';
 
 export const Profile = observer(() => {
+  const {theme} = useTheme();
   const {profile} = useStore();
 
   useEffect(() => {
@@ -18,15 +20,15 @@ export const Profile = observer(() => {
   const setOption = (option: PaymentType) => profile.setPaymentMethod(option);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
+    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
+      <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>Profile</Text>
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Information</Text>
+        <Text style={[styles.sectionTitle, {color: theme.colorScheme.primaryText}]}>Information</Text>
         <ContactInfo />
       </View>
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Payment Method</Text>
-        <View style={styles.paymentContainer}>
+        <Text style={[styles.sectionTitle, {color: theme.colorScheme.primaryText}]}>Payment Method</Text>
+        <View style={[styles.paymentContainer, {backgroundColor: theme.colorScheme.primaryBackgroundDark}]}>
           <RadioButton
             icon="credit-card"
             text={PaymentType.Card}

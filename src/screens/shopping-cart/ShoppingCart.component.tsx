@@ -15,10 +15,10 @@ import {HiddenItemWithActions} from './hidden-item-with-actions/HiddenItemWithAc
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../store/store';
 import {CartFood} from '../../model/cartFood';
+import {useTheme} from '../../theme/theme';
 
-interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
-
-export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
+export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const {cart, foodStore} = useStore();
 
   const goToCheckout = () => {
@@ -47,7 +47,7 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
   const extractKey = (item: CartFood) => item.id.toString();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
       <CustomHeader title="Cart" onPress={navigation.goBack} />
       <SwipeListView
         data={cart.cartItems}

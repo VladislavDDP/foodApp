@@ -11,6 +11,7 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
+import {useTheme} from '../../theme/theme';
 
 interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
 
@@ -18,6 +19,7 @@ const startValue = 0;
 const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
@@ -36,8 +38,8 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
       bounces={false}
       keyboardShouldPersistTaps="never"
       scrollEnabled={false}>
-      <View style={styles.container}>
-        <View style={styles.header}>
+      <View style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
+        <View style={[styles.header, {backgroundColor: theme.colorScheme.primaryBackgroundDark}]}>
           <Logo />
           <View style={styles.tabs}>
             <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
@@ -49,7 +51,7 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
           onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false})}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          style={styles.animatedContainer}
+          style={[styles.animatedContainer, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}
           pagingEnabled
           horizontal>
           <Login goToDashboard={goToDashboard} />

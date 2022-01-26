@@ -13,6 +13,7 @@ import {CategoryItem} from './category-item/CategoryItem.component';
 import {FakeSearch} from './fake-search/FakeSearch.component';
 import {FoodItem} from './food-item/FoodItem.component';
 import {styles} from './home.styles';
+import {useTheme} from '../../../theme/theme';
 
 const startId = 1;
 const duration = 100;
@@ -20,6 +21,7 @@ const duration = 100;
 interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const Home: React.FC<Props> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const {foodStore} = useStore();
   const [foods, setFoods] = useState<Array<Food>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
@@ -52,7 +54,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
 
   const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
     <Animatable.View animation="zoomIn" delay={duration * index}>
-      <FoodItem food={item} backColor="#fff" onPress={goToDetails} />
+      <FoodItem food={item} backColor={theme.colorScheme.primaryBackgroundDark} onPress={goToDetails} />
     </Animatable.View>
   );
 
@@ -62,9 +64,9 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   const renderListEmptyElement = () => <ActivityIndicator style={styles.activityIndicator} size="large" color="#FF460A" />;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
       <ScrollView style={styles.wrapper}>
-        <Text style={styles.title}>Delicious food for you</Text>
+        <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>Delicious food for you</Text>
         <FakeSearch onPress={navigateToSearch} />
         <FlatList
           style={styles.flatlist}
@@ -87,7 +89,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
           ListEmptyComponent={renderListEmptyElement}
         />
         <SharedElement id="bg">
-          <View style={styles.bg} />
+          <View style={[styles.bg, {backgroundColor: theme.colorScheme.primaryBackground}]} />
         </SharedElement>
       </ScrollView>
     </SafeAreaView>

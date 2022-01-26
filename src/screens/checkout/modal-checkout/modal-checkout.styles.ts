@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     borderRadius: 20,
-    backgroundColor: 'white',
     paddingBottom: 15,
   },
   modalTitle: {

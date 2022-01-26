@@ -10,10 +10,10 @@ import {useStore} from '../../../store/store';
 import {ListHeader} from '../../../components/list-header/ListHeader.component';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
+import {useTheme} from '../../../theme/theme';
 
-interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
-
-export const Favourites: React.FC<Props> = observer(({navigation}) => {
+export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const {foodStore} = useStore();
 
   const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
@@ -31,8 +31,8 @@ export const Favourites: React.FC<Props> = observer(({navigation}) => {
   const extractKey = (item: Food) => item.id.toString();
 
   return (
-    <SafeAreaView>
-      <Text style={styles.title}>Favourites</Text>
+    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
+      <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>Favourites</Text>
       <FlatList
         scrollEnabled
         data={foodStore.favourites}

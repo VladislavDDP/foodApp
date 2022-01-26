@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {TextWrapper} from '../text-wrapper/TextWrapper.component';
 
 import {styles} from './radio-button.styles';
 
@@ -28,7 +29,7 @@ export const RadioButton: React.FC<Props> = ({icon, text, iconColor, isSelected,
               <Icon style={styles.icon} name={icon} size={20} />
             </View>
           ) : null}
-          <Text>{text}</Text>
+          <TextWrapper>{text}</TextWrapper>
         </View>
       </TouchableOpacity>
       {shouldSeparate ? <View style={styles.line} /> : null}

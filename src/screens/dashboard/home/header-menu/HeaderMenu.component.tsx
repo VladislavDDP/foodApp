@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {IconButton} from '../../../../components/icon-button/IconButton.component';
+import {IconButton} from '../../../../components/icon-font-awesome5-button/IconButton.component';
 import {styles} from './header-menu.styles';
 
 interface Props {

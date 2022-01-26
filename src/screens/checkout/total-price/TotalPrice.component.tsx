@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {styles} from './total-price.styles';
 
 const fixedPoints = 2;
@@ -11,7 +12,7 @@ interface Props {
 
 export const TotalPrice: React.FC<Props> = ({totalCartPrice}) => (
   <View style={styles.finalPriceContainer}>
-    <Text style={styles.totalText}>Total: </Text>
-    <Text style={styles.totalPrice}>{totalCartPrice.toFixed(fixedPoints)}</Text>
+    <TextWrapper style={styles.totalText}>Total: </TextWrapper>
+    <TextWrapper style={styles.totalPrice}>{totalCartPrice.toFixed(fixedPoints)}</TextWrapper>
   </View>
 );

@@ -56,10 +56,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
 
   return (
     <View style={styles.container}>
-      <Formik
-        initialValues={{email: 'vladyslav.kucheruk@computools.com', password: 'fVRMzwemhBKgfT6'}}
-        validationSchema={LoginSchema}
-        onSubmit={submitLogin}>
+      <Formik initialValues={{email: 'testmail@gmail.com', password: '12345678'}} validationSchema={LoginSchema} onSubmit={submitLogin}>
         {renderForm}
       </Formik>
     </View>

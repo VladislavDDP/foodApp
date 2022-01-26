@@ -1,7 +1,8 @@
 import React from 'react';
 import {Text, View, SafeAreaView} from 'react-native';
 
-import {IconButton} from '../icon-button/IconButton.component';
+import {useTheme} from '../../theme/theme';
+import {IconButton} from '../icon-font-awesome5-button/IconButton.component';
 import {styles} from './custom-header.styles';
 
 interface Props {
@@ -9,12 +10,16 @@ interface Props {
   onPress: () => void;
 }
 
-export const CustomHeader: React.FC<Props> = ({title, onPress}) => (
-  <SafeAreaView style={styles.container}>
-    <View style={styles.headerContainer}>
-      <IconButton iconName="chevron-left" size={18} color="#333" onPress={onPress} />
-      <Text style={styles.title}>{title}</Text>
-      <IconButton iconName="chevron-left" size={18} color="transparent" onPress={onPress} />
-    </View>
-  </SafeAreaView>
-);
+export const CustomHeader: React.FC<Props> = ({title, onPress}) => {
+  const {theme} = useTheme();
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <IconButton iconName="chevron-left" size={18} color={theme.colorScheme.primaryText} onPress={onPress} />
+        <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>{title}</Text>
+        <IconButton iconName="chevron-left" size={18} color="transparent" onPress={onPress} />
+      </View>
+    </SafeAreaView>
+  );
+};

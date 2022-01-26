@@ -3,10 +3,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {TabProps, tabScreens} from './routes.types';
+import {useTheme} from '../../theme/theme';
 
 const Tab = createBottomTabNavigator();
 
 export const TabStack = () => {
+  const {theme} = useTheme();
+
   const renderTab = (tab: TabProps) => (
     <Tab.Screen
       key={tab.id}
@@ -17,7 +20,12 @@ export const TabStack = () => {
   );
 
   return (
-    <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false, tabBarStyle: {borderBottomLeftRadius: 20}}}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {backgroundColor: theme.colorScheme.primaryBackgroundLight, borderBottomLeftRadius: 20},
+      }}>
       {tabScreens.map(renderTab)}
     </Tab.Navigator>
   );

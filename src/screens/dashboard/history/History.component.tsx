@@ -9,10 +9,10 @@ import {styles} from './history.styles';
 import {Reciept} from '../../../model/reciept';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
+import {useTheme} from '../../../theme/theme';
 
-interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
-
-export const History: React.FC<Props> = observer(({navigation}) => {
+export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const {foodStore} = useStore();
   const [loading, setLoading] = useState(true);
 
@@ -37,12 +37,14 @@ export const History: React.FC<Props> = observer(({navigation}) => {
   const extractKey = (item: Reciept) => item.id.toString();
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#000" />;
+    return (
+      <ActivityIndicator style={[styles.activityBox, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]} size="large" color="#FF460A" />
+    );
   }
 
   return (
-    <SafeAreaView>
-      <Text style={styles.title}>History</Text>
+    <SafeAreaView style={{backgroundColor: theme.colorScheme.primaryBackgroundLight}}>
+      <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>History</Text>
       <FlatList
         scrollEnabled
         data={foodStore.orders}

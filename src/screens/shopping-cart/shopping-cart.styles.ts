@@ -10,6 +10,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.orange,
   },
   label: {
-    color: colors.white,
+    color: '#fff',
   },
 });

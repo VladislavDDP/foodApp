@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {Modal, Text} from 'react-native';
+import {Modal} from 'react-native';
 import {View} from 'react-native-animatable';
 
 import {CustomButton} from '../../components/custom-button/CustomButton.component';
@@ -15,10 +15,11 @@ import {TotalPrice} from './total-price/TotalPrice.component';
 import {useStore} from '../../store/store';
 import {LoadingScreen} from '../../components/loading-screen/LoadingScreen.component';
 import {DeliveryOptionsBox} from './delivery-options-box/DeliveryOptionsBox.component';
+import {useTheme} from '../../theme/theme';
+import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 
-interface Props extends AppNavigatorScreenProps<Screens.Checkout> {}
-
-export const Checkout: React.FC<Props> = observer(({navigation}) => {
+export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const {foodStore, cart, profile} = useStore();
@@ -63,13 +64,13 @@ export const Checkout: React.FC<Props> = observer(({navigation}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
       <CustomHeader title="Checkout" onPress={navigation.goBack} />
       <View style={styles.wrapper}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
           <ModalCheckout approvePayment={approvePayment} setVisable={setModalVisible} />
         </Modal>
-        <Text style={styles.title}>Delivery</Text>
+        <TextWrapper style={styles.title}>Delivery</TextWrapper>
         <DeliveryDetails />
         <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
         <TotalPrice totalCartPrice={cart.totalCartPrice} />

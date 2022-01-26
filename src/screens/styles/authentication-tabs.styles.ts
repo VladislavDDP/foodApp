@@ -5,7 +5,6 @@ const {height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
     position: 'relative',
   },
   contentContainer: {
@@ -13,12 +12,10 @@ export const styles = StyleSheet.create({
   },
   animatedContainer: {
     flex: 1,
-    backgroundColor: '#eee',
     flexDirection: 'row',
   },
   header: {
     flex: 1,
-    backgroundColor: '#fff',
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
   },

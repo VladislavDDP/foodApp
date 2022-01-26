@@ -1,14 +1,11 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
-import {colors} from '../../../vars/variables';
-
 const {height, width} = Dimensions.get('window');
 const extra = 2;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F2',
   },
   wrapper: {
     marginHorizontal: 0,
@@ -42,7 +39,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     width,
     height: height * extra,
-    backgroundColor: colors.white,
     borderRadius: 20,
     padding: 15,
     transform: [{translateY: height}],

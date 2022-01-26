@@ -1,7 +1,8 @@
 import React from 'react';
 import {TextInput, View} from 'react-native';
 
-import {BackButton} from '../../../components/back-button/BackButton.component';
+import {IconButton} from '../../../components/icon-button/IconButton.component';
+import {useTheme} from '../../../theme/theme';
 import {styles} from './search-header.styles';
 
 interface Props {
@@ -9,9 +10,19 @@ interface Props {
   onChangeText: (text: string) => void;
 }
 
-export const SearchHeader: React.FC<Props> = ({onPress, onChangeText}) => (
-  <View style={styles.container}>
-    <BackButton onPress={onPress} />
-    <TextInput autoFocus autoCapitalize="none" onChangeText={onChangeText} style={styles.textInput} placeholder="Search" />
-  </View>
-);
+export const SearchHeader: React.FC<Props> = ({onPress, onChangeText}) => {
+  const {theme} = useTheme();
+
+  return (
+    <View style={styles.container}>
+      <IconButton name="chevron-left" onPress={onPress} />
+      <TextInput
+        autoFocus
+        autoCapitalize="none"
+        onChangeText={onChangeText}
+        style={[styles.textInput, {color: theme.colorScheme.primaryText}]}
+        placeholder="Search"
+      />
+    </View>
+  );
+};

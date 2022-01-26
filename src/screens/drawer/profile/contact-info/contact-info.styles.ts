@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   informationContainer: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
     paddingVertical: 10,
     borderRadius: 20,
     marginVertical: 20,
