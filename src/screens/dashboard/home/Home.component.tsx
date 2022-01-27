@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {ActivityIndicator, FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {ActivityIndicator, FlatList, ScrollView} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
 
@@ -13,7 +13,10 @@ import {CategoryItem} from './category-item/CategoryItem.component';
 import {FakeSearch} from './fake-search/FakeSearch.component';
 import {FoodItem} from './food-item/FoodItem.component';
 import {styles} from './home.styles';
-import {useTheme} from '../../../theme/theme';
+import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.component';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
+import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
+import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 
 const startId = 1;
 const duration = 100;
@@ -21,7 +24,6 @@ const duration = 100;
 interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
 
 export const Home: React.FC<Props> = observer(({navigation}) => {
-  const {theme} = useTheme();
   const {foodStore} = useStore();
   const [foods, setFoods] = useState<Array<Food>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
@@ -54,7 +56,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
 
   const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
     <Animatable.View animation="zoomIn" delay={duration * index}>
-      <FoodItem food={item} backColor={theme.colorScheme.primaryBackgroundDark} onPress={goToDetails} />
+      <FoodItem food={item} onPress={goToDetails} />
     </Animatable.View>
   );
 
@@ -64,9 +66,9 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   const renderListEmptyElement = () => <ActivityIndicator style={styles.activityIndicator} size="large" color="#FF460A" />;
 
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
+    <SafeAreaTheme style={styles.container}>
       <ScrollView style={styles.wrapper}>
-        <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>Delicious food for you</Text>
+        <TextWrapper style={styles.title}>Delicious food for you</TextWrapper>
         <FakeSearch onPress={navigateToSearch} />
         <FlatList
           style={styles.flatlist}
@@ -89,9 +91,9 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
           ListEmptyComponent={renderListEmptyElement}
         />
         <SharedElement id="bg">
-          <View style={[styles.bg, {backgroundColor: theme.colorScheme.primaryBackground}]} />
+          <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg} />
         </SharedElement>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaTheme>
   );
 });

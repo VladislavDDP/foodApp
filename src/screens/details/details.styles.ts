@@ -38,12 +38,6 @@ export const styles = StyleSheet.create({
   content: {
     marginHorizontal: 40,
   },
-  button: {
-    backgroundColor: colors.orange,
-  },
-  label: {
-    color: colors.white,
-  },
   bg: {
     position: 'absolute',
     width,

@@ -16,7 +16,7 @@ export const ListHeader: React.FC<Props> = ({iconName, text}) => {
 
   return (
     <View style={styles.container}>
-      <Icon name={iconName} size={10} color={theme.colorScheme.primaryText} />
+      <Icon name={iconName} size={10} color={theme.colorScheme.text} />
       <TextWrapper style={styles.headerListText}>{text}</TextWrapper>
     </View>
   );

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {ActivityIndicator, FlatList, SafeAreaView, Text} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../../store/store';
@@ -9,10 +9,11 @@ import {styles} from './history.styles';
 import {Reciept} from '../../../model/reciept';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
-import {useTheme} from '../../../theme/theme';
+import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.component';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
+import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 
 export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
-  const {theme} = useTheme();
   const {foodStore} = useStore();
   const [loading, setLoading] = useState(true);
 
@@ -37,14 +38,12 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = o
   const extractKey = (item: Reciept) => item.id.toString();
 
   if (loading) {
-    return (
-      <ActivityIndicator style={[styles.activityBox, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]} size="large" color="#FF460A" />
-    );
+    return <ActivityIndicatorTheme style={styles.activityBox} size="large" color="#FF460A" />;
   }
 
   return (
-    <SafeAreaView style={{backgroundColor: theme.colorScheme.primaryBackgroundLight}}>
-      <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>History</Text>
+    <SafeAreaTheme>
+      <TextWrapper style={styles.title}>History</TextWrapper>
       <FlatList
         scrollEnabled
         data={foodStore.orders}
@@ -54,6 +53,6 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = o
         renderItem={renderItem}
         keyExtractor={extractKey}
       />
-    </SafeAreaView>
+    </SafeAreaTheme>
   );
 });

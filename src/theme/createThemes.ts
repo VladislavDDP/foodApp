@@ -1,7 +1,7 @@
 import {createContext, useContext} from 'react';
 
-import {ThemeNames} from './types';
 import {createThemeProvider} from './createThemeProvider';
+import {ThemeNames} from './ThemeNames';
 
 const obj = {name: ''};
 

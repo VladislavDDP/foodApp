@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {TextButton} from '../../../components/text-btn/TextBtn.component';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 
 import {useStore} from '../../../store/store';
 import {useTheme} from '../../../theme/theme';
-import {ThemeNames} from '../../../theme/types';
+import {ThemeNames} from '../../../theme/ThemeNames';
 import {styles} from './security.styles';
 
 export const Security = () => {
@@ -19,11 +20,9 @@ export const Security = () => {
   };
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
-      <View style={styles.wrapper}>
-        <Text style={[styles.text, {color: theme.colorScheme.primaryText}]}>Theme: </Text>
-        <TextButton title={`change to ${nextTheme}`} onPress={toggleSwitch} />
-      </View>
+    <View style={[styles.container, {backgroundColor: theme.colorScheme.primaryLight}]}>
+      <TextWrapper style={[styles.text, {color: theme.colorScheme.text}]}>Theme: </TextWrapper>
+      <TextButton title={`change to ${nextTheme}`} onPress={toggleSwitch} />
     </View>
   );
 };

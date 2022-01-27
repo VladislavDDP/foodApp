@@ -17,7 +17,7 @@ export const HistoryItem: React.FC<Props> = ({item, goToRecieptDetails}) => {
 
   return (
     <View>
-      <TouchableOpacity onPress={goToDetails} style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundDark}]}>
+      <TouchableOpacity onPress={goToDetails} style={[styles.container, {backgroundColor: theme.colorScheme.primaryDark}]}>
         <View style={styles.itemDescription}>
           <TextWrapper style={styles.itemName}>Order #{item.id}</TextWrapper>
           <Text style={styles.itemDate}>{item.createdAt}</Text>

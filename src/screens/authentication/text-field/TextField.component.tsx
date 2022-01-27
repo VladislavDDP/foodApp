@@ -3,7 +3,7 @@ import type {FieldProps} from 'formik';
 import {Text, TextInput, View} from 'react-native';
 
 import {styles} from './text-field.styles';
-import {useTheme} from '../../../theme/theme';
+import {InputTheme} from '../../../components/input-theme/InputTheme.component';
 
 interface OtherProps {
   innerRef: React.RefObject<TextInput>;
@@ -11,7 +11,6 @@ interface OtherProps {
 }
 
 export const TextField = (props: FieldProps & OtherProps) => {
-  const {theme} = useTheme();
   const {
     field: {name, onBlur, onChange, value},
     form: {errors},
@@ -26,8 +25,8 @@ export const TextField = (props: FieldProps & OtherProps) => {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
-        style={[styles.input, {color: theme.colorScheme.primaryText}, errors[name] ? styles.redline : {}]}
+      <InputTheme
+        style={[styles.input, errors[name] ? styles.redline : {}]}
         onChangeText={OnChangeText}
         onBlur={onBlurField}
         autoCapitalize="none"

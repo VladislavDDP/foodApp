@@ -1,20 +1,25 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 import {useTheme} from '../../theme/theme';
+import {iconComponentMap} from './icon-component-map';
+import {IconTypes} from './icon-types';
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   name: string;
-  onPress: () => void;
+  size: number;
+  color?: string;
+  iconType?: IconTypes;
 }
 
-export const IconButton: React.FC<Props> = ({name, onPress}) => {
+export const IconButton: React.FC<Props> = ({style, name, size, color, iconType, ...rest}) => {
   const {theme} = useTheme();
 
+  const Icon = iconComponentMap[iconType || IconTypes.FontAwesomeIcon];
+
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Icon name={name} size={20} color={theme.colorScheme.primaryText} />
+    <TouchableOpacity {...rest} style={[style]}>
+      <Icon name={name} size={size} color={color || theme.colorScheme.text} />
     </TouchableOpacity>
   );
 };

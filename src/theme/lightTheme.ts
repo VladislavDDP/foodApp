@@ -1,12 +1,13 @@
-import {Theme} from './types';
+import {Theme} from './Theme.types';
 
 export const lightTheme: Theme = {
   colorScheme: {
-    primaryBackground: 'rgba(100, 100, 100, 0.1)',
-    primaryBackgroundLight: '#F2F2F2',
-    primaryBackgroundDark: '#fff',
-    primaryText: '#000',
-    secondaryBackground: '#FF460A',
-    shadow: 'rgba(236, 75, 75, 0)',
+    primary: 'rgba(100, 100, 100, 0.1)',
+    primaryLight: '#F2F2F2',
+    primaryDark: '#fff',
+    text: '#000',
+    secondary: '#FF460A',
+    shadow: 'rgba(255, 70, 10, 0)',
+    accent: '#FF460A',
   },
 };

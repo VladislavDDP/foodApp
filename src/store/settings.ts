@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
 import {Storage} from '../storage/storage';
-import {ThemeNames} from '../theme/types';
+import {ThemeNames} from '../theme/ThemeNames';
 
 export class Settings {
   public theme: ThemeNames = ThemeNames.Light;

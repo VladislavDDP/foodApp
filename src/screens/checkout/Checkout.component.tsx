@@ -15,11 +15,11 @@ import {TotalPrice} from './total-price/TotalPrice.component';
 import {useStore} from '../../store/store';
 import {LoadingScreen} from '../../components/loading-screen/LoadingScreen.component';
 import {DeliveryOptionsBox} from './delivery-options-box/DeliveryOptionsBox.component';
-import {useTheme} from '../../theme/theme';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
+import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 
 export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = observer(({navigation}) => {
-  const {theme} = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const {foodStore, cart, profile} = useStore();
@@ -64,7 +64,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = obs
   }
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
+    <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
       <CustomHeader title="Checkout" onPress={navigation.goBack} />
       <View style={styles.wrapper}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
@@ -75,7 +75,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = obs
         <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
         <TotalPrice totalCartPrice={cart.totalCartPrice} />
       </View>
-      <CustomButton text="Proceed to payment" buttonStyle={styles.button} labelStyle={styles.label} onPress={setVisable} />
-    </View>
+      <CustomButton text="Proceed to payment" onPress={setVisable} />
+    </ViewTheme>
   );
 });

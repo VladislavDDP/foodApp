@@ -1,7 +1,8 @@
 import {createThemes} from './createThemes';
 import {darkTheme} from './darkTheme';
 import {lightTheme} from './lightTheme';
-import {Theme, ThemeNames} from './types';
+import {Theme} from './Theme.types';
+import {ThemeNames} from './ThemeNames';
 
 export const themes: {[name in ThemeNames]: Theme} = {
   [ThemeNames.Dark]: darkTheme,

@@ -10,8 +10,20 @@ export const styles = StyleSheet.create({
     right: 0,
     left: 0,
     marginHorizontal: 30,
+    backgroundColor: '#FA4A0C',
   },
   buttonText: {
+    fontWeight: '600',
     textAlign: 'center',
+    color: '#fff',
+  },
+  invertedBackgroundColor: {
+    backgroundColor: '#fff',
+  },
+  invertedTextColor: {
+    color: '#FA4A0C',
+  },
+  disabled: {
+    backgroundColor: '#999',
   },
 });

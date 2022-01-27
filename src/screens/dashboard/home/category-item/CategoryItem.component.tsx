@@ -13,7 +13,7 @@ interface Props {
 
 export const CategoryItem: React.FC<Props> = ({item, onSelectCategory, activeCategoryId}) => {
   const {theme} = useTheme();
-  const color = item.id === activeCategoryId ? '#FA4A0C' : theme.colorScheme.primaryText;
+  const color = item.id === activeCategoryId ? theme.colorScheme.accent : theme.colorScheme.text;
 
   const selectCategory = () => onSelectCategory(item.id);
 

@@ -7,7 +7,7 @@ export const TextWrapper: React.FC<TextProps> = ({style, children, ...rest}) => 
   const {theme} = useTheme();
 
   return (
-    <Text {...rest} style={[{color: theme.colorScheme.primaryText}, style]}>
+    <Text {...rest} style={[{color: theme.colorScheme.text}, style]}>
       {children}
     </Text>
   );

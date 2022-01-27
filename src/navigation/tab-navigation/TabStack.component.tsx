@@ -24,7 +24,7 @@ export const TabStack = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {backgroundColor: theme.colorScheme.primaryBackgroundLight, borderBottomLeftRadius: 20},
+        tabBarStyle: {backgroundColor: theme.colorScheme.primaryLight, borderBottomLeftRadius: 20},
       }}>
       {tabScreens.map(renderTab)}
     </Tab.Navigator>

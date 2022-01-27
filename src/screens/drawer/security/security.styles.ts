@@ -5,13 +5,10 @@ const divider = 3;
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingTop: 20,
     marginHorizontal: 40,
-  },
-  wrapper: {
-    marginTop: 20,
-    alignItems: 'center',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   text: {

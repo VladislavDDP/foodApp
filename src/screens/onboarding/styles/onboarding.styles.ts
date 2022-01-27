@@ -10,9 +10,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 40,
   },
-  button: {
-    backgroundColor: '#fff',
-  },
   title: {
     zIndex: 100,
     color: '#fff',

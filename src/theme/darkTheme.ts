@@ -1,12 +1,13 @@
-import {Theme} from './types';
+import {Theme} from './Theme.types';
 
 export const darkTheme: Theme = {
   colorScheme: {
-    primaryBackground: '#111',
-    primaryBackgroundLight: '#333',
-    primaryBackgroundDark: '#222',
-    primaryText: '#fff',
-    secondaryBackground: '#36153b',
-    shadow: 'rgba(77, 31, 128, 0)',
+    primary: '#111',
+    primaryLight: '#373737',
+    primaryDark: '#222',
+    text: '#fff',
+    secondary: '#36153b',
+    shadow: 'rgba(54, 21, 59, 0)',
+    accent: '#FF460A',
   },
 };

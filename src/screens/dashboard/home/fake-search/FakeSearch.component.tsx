@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {TextWrapper} from '../../../../components/text-wrapper/TextWrapper.component';
@@ -14,11 +14,9 @@ export const FakeSearch: React.FC<Props> = ({onPress}) => {
   const {theme} = useTheme();
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.container}>
-        <Icon name="search" size={25} color={theme.colorScheme.primaryText} />
-        <TextWrapper style={styles.text}>Search</TextWrapper>
-      </View>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Icon name="search" size={25} color={theme.colorScheme.text} />
+      <TextWrapper style={styles.text}>Search</TextWrapper>
     </TouchableOpacity>
   );
 };

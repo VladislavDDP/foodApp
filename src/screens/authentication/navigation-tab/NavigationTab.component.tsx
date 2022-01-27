@@ -1,8 +1,7 @@
 import React from 'react';
 import {Animated, Dimensions, TouchableOpacity} from 'react-native';
 
-import {DefaultStyledText} from '../../../components/app-text/AppText.component';
-import {useTheme} from '../../../theme/theme';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {styles} from './navigation-tab.styles';
 
 const {width} = Dimensions.get('window');
@@ -18,7 +17,6 @@ interface Props {
 }
 
 export const NavigationTab: React.FC<Props> = ({page, title, scrollX, scrollToAnother}) => {
-  const {theme} = useTheme();
   const inputRange = [(page - step) * width, page * width, (page + step) * width];
   const opacity = scrollX.interpolate({inputRange, outputRange: [minOpacity, maxOpacity, minOpacity], extrapolate: 'clamp'});
 
@@ -26,7 +24,7 @@ export const NavigationTab: React.FC<Props> = ({page, title, scrollX, scrollToAn
 
   return (
     <TouchableOpacity onPress={scroll}>
-      <DefaultStyledText style={[styles.label, {color: theme.colorScheme.primaryText}]}>{title}</DefaultStyledText>
+      <TextWrapper style={styles.label}>{title}</TextWrapper>
       <Animated.View style={[{opacity}, styles.animatedLine]} />
     </TouchableOpacity>
   );

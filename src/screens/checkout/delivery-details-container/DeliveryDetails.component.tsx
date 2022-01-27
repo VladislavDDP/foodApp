@@ -39,7 +39,7 @@ export const DeliveryDetails = observer(() => {
         <TextWrapper style={styles.sectionTitle}>Address details</TextWrapper>
         {editMode ? null : <ChangeButton onPress={changeEditMode} />}
       </View>
-      <View style={[styles.addressTextContainer, {backgroundColor: theme.colorScheme.primaryBackgroundDark}]}>
+      <View style={[styles.addressTextContainer, {backgroundColor: theme.colorScheme.primaryDark}]}>
         {editMode ? (
           <Formik initialValues={{name: profile.name, address: profile.address, phone: profile.phone}} onSubmit={submitEditing}>
             {renderForm}

@@ -23,10 +23,4 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#999',
     marginBottom: 10,
   },
-  button: {
-    backgroundColor: '#FA4A0C',
-  },
-  label: {
-    color: '#fff',
-  },
 });

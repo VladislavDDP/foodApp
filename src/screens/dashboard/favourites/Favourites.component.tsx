@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {SafeAreaView, Text, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {Food} from '../../../model/food';
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
@@ -10,10 +10,10 @@ import {useStore} from '../../../store/store';
 import {ListHeader} from '../../../components/list-header/ListHeader.component';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
-import {useTheme} from '../../../theme/theme';
+import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.component';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 
 export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
-  const {theme} = useTheme();
   const {foodStore} = useStore();
 
   const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
@@ -31,8 +31,8 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
   const extractKey = (item: Food) => item.id.toString();
 
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight}]}>
-      <Text style={[styles.title, {color: theme.colorScheme.primaryText}]}>Favourites</Text>
+    <SafeAreaTheme style={styles.container}>
+      <TextWrapper style={styles.title}>Favourites</TextWrapper>
       <FlatList
         scrollEnabled
         data={foodStore.favourites}
@@ -43,6 +43,6 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
         renderItem={renderItem}
         keyExtractor={extractKey}
       />
-    </SafeAreaView>
+    </SafeAreaTheme>
   );
 });

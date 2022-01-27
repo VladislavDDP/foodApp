@@ -14,10 +14,7 @@ export const PeopleScene = () => {
     <View style={styles.imagesWrapper}>
       <Image source={women} style={styles.womenImg} />
       <Image source={men} style={styles.menImg} />
-      <LinearGradient
-        colors={[theme.colorScheme.shadow, theme.colorScheme.secondaryBackground, theme.colorScheme.secondaryBackground]}
-        style={styles.redBluredBox}
-      />
+      <LinearGradient colors={[theme.colorScheme.shadow, theme.colorScheme.secondary, theme.colorScheme.secondary]} style={styles.redBluredBox} />
     </View>
   );
 };

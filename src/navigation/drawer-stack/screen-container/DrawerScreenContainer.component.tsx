@@ -42,7 +42,7 @@ export const DrawerScreenContainer: React.FC<Props> = props => {
   };
 
   return (
-    <Animated.View style={[styles.container, {backgroundColor: theme.colorScheme.primaryBackgroundLight, borderRadius, transform: [{scale}]}]}>
+    <Animated.View style={[styles.container, {backgroundColor: theme.colorScheme.primaryLight, borderRadius, transform: [{scale}]}]}>
       <DrawerHeader openDrawer={openDrawer} navigateToCart={navigateToCart} />
       {props.children}
     </Animated.View>

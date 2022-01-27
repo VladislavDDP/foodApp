@@ -18,7 +18,7 @@ export const ModalCheckout: React.FC<Props> = ({approvePayment, setVisable}) => 
 
   return (
     <View style={styles.container}>
-      <View style={[styles.wrapper, {backgroundColor: theme.colorScheme.primaryBackgroundDark}]}>
+      <View style={[styles.wrapper, {backgroundColor: theme.colorScheme.primaryDark}]}>
         <View style={styles.modalTitle}>
           <TextWrapper style={styles.titleText}>Please note</TextWrapper>
         </View>

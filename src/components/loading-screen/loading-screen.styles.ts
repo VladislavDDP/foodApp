@@ -1,21 +1,23 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  activityIndicatorBox: {
+  activityIndicatorContainer: {
     left: 0,
     top: 0,
+    backgroundColor: '#999',
     height: '100%',
     width: '100%',
     position: 'absolute',
     zIndex: 10,
-    backgroundColor: 'rgba(255, 107, 48, 0.8)',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  indicator: {
+    backgroundColor: 'transparent',
   },
   loadingText: {
     marginTop: 10,
     fontWeight: '700',
     fontSize: 25,
-    color: '#fff',
   },
 });
