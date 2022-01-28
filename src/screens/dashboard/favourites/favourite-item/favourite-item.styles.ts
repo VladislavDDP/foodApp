@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
   },
   itemDescription: {
     flexDirection: 'column',

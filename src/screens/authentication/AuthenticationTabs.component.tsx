@@ -11,6 +11,9 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from '../styles/authentication-tabs.styles';
 import {NavigationTab} from './navigation-tab/NavigationTab.component';
+import {useTheme} from '../../theme/theme';
+import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
+import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 
 interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
 
@@ -18,6 +21,7 @@ const startValue = 0;
 const {width} = Dimensions.get('window');
 
 export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
+  const {theme} = useTheme();
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
@@ -36,26 +40,26 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
       bounces={false}
       keyboardShouldPersistTaps="never"
       scrollEnabled={false}>
-      <View style={styles.container}>
-        <View style={styles.header}>
+      <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
+        <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.header}>
           <Logo />
           <View style={styles.tabs}>
             <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
             <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
           </View>
-        </View>
+        </ViewTheme>
         <Animated.ScrollView
           ref={slidesRef}
           onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {useNativeDriver: false})}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          style={styles.animatedContainer}
+          style={[styles.animatedContainer, {backgroundColor: theme.colorScheme.primaryLight}]}
           pagingEnabled
           horizontal>
           <Login goToDashboard={goToDashboard} />
           <SignUp goToDashboard={goToDashboard} />
         </Animated.ScrollView>
-      </View>
+      </ViewTheme>
     </KeyboardAwareScrollView>
   );
 });

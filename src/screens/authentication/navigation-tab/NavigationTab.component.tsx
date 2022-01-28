@@ -1,7 +1,7 @@
 import React from 'react';
 import {Animated, Dimensions, TouchableOpacity} from 'react-native';
 
-import {DefaultStyledText} from '../../../components/app-text/AppText.component';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {styles} from './navigation-tab.styles';
 
 const {width} = Dimensions.get('window');
@@ -24,7 +24,7 @@ export const NavigationTab: React.FC<Props> = ({page, title, scrollX, scrollToAn
 
   return (
     <TouchableOpacity onPress={scroll}>
-      <DefaultStyledText style={styles.label}>{title}</DefaultStyledText>
+      <TextWrapper style={styles.label}>{title}</TextWrapper>
       <Animated.View style={[{opacity}, styles.animatedLine]} />
     </TouchableOpacity>
   );

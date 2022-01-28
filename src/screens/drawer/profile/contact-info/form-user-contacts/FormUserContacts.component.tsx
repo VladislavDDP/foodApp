@@ -1,9 +1,10 @@
 import React from 'react';
 import type {FormikValues} from 'formik';
-import {TextInput, View} from 'react-native';
+import {View} from 'react-native';
 
 import {SubmitButton} from '../../../../../components/submit-button/SubmitButton.component';
 import {styles} from '../contact-info.styles';
+import {InputTheme} from '../../../../../components/input-theme/InputTheme.component';
 
 interface Props {
   switchEditMode: () => void;
@@ -13,7 +14,7 @@ export const FormUserContacts: React.FC<Props & FormikValues> = ({handleChange, 
   <View style={styles.infoText}>
     <View style={styles.infoContacts}>
       <View style={styles.nameEmailContainer}>
-        <TextInput
+        <InputTheme
           autoFocus
           autoCapitalize="none"
           autoCorrect={false}
@@ -23,7 +24,7 @@ export const FormUserContacts: React.FC<Props & FormikValues> = ({handleChange, 
           onBlur={handleBlur('name')}
           value={values.name}
         />
-        <TextInput
+        <InputTheme
           onChangeText={handleChange('email')}
           onBlur={handleBlur('email')}
           value={values.email}
@@ -34,7 +35,7 @@ export const FormUserContacts: React.FC<Props & FormikValues> = ({handleChange, 
         />
       </View>
     </View>
-    <TextInput
+    <InputTheme
       onChangeText={handleChange('address')}
       onBlur={handleBlur('address')}
       value={values.address}

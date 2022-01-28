@@ -1,19 +1,16 @@
 import React from 'react';
-import {StyleProp, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
-import {DefaultStyledText} from '../app-text/AppText.component';
+import {TextWrapper} from '../text-wrapper/TextWrapper.component';
 import {styles} from './custom-btn.styles';
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   text: string;
-  buttonStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
-  disabled?: boolean;
-  onPress: () => void;
 }
 
-export const CustomButton: React.FC<Props> = props => (
-  <TouchableOpacity disabled={props.disabled} style={[props.buttonStyle, styles.button]} onPress={props.onPress}>
-    <DefaultStyledText style={[props.labelStyle, styles.buttonText]}>{props.text}</DefaultStyledText>
+export const CustomButton: React.FC<Props> = ({text, style, labelStyle, disabled, ...rest}) => (
+  <TouchableOpacity {...rest} style={[styles.button, disabled && styles.disabled, style]}>
+    <TextWrapper style={[styles.buttonText, labelStyle]}>{text}</TextWrapper>
   </TouchableOpacity>
 );

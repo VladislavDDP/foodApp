@@ -52,7 +52,7 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
       <View style={styles.formContainer}>
         {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <SignUpForm handleSubmit={handleSubmit} />}
       </View>
-      <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+      <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} />
     </>
   );
 

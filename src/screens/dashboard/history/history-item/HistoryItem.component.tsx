@@ -1,7 +1,9 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 
+import {TextWrapper} from '../../../../components/text-wrapper/TextWrapper.component';
 import {Reciept} from '../../../../model/reciept';
+import {useTheme} from '../../../../theme/theme';
 import {styles} from './history-item.styles';
 
 interface Props {
@@ -10,13 +12,14 @@ interface Props {
 }
 
 export const HistoryItem: React.FC<Props> = ({item, goToRecieptDetails}) => {
+  const {theme} = useTheme();
   const goToDetails = () => goToRecieptDetails(item);
 
   return (
     <View>
-      <TouchableOpacity onPress={goToDetails} style={styles.container}>
+      <TouchableOpacity onPress={goToDetails} style={[styles.container, {backgroundColor: theme.colorScheme.primaryDark}]}>
         <View style={styles.itemDescription}>
-          <Text style={styles.itemName}>Order #{item.id}</Text>
+          <TextWrapper style={styles.itemName}>Order #{item.id}</TextWrapper>
           <Text style={styles.itemDate}>{item.createdAt}</Text>
         </View>
         <Text style={styles.totalPrice}>Total: {item.totalPrice}</Text>

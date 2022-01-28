@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {styles} from './section.styles';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 
 export const Section: React.FC<Props> = ({title, description}) => (
   <View style={styles.section}>
-    <Text style={styles.sectionTitle}>{title}</Text>
-    <Text style={styles.sectionText}>{description}</Text>
+    <TextWrapper style={styles.sectionTitle}>{title}</TextWrapper>
+    <TextWrapper style={styles.sectionText}>{description}</TextWrapper>
   </View>
 );

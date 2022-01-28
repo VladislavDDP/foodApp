@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     width,
     height: 150,
     position: 'absolute',
+    zIndex: 1,
   },
   textInput: {
     marginLeft: 40,

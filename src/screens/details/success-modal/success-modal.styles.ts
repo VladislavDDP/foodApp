@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   wrapper: {
     width: '60%',
     padding: 20,
-    backgroundColor: 'orange',
+    backgroundColor: '#333',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',

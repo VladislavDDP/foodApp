@@ -1,22 +1,36 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import Awesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
-interface Props {
-  iconName: string;
+import {useTheme} from '../../theme/theme';
+import {IconTypes} from './icon-types';
+
+interface Props extends TouchableOpacityProps {
+  name: string;
   size: number;
-  color: string;
-  onPress: () => void;
+  color?: string;
+  iconType?: IconTypes;
 }
 
-export const IconButton: React.FC<Props> = props => (
-  <TouchableOpacity style={styles.container} onPress={props.onPress}>
-    <Icon name={props.iconName} size={props.size} color={props.color} />
-  </TouchableOpacity>
-);
+export const IconButton: React.FC<Props> = ({style, name, size, color, iconType, ...rest}) => {
+  const {theme} = useTheme();
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 5,
-  },
-});
+  const iconComponentMap: {[key in IconTypes]: typeof AwesomeIcon | typeof Awesome5Icon} = {
+    [IconTypes.FontAwesomeIcon]: AwesomeIcon,
+    [IconTypes.FontAwesome5Icon]: Awesome5Icon,
+  };
+
+  IconButton.defaultProps = {
+    iconType: IconTypes.FontAwesomeIcon,
+    color: theme.colorScheme.text,
+  };
+
+  const Icon = iconComponentMap[iconType as IconTypes];
+
+  return (
+    <TouchableOpacity {...rest} style={style}>
+      <Icon name={name} size={size} color={color} />
+    </TouchableOpacity>
+  );
+};

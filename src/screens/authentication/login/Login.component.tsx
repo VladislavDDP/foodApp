@@ -46,7 +46,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
       <View style={styles.formContainer}>
         {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <LoginForm resetPassword={resetPassword} handleSubmit={handleSubmit} />}
       </View>
-      <CustomButton disabled={loading} text="Login" onPress={handleSubmit} buttonStyle={styles.button} labelStyle={styles.label} />
+      <CustomButton disabled={loading} text="Login" onPress={handleSubmit} />
     </>
   );
 
@@ -56,10 +56,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
 
   return (
     <View style={styles.container}>
-      <Formik
-        initialValues={{email: 'vladyslav.kucheruk@computools.com', password: 'fVRMzwemhBKgfT6'}}
-        validationSchema={LoginSchema}
-        onSubmit={submitLogin}>
+      <Formik initialValues={{email: '', password: ''}} validationSchema={LoginSchema} onSubmit={submitLogin}>
         {renderForm}
       </Formik>
     </View>

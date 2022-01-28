@@ -6,6 +6,7 @@ import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/s
 import {DrawerHeader} from '../header/DrawerHeader.component';
 import {styles} from './drawer-screen-container.styles';
 import {Screens} from '../../root-stack/routes.types';
+import {useTheme} from '../../../theme/theme';
 
 const animationVars = {
   start: 0,
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export const DrawerScreenContainer: React.FC<Props> = props => {
+  const {theme} = useTheme();
   const progress = useDrawerProgress();
 
   const scale = interpolateNode(progress as Adaptable<number>, {
@@ -40,7 +42,7 @@ export const DrawerScreenContainer: React.FC<Props> = props => {
   };
 
   return (
-    <Animated.View style={[styles.container, {borderRadius, transform: [{scale}]}]}>
+    <Animated.View style={[styles.container, {backgroundColor: theme.colorScheme.primaryLight, borderRadius, transform: [{scale}]}]}>
       <DrawerHeader openDrawer={openDrawer} navigateToCart={navigateToCart} />
       {props.children}
     </Animated.View>

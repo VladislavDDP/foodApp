@@ -18,7 +18,7 @@ export class Authentication {
 
   public checkIfAuthorized = async () => {
     const response = await this.storage.getAuthData();
-    if (response) {
+    if (response.email && response.password) {
       await this.login(response.email, response.password);
     }
     return true;

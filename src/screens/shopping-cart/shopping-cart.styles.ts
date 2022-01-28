@@ -9,7 +9,4 @@ export const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.orange,
   },
-  label: {
-    color: colors.white,
-  },
 });

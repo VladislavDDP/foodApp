@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import {Food} from '../model/food';
 import {User} from '../model/user';
+import {ThemeNames} from '../theme/ThemeNames';
 import {StorageKeys} from './asyncKeys';
 
 export class Storage {
@@ -32,6 +33,15 @@ export class Storage {
   public getUserData = async () => {
     const response = await AsyncStorage.getItem(StorageKeys.UserData);
     return response ? JSON.parse(response) : null;
+  };
+
+  public getTheme = async () => {
+    const response = await AsyncStorage.getItem(StorageKeys.ThemeName);
+    return response ? response : '';
+  };
+
+  public setTheme = async (name: ThemeNames) => {
+    await AsyncStorage.setItem(StorageKeys.ThemeName, name);
   };
 
   public addToFavourite = async (item: Food) => {

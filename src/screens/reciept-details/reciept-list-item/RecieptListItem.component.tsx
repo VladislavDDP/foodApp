@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {styles} from './reciept-list-item.styles';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 
 export const RecieptListItem: React.FC<Props> = ({name, qtyPrice}) => (
   <View style={styles.itemContainer}>
-    <Text>{name}</Text>
-    <Text>{qtyPrice}</Text>
+    <TextWrapper>{name}</TextWrapper>
+    <TextWrapper>{qtyPrice}</TextWrapper>
   </View>
 );

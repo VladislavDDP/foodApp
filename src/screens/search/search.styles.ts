@@ -1,15 +1,18 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
-import {colors} from '../../vars/variables';
-
 const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  sharedElement: {
+    zIndex: 0,
+  },
   bg: {
     position: 'absolute',
     width,
     height,
-    backgroundColor: colors.white,
     borderRadius: 20,
     padding: 15,
     transform: [{translateY: 100}],

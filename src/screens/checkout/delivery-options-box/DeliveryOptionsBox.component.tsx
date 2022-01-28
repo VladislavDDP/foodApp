@@ -1,7 +1,10 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
+import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
+import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {DeliveryType} from '../../../model/deliveryType';
 import {styles} from './delivery-options-box.styles';
 
@@ -16,8 +19,8 @@ export const DeliveryOptionsBox: React.FC<Props> = ({selectedOption, setOption})
 
   return (
     <View>
-      <Text style={styles.sectionTitle}>Delivery method</Text>
-      <View style={styles.deliveryMethodContainer}>
+      <TextWrapper style={styles.sectionTitle}>Delivery method</TextWrapper>
+      <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.deliveryMethodContainer}>
         <RadioButton
           text={DeliveryType.DoorDelivery}
           isSelected={selectedOption === DeliveryType.DoorDelivery}
@@ -25,7 +28,7 @@ export const DeliveryOptionsBox: React.FC<Props> = ({selectedOption, setOption})
           onSelect={setDoorDeliveryOption}
         />
         <RadioButton text={DeliveryType.PickUp} isSelected={selectedOption === DeliveryType.PickUp} onSelect={setPickUpOption} />
-      </View>
+      </ViewTheme>
     </View>
   );
 };

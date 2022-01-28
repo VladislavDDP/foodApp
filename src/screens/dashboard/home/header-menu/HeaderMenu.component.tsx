@@ -11,7 +11,7 @@ interface Props {
 
 export const HeaderMenu: React.FC<Props> = props => (
   <View style={styles.headerContainer}>
-    <IconButton iconName="bars" color="#000" size={25} onPress={props.onBurgerPress} />
-    <IconButton iconName="shopping-cart" color="#999" size={25} onPress={props.onCartPress} />
+    <IconButton name="bars" color="#000" size={25} onPress={props.onBurgerPress} />
+    <IconButton name="shopping-cart" color="#999" size={25} onPress={props.onCartPress} />
   </View>
 );

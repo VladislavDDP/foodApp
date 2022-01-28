@@ -9,6 +9,7 @@ import {Cart} from './cart';
 import {FoodStore} from './foodStore';
 import {Profile} from './profile';
 import {UserApi} from '../api/user-api/userApi';
+import {Settings} from './settings';
 
 configure({
   enforceActions: 'never',
@@ -19,6 +20,7 @@ export class RootStore {
   public foodStore: FoodStore;
   public cart: Cart;
   public profile: Profile;
+  public settings: Settings;
 
   private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
   private userApi: UserApi;
@@ -36,6 +38,7 @@ export class RootStore {
     this.foodStore = new FoodStore(this.foodApi, this.userApi, this.storage);
     this.cart = new Cart();
     this.profile = new Profile(this.userApi);
+    this.settings = new Settings(this.storage);
   }
 }
 

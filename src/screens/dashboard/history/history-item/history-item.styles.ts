@@ -6,12 +6,11 @@ export const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
     marginHorizontal: 40,
-    borderRadius: 20,
+    borderRadius: 15,
     padding: 10,
     position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
   },
   itemDescription: {
     flexDirection: 'column',

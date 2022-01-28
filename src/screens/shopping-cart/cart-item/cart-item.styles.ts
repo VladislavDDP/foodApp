@@ -48,4 +48,7 @@ export const styles = StyleSheet.create({
     width: 20,
     textAlign: 'center',
   },
+  qtyController: {
+    paddingHorizontal: 5,
+  },
 });

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {observer} from 'mobx-react';
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
 import debounce from 'lodash.debounce';
 
@@ -12,13 +12,15 @@ import {SearchHeader} from './search-header/SearchHeader.component';
 import {AnimatedFoodItem} from './animated-food-item/AnimatedFoodItem.component';
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../store/store';
+import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
+import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
+import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 
 const numColumns = 2;
 const requestTimeout = 500;
 
-interface Props extends AppNavigatorScreenProps<Screens.Search> {}
-
-export const Search: React.FC<Props> = observer(({navigation}) => {
+export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = observer(({navigation}) => {
   const [foods, setFoods] = useState<Array<Food>>([]);
   const {foodStore} = useStore();
 
@@ -40,11 +42,11 @@ export const Search: React.FC<Props> = observer(({navigation}) => {
   const extractItemKey = (item: Food) => item.id.toString();
 
   return (
-    <SafeAreaView>
+    <SafeAreaTheme style={styles.container}>
       <SearchHeader onPress={navigation.goBack} onChangeText={onChange} />
-      <SharedElement id="bg" style={StyleSheet.absoluteFill}>
-        <View style={styles.bg}>
-          <Text style={styles.text}>Found {foods.length} results</Text>
+      <SharedElement id="bg" style={[styles.sharedElement, StyleSheet.absoluteFill]}>
+        <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg}>
+          <TextWrapper style={styles.text}>Found {foods.length} results</TextWrapper>
           <FlatList
             scrollEnabled
             data={foods}
@@ -54,8 +56,8 @@ export const Search: React.FC<Props> = observer(({navigation}) => {
             renderItem={renderFoodItem}
             ListEmptyComponent={renderListEmpty}
           />
-        </View>
+        </ViewTheme>
       </SharedElement>
-    </SafeAreaView>
+    </SafeAreaTheme>
   );
 });

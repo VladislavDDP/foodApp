@@ -1,17 +1,17 @@
 import React from 'react';
-import {FlatList, Text, View, SafeAreaView} from 'react-native';
+import {FlatList, View} from 'react-native';
 
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
-import {RecieptItem} from '../../model/reciept';
+import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
+import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {RecieptItem} from '../../model/recieptItem';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {NamedSection} from './named-section/NamedSection.component';
 import {styles} from './reciept-details.styles';
 import {RecieptListItem} from './reciept-list-item/RecieptListItem.component';
 
-interface Props extends AppNavigatorScreenProps<Screens.Reciept> {}
-
-export const RecieptDetails: React.FC<Props> = ({navigation, route}) => {
+export const RecieptDetails: React.FC<AppNavigatorScreenProps<Screens.Reciept>> = ({navigation, route}) => {
   const reciept = route.params.item;
 
   const renderItem = ({item}: {item: RecieptItem}) => (
@@ -21,8 +21,8 @@ export const RecieptDetails: React.FC<Props> = ({navigation, route}) => {
   const extractKey = (item: RecieptItem) => item.id.toString();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <CustomHeader title="Cart" onPress={navigation.goBack} />
+    <SafeAreaTheme style={styles.container}>
+      <CustomHeader title="Order" onPress={navigation.goBack} />
       <View style={styles.wrapper}>
         <NamedSection sectionTitle="Order ID" sectionDetails={reciept.id.toString()} />
         <View style={styles.separator} />
@@ -39,9 +39,9 @@ export const RecieptDetails: React.FC<Props> = ({navigation, route}) => {
         <NamedSection sectionTitle="Total price" sectionDetails={reciept.totalPrice} />
         <View style={styles.separator} />
 
-        <Text style={styles.itemsHeaderText}>Items</Text>
+        <TextWrapper style={styles.itemsHeaderText}>Items</TextWrapper>
         <FlatList data={reciept.items} renderItem={renderItem} keyExtractor={extractKey} />
       </View>
-    </SafeAreaView>
+    </SafeAreaTheme>
   );
 };

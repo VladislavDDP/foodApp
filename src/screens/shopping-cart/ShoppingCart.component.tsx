@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {observer} from 'mobx-react';
 
@@ -15,10 +14,10 @@ import {HiddenItemWithActions} from './hidden-item-with-actions/HiddenItemWithAc
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../store/store';
 import {CartFood} from '../../model/cartFood';
+import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
+import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 
-interface Props extends AppNavigatorScreenProps<Screens.Cart> {}
-
-export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
+export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = observer(({navigation}) => {
   const {cart, foodStore} = useStore();
 
   const goToCheckout = () => {
@@ -47,7 +46,7 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
   const extractKey = (item: CartFood) => item.id.toString();
 
   return (
-    <View style={styles.container}>
+    <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
       <CustomHeader title="Cart" onPress={navigation.goBack} />
       <SwipeListView
         data={cart.cartItems}
@@ -61,11 +60,10 @@ export const ShoppingCart: React.FC<Props> = observer(({navigation}) => {
       />
       <CustomButton
         disabled={!cart.cartItemsQty}
-        labelStyle={styles.label}
         buttonStyle={{backgroundColor: cart.cartItemsQty ? colors.orange : colors.light}}
         text="Checkout"
         onPress={goToCheckout}
       />
-    </View>
+    </ViewTheme>
   );
 });

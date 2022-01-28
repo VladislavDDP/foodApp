@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from 'mobx-react';
-import {ActivityIndicator, FlatList, SafeAreaView, Text} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../../store/store';
@@ -9,10 +9,11 @@ import {styles} from './history.styles';
 import {Reciept} from '../../../model/reciept';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
+import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.component';
+import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
+import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 
-interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
-
-export const History: React.FC<Props> = observer(({navigation}) => {
+export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
   const {foodStore} = useStore();
   const [loading, setLoading] = useState(true);
 
@@ -37,12 +38,12 @@ export const History: React.FC<Props> = observer(({navigation}) => {
   const extractKey = (item: Reciept) => item.id.toString();
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#000" />;
+    return <ActivityIndicatorTheme style={styles.activityBox} size="large" color="#FF460A" />;
   }
 
   return (
-    <SafeAreaView>
-      <Text style={styles.title}>History</Text>
+    <SafeAreaTheme>
+      <TextWrapper style={styles.title}>History</TextWrapper>
       <FlatList
         scrollEnabled
         data={foodStore.orders}
@@ -52,6 +53,6 @@ export const History: React.FC<Props> = observer(({navigation}) => {
         renderItem={renderItem}
         keyExtractor={extractKey}
       />
-    </SafeAreaView>
+    </SafeAreaTheme>
   );
 });

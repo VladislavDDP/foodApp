@@ -19,7 +19,6 @@ export const styles = StyleSheet.create({
   },
   paymentContainer: {
     flexDirection: 'column',
-    backgroundColor: '#fff',
     padding: 15,
     borderRadius: 20,
     marginVertical: 20,
