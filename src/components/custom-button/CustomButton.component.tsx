@@ -9,11 +9,10 @@ interface Props extends TouchableOpacityProps {
   buttonStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
-  invertedColors?: boolean;
 }
 
-export const CustomButton: React.FC<Props> = ({text, buttonStyle, labelStyle, disabled, invertedColors, ...rest}) => (
-  <TouchableOpacity {...rest} style={[buttonStyle, styles.button, invertedColors && styles.invertedBackgroundColor, disabled && styles.disabled]}>
-    <TextWrapper style={[labelStyle, styles.buttonText, invertedColors && styles.invertedTextColor]}>{text}</TextWrapper>
+export const CustomButton: React.FC<Props> = ({text, buttonStyle, labelStyle, disabled, ...rest}) => (
+  <TouchableOpacity {...rest} style={[styles.button, buttonStyle, disabled && styles.disabled]}>
+    <TextWrapper style={[styles.buttonText, labelStyle]}>{text}</TextWrapper>
   </TouchableOpacity>
 );

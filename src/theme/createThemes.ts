@@ -5,7 +5,7 @@ import {ThemeNames} from './ThemeNames';
 
 const obj = {name: ''};
 
-export const createThemes = <T extends Object>(defaultTheme: T) => {
+export const createThemes = <T>(defaultTheme: T) => {
   const ThemeContext = createContext({
     theme: defaultTheme,
     changeTheme: (name: ThemeNames) => {

@@ -17,12 +17,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
   },
-  invertedBackgroundColor: {
-    backgroundColor: '#fff',
-  },
-  invertedTextColor: {
-    color: '#FA4A0C',
-  },
   disabled: {
     backgroundColor: '#999',
   },

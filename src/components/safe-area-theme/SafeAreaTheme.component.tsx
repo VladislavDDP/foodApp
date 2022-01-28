@@ -1,11 +1,10 @@
 import React from 'react';
-import {SafeAreaView, ViewProps} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import {SafeAreaViewProps} from 'react-native-safe-area-context';
 
 import {useTheme} from '../../theme/theme';
 
-interface Props extends ViewProps {}
-
-export const SafeAreaTheme: React.FC<Props> = ({style, children, ...rest}) => {
+export const SafeAreaTheme: React.FC<SafeAreaViewProps> = ({style, children, ...rest}) => {
   const {theme} = useTheme();
 
   return (
