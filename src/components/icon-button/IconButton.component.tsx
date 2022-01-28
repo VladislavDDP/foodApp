@@ -29,7 +29,7 @@ export const IconButton: React.FC<Props> = ({style, name, size, color, iconType,
   const Icon = iconComponentMap[iconType as IconTypes];
 
   return (
-    <TouchableOpacity {...rest} style={[style]}>
+    <TouchableOpacity {...rest} style={style}>
       <Icon name={name} size={size} color={color} />
     </TouchableOpacity>
   );

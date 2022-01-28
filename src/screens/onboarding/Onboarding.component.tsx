@@ -21,7 +21,7 @@ export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.O
         <TextWrapper style={styles.title}>Food for Everyone</TextWrapper>
         <PeopleScene />
       </View>
-      <CustomButton text="Get Started" buttonStyle={styles.buttonStyle} labelStyle={styles.labelStyle} onPress={navigateToAuthentication} />
+      <CustomButton text="Get Started" style={styles.buttonStyle} labelStyle={styles.labelStyle} onPress={navigateToAuthentication} />
     </View>
   );
 };

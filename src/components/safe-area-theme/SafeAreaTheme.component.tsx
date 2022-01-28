@@ -8,7 +8,7 @@ export const SafeAreaTheme: React.FC<SafeAreaViewProps> = ({style, children, ...
   const {theme} = useTheme();
 
   return (
-    <SafeAreaView {...rest} style={[style, {backgroundColor: theme.colorScheme.primaryLight}]}>
+    <SafeAreaView {...rest} style={[{backgroundColor: theme.colorScheme.primaryLight}, style]}>
       {children}
     </SafeAreaView>
   );
