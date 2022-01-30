@@ -3,6 +3,7 @@ import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {TextWrapper} from '../../../../components/text-wrapper/TextWrapper.component';
+import {localisation} from '../../../../localization/localization';
 import {useTheme} from '../../../../theme/theme';
 import {styles} from './fake-search.styles';
 
@@ -16,7 +17,7 @@ export const FakeSearch: React.FC<Props> = ({onPress}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Icon name="search" size={25} color={theme.colorScheme.text} />
-      <TextWrapper style={styles.text}>Search</TextWrapper>
+      <TextWrapper style={styles.text}>{localisation.t('search')}</TextWrapper>
     </TouchableOpacity>
   );
 };

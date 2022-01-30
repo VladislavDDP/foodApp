@@ -4,6 +4,7 @@ import {FlatList, View} from 'react-native';
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
 import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {localisation} from '../../localization/localization';
 import {RecieptItem} from '../../model/recieptItem';
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
@@ -22,24 +23,24 @@ export const RecieptDetails: React.FC<AppNavigatorScreenProps<Screens.Reciept>> 
 
   return (
     <SafeAreaTheme style={styles.container}>
-      <CustomHeader title="Order" onPress={navigation.goBack} />
+      <CustomHeader title={localisation.t('orderTitle')} onPress={navigation.goBack} />
       <View style={styles.wrapper}>
-        <NamedSection sectionTitle="Order ID" sectionDetails={reciept.id.toString()} />
+        <NamedSection sectionTitle={localisation.t('orderId')} sectionDetails={reciept.id.toString()} />
         <View style={styles.separator} />
-        <NamedSection sectionTitle="Phone number" sectionDetails={reciept.phone} />
+        <NamedSection sectionTitle={localisation.t('orderPhone')} sectionDetails={reciept.phone} />
         <View style={styles.separator} />
-        <NamedSection sectionTitle="Address" sectionDetails={reciept.address} />
+        <NamedSection sectionTitle={localisation.t('orgerAddress')} sectionDetails={reciept.address} />
         <View style={styles.separator} />
-        <NamedSection sectionTitle="Delivery method" sectionDetails={reciept.deliveryMethod} />
+        <NamedSection sectionTitle={localisation.t('orderDeliveruMethod')} sectionDetails={reciept.deliveryMethod} />
         <View style={styles.separator} />
-        <NamedSection sectionTitle="Payment method" sectionDetails={reciept.payment} />
+        <NamedSection sectionTitle={localisation.t('orderPaymentMethod')} sectionDetails={reciept.payment} />
         <View style={styles.separator} />
-        <NamedSection sectionTitle="Date" sectionDetails={reciept.createdAt} />
+        <NamedSection sectionTitle={localisation.t('orderDate')} sectionDetails={reciept.createdAt} />
         <View style={styles.separator} />
-        <NamedSection sectionTitle="Total price" sectionDetails={reciept.totalPrice} />
+        <NamedSection sectionTitle={localisation.t('orderTotalPrice')} sectionDetails={reciept.totalPrice} />
         <View style={styles.separator} />
 
-        <TextWrapper style={styles.itemsHeaderText}>Items</TextWrapper>
+        <TextWrapper style={styles.itemsHeaderText}>{localisation.t('orderItems')}</TextWrapper>
         <FlatList data={reciept.items} renderItem={renderItem} keyExtractor={extractKey} />
       </View>
     </SafeAreaTheme>

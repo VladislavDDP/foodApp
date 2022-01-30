@@ -9,6 +9,7 @@ import {AuthFlowScreens} from '../../navigation/auth-flow-stack/routes.types';
 import {AuthFlowNavigatorScreenProps} from '../../navigation/auth-flow-stack/stack.types';
 import {useTheme} from '../../theme/theme';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {localisation} from '../../localization/localization';
 
 export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.Onboarding>> = ({navigation}) => {
   const {theme} = useTheme();
@@ -18,10 +19,15 @@ export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.O
     <View style={[styles.container, {backgroundColor: theme.colorScheme.secondary}]}>
       <View style={styles.wrapper}>
         <OnboardingLogo />
-        <TextWrapper style={styles.title}>Food for Everyone</TextWrapper>
+        <TextWrapper style={styles.title}>{localisation.t('onboardingTitle')}</TextWrapper>
         <PeopleScene />
       </View>
-      <CustomButton text="Get Started" style={styles.buttonStyle} labelStyle={styles.labelStyle} onPress={navigateToAuthentication} />
+      <CustomButton
+        text={localisation.t('buttons.getStarted')}
+        style={styles.buttonStyle}
+        labelStyle={styles.labelStyle}
+        onPress={navigateToAuthentication}
+      />
     </View>
   );
 };

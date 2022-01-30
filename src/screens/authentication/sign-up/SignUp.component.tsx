@@ -8,6 +8,7 @@ import {CustomButton} from '../../../components/custom-button/CustomButton.compo
 import {useStore} from '../../../store/store';
 import {styles} from './sign-up.styles';
 import {SignUpForm} from './sign-up-form/SignUpForm.component';
+import {localisation} from '../../../localization/localization';
 
 interface SignUpValues {
   username: string;
@@ -17,12 +18,12 @@ interface SignUpValues {
 }
 
 const SignUpSchema = Yup.object().shape({
-  username: Yup.string().required('Username required'),
-  email: Yup.string().email('Invalid email').required('Email required'),
-  password: Yup.string().required('Password required'),
+  username: Yup.string().required(localisation.t('errors.requiredUsername')),
+  email: Yup.string().email(localisation.t('errors.invalidEmail')).required(localisation.t('errors.requiredEmail')),
+  password: Yup.string().required(localisation.t('errors.requiredPassword')),
   passwordAgain: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Password again required'),
+    .oneOf([Yup.ref('password'), null], localisation.t('errors.passwordsMustMatch'))
+    .required(localisation.t('errors.requiredPasswordAgain')),
 });
 
 interface Props {
@@ -41,7 +42,7 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
         goToDashboard();
       }
     } catch (e) {
-      actions.setErrors({email: 'Email already exists'});
+      actions.setErrors({email: localisation.t('emailAlreadyExists')});
     } finally {
       setLoading(false);
     }
@@ -52,7 +53,7 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
       <View style={styles.formContainer}>
         {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <SignUpForm handleSubmit={handleSubmit} />}
       </View>
-      <CustomButton disabled={loading} text="Sign-up" onPress={handleSubmit} />
+      <CustomButton disabled={loading} text={localisation.t('buttons.signUp')} onPress={handleSubmit} />
     </>
   );
 

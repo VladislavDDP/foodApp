@@ -19,9 +19,14 @@ export const App = () => {
     setCurrentTheme(themes[ThemeNames[savedTheme as ThemeNames]]);
   };
 
+  const loadLanguage = async () => {
+    await settings.loadLanguage();
+  };
+
   const initApp = useCallback(async () => {
     try {
-      await authentication.checkIfAuthorized();
+      await authentication.authorize();
+      await loadLanguage();
       await loadTheme();
     } finally {
       SplashScreen.hide();

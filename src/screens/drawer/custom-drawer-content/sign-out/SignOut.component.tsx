@@ -9,6 +9,7 @@ import {styles} from './sign-out.styles';
 import {useStore} from '../../../../store/store';
 import {StackParamList} from '../../../../navigation/root-stack/stack.types';
 import {AuthFlowScreens} from '../../../../navigation/auth-flow-stack/routes.types';
+import {localisation} from '../../../../localization/localization';
 
 interface Props {
   navigation: NativeStackNavigationProp<StackParamList, Screens.DrawerStack>;
@@ -29,7 +30,7 @@ export const SignOut: React.FC<Props> = ({navigation}) => {
 
   return (
     <TouchableOpacity onPress={goToAuthentication} style={styles.button}>
-      <Text style={styles.text}>Sign-out</Text>
+      <Text style={styles.text}>{localisation.t('buttons.signOut')}</Text>
       <Icon name="chevron-right" size={20} color="#fff" />
     </TouchableOpacity>
   );

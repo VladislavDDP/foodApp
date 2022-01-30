@@ -4,6 +4,7 @@ import {TextInput, ScrollView} from 'react-native';
 
 import {TextField} from '../../text-field/TextField.component';
 import {styles} from './sign-up-form.styles';
+import {localisation} from '../../../../localization/localization';
 
 interface Props {
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
@@ -19,11 +20,25 @@ export const SignUpForm: React.FC<Props> = ({handleSubmit}) => {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Field label="Username" component={TextField} name="username" onSubmitEditing={focusEmailField} />
-      <Field label="Email" innerRef={email} component={TextField} name="email" autoCompleteType="email" onSubmitEditing={focusPasswordField} />
-      <Field label="Password" innerRef={password} component={TextField} name="password" secureTextEntry onSubmitEditing={focusPasswordAgainField} />
+      <Field label={localisation.t('username')} component={TextField} name="username" onSubmitEditing={focusEmailField} />
       <Field
-        label="Password again"
+        label={localisation.t('email')}
+        innerRef={email}
+        component={TextField}
+        name="email"
+        autoCompleteType="email"
+        onSubmitEditing={focusPasswordField}
+      />
+      <Field
+        label={localisation.t('password')}
+        innerRef={password}
+        component={TextField}
+        name="password"
+        secureTextEntry
+        onSubmitEditing={focusPasswordAgainField}
+      />
+      <Field
+        label={localisation.t('passwordAgain')}
         innerRef={passwordAgain}
         component={TextField}
         name="passwordAgain"

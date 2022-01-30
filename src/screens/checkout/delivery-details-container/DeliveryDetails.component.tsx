@@ -3,13 +3,14 @@ import {View} from 'react-native';
 import {observer} from 'mobx-react';
 import {Formik, type FormikValues} from 'formik';
 
-import {ChangeButton} from '../change-button/ChangeButton.component';
 import {TextRecipientInfo} from './text-recipient-info/TextRecipientInfo.component';
 import {styles} from './delivery-details.styles';
 import {FormRecipientInfo} from './form-recipient-info/FormRecipientInfo.component';
 import {useStore} from '../../../store/store';
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {useTheme} from '../../../theme/theme';
+import {TextButton} from '../../../components/text-button/TextButton.component';
+import {localisation} from '../../../localization/localization';
 
 interface Recipient {
   name: string;
@@ -36,8 +37,8 @@ export const DeliveryDetails = observer(() => {
   return (
     <View style={styles.addressContainer}>
       <View style={styles.addressHeader}>
-        <TextWrapper style={styles.sectionTitle}>Address details</TextWrapper>
-        {editMode ? null : <ChangeButton onPress={changeEditMode} />}
+        <TextWrapper style={styles.sectionTitle}>{localisation.t('checkoutAddressDetails')}</TextWrapper>
+        {editMode ? null : <TextButton title={localisation.t('buttons.changeDetails')} onPress={changeEditMode} />}
       </View>
       <View style={[styles.addressTextContainer, {backgroundColor: theme.colorScheme.primaryDark}]}>
         {editMode ? (

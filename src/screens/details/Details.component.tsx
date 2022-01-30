@@ -16,6 +16,7 @@ import {Food} from '../../model/food';
 import {IconButton} from '../../components/icon-button/IconButton.component';
 import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {localisation} from '../../localization/localization';
 
 const startValue = 0;
 
@@ -60,7 +61,7 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = obser
         {likedFood ? <IconButton name="heart" size={18} onPress={removeLike} /> : <IconButton name="heart-o" size={18} onPress={likeFood} />}
       </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
-        <SuccessModal title="Done!" btnText="get it" onPress={onRequestClose} />
+        <SuccessModal title="Done!" btnText={localisation.t('buttons.confirmAddToCart')} onPress={onRequestClose} />
       </Modal>
       <View style={styles.slider}>
         <FlatList
@@ -79,14 +80,10 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = obser
         <Text style={styles.foodPrice}>{foodItem.price}</Text>
       </View>
       <ScrollView style={styles.content}>
-        <Section title="Delivery info" description="Delivered between monday aug and thursday 20 from 8pm to 91:32 pm" />
-        <Section
-          title="Return policy"
-          description="All our foods are double checked before leaving our stores so
-          by any case you found a broken food please contact our hotline immediately."
-        />
+        <Section title={localisation.t('deliveryInfoTitle')} description={localisation.t('deliveryInfoText')} />
+        <Section title={localisation.t('returnPolicyTitle')} description={localisation.t('returnPolicyText')} />
       </ScrollView>
-      <CustomButton text="Add to card" onPress={addFoodToCart} />
+      <CustomButton text={localisation.t('buttons.addToCart')} onPress={addFoodToCart} />
       <SharedElement id="bg">
         <View style={styles.bg} />
       </SharedElement>

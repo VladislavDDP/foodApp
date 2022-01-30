@@ -17,6 +17,7 @@ import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.c
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
+import {localisation} from '../../../localization/localization';
 
 const startId = 1;
 const duration = 100;
@@ -68,7 +69,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   return (
     <SafeAreaTheme style={styles.container}>
       <ScrollView style={styles.wrapper}>
-        <TextWrapper style={styles.title}>Delicious food for you</TextWrapper>
+        <TextWrapper style={styles.title}>{localisation.t('homeTitle')}</TextWrapper>
         <FakeSearch onPress={navigateToSearch} />
         <FlatList
           style={styles.flatlist}

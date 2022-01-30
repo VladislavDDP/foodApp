@@ -18,6 +18,7 @@ import {DeliveryOptionsBox} from './delivery-options-box/DeliveryOptionsBox.comp
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
+import {localisation} from '../../localization/localization';
 
 export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = observer(({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -70,12 +71,12 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = obs
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
           <ModalCheckout approvePayment={approvePayment} setVisable={setModalVisible} />
         </Modal>
-        <TextWrapper style={styles.title}>Delivery</TextWrapper>
+        <TextWrapper style={styles.title}>{localisation.t('checkoutTitle')}</TextWrapper>
         <DeliveryDetails />
         <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
         <TotalPrice totalCartPrice={cart.totalCartPrice} />
       </View>
-      <CustomButton text="Proceed to payment" onPress={setVisable} />
+      <CustomButton text={localisation.t('buttons.proceedToPayment')} onPress={setVisable} />
     </ViewTheme>
   );
 });

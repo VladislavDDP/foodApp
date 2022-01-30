@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
+import {Languages} from '../localization/languages';
 import {Food} from '../model/food';
 import {User} from '../model/user';
 import {ThemeNames} from '../theme/ThemeNames';
@@ -42,6 +43,15 @@ export class Storage {
 
   public setTheme = async (name: ThemeNames) => {
     await AsyncStorage.setItem(StorageKeys.ThemeName, name);
+  };
+
+  public getLanguage = async () => {
+    const response = await AsyncStorage.getItem(StorageKeys.Language);
+    return response ? response : '';
+  };
+
+  public setLanguage = async (language: Languages) => {
+    await AsyncStorage.setItem(StorageKeys.Language, language);
   };
 
   public addToFavourite = async (item: Food) => {
