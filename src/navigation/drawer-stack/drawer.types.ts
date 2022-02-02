@@ -6,7 +6,7 @@ export type DrawerParamList = {
   [Drawers.Orders]: undefined;
   [Drawers.OfferPromo]: undefined;
   [Drawers.PrivacyPolicy]: undefined;
-  [Drawers.Security]: undefined;
+  [Drawers.Settings]: undefined;
 };
 
 export enum Drawers {
@@ -15,7 +15,7 @@ export enum Drawers {
   Orders = 'Orders',
   OfferPromo = 'OfferPromo',
   PrivacyPolicy = 'PrivacyPolicy',
-  Security = 'Security',
+  Settings = 'Settings',
 }
 
 export interface DrawerNavigationProps<S extends Drawers> extends NativeStackScreenProps<DrawerParamList, S> {}

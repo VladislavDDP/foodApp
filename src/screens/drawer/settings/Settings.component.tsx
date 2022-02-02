@@ -10,9 +10,9 @@ import {localisation} from '../../../localization/localization';
 import {useStore} from '../../../store/store';
 import {useTheme} from '../../../theme/theme';
 import {ThemeNames} from '../../../theme/ThemeNames';
-import {styles} from './security.styles';
+import {styles} from './settings.styles';
 
-export const Security = () => {
+export const Settings = () => {
   const {settings} = useStore();
   const {changeTheme} = useTheme();
 
