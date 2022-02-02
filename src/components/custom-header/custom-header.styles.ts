@@ -1,21 +1,19 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
-const {width} = Dimensions.get('window');
 const hMargin = 20;
 const twice = 2;
-const containerWidth = width - hMargin * twice;
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginVertical: 20,
-    marginHorizontal: hMargin,
+    marginVertical: Platform.select({ios: 0, android: 20}),
+    marginHorizontal: hMargin * twice,
   },
   headerContainer: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    width: containerWidth,
     alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     textAlign: 'center',

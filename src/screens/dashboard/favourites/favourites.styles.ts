@@ -10,10 +10,6 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
   },
-  flatlist: {
-    paddingBottom: 100,
-    marginBottom: 60,
-  },
   listHeader: {
     marginTop: 10,
     textAlign: 'center',

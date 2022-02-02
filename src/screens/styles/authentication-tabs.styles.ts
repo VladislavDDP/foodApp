@@ -1,21 +1,18 @@
-import {Dimensions, StyleSheet} from 'react-native';
-
-const {height} = Dimensions.get('window');
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
   },
   contentContainer: {
-    height,
+    height: '100%',
   },
   animatedContainer: {
-    flex: 1,
+    height: '50%',
     flexDirection: 'row',
   },
   header: {
-    flex: 1,
+    height: '50%',
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20,
   },

@@ -41,7 +41,6 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
         scrollEnabled
         data={foodStore.favourites}
         ListHeaderComponent={renderListHeader}
-        style={styles.flatlist}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={renderListEmpty}
         renderItem={renderItem}

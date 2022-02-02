@@ -6,6 +6,7 @@ import ru from './rus.json';
 import {Languages} from './languages';
 
 export interface LangOptions<T> {
+  compatibilityJSON: 'v1' | 'v2' | 'v3' | undefined;
   fallbackLng: Languages;
   resources: {[key in Languages]: {translation: T}};
 }
@@ -37,6 +38,7 @@ export class NextLocalisation<T> implements Localisation {
 }
 
 export const localisation: Localisation = new NextLocalisation<typeof en>({
+  compatibilityJSON: 'v3',
   fallbackLng: Languages.EN,
   resources: {
     [Languages.EN]: {translation: en},

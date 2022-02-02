@@ -41,7 +41,7 @@ export const App = () => {
   const changeTheme = (name: ThemeNames) => setCurrentTheme(themes[name]);
 
   if (loading) {
-    return <LoadingScreen title="Initing..." />;
+    return <LoadingScreen title="Loading..." />;
   }
 
   return (
