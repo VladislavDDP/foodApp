@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     paddingTop: 20,
     marginHorizontal: 40,
   },
+  separator: {
+    marginVertical: 10,
+  },
   section: {
     flexDirection: 'row',
     justifyContent: 'space-between',

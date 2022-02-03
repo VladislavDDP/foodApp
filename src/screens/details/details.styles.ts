@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     marginHorizontal: 40,
-    marginTop: 20,
   },
   foodTitle: {
     fontSize: 25,

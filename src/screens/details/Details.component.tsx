@@ -17,7 +17,6 @@ import {IconButton} from '../../components/icon-button/IconButton.component';
 import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {localisation} from '../../localization/localization';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const startValue = 0;
 
@@ -57,10 +56,10 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = obser
 
   return (
     <SafeAreaTheme style={styles.container}>
-      <SafeAreaView style={styles.header}>
+      <View style={styles.header}>
         <IconButton name="chevron-left" size={18} onPress={navigation.goBack} />
         {likedFood ? <IconButton name="heart" size={18} onPress={removeLike} /> : <IconButton name="heart-o" size={18} onPress={likeFood} />}
-      </SafeAreaView>
+      </View>
       <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
         <SuccessModal title="Done!" btnText={localisation.t('buttons.confirmAddToCart')} onPress={onRequestClose} />
       </Modal>
