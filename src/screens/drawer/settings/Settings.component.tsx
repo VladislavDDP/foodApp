@@ -14,7 +14,7 @@ import {useStore} from '../../../store/store';
 import {useTheme} from '../../../theme/theme';
 import {ThemeNames} from '../../../theme/ThemeNames';
 import {styles} from './settings.styles';
-import {CustomPicker} from './custom-picker/CustomPicker.component';
+import {CustomPicker} from '../../../components/custom-picker/CustomPicker.component';
 import {languageOptions, themeOptions} from './options';
 
 export const Settings = observer(() => {
@@ -34,13 +34,16 @@ export const Settings = observer(() => {
     }
   };
 
+  const switchThemeWithPicker = (itemValue: string) => switchTheme(itemValue as ThemeNames);
+  const switchLanguageWithPicker = (itemValue: string) => switchLanguage(itemValue as Languages);
+
   return (
     <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
       <TextWrapper style={styles.text}>{localisation.t('settingsTheme')}</TextWrapper>
-      <CustomPicker selectedValue={settings.theme} onValueChange={itemValue => switchTheme(itemValue as ThemeNames)} items={themeOptions} />
+      <CustomPicker selectedValue={settings.theme} onValueChange={switchThemeWithPicker} items={themeOptions} />
       <View style={styles.separator} />
       <TextWrapper style={styles.text}>{localisation.t('settingsLanguage')}</TextWrapper>
-      <CustomPicker selectedValue={settings.language} onValueChange={itemValue => switchLanguage(itemValue as Languages)} items={languageOptions} />
+      <CustomPicker selectedValue={settings.language} onValueChange={switchLanguageWithPicker} items={languageOptions} />
     </ViewTheme>
   );
 });
