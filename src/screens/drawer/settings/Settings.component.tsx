@@ -26,9 +26,11 @@ export const Settings = observer(() => {
     changeTheme(nextTheme);
   };
 
-  const switchLanguage = async (lang: Languages) => {
-    await settings.switchLanguage(lang);
-    navigation.dispatch(StackActions.replace(Screens.DrawerStack, {screen: Drawers.Settings}));
+  const switchLanguage = async (nextLanguage: Languages) => {
+    if (settings.language !== nextLanguage) {
+      await settings.switchLanguage(nextLanguage);
+      navigation.dispatch(StackActions.replace(Screens.DrawerStack, {screen: Drawers.Settings}));
+    }
   };
 
   return (
