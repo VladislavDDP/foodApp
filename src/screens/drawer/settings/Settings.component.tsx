@@ -1,7 +1,7 @@
-import {StackActions, useNavigation} from '@react-navigation/native';
-import {observer} from 'mobx-react';
 import React from 'react';
 import {View} from 'react-native';
+import {observer} from 'mobx-react';
+import {StackActions, useNavigation} from '@react-navigation/native';
 
 import {TextButton} from '../../../components/text-button/TextButton.component';
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
@@ -9,6 +9,7 @@ import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {Languages} from '../../../localization/languages';
 import {localisation} from '../../../localization/localization';
+import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {useStore} from '../../../store/store';
 import {useTheme} from '../../../theme/theme';
@@ -30,7 +31,7 @@ export const Settings = observer(() => {
 
   const switchLanguage = async () => {
     await settings.switchLanguage(nextLanguage);
-    navigation.dispatch(StackActions.replace(Screens.DrawerStack));
+    navigation.dispatch(StackActions.replace(Screens.DrawerStack, {screen: Drawers.Settings}));
   };
 
   return (
