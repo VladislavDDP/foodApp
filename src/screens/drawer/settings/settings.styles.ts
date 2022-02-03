@@ -7,9 +7,12 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
     marginHorizontal: 40,
+  },
+  section: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   text: {
     fontSize: 20,

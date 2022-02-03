@@ -30,7 +30,7 @@ export const RootStack = () => {
   return (
     <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{headerShown: false}}>
       <Stack.Screen name={Screens.AuthFlowStack} component={AuthFlowStack} />
-      <Stack.Screen name={Screens.DrawerStack} component={DrawerStack} />
+      <Stack.Screen options={{animationEnabled: false}} name={Screens.DrawerStack} component={DrawerStack} />
       <Stack.Screen
         name={Screens.Search}
         options={{

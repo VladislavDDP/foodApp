@@ -4,7 +4,6 @@ import {observer} from 'mobx-react';
 
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
-import {colors} from '../../vars/variables';
 import {styles} from './shopping-cart.styles';
 import {CustomButton} from '../../components/custom-button/CustomButton.component';
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
@@ -16,6 +15,7 @@ import {useStore} from '../../store/store';
 import {CartFood} from '../../model/cartFood';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
+import {localisation} from '../../localization/localization';
 
 export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = observer(({navigation}) => {
   const {cart, foodStore} = useStore();
@@ -39,15 +39,15 @@ export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = obs
 
   const renderHiddenItem = ({item}: {item: CartFood}) => <HiddenItemWithActions item={item} toggleLike={toggleLike} onDelete={deleteItem} />;
 
-  const renderListHeader = () => (cart.cartItemsQty ? <ListHeader iconName="hand-pointer-o" text="swipe on an item to delete" /> : null);
+  const renderListHeader = () => (cart.cartItemsQty ? <ListHeader iconName="hand-pointer-o" text={localisation.t('cartAdvice')} /> : null);
 
-  const renderListEmpty = () => <EmptyBox icon="shopping-cart" title="Cart is empty" text="Add new items to cart" />;
+  const renderListEmpty = () => <EmptyBox icon="shopping-cart" title={localisation.t('cartEmptyTitle')} text={localisation.t('cartEmptyText')} />;
 
   const extractKey = (item: CartFood) => item.id.toString();
 
   return (
     <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
-      <CustomHeader title="Cart" onPress={navigation.goBack} />
+      <CustomHeader title={localisation.t('cartTitle')} onPress={navigation.goBack} />
       <SwipeListView
         data={cart.cartItems}
         ListHeaderComponent={renderListHeader}
@@ -58,12 +58,7 @@ export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = obs
         rightOpenValue={-110}
         disableRightSwipe
       />
-      <CustomButton
-        disabled={!cart.cartItemsQty}
-        buttonStyle={{backgroundColor: cart.cartItemsQty ? colors.orange : colors.light}}
-        text="Checkout"
-        onPress={goToCheckout}
-      />
+      <CustomButton disabled={!cart.cartItemsQty} text={localisation.t('buttons.checkout')} onPress={goToCheckout} />
     </ViewTheme>
   );
 });

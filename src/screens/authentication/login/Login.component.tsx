@@ -8,6 +8,7 @@ import {CustomButton} from '../../../components/custom-button/CustomButton.compo
 import {styles} from './login.styles';
 import {useStore} from '../../../store/store';
 import {LoginForm} from './login-form/LoginForm.component';
+import {localisation} from '../../../localization/localization';
 
 interface Props {
   goToDashboard: () => void;
@@ -19,8 +20,8 @@ export interface LoginValues {
 }
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
+  email: Yup.string().email(localisation.t('errors.invalidEmail')).required(localisation.t('errors.required')),
+  password: Yup.string().required(localisation.t('errors.required')),
 });
 
 export const Login: React.FC<Props> = observer(({goToDashboard}) => {
@@ -35,7 +36,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
         goToDashboard();
       }
     } catch (e) {
-      actions.setErrors({email: 'Incorrent email or password', password: 'Incorrent email or password'});
+      actions.setErrors({email: localisation.t('errors.incorrectEmailOrPassword'), password: localisation.t('errors.incorrectEmailOrPassword')});
     } finally {
       setLoading(false);
     }
@@ -46,7 +47,7 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
       <View style={styles.formContainer}>
         {loading ? <ActivityIndicator size="large" color="#FF460A" /> : <LoginForm resetPassword={resetPassword} handleSubmit={handleSubmit} />}
       </View>
-      <CustomButton disabled={loading} text="Login" onPress={handleSubmit} />
+      <CustomButton disabled={loading} text={localisation.t('buttons.login')} onPress={handleSubmit} />
     </>
   );
 

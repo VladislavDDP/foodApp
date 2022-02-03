@@ -2,7 +2,7 @@ import {OfferPromo} from '../../screens/drawer/offer-promo/OfferPromo.component'
 import {Orders} from '../../screens/drawer/orders/Orders.component';
 import {PrivacyPolicy} from '../../screens/drawer/privacy-policy/PrivacyPolicy.component';
 import {Profile} from '../../screens/drawer/profile/Profile.component';
-import {Security} from '../../screens/drawer/security/Security.component';
+import {Settings} from '../../screens/drawer/settings/Settings.component';
 import {TabStack} from '../tab-navigation/TabStack.component';
 import {Drawers} from './drawer.types';
 
@@ -49,7 +49,7 @@ export const drawerScreens: Array<DrawerProps> = [
   {
     id: 5,
     icon: 'shield',
-    name: Drawers.Security,
-    component: Security,
+    name: Drawers.Settings,
+    component: Settings,
   },
 ];

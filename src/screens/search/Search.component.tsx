@@ -16,6 +16,7 @@ import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.comp
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
+import {localisation} from '../../localization/localization';
 
 const numColumns = 2;
 const requestTimeout = 500;
@@ -37,7 +38,7 @@ export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = observe
     <AnimatedFoodItem item={item} index={index} goToFoodDetails={goToFoodDetails} />
   );
 
-  const renderListEmpty = () => <EmptyBox icon="search" title="Item not found" text="Try searching the item with a different keyword." />;
+  const renderListEmpty = () => <EmptyBox icon="search" title={localisation.t('searchEmptyTitle')} text={localisation.t('searchEmptyText')} />;
 
   const extractItemKey = (item: Food) => item.id.toString();
 
@@ -46,7 +47,9 @@ export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = observe
       <SearchHeader onPress={navigation.goBack} onChangeText={onChange} />
       <SharedElement id="bg" style={[styles.sharedElement, StyleSheet.absoluteFill]}>
         <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg}>
-          <TextWrapper style={styles.text}>Found {foods.length} results</TextWrapper>
+          <TextWrapper style={styles.text}>
+            {localisation.t('searchFoundResults')} {foods.length}
+          </TextWrapper>
           <FlatList
             scrollEnabled
             data={foods}

@@ -11,6 +11,7 @@ import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.c
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
+import {localisation} from '../../../localization/localization';
 
 export const Profile = observer(() => {
   const {profile} = useStore();
@@ -23,13 +24,13 @@ export const Profile = observer(() => {
 
   return (
     <SafeAreaTheme style={styles.container}>
-      <TextWrapper style={styles.title}>Profile</TextWrapper>
+      <TextWrapper style={styles.title}>{localisation.t('profileTitle')}</TextWrapper>
       <View style={styles.section}>
-        <TextWrapper style={styles.sectionTitle}>Information</TextWrapper>
+        <TextWrapper style={styles.sectionTitle}>{localisation.t('profileInformationTitle')}</TextWrapper>
         <ContactInfo />
       </View>
       <View style={styles.section}>
-        <TextWrapper style={styles.sectionTitle}>Payment Method</TextWrapper>
+        <TextWrapper style={styles.sectionTitle}>{localisation.t('profilePaymentMethodTitle')}</TextWrapper>
         <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.paymentContainer}>
           <RadioButton
             icon="credit-card"

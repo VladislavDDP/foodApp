@@ -21,7 +21,8 @@ export const App = () => {
 
   const initApp = useCallback(async () => {
     try {
-      await authentication.checkIfAuthorized();
+      await authentication.authorize();
+      await settings.loadLanguage();
       await loadTheme();
     } finally {
       SplashScreen.hide();

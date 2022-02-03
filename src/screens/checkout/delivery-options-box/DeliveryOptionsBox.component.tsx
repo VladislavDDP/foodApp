@@ -5,6 +5,7 @@ import {RadioButton} from '../../../components/radio-button/RadioButton.componen
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
+import {localisation} from '../../../localization/localization';
 import {DeliveryType} from '../../../model/deliveryType';
 import {styles} from './delivery-options-box.styles';
 
@@ -19,7 +20,7 @@ export const DeliveryOptionsBox: React.FC<Props> = ({selectedOption, setOption})
 
   return (
     <View>
-      <TextWrapper style={styles.sectionTitle}>Delivery method</TextWrapper>
+      <TextWrapper style={styles.sectionTitle}>{localisation.t('checkoutDeliveryMethod')}</TextWrapper>
       <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.deliveryMethodContainer}>
         <RadioButton
           text={DeliveryType.DoorDelivery}

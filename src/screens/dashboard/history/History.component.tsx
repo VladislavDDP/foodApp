@@ -12,6 +12,7 @@ import {Screens} from '../../../navigation/root-stack/routes.types';
 import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.component';
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
+import {localisation} from '../../../localization/localization';
 
 export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
   const {foodStore} = useStore();
@@ -33,7 +34,7 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = o
 
   const renderItem = ({item}: {item: Reciept}) => <HistoryItem item={item} goToRecieptDetails={goToRecieptDetails} />;
 
-  const renderListEmpty = () => <EmptyBox icon="calendar" title="No history yet" text="Hit the orange button down below to Create an order" />;
+  const renderListEmpty = () => <EmptyBox icon="calendar" title={localisation.t('historyEmptyTitle')} text={localisation.t('historyEmptyText')} />;
 
   const extractKey = (item: Reciept) => item.id.toString();
 
@@ -43,7 +44,7 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = o
 
   return (
     <SafeAreaTheme>
-      <TextWrapper style={styles.title}>History</TextWrapper>
+      <TextWrapper style={styles.title}>{localisation.t('historyTitle')}</TextWrapper>
       <FlatList
         scrollEnabled
         data={foodStore.orders}

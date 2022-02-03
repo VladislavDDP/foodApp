@@ -16,7 +16,7 @@ export class Authentication {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public checkIfAuthorized = async () => {
+  public authorize = async () => {
     const response = await this.storage.getAuthData();
     if (response.email && response.password) {
       await this.login(response.email, response.password);

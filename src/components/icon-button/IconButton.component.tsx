@@ -21,16 +21,15 @@ export const IconButton: React.FC<Props> = ({style, name, size, color, iconType,
     [IconTypes.FontAwesome5Icon]: Awesome5Icon,
   };
 
-  IconButton.defaultProps = {
-    iconType: IconTypes.FontAwesomeIcon,
-    color: theme.colorScheme.text,
-  };
-
   const Icon = iconComponentMap[iconType as IconTypes];
 
   return (
     <TouchableOpacity {...rest} style={style}>
-      <Icon name={name} size={size} color={color} />
+      <Icon name={name} size={size} color={color || theme.colorScheme.text} />
     </TouchableOpacity>
   );
+};
+
+IconButton.defaultProps = {
+  iconType: IconTypes.FontAwesomeIcon,
 };

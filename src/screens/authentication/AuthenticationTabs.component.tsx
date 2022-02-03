@@ -14,6 +14,7 @@ import {NavigationTab} from './navigation-tab/NavigationTab.component';
 import {useTheme} from '../../theme/theme';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
+import {localisation} from '../../localization/localization';
 
 interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
 
@@ -44,8 +45,8 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
         <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.header}>
           <Logo />
           <View style={styles.tabs}>
-            <NavigationTab page={0} title="Login" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
-            <NavigationTab page={1} title="Sign-up" scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
+            <NavigationTab page={0} title={localisation.t('login')} scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
+            <NavigationTab page={1} title={localisation.t('signUp')} scrollX={scrollX} scrollToAnother={scrollToAuthProcess} />
           </View>
         </ViewTheme>
         <Animated.ScrollView
