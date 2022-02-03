@@ -69,7 +69,7 @@
     "deliveryInfoText": "Может быть доставлено между понедельником и вторником с 20 до 21.30",
     "returnPolicyTitle": "Политика возврата",
     "returnPolicyText": "Каждое наше блюдо дважды проверяется перед отправкой из магазина. В любом случае, если у вас возникнут проблемы, обращайтесь на гарячую линию",
-    "settingsTheme": "Желаемая тема",
+    "settingsTheme": "Выбраная тема",
     "settingsLanguage": "Выбрать язык",
     "order": "Заказ",
     "orderTitle": "Заказ",
@@ -85,5 +85,6 @@
     "checkoutDeliveryMethod": "Метод доставки",
     "checkoutModalTitle": "Важно знать",
     "checkoutModalMainland": "Доставка на материке",
-    "checkoutModalIsland": "Доставка на остров"
+    "checkoutModalIsland": "Доставка на остров",
+    "loading": "Загрузка..."
 }

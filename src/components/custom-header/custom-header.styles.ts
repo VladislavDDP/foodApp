@@ -1,12 +1,11 @@
 import {StyleSheet} from 'react-native';
 
-const hMargin = 20;
-const twice = 2;
+const hMargin = 40;
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: hMargin * twice,
+    marginHorizontal: hMargin,
     alignItems: 'center',
     justifyContent: 'space-between',
   },

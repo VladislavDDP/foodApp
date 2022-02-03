@@ -19,7 +19,7 @@ export const SignUpForm: React.FC<Props> = ({handleSubmit}) => {
   const focusPasswordAgainField = () => passwordAgain.current?.focus();
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
       <Field label={localisation.t('username')} component={TextField} name="username" onSubmitEditing={focusEmailField} />
       <Field
         label={localisation.t('email')}

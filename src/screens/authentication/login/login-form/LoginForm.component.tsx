@@ -17,7 +17,7 @@ export const LoginForm: React.FC<Props> = ({resetPassword, handleSubmit}) => {
   const focusPasswordField = () => password.current?.focus();
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
       <Field label={localisation.t('email')} component={TextField} name="email" autoCompleteType="email" onSubmitEditing={focusPasswordField} />
       <Field
         label={localisation.t('password')}

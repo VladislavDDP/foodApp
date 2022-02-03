@@ -3,6 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 
 import {LoadingScreen} from './src/components/loading-screen/LoadingScreen.component';
+import {localisation} from './src/localization/localization';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import {rootStore, useStore} from './src/store/store';
 import {ThemeProvider, themes} from './src/theme/theme';
@@ -37,7 +38,7 @@ export const App = () => {
   const changeTheme = (name: ThemeNames) => setCurrentTheme(themes[name]);
 
   if (loading) {
-    return <LoadingScreen title="Loading..." />;
+    return <LoadingScreen title={localisation.t('loading')} />;
   }
 
   return (
