@@ -3,8 +3,8 @@ import {Field} from 'formik';
 import {TextInput, ScrollView} from 'react-native';
 
 import {TextField} from '../../text-field/TextField.component';
-import {styles} from './sign-up-form.styles';
 import {localisation} from '../../../../localization/localization';
+import {styles} from './sign-up-form.styles';
 
 interface Props {
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
@@ -19,7 +19,7 @@ export const SignUpForm: React.FC<Props> = ({handleSubmit}) => {
   const focusPasswordAgainField = () => passwordAgain.current?.focus();
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
       <Field label={localisation.t('username')} component={TextField} name="username" onSubmitEditing={focusEmailField} />
       <Field
         label={localisation.t('email')}

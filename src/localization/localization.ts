@@ -21,7 +21,7 @@ export class NextLocalisation<T> implements Localisation {
 
   public constructor(options: LangOptions<T>) {
     this.currentLanguage = options.fallbackLng;
-    use(initReactI18next).init(options);
+    use(initReactI18next).init({...options, compatibilityJSON: 'v3'});
   }
 
   public get language() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {CustomButton} from '../../components/custom-button/CustomButton.component';
 import {OnboardingLogo} from './Logo.component';
@@ -16,7 +17,7 @@ export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.O
   const navigateToAuthentication = () => navigation.navigate(AuthFlowScreens.Authentication);
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.colorScheme.secondary}]}>
+    <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.secondary}]}>
       <View style={styles.wrapper}>
         <OnboardingLogo />
         <TextWrapper style={styles.title}>{localisation.t('onboardingTitle')}</TextWrapper>
@@ -28,6 +29,6 @@ export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.O
         labelStyle={styles.labelStyle}
         onPress={navigateToAuthentication}
       />
-    </View>
+    </SafeAreaView>
   );
 };

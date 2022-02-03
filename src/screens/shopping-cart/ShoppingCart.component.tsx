@@ -1,6 +1,6 @@
 import React from 'react';
-import {SwipeListView} from 'react-native-swipe-list-view';
 import {observer} from 'mobx-react';
+import {FlatList} from 'react-native';
 
 import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
@@ -9,22 +9,14 @@ import {CustomButton} from '../../components/custom-button/CustomButton.componen
 import {CustomHeader} from '../../components/custom-header/CustomHeader.component';
 import {ListHeader} from '../../components/list-header/ListHeader.component';
 import {CartItem} from './cart-item/CartItem.component';
-import {HiddenItemWithActions} from './hidden-item-with-actions/HiddenItemWithActions.component';
 import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {useStore} from '../../store/store';
 import {CartFood} from '../../model/cartFood';
-import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
-import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
+import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
 
 export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = observer(({navigation}) => {
   const {cart, foodStore} = useStore();
-
-  const goToCheckout = () => {
-    navigation.navigate(Screens.Checkout);
-  };
-
-  const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} />;
 
   const toggleLike = (item: CartFood) => {
     if (item.isLiked) {
@@ -37,7 +29,11 @@ export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = obs
 
   const deleteItem = (id: number) => cart.removeFromCart(id);
 
-  const renderHiddenItem = ({item}: {item: CartFood}) => <HiddenItemWithActions item={item} toggleLike={toggleLike} onDelete={deleteItem} />;
+  const goToCheckout = () => {
+    navigation.navigate(Screens.Checkout);
+  };
+
+  const renderItem = ({item}: {item: CartFood}) => <CartItem item={item} likeItem={toggleLike} removeItem={deleteItem} />;
 
   const renderListHeader = () => (cart.cartItemsQty ? <ListHeader iconName="hand-pointer-o" text={localisation.t('cartAdvice')} /> : null);
 
@@ -46,19 +42,17 @@ export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = obs
   const extractKey = (item: CartFood) => item.id.toString();
 
   return (
-    <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
+    <SafeAreaTheme style={styles.container}>
       <CustomHeader title={localisation.t('cartTitle')} onPress={navigation.goBack} />
-      <SwipeListView
+      <FlatList
+        style={styles.flatlist}
         data={cart.cartItems}
         ListHeaderComponent={renderListHeader}
         renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
         keyExtractor={extractKey}
         ListEmptyComponent={renderListEmpty}
-        rightOpenValue={-110}
-        disableRightSwipe
       />
       <CustomButton disabled={!cart.cartItemsQty} text={localisation.t('buttons.checkout')} onPress={goToCheckout} />
-    </ViewTheme>
+    </SafeAreaTheme>
   );
 });

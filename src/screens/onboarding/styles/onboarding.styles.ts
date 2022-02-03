@@ -1,9 +1,8 @@
-import {Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.select({android: 20, ios: 50}),
     paddingBottom: 0,
   },
   wrapper: {

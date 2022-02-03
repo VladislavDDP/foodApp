@@ -12,6 +12,6 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   backRightBtnRight: {
-    marginRight: 30,
+    marginRight: 15,
   },
 });

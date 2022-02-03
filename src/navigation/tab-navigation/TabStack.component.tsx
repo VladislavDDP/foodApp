@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {TabProps, tabScreens} from './routes.types';
+import {TabProps, Tabs, tabScreens} from './routes.types';
 import {useTheme} from '../../theme/theme';
 
 const Tab = createBottomTabNavigator();
@@ -21,6 +21,7 @@ export const TabStack = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName={Tabs.home}
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,

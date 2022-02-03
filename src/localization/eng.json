@@ -69,8 +69,8 @@
     "deliveryInfoText": "Delivered between monday aug and thursday 20 from 8pm to 9.30 pm",
     "returnPolicyTitle": "Return policy",
     "returnPolicyText": "All our foods are double checked before leaving out stores so by any case you found a broken food please contact out hotline immediately",
-    "settingsTheme": "Theme",
-    "settingsLanguage": "Language",
+    "settingsTheme": "Selected theme",
+    "settingsLanguage": "Choose language",
     "order": "Order",
     "orderTitle": "Order",
     "orderId": "Order ID",
@@ -85,5 +85,6 @@
     "checkoutDeliveryMethod": "Delivery method",
     "checkoutModalTitle": "Please note",
     "checkoutModalMainland": "Delivery to mainland",
-    "checkoutModalIsland": "Delivery to island"
+    "checkoutModalIsland": "Delivery to island",
+    "loading": "Loading..."
 }
