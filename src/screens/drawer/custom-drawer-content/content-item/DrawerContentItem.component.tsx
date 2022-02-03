@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {localisation} from '../../../../localization/localization';
 
+import {localisation} from '../../../../localization/localization';
 import {Drawers} from '../../../../navigation/drawer-stack/drawer.types';
 import {styles} from './content-item.styles';
 
