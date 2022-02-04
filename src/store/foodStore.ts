@@ -1,12 +1,15 @@
 import {makeAutoObservable} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
+import {Service} from '../api/service';
 import {UserApi} from '../api/user-api/userApi';
+import {Config} from '../config/config';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
 import {OrderDetails} from '../model/orderDetails';
 import {Reciept} from '../model/reciept';
 import {Storage} from '../storage/storage';
+import {injector} from '../utils/injector/Injector';
 
 export class FoodStore {
   public allItems: Array<Food> = [];
@@ -14,14 +17,11 @@ export class FoodStore {
   private allCategories: Array<Category> = [];
   private orderedItems: Array<Reciept> = [];
   private favouriteItems: Array<Food> = [];
-  private foodApi: FoodApi;
-  private userApi: UserApi;
-  private storage: Storage;
+  private foodApi: FoodApi = injector.get<FoodApi>(Service.foodApi);
+  private userApi: UserApi = injector.get<UserApi>(Service.userApi);
+  private storage: Storage = injector.get<Storage>(Config.AsyncMemory);
 
-  public constructor(foodApi: FoodApi, userApi: UserApi, storage: Storage) {
-    this.foodApi = foodApi;
-    this.userApi = userApi;
-    this.storage = storage;
+  public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 

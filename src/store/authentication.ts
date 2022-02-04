@@ -1,18 +1,19 @@
 import {makeAutoObservable} from 'mobx';
 
+import {Service} from '../api/service';
 import {UserApi} from '../api/user-api/userApi';
+import {Config} from '../config/config';
 import {User} from '../model/user';
 import {Storage} from '../storage/storage';
+import {injector} from '../utils/injector/Injector';
 
 export class Authentication {
   public authorized: boolean = false;
 
-  private userApi: UserApi;
-  private storage: Storage;
+  private userApi: UserApi = injector.get<UserApi>(Service.userApi);
+  private storage: Storage = injector.get<Storage>(Config.AsyncMemory);
 
-  public constructor(userApi: UserApi, storage: Storage) {
-    this.userApi = userApi;
-    this.storage = storage;
+  public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 

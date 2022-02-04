@@ -10,6 +10,9 @@ import {FoodStore} from './foodStore';
 import {Profile} from './profile';
 import {UserApi} from '../api/user-api/userApi';
 import {Settings} from './settings';
+import {injector} from '../utils/injector/Injector';
+import {Config} from '../config/config';
+import {Service} from '../api/service';
 
 configure({
   enforceActions: 'never',
@@ -23,22 +26,18 @@ export class RootStore {
   public settings: Settings;
 
   private baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
-  private userApi: UserApi;
-  private foodApi: FoodApi;
-  private storage: Storage;
 
   public constructor() {
-    this.storage = new Storage();
-    const httpApi = new HttpApi();
-    httpApi.setBaseURL(this.baseURL);
+    injector.set(Config.Http, new HttpApi(this.baseURL));
+    injector.set(Config.AsyncMemory, new Storage());
+    injector.set(Service.userApi, new UserApi());
+    injector.set(Service.foodApi, new FoodApi());
 
-    this.userApi = new UserApi(httpApi);
-    this.foodApi = new FoodApi(httpApi, this.storage);
-    this.authentication = new Authentication(this.userApi, this.storage);
-    this.foodStore = new FoodStore(this.foodApi, this.userApi, this.storage);
+    this.authentication = new Authentication();
+    this.foodStore = new FoodStore();
     this.cart = new Cart();
-    this.profile = new Profile(this.userApi);
-    this.settings = new Settings(this.storage);
+    this.profile = new Profile();
+    this.settings = new Settings();
   }
 }
 

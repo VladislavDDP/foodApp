@@ -1,6 +1,6 @@
 import React, {useCallback, useRef} from 'react';
 import {observer} from 'mobx-react';
-import {Animated, Dimensions, View} from 'react-native';
+import {Animated, Dimensions, InteractionManager, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -27,7 +27,9 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
   const slidesRef = useRef<ScrollView>();
 
   const goToDashboard = useCallback(() => {
-    navigation.replace(Screens.DrawerStack);
+    InteractionManager.runAfterInteractions(() => {
+      navigation.replace(Screens.DrawerStack);
+    });
   }, [navigation]);
 
   const scrollToAuthProcess = (page: number) => slidesRef.current?.scrollTo({x: page * width});

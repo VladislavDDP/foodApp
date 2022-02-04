@@ -4,15 +4,16 @@ import {Storage} from '../storage/storage';
 import {Languages} from '../localization/languages';
 import {localisation} from '../localization/localization';
 import {ThemeNames} from '../theme/ThemeNames';
+import {injector} from '../utils/injector/Injector';
+import {Config} from '../config/config';
 
 export class Settings {
   public theme: ThemeNames = ThemeNames.Light;
   public language: Languages = Languages.EN;
 
-  private storage: Storage;
+  private storage: Storage = injector.get<Storage>(Config.AsyncMemory);
 
-  public constructor(storage: Storage) {
-    this.storage = storage;
+  public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 

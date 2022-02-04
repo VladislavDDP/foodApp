@@ -1,0 +1,14 @@
+{
+    "id": 1,
+    "name": "test",
+    "price": 1,
+    "photo": "",
+    "gallery": [""],
+    "categories": [
+        {
+            "id": 1,
+            "name": "test"
+        }
+    ],
+    "isLiked": false
+}

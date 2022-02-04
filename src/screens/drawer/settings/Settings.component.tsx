@@ -8,7 +8,6 @@ import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {Languages} from '../../../localization/languages';
 import {localisation} from '../../../localization/localization';
-import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {useStore} from '../../../store/store';
 import {useTheme} from '../../../theme/theme';
@@ -16,6 +15,7 @@ import {ThemeNames} from '../../../theme/ThemeNames';
 import {styles} from './settings.styles';
 import {CustomPicker} from '../../../components/custom-picker/CustomPicker.component';
 import {languageOptions, themeOptions} from './options';
+import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
 
 export const Settings = observer(() => {
   const {settings} = useStore();

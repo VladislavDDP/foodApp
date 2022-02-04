@@ -3,6 +3,8 @@ import {Reciept} from '../../model/reciept';
 import {HttpApi} from '../http-api';
 import {Auth} from './dto/auth';
 import {OrderIn} from '../food-api/dto/orderIn';
+import {injector} from '../../utils/injector/Injector';
+import {Config} from '../../config/config';
 
 const badRequestError = 400;
 
@@ -24,11 +26,7 @@ const mapToOrders = (data: OrderIn) =>
 
 export class UserApi {
   public user?: User | null;
-  public http: HttpApi;
-
-  public constructor(http: HttpApi) {
-    this.http = http;
-  }
+  public http: HttpApi = injector.get<HttpApi>(Config.Http);
 
   public authorizeUser = async (email: string, password: string) => {
     try {

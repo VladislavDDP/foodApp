@@ -1,8 +1,10 @@
 import {makeAutoObservable} from 'mobx';
 
+import {Service} from '../api/service';
 import {UserApi} from '../api/user-api/userApi';
 import {DeliveryType} from '../model/deliveryType';
 import {PaymentType} from '../model/PaymentType';
+import {injector} from '../utils/injector/Injector';
 
 export class Profile {
   public name: string = 'Username';
@@ -12,10 +14,9 @@ export class Profile {
   public paymentOption: PaymentType = PaymentType.Card;
   public deliveryOption: DeliveryType = DeliveryType.DoorDelivery;
 
-  private userApi: UserApi;
+  private userApi: UserApi = injector.get<UserApi>(Service.userApi);
 
-  public constructor(userApi: UserApi) {
-    this.userApi = userApi;
+  public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
