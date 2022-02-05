@@ -1,4 +1,4 @@
-export enum Config {
+export enum Configs {
   Http = 'Http',
   AsyncMemory = 'AsyncMemory',
 }

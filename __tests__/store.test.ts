@@ -1,5 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable no-magic-numbers */
 import {Food} from '../src/model/food';
 import {Cart} from '../src/store/cart';
 import food from './mocks/food.json';
@@ -10,7 +8,15 @@ describe('Testing shopping cart', () => {
 
   beforeEach(() => {
     cart = new Cart();
-    item = new Food(food.id, food.name, food.price, food.photo, food.gallery, food.categories, food.isLiked);
+    item = new Food(
+      food.id,
+      food.attributes.name,
+      food.attributes.price,
+      food.attributes.photo,
+      food.attributes.gallery,
+      food.attributes.categories.data.map(el => ({id: el.id, name: el.attributes.name})),
+      false,
+    );
   });
 
   it('Add one item to cart', () => {

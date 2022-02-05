@@ -5,15 +5,17 @@ import {Languages} from '../localization/languages';
 import {localisation} from '../localization/localization';
 import {ThemeNames} from '../theme/ThemeNames';
 import {injector} from '../utils/injector/Injector';
-import {Config} from '../config/config';
+import {Configs} from '../config/configs';
 
 export class Settings {
   public theme: ThemeNames = ThemeNames.Light;
   public language: Languages = Languages.EN;
 
-  private storage: Storage = injector.get<Storage>(Config.AsyncMemory);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public constructor() {
+    this.loadTheme();
+    this.loadLanguage();
     makeAutoObservable(this, {}, {autoBind: true});
   }
 

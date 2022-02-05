@@ -8,7 +8,7 @@ import {CartFood} from '../../model/cartFood';
 import {Orders} from './dto/orders';
 import {OrderDetails} from '../../model/orderDetails';
 import {injector} from '../../utils/injector/Injector';
-import {Config} from '../../config/config';
+import {Configs} from '../../config/configs';
 
 const unauthorizedError = 401;
 
@@ -31,8 +31,8 @@ const mapFoodOut = (el: CartFood) => ({
 });
 
 export class FoodApi {
-  public http: HttpApi = injector.get<HttpApi>(Config.Http);
-  public storage: Storage = injector.get<Storage>(Config.AsyncMemory);
+  public http: HttpApi = injector.get<HttpApi>(Configs.Http);
+  public storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public getFood = async () => {
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods', {params: {populate: '*'}});

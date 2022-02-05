@@ -11,25 +11,15 @@ import {styles} from './delivery-options-box.styles';
 
 interface Props {
   selectedOption: DeliveryType;
-  setOption: (option: DeliveryType) => void;
+  setOption: (option: string) => void;
 }
 
-export const DeliveryOptionsBox: React.FC<Props> = ({selectedOption, setOption}) => {
-  const setDoorDeliveryOption = () => setOption(DeliveryType.DoorDelivery);
-  const setPickUpOption = () => setOption(DeliveryType.PickUp);
-
-  return (
-    <View>
-      <TextWrapper style={styles.sectionTitle}>{localisation.t('checkoutDeliveryMethod')}</TextWrapper>
-      <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.deliveryMethodContainer}>
-        <RadioButton
-          text={DeliveryType.DoorDelivery}
-          isSelected={selectedOption === DeliveryType.DoorDelivery}
-          shouldSeparate
-          onSelect={setDoorDeliveryOption}
-        />
-        <RadioButton text={DeliveryType.PickUp} isSelected={selectedOption === DeliveryType.PickUp} onSelect={setPickUpOption} />
-      </ViewTheme>
-    </View>
-  );
-};
+export const DeliveryOptionsBox: React.FC<Props> = ({selectedOption, setOption}) => (
+  <View>
+    <TextWrapper style={styles.sectionTitle}>{localisation.t('checkoutDeliveryMethod')}</TextWrapper>
+    <ViewTheme colorIntencity={ColorIntencity.Strong} style={styles.deliveryMethodContainer}>
+      <RadioButton text={DeliveryType.DoorDelivery} isSelected={selectedOption === DeliveryType.DoorDelivery} shouldSeparate onSelect={setOption} />
+      <RadioButton text={DeliveryType.PickUp} isSelected={selectedOption === DeliveryType.PickUp} onSelect={setOption} />
+    </ViewTheme>
+  </View>
+);

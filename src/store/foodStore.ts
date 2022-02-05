@@ -1,9 +1,9 @@
 import {makeAutoObservable} from 'mobx';
 
 import {FoodApi} from '../api/food-api/food-api';
-import {Service} from '../api/service';
+import {Repository} from '../api/repository';
 import {UserApi} from '../api/user-api/userApi';
-import {Config} from '../config/config';
+import {Configs} from '../config/configs';
 import {Category} from '../model/category';
 import {Food} from '../model/food';
 import {OrderDetails} from '../model/orderDetails';
@@ -17,9 +17,9 @@ export class FoodStore {
   private allCategories: Array<Category> = [];
   private orderedItems: Array<Reciept> = [];
   private favouriteItems: Array<Food> = [];
-  private foodApi: FoodApi = injector.get<FoodApi>(Service.foodApi);
-  private userApi: UserApi = injector.get<UserApi>(Service.userApi);
-  private storage: Storage = injector.get<Storage>(Config.AsyncMemory);
+  private foodApi: FoodApi = injector.get<FoodApi>(Repository.foodApi);
+  private userApi: UserApi = injector.get<UserApi>(Repository.userApi);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
@@ -40,6 +40,11 @@ export class FoodStore {
   public getFoodByCategory = async (categoryId: number) => {
     const food = await this.foodApi.getFood();
     return food.filter((item: Food) => item.categories.map((category: Category) => category.id).includes(categoryId));
+  };
+
+  public getFavourites = async () => {
+    const food = await this.storage.getLikedFood();
+    this.favouriteItems = food;
   };
 
   public addToFavourite = async (item: Food) => {

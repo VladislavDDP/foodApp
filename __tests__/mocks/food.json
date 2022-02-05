@@ -1,14 +1,28 @@
 {
-    "id": 1,
-    "name": "test",
-    "price": 1,
-    "photo": "",
-    "gallery": [""],
-    "categories": [
-        {
-            "id": 1,
-            "name": "test"
+    "id": 2,
+    "attributes": {
+        "name": "Veggie tomato mix",
+        "price": 2.5,
+        "photo": "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg",
+        "gallery": [
+            "https://www.wbcsd.org/var/site/storage/images/programs/food-and-nature/food-land-use/fresh/60850-138-eng-GB/FReSH_720_square.jpg",
+            "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+        ],
+        "createdAt": "2022-01-05T16:13:31.789Z",
+        "updatedAt": "2022-01-05T18:38:10.405Z",
+        "publishedAt": "2022-01-05T16:13:31.786Z",
+        "categories": {
+            "data": [
+                {
+                    "id": 1,
+                    "attributes": {
+                        "name": "Foods",
+                        "createdAt": "2022-01-05T19:04:14.644Z",
+                        "updatedAt": "2022-01-05T19:04:19.798Z",
+                        "publishedAt": "2022-01-05T19:04:19.725Z"
+                    }
+                }
+            ]
         }
-    ],
-    "isLiked": false
+    }
 }

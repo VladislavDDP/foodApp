@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {observer} from 'mobx-react';
+import {Observer, useLocalObservable} from 'mobx-react';
 import {Formik, type FormikValues, type FormikHelpers} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
 import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/custom-button/CustomButton.component';
 import {styles} from './login.styles';
-import {useStore} from '../../../store/store';
 import {LoginForm} from './login-form/LoginForm.component';
 import {localisation} from '../../../localization/localization';
+import {Authentication} from '../../../store/authentication';
 
 interface Props {
   goToDashboard: () => void;
@@ -24,8 +24,8 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required(localisation.t('errors.required')),
 });
 
-export const Login: React.FC<Props> = observer(({goToDashboard}) => {
-  const {authentication} = useStore();
+export const Login: React.FC<Props> = ({goToDashboard}) => {
+  const authentication = useLocalObservable(() => new Authentication());
   const [loading, setLoading] = useState(false);
 
   const submitLogin = async (values: LoginValues, actions: FormikHelpers<LoginValues>) => {
@@ -56,10 +56,14 @@ export const Login: React.FC<Props> = observer(({goToDashboard}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Formik initialValues={{email: '', password: ''}} validationSchema={LoginSchema} onSubmit={submitLogin}>
-        {renderForm}
-      </Formik>
-    </View>
+    <Observer>
+      {() => (
+        <View style={styles.container}>
+          <Formik initialValues={{email: '', password: ''}} validationSchema={LoginSchema} onSubmit={submitLogin}>
+            {renderForm}
+          </Formik>
+        </View>
+      )}
+    </Observer>
   );
-});
+};

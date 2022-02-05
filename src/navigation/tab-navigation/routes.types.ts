@@ -3,7 +3,7 @@ import React from 'react';
 import {History} from '../../screens/dashboard/history/History.component';
 import {Home} from '../../screens/dashboard/home/Home.component';
 import {Favourites} from '../../screens/dashboard/favourites/Favourites.component';
-import {Profile} from '../../screens/drawer/profile/Profile.component';
+import {ProfileScreen} from '../../screens/drawer/profile/Profile.component';
 import {Screens} from '../root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../root-stack/stack.types';
 
@@ -40,7 +40,7 @@ export const tabScreens: Array<TabProps> = [
     id: 3,
     name: Tabs.profile,
     icon: 'user-o',
-    component: Profile,
+    component: ProfileScreen,
   },
   {
     id: 4,

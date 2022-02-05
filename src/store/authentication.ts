@@ -1,29 +1,23 @@
 import {makeAutoObservable} from 'mobx';
 
-import {Service} from '../api/service';
+import {Repository} from '../api/repository';
 import {UserApi} from '../api/user-api/userApi';
-import {Config} from '../config/config';
+import {Configs} from '../config/configs';
 import {User} from '../model/user';
 import {Storage} from '../storage/storage';
 import {injector} from '../utils/injector/Injector';
 
 export class Authentication {
-  public authorized: boolean = false;
-
-  private userApi: UserApi = injector.get<UserApi>(Service.userApi);
-  private storage: Storage = injector.get<Storage>(Config.AsyncMemory);
+  private userApi: UserApi = injector.get<UserApi>(Repository.userApi);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public authorize = async () => {
-    const response = await this.storage.getAuthData();
-    if (response.email && response.password) {
-      await this.login(response.email, response.password);
-    }
-    return true;
-  };
+  public get authorized() {
+    return !!this.userApi.user?.id;
+  }
 
   public login = async (email: string, password: string) => {
     const response = await this.userApi.authorizeUser(email, password);
@@ -42,7 +36,6 @@ export class Authentication {
   };
 
   public logout = async () => {
-    this.authorized = false;
     this.userApi.logoutUser();
     await this.storage.removeAuthenticationData();
     await this.storage.removeUserData();
@@ -53,6 +46,5 @@ export class Authentication {
     this.userApi.setUserToken(jwt);
     await this.storage.addAuthenticationData(email, password);
     await this.storage.addUserData(user);
-    this.authorized = true;
   };
 }

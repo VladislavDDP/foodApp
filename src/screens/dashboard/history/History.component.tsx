@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react';
+import {Observer, useLocalObservable} from 'mobx-react';
 import {FlatList} from 'react-native';
 
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
-import {useStore} from '../../../store/store';
 import {HistoryItem} from './history-item/HistoryItem.component';
 import {styles} from './history.styles';
 import {Reciept} from '../../../model/reciept';
@@ -13,9 +12,10 @@ import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.c
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 import {localisation} from '../../../localization/localization';
+import {FoodStore} from '../../../store/foodStore';
 
-export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = observer(({navigation}) => {
-  const {foodStore} = useStore();
+export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
+  const foodStore = useLocalObservable(() => new FoodStore());
   const [loading, setLoading] = useState(true);
 
   const getShoppingHistory = async () => {
@@ -43,17 +43,21 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = o
   }
 
   return (
-    <SafeAreaTheme>
-      <TextWrapper style={styles.title}>{localisation.t('historyTitle')}</TextWrapper>
-      <FlatList
-        scrollEnabled
-        data={foodStore.orders}
-        style={styles.flatlist}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={renderListEmpty}
-        renderItem={renderItem}
-        keyExtractor={extractKey}
-      />
-    </SafeAreaTheme>
+    <Observer>
+      {() => (
+        <SafeAreaTheme>
+          <TextWrapper style={styles.title}>{localisation.t('historyTitle')}</TextWrapper>
+          <FlatList
+            scrollEnabled
+            data={foodStore.orders}
+            style={styles.flatlist}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={renderListEmpty}
+            renderItem={renderItem}
+            keyExtractor={extractKey}
+          />
+        </SafeAreaTheme>
+      )}
+    </Observer>
   );
-});
+};

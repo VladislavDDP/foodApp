@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react';
+import {Observer, useLocalObservable} from 'mobx-react';
 import {ActivityIndicator, FlatList, ScrollView} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -8,7 +8,6 @@ import {Category} from '../../../model/category';
 import {Food} from '../../../model/food';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.types';
-import {useStore} from '../../../store/store';
 import {CategoryItem} from './category-item/CategoryItem.component';
 import {FakeSearch} from './fake-search/FakeSearch.component';
 import {FoodItem} from './food-item/FoodItem.component';
@@ -18,14 +17,13 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {localisation} from '../../../localization/localization';
+import {FoodStore} from '../../../store/foodStore';
 
 const startId = 1;
 const duration = 100;
 
-interface Props extends AppNavigatorScreenProps<Screens.DrawerStack> {}
-
-export const Home: React.FC<Props> = observer(({navigation}) => {
-  const {foodStore} = useStore();
+export const Home: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
+  const foodStore = useLocalObservable(() => new FoodStore());
   const [foods, setFoods] = useState<Array<Food>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
 
@@ -36,6 +34,7 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
+      foodStore.initializeData();
       getFood(activeCategoryId);
     });
 
@@ -67,34 +66,38 @@ export const Home: React.FC<Props> = observer(({navigation}) => {
   const renderListEmptyElement = () => <ActivityIndicator style={styles.activityIndicator} size="large" color="#FF460A" />;
 
   return (
-    <SafeAreaTheme style={styles.container}>
-      <ScrollView style={styles.wrapper}>
-        <TextWrapper style={styles.title}>{localisation.t('homeTitle')}</TextWrapper>
-        <FakeSearch onPress={navigateToSearch} />
-        <FlatList
-          style={styles.flatlist}
-          data={foodStore.categories}
-          contentContainerStyle={foodStore.categories.length ? null : styles.activityIndicator}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={extractCategoryKey}
-          renderItem={renderCategory}
-          horizontal
-          ListEmptyComponent={renderListEmptyElement}
-        />
-        <FlatList
-          style={styles.flatlist}
-          data={foods}
-          contentContainerStyle={foods.length ? null : styles.activityIndicator}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={extractFoodItemKey}
-          horizontal
-          renderItem={renderFoodItem}
-          ListEmptyComponent={renderListEmptyElement}
-        />
-        <SharedElement id="bg">
-          <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg} />
-        </SharedElement>
-      </ScrollView>
-    </SafeAreaTheme>
+    <Observer>
+      {() => (
+        <SafeAreaTheme style={styles.container}>
+          <ScrollView style={styles.wrapper}>
+            <TextWrapper style={styles.title}>{localisation.t('homeTitle')}</TextWrapper>
+            <FakeSearch onPress={navigateToSearch} />
+            <FlatList
+              style={styles.flatlist}
+              data={foodStore.categories}
+              contentContainerStyle={foodStore.categories.length ? null : styles.activityIndicator}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={extractCategoryKey}
+              renderItem={renderCategory}
+              horizontal
+              ListEmptyComponent={renderListEmptyElement}
+            />
+            <FlatList
+              style={styles.flatlist}
+              data={foods}
+              contentContainerStyle={foods.length ? null : styles.activityIndicator}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={extractFoodItemKey}
+              horizontal
+              renderItem={renderFoodItem}
+              ListEmptyComponent={renderListEmptyElement}
+            />
+            <SharedElement id="bg">
+              <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg} />
+            </SharedElement>
+          </ScrollView>
+        </SafeAreaTheme>
+      )}
+    </Observer>
   );
-});
+};

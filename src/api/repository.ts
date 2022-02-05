@@ -1,4 +1,4 @@
-export enum Service {
+export enum Repository {
   userApi = 'userApi',
   foodApi = 'foodApi',
 }

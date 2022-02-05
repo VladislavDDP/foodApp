@@ -6,17 +6,18 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {Screens} from '../../../../navigation/root-stack/routes.types';
 import {styles} from './sign-out.styles';
-import {useStore} from '../../../../store/store';
 import {StackParamList} from '../../../../navigation/root-stack/stack.types';
 import {AuthFlowScreens} from '../../../../navigation/auth-flow-stack/routes.types';
 import {localisation} from '../../../../localization/localization';
+import {useLocalObservable} from 'mobx-react';
+import {Authentication} from '../../../../store/authentication';
 
 interface Props {
   navigation: NativeStackNavigationProp<StackParamList, Screens.DrawerStack>;
 }
 
 export const SignOut: React.FC<Props> = ({navigation}) => {
-  const {authentication} = useStore();
+  const authentication = useLocalObservable(() => new Authentication());
 
   const goToAuthentication = async () => {
     await authentication.logout();

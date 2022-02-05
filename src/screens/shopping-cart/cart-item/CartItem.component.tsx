@@ -8,24 +8,24 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {CartFood} from '../../../model/cartFood';
-import {useStore} from '../../../store/store';
 import {colors} from '../../../vars/variables';
 import {styles} from './cart-item.styles';
 import {ItemActions} from './item-actions/ItemActions.component';
 
 interface Props {
   item: CartFood;
+  addOne: (id: number) => void;
+  removeOne: (id: number) => void;
   likeItem: (item: CartFood) => void;
   removeItem: (id: number) => void;
 }
 
-export const CartItem: React.FC<Props> = observer(({item, ...props}) => {
-  const {cart} = useStore();
-
-  const addOneMoreItem = () => cart.increaseQty(item.id);
-  const removeOneMoreItem = () => cart.decreaseQty(item.id);
-
+export const CartItem: React.FC<Props> = observer(({item, addOne, removeOne, ...props}) => {
   const renderRightActions = (dragX: Animated.AnimatedInterpolation) => <ItemActions dragX={dragX} item={item} {...props} />;
+
+  const add = () => addOne(item.id);
+
+  const remove = () => removeOne(item.id);
 
   return (
     <Swipeable renderRightActions={(_: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) => renderRightActions(dragX)}>
@@ -36,9 +36,9 @@ export const CartItem: React.FC<Props> = observer(({item, ...props}) => {
           <Text style={styles.itemPrice}>{item.price}</Text>
         </View>
         <View style={styles.qtyContainer}>
-          <IconButton name="minus" style={styles.qtyController} size={10} color={colors.white} onPress={removeOneMoreItem} />
+          <IconButton name="minus" style={styles.qtyController} size={10} color={colors.white} onPress={remove} />
           <Text style={styles.qtyNumber}>{item.qty}</Text>
-          <IconButton name="plus" style={styles.qtyController} size={10} color={colors.white} onPress={addOneMoreItem} />
+          <IconButton name="plus" style={styles.qtyController} size={10} color={colors.white} onPress={add} />
         </View>
       </ViewTheme>
     </Swipeable>

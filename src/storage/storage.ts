@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {Languages} from '../localization/languages';
+import {CartFood} from '../model/cartFood';
 import {Food} from '../model/food';
 import {User} from '../model/user';
 import {ThemeNames} from '../theme/ThemeNames';
@@ -52,6 +53,15 @@ export class Storage {
 
   public setLanguage = async (language: Languages) => {
     await AsyncStorage.setItem(StorageKeys.Language, language);
+  };
+
+  public getCartItems = async () => {
+    const response = await AsyncStorage.getItem(StorageKeys.CartItems);
+    return response ? JSON.parse(response) : [];
+  };
+
+  public setCartItems = async (items: Array<CartFood>) => {
+    await AsyncStorage.setItem(StorageKeys.CartItems, JSON.stringify(items));
   };
 
   public addToFavourite = async (item: Food) => {

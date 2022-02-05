@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {observer} from 'mobx-react';
+import React, {useState} from 'react';
+import {Observer, useLocalObservable} from 'mobx-react';
 import {Modal} from 'react-native';
 import {View} from 'react-native-animatable';
 
@@ -12,22 +12,25 @@ import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.comp
 import {DeliveryType} from '../../model/deliveryType';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
-import {useStore} from '../../store/store';
 import {LoadingScreen} from '../../components/loading-screen/LoadingScreen.component';
 import {DeliveryOptionsBox} from './delivery-options-box/DeliveryOptionsBox.component';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
+import {Profile} from '../../store/profile';
+import {Cart} from '../../store/cart';
+import {FoodStore} from '../../store/foodStore';
 
-export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = observer(({navigation}) => {
+export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({navigation}) => {
+  const profile = useLocalObservable(() => new Profile());
+
   const [modalVisible, setModalVisible] = useState(false);
+  const [deliveryOption, setDeliveryOption] = useState(profile.deliveryMethod);
   const [loading, setLoading] = useState(false);
-  const {foodStore, cart, profile} = useStore();
 
-  useEffect(() => {
-    profile.getUserData();
-  });
+  const foodStore = useLocalObservable(() => new FoodStore());
+  const cart = useLocalObservable(() => new Cart());
 
   const approvePayment = async () => {
     setLoading(true);
@@ -36,9 +39,9 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = obs
     const item = {
       address: profile.address,
       phone: profile.phone,
-      deliveryMethod: profile.deliveryOption,
-      payment: profile.paymentOption,
-      items: cart.cartItems,
+      deliveryMethod: profile.deliveryMethod,
+      payment: profile.paymentMethod,
+      items: cart.items,
     };
 
     try {
@@ -58,25 +61,32 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = obs
 
   const onRequestClose = () => setModalVisible(!modalVisible);
 
-  const setOption = (option: DeliveryType) => profile.setDeliveryMethod(option);
+  const setOption = (option: string) => {
+    profile.setDeliveryMethod(option as DeliveryType);
+    setDeliveryOption(option as DeliveryType);
+  };
 
   if (loading) {
     return <LoadingScreen title="Ordering..." />;
   }
 
   return (
-    <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
-      <CustomHeader title="Checkout" onPress={navigation.goBack} />
-      <View style={styles.wrapper}>
-        <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
-          <ModalCheckout approvePayment={approvePayment} setVisable={setModalVisible} />
-        </Modal>
-        <TextWrapper style={styles.title}>{localisation.t('checkoutTitle')}</TextWrapper>
-        <DeliveryDetails />
-        <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
-        <TotalPrice totalCartPrice={cart.totalCartPrice} />
-      </View>
-      <CustomButton text={localisation.t('buttons.proceedToPayment')} onPress={setVisable} />
-    </ViewTheme>
+    <Observer>
+      {() => (
+        <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
+          <CustomHeader title="Checkout" onPress={navigation.goBack} />
+          <View style={styles.wrapper}>
+            <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={onRequestClose}>
+              <ModalCheckout approvePayment={approvePayment} setVisable={setModalVisible} />
+            </Modal>
+            <TextWrapper style={styles.title}>{localisation.t('checkoutTitle')}</TextWrapper>
+            <DeliveryDetails />
+            <DeliveryOptionsBox selectedOption={deliveryOption} setOption={setOption} />
+            <TotalPrice totalCartPrice={cart.totalCartPrice} />
+          </View>
+          <CustomButton text={localisation.t('buttons.proceedToPayment')} onPress={setVisable} />
+        </ViewTheme>
+      )}
+    </Observer>
   );
-});
+};

@@ -10,15 +10,16 @@ import {Search} from '../../screens/search/Search.component';
 import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
 import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
-import {useStore} from '../../store/store';
 import {RecieptDetails} from '../../screens/reciept-details/RecieptDetails.component';
+import {useLocalObservable} from 'mobx-react';
+import {Authentication} from '../../store/authentication';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
 const sharedElements: SharedElementsComponentConfig = () => [{id: 'bg'}];
 
 export const RootStack = () => {
-  const {authentication} = useStore();
+  const authentication = useLocalObservable(() => new Authentication());
   const initialRouteName = authentication.authorized ? Screens.DrawerStack : Screens.AuthFlowStack;
 
   const setAnimation: StackCardStyleInterpolator = ({current: {progress}}) => ({

@@ -2,6 +2,9 @@ import {makeAutoObservable} from 'mobx';
 
 import {CartFood} from '../model/cartFood';
 import {Food} from '../model/food';
+import {injector} from '../utils/injector/Injector';
+import {Service} from './services/service';
+import {CartService} from './services/cart.service';
 
 const defaultCartPrice = 0;
 const indexOutOfRange = -1;
@@ -10,17 +13,25 @@ const one = 1;
 export class Cart {
   public cartItems: Array<CartFood> = [];
 
+  private cartService: CartService = injector.get<CartService>(Service.Cart);
+
   public constructor() {
+    this.getCartItems();
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
-  public get cartItemsQty() {
-    return this.cartItems.length;
+  public get items() {
+    return this.cartItems;
   }
 
   public get totalCartPrice() {
     return this.cartItems.reduce((acc: number, item: CartFood) => acc + item.price * item.qty, defaultCartPrice);
   }
+
+  public getCartItemsQty = async () => {
+    const response = await this.cartService.getItems();
+    return response.length;
+  };
 
   public addToCart = (item: Food) => {
     const index = this.findCartItemIndex(item.id);
@@ -30,6 +41,7 @@ export class Cart {
     } else {
       this.cartItems.unshift(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
     }
+    this.cartService.setItems(this.cartItems);
   };
 
   public updateCart = (item: CartFood | Food) => {
@@ -37,11 +49,13 @@ export class Cart {
     if (index > indexOutOfRange) {
       this.cartItems[index].isLiked = item.isLiked;
       this.cartItems = [...this.cartItems];
+      this.cartService.setItems(this.cartItems);
     }
   };
 
   public removeFromCart(id: number) {
     this.cartItems = this.cartItems.filter((item: CartFood) => item.id !== id);
+    this.cartService.setItems(this.cartItems);
   }
 
   public increaseQty = (id: number) => {
@@ -50,6 +64,7 @@ export class Cart {
       const item = this.cartItems[index];
       this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty + one, item.categories, item.isLiked);
       this.cartItems = [...this.cartItems];
+      this.cartService.setItems(this.cartItems);
     }
   };
 
@@ -63,11 +78,17 @@ export class Cart {
       } else {
         this.removeFromCart(id);
       }
+      this.cartService.setItems(this.cartItems);
     }
   };
 
   public clearCart = () => {
     this.cartItems = [];
+    this.cartService.setItems(this.cartItems);
+  };
+
+  private getCartItems = async () => {
+    this.cartItems = await this.cartService.getItems();
   };
 
   private findCartItemIndex = (id: number): number => this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === id);
