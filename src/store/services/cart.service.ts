@@ -6,7 +6,7 @@ import {injector} from '../../utils/injector/Injector';
 export class CartService {
   public cartItems: Array<CartFood> = [];
 
-  private storage: Storage = injector.get(Configs.AsyncMemory);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public getItems = async () => this.storage.getCartItems();
 

@@ -10,13 +10,13 @@ import {styles} from './favourite-item.styles';
 interface Props {
   item: Food;
   onPress: (item: Food) => void;
-  deleteItem: (id: number) => void;
+  deleteItem: (item: Food) => void;
 }
 
 export const FavouriteItem: React.FC<Props> = ({item, onPress, deleteItem}) => {
   const {theme} = useTheme();
   const goToDetailsOnPress = () => onPress(item);
-  const deleteOnLongPress = () => deleteItem(item.id);
+  const deleteOnLongPress = () => deleteItem(item);
 
   return (
     <TouchableOpacity

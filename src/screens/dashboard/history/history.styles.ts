@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
   },
   flatlist: {
-    paddingBottom: 100,
-    marginBottom: 60,
+    marginBottom: '10%',
+    height: '90%',
   },
 });

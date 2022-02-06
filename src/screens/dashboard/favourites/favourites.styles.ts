@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
   },
+  activityBox: {
+    flex: 1,
+  },
   listHeader: {
     marginTop: 10,
     textAlign: 'center',

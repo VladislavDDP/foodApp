@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
 import {FlatList} from 'react-native';
 
@@ -13,13 +13,18 @@ import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.c
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {localisation} from '../../../localization/localization';
 import {FoodStore} from '../../../store/foodStore';
+import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
+import {Cart} from '../../../store/cart';
 
 export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
   const foodStore = useLocalObservable(() => new FoodStore());
+  const cart = useLocalObservable(() => new Cart());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      foodStore.getFavourites();
+    const unsubscribe = navigation.addListener('focus', async () => {
+      await foodStore.getFavourites();
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -27,8 +32,9 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
 
   const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
 
-  const deleteItem = (id: number) => {
-    foodStore.removeFromFavourites(id);
+  const deleteItem = (item: Food) => {
+    cart.updateCart(new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, false));
+    foodStore.removeFromFavourites(item.id);
   };
 
   const renderItem = ({item}: {item: Food}) => <FavouriteItem item={item} onPress={goToDetails} deleteItem={deleteItem} />;
@@ -41,6 +47,10 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
     foodStore.favourites.length ? <ListHeader iconName="hand-pointer-o" text={localisation.t('favouritesAdvice')} /> : null;
 
   const extractKey = (item: Food) => item.id.toString();
+
+  if (loading) {
+    return <ActivityIndicatorTheme style={styles.activityBox} size="large" color="#FF460A" />;
+  }
 
   return (
     <Observer>

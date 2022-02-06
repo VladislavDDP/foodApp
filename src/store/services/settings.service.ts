@@ -12,11 +12,12 @@ export class SettingsService {
 
   public initSettings = async () => {
     const themeResponse: string = await this.storage.getTheme();
+    const languageResponse: string = await this.storage.getLanguage();
+
     if (themeResponse) {
       this.currentTheme = ThemeNames[themeResponse as ThemeNames];
     }
 
-    const languageResponse: string = await this.storage.getLanguage();
     if (languageResponse) {
       localisation.selectLanguage(languageResponse as Languages);
     }
