@@ -1,6 +1,7 @@
 import React from 'react';
 import {createSharedElementStackNavigator, type SharedElementsComponentConfig} from 'react-navigation-shared-element';
 import type {StackCardStyleInterpolator} from '@react-navigation/stack';
+import {useLocalObservable} from 'mobx-react';
 
 import {Screens} from './routes.types';
 import {StackParamList} from './stack.types';
@@ -11,7 +12,6 @@ import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
 import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
 import {RecieptDetails} from '../../screens/reciept-details/RecieptDetails.component';
-import {useLocalObservable} from 'mobx-react';
 import {Authentication} from '../../store/authentication';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();

@@ -1,5 +1,5 @@
 import {Observer, useLocalObservable} from 'mobx-react';
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
@@ -15,11 +15,17 @@ import {Profile} from '../../../store/profile';
 
 export const ProfileScreen = () => {
   const profile = useLocalObservable(() => new Profile());
-  const [paymentMethod, setPaymentMethod] = useState<PaymentType>(profile.paymentMethod);
 
-  const setOption = (option: string) => {
-    profile.setPaymentMethod(option as PaymentType);
-    setPaymentMethod(option as PaymentType);
+  const setCardOption = () => {
+    profile.setPaymentMethod(PaymentType.Card);
+  };
+
+  const setBankAccountOption = () => {
+    profile.setPaymentMethod(PaymentType.BankAccount);
+  };
+
+  const setPaypalOption = () => {
+    profile.setPaymentMethod(PaymentType.Paypal);
   };
 
   return (
@@ -38,24 +44,24 @@ export const ProfileScreen = () => {
                 icon="credit-card"
                 text={PaymentType.Card}
                 iconColor="orange"
-                isSelected={paymentMethod === PaymentType.Card}
+                isSelected={profile.paymentOption === PaymentType.Card}
                 shouldSeparate
-                onSelect={setOption}
+                onSelect={setCardOption}
               />
               <RadioButton
                 icon="bank"
                 text={PaymentType.BankAccount}
                 iconColor="violet"
-                isSelected={paymentMethod === PaymentType.BankAccount}
+                isSelected={profile.paymentOption === PaymentType.BankAccount}
                 shouldSeparate
-                onSelect={setOption}
+                onSelect={setBankAccountOption}
               />
               <RadioButton
                 icon="paypal"
                 text={PaymentType.Paypal}
                 iconColor="blue"
-                isSelected={paymentMethod === PaymentType.Paypal}
-                onSelect={setOption}
+                isSelected={profile.paymentOption === PaymentType.Paypal}
+                onSelect={setPaypalOption}
               />
             </ViewTheme>
           </View>

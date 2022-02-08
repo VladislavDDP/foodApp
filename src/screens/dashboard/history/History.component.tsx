@@ -12,15 +12,15 @@ import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.c
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 import {localisation} from '../../../localization/localization';
-import {FoodStore} from '../../../store/foodStore';
+import {HistoryStore} from '../../../store/historyStore';
 
 export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
-  const foodStore = useLocalObservable(() => new FoodStore());
+  const historyStore = useLocalObservable(() => new HistoryStore());
   const [loading, setLoading] = useState(true);
 
   const getShoppingHistory = async () => {
     try {
-      await foodStore.getShoppingHistory();
+      await historyStore.getShoppingHistory();
     } finally {
       setLoading(false);
     }
@@ -49,7 +49,7 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = (
           <TextWrapper style={styles.title}>{localisation.t('historyTitle')}</TextWrapper>
           <FlatList
             scrollEnabled
-            data={foodStore.orders}
+            data={historyStore.orders}
             style={styles.flatlist}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={renderListEmpty}

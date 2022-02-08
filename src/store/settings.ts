@@ -6,43 +6,32 @@ import {localisation} from '../localization/localization';
 import {ThemeNames} from '../theme/ThemeNames';
 import {injector} from '../utils/injector/Injector';
 import {Configs} from '../config/configs';
+import {SettingsService} from '../services/settings.service';
+import {Service} from '../services/service';
 
 export class Settings {
-  public theme: ThemeNames = ThemeNames.Light;
-  public language: Languages = Languages.EN;
+  public theme: ThemeNames;
+  public language: Languages;
 
   private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
+  private settingsService: SettingsService = injector.get<SettingsService>(Service.Settings);
 
   public constructor() {
-    this.loadTheme();
-    this.loadLanguage();
+    this.theme = this.settingsService.currentTheme;
+    this.language = this.settingsService.currentLanguage;
+
     makeAutoObservable(this, {}, {autoBind: true});
   }
-
-  public loadTheme = async () => {
-    const response: string = await this.storage.getTheme();
-    if (response) {
-      this.theme = ThemeNames[response as ThemeNames];
-      return response as ThemeNames;
-    }
-  };
 
   public switchTheme = async (name: ThemeNames) => {
     this.theme = name;
     await this.storage.setTheme(name);
   };
 
-  public loadLanguage = async () => {
-    const response: string = await this.storage.getLanguage();
-    if (response) {
-      this.language = Languages[response as Languages];
-      localisation.selectLanguage(this.language);
-    }
-  };
-
   public switchLanguage = async (language: Languages) => {
+    await this.storage.setLanguage(language);
+    this.settingsService.currentLanguage = language;
     this.language = language;
     localisation.selectLanguage(language);
-    await this.storage.setLanguage(language);
   };
 }

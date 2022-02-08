@@ -2,8 +2,8 @@ import {Configs} from '../src/config/configs';
 import {Food} from '../src/model/food';
 import {Storage} from '../src/storage/storage';
 import {Cart} from '../src/store/cart';
-import {CartService} from '../src/store/services/cart.service';
-import {Service} from '../src/store/services/service';
+import {CartService} from '../src/services/cart.service';
+import {Service} from '../src/services/service';
 import {injector} from '../src/utils/injector/Injector';
 import food from './mocks/food.json';
 

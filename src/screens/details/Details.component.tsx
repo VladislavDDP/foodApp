@@ -16,15 +16,13 @@ import {IconButton} from '../../components/icon-button/IconButton.component';
 import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {localisation} from '../../localization/localization';
-import {Cart} from '../../store/cart';
-import {FoodStore} from '../../store/foodStore';
+import {DetailsStore} from '../../store/detailsStore';
 
 const startValue = 0;
 
 export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = ({navigation, route}) => {
   const foodItem = route.params.item;
-  const foodStore = useLocalObservable(() => new FoodStore());
-  const cart = useLocalObservable(() => new Cart());
+  const detailStore = useLocalObservable(() => new DetailsStore());
 
   const [likedFood, setLikedFood] = useState(foodItem.isLiked);
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,18 +32,16 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = ({nav
 
   const likeFood = () => {
     setLikedFood(true);
-    cart.updateCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, true));
-    foodStore.addToFavourite(foodItem);
+    detailStore.addToFavourites(foodItem);
   };
 
   const removeLike = () => {
     setLikedFood(false);
-    cart.updateCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, false));
-    foodStore.removeFromFavourites(foodItem.id);
+    detailStore.removeFromFavourites(foodItem.id);
   };
 
   const addFoodToCart = () => {
-    cart.addToCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, likedFood));
+    detailStore.addToCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, likedFood));
     setModalVisible(true);
   };
 

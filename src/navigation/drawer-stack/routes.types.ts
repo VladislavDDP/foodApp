@@ -1,8 +1,7 @@
 import {OfferPromo} from '../../screens/drawer/offer-promo/OfferPromo.component';
 import {Orders} from '../../screens/drawer/orders/Orders.component';
 import {PrivacyPolicy} from '../../screens/drawer/privacy-policy/PrivacyPolicy.component';
-import {ProfileScreen} from '../../screens/drawer/profile/Profile.component';
-import {SettingsScreen} from '../../screens/drawer/settings/Settings.component';
+import {SettingsScreen} from '../../screens/drawer/settings/SettingsScreen.component';
 import {TabStack} from '../tab-navigation/TabStack.component';
 import {Drawers} from './drawer.types';
 
@@ -24,30 +23,24 @@ export const drawerScreens: Array<DrawerProps> = [
   },
   {
     id: 1,
-    icon: 'user',
-    name: Drawers.Profile,
-    component: ProfileScreen,
-  },
-  {
-    id: 2,
     icon: 'shopping-cart',
     name: Drawers.Orders,
     component: Orders,
   },
   {
-    id: 3,
+    id: 2,
     icon: 'tag',
     name: Drawers.OfferPromo,
     component: OfferPromo,
   },
   {
-    id: 4,
+    id: 3,
     icon: 'file',
     name: Drawers.PrivacyPolicy,
     component: PrivacyPolicy,
   },
   {
-    id: 5,
+    id: 4,
     icon: 'shield',
     name: Drawers.Settings,
     component: SettingsScreen,

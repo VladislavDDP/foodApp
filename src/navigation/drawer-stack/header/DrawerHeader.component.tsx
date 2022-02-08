@@ -22,7 +22,8 @@ export const DrawerHeader: React.FC<Props> = ({openDrawer, navigateToCart}) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
-      setQty(await cart.getCartItemsQty());
+      const itemsQty = await cart.getCartItemsQty();
+      setQty(itemsQty);
     });
 
     return unsubscribe;

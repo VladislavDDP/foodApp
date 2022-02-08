@@ -1,4 +1,5 @@
 import React from 'react';
+import {useLocalObservable} from 'mobx-react';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {CommonActions} from '@react-navigation/native';
@@ -9,7 +10,6 @@ import {styles} from './sign-out.styles';
 import {StackParamList} from '../../../../navigation/root-stack/stack.types';
 import {AuthFlowScreens} from '../../../../navigation/auth-flow-stack/routes.types';
 import {localisation} from '../../../../localization/localization';
-import {useLocalObservable} from 'mobx-react';
 import {Authentication} from '../../../../store/authentication';
 
 interface Props {

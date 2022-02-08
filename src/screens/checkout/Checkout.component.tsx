@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
-import {Modal} from 'react-native';
+import {InteractionManager, Modal} from 'react-native';
 import {View} from 'react-native-animatable';
 
 import {CustomButton} from '../../components/custom-button/CustomButton.component';
@@ -20,7 +20,7 @@ import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
 import {Profile} from '../../store/profile';
 import {Cart} from '../../store/cart';
-import {FoodStore} from '../../store/foodStore';
+import {HistoryStore} from '../../store/historyStore';
 
 export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({navigation}) => {
   const profile = useLocalObservable(() => new Profile());
@@ -29,7 +29,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
   const [deliveryOption, setDeliveryOption] = useState(profile.deliveryMethod);
   const [loading, setLoading] = useState(false);
 
-  const foodStore = useLocalObservable(() => new FoodStore());
+  const historyStore = useLocalObservable(() => new HistoryStore());
   const cart = useLocalObservable(() => new Cart());
 
   const approvePayment = async () => {
@@ -45,10 +45,12 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
     };
 
     try {
-      const response = await foodStore.appendHistory(item);
+      const response = await historyStore.appendHistory(item);
       if (response) {
         cart.clearCart();
-        navigation.replace(Screens.DrawerStack);
+        InteractionManager.runAfterInteractions(() => {
+          navigation.replace(Screens.DrawerStack);
+        });
       }
     } catch (e) {
       // TODO: catch the error
@@ -61,9 +63,9 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
 
   const onRequestClose = () => setModalVisible(!modalVisible);
 
-  const setOption = (option: string) => {
-    profile.setDeliveryMethod(option as DeliveryType);
-    setDeliveryOption(option as DeliveryType);
+  const setOption = (option: DeliveryType) => {
+    profile.setDeliveryMethod(option);
+    setDeliveryOption(option);
   };
 
   if (loading) {

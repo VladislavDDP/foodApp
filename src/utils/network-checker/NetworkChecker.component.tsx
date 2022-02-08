@@ -11,7 +11,7 @@ export const NetworkChecker: React.FC = observer(({children}) => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setConnected(state.isConnected);
     });
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
 
   const checkConnection = async () => {

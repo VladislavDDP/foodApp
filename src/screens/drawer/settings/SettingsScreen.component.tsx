@@ -1,5 +1,5 @@
 import {Observer, useLocalObservable} from 'mobx-react';
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {StackActions, useNavigation} from '@react-navigation/native';
 
@@ -16,11 +16,13 @@ import {CustomPicker} from '../../../components/custom-picker/CustomPicker.compo
 import {languageOptions, themeOptions} from './options';
 import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
 import {Settings} from '../../../store/settings';
+import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 
 export const SettingsScreen = () => {
-  const settings = useLocalObservable(() => new Settings());
   const {changeTheme} = useTheme();
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const settings = useLocalObservable(() => new Settings());
 
   const switchTheme = async (nextTheme: ThemeNames) => {
     await settings.switchTheme(nextTheme);
@@ -29,13 +31,19 @@ export const SettingsScreen = () => {
 
   const switchLanguage = async (nextLanguage: Languages) => {
     if (settings.language !== nextLanguage) {
+      setLoading(true);
       await settings.switchLanguage(nextLanguage);
+      setLoading(false);
       navigation.dispatch(StackActions.replace(Screens.DrawerStack, {screen: Drawers.Settings}));
     }
   };
 
   const switchThemeWithPicker = (itemValue: string) => switchTheme(itemValue as ThemeNames);
   const switchLanguageWithPicker = (itemValue: string) => switchLanguage(itemValue as Languages);
+
+  if (loading) {
+    return <ActivityIndicatorTheme style={styles.activityBox} size="large" color="#FF460A" />;
+  }
 
   return (
     <Observer>

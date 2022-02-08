@@ -11,16 +11,15 @@ interface Props {
   iconColor?: string;
   isSelected: boolean;
   shouldSeparate?: boolean;
-  onSelect: (text: string) => void;
+  onSelect: () => void;
 }
 
 export const RadioButton: React.FC<Props> = ({icon, text, iconColor, isSelected, shouldSeparate, onSelect}) => {
   const activeColor = isSelected ? 'red' : '#999';
-  const onSelectOption = () => onSelect(text);
 
   return (
     <View>
-      <TouchableOpacity onPress={onSelectOption}>
+      <TouchableOpacity onPress={onSelect}>
         <View style={styles.radioContainer}>
           <View style={[styles.radio, {borderColor: activeColor}]}>
             <View style={isSelected ? styles.activeRadio : null} />

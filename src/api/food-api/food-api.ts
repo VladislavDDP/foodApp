@@ -31,8 +31,10 @@ const mapFoodOut = (el: CartFood) => ({
 });
 
 export class FoodApi {
-  public http: HttpApi = injector.get<HttpApi>(Configs.Http);
-  public storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
+  public categories: Array<Category> = [];
+
+  private http: HttpApi = injector.get<HttpApi>(Configs.Http);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public getFood = async () => {
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods', {params: {populate: '*'}});
@@ -51,6 +53,7 @@ export class FoodApi {
   public getCategories = async () => {
     const response = await this.http.get<{data: Array<CategoryIn>}>('/categories', {params: {populate: '*'}});
     const categories = response.data.map(mapToCategories);
+    this.categories = categories;
     return categories;
   };
 

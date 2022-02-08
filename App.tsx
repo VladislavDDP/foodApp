@@ -11,15 +11,15 @@ import {Configs} from './src/config/configs';
 import {localisation} from './src/localization/localization';
 import {RootNavigator} from './src/navigation/RootNavigator';
 import {Storage} from './src/storage/storage';
-import {Service} from './src/store/services/service';
+import {Service} from './src/services/service';
 import {ThemeProvider, themes} from './src/theme/theme';
 import {ThemeNames} from './src/theme/ThemeNames';
 import {injector} from './src/utils/injector/Injector';
 import {NetworkChecker} from './src/utils/network-checker/NetworkChecker.component';
-import {ProfileService} from './src/store/services/profile.service';
-import {AuthenticationService} from './src/store/services/authentication.service';
-import {CartService} from './src/store/services/cart.service';
-import {SettingsService} from './src/store/services/settings.service';
+import {ProfileService} from './src/services/profile.service';
+import {CartService} from './src/services/cart.service';
+import {SettingsService} from './src/services/settings.service';
+import {FavouritesService} from './src/services/favourites.service';
 
 configure({
   enforceActions: 'never',
@@ -36,11 +36,12 @@ const initBussinessLogin = async () => {
 
   injector.set(Service.Profile, new ProfileService());
   injector.set(Service.Cart, new CartService());
-  injector.set(Service.Authentication, new AuthenticationService());
   injector.set(Service.Settings, new SettingsService());
+  injector.set(Service.Favourites, new FavouritesService());
 
-  await injector.get<AuthenticationService>(Service.Authentication).initAuth();
+  await injector.get<UserApi>(Repository.userApi).initAuth();
   await injector.get<SettingsService>(Service.Settings).initSettings();
+  await injector.get<ProfileService>(Service.Profile).loadUserProfile();
 
   return injector.get<SettingsService>(Service.Settings).currentTheme;
 };

@@ -12,18 +12,16 @@ import {AppNavigatorScreenProps} from '../../../navigation/root-stack/stack.type
 import {SafeAreaTheme} from '../../../components/safe-area-theme/SafeAreaTheme.component';
 import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.component';
 import {localisation} from '../../../localization/localization';
-import {FoodStore} from '../../../store/foodStore';
 import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
-import {Cart} from '../../../store/cart';
+import {FavouritesStore} from '../../../store/favouritesStore';
 
 export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
-  const foodStore = useLocalObservable(() => new FoodStore());
-  const cart = useLocalObservable(() => new Cart());
+  const favouritesStore = useLocalObservable(() => new FavouritesStore());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
-      await foodStore.getFavourites();
+      await favouritesStore.getFavouriteItems();
       setLoading(false);
     });
 
@@ -33,8 +31,7 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
   const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
 
   const deleteItem = (item: Food) => {
-    cart.updateCart(new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, false));
-    foodStore.removeFromFavourites(item.id);
+    favouritesStore.removeFromFavourites(item.id);
   };
 
   const renderItem = ({item}: {item: Food}) => <FavouriteItem item={item} onPress={goToDetails} deleteItem={deleteItem} />;
@@ -44,7 +41,7 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
   );
 
   const renderListHeader = () =>
-    foodStore.favourites.length ? <ListHeader iconName="hand-pointer-o" text={localisation.t('favouritesAdvice')} /> : null;
+    favouritesStore.favouriteItems.length ? <ListHeader iconName="hand-pointer-o" text={localisation.t('favouritesAdvice')} /> : null;
 
   const extractKey = (item: Food) => item.id.toString();
 
@@ -59,7 +56,7 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
           <TextWrapper style={styles.title}>{localisation.t('favouritesTitle')}</TextWrapper>
           <FlatList
             scrollEnabled
-            data={foodStore.favourites}
+            data={favouritesStore.favouriteItems}
             ListHeaderComponent={renderListHeader}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={renderListEmpty}

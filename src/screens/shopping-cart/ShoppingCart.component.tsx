@@ -14,17 +14,17 @@ import {CartFood} from '../../model/cartFood';
 import {localisation} from '../../localization/localization';
 import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
 import {Cart} from '../../store/cart';
-import {FoodStore} from '../../store/foodStore';
+import {FavouritesStore} from '../../store/favouritesStore';
 
 export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = ({navigation}) => {
-  const foodStore = useLocalObservable(() => new FoodStore());
   const cart = useLocalObservable(() => new Cart());
+  const favouritesStore = useLocalObservable(() => new FavouritesStore());
 
   const toggleLike = (item: CartFood) => {
     if (item.isLiked) {
-      foodStore.removeFromFavourites(item.id);
+      favouritesStore.removeFromFavourites(item.id);
     } else {
-      foodStore.addToFavourite(item);
+      favouritesStore.addToFavourites(item);
     }
     cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, !item.isLiked));
   };

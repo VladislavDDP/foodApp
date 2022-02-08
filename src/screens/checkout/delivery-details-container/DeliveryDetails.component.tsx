@@ -44,11 +44,11 @@ export const DeliveryDetails = () => {
           </View>
           <View style={[styles.addressTextContainer, {backgroundColor: theme.colorScheme.primaryDark}]}>
             {editMode ? (
-              <Formik initialValues={{name: profile.username as string, address: profile.address, phone: profile.phone}} onSubmit={submitEditing}>
+              <Formik initialValues={{name: profile.username, address: profile.address, phone: profile.phone}} onSubmit={submitEditing}>
                 {renderForm}
               </Formik>
             ) : (
-              <TextRecipientInfo {...{name: profile.username as string, address: profile.address, phone: profile.phone}} />
+              <TextRecipientInfo name={profile.username} address={profile.address} phone={profile.phone} />
             )}
           </View>
         </View>

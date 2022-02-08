@@ -2,7 +2,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import {Languages} from '../localization/languages';
 import {CartFood} from '../model/cartFood';
+import {DeliveryType} from '../model/deliveryType';
 import {Food} from '../model/food';
+import {PaymentType} from '../model/PaymentType';
 import {User} from '../model/user';
 import {ThemeNames} from '../theme/ThemeNames';
 import {StorageKeys} from './asyncKeys';
@@ -16,6 +18,15 @@ export class Storage {
 
   public removeAuthenticationData = async () => {
     await AsyncStorage.removeItem(StorageKeys.AuthData);
+  };
+
+  public setUserInfo = async (item: {address: string; paymentOption: PaymentType; deliveryOption: DeliveryType}) => {
+    await AsyncStorage.setItem(StorageKeys.ProfileInfo, JSON.stringify(item));
+  };
+
+  public getUserInfo = async () => {
+    const response = await AsyncStorage.getItem(StorageKeys.ProfileInfo);
+    return response ? JSON.parse(response) : {};
   };
 
   public removeUserData = async () => {

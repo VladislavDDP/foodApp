@@ -20,17 +20,11 @@ interface UserContacts {
 
 export const ContactInfo = () => {
   const profile = useLocalObservable(() => new Profile());
-  const [username, setUsername] = useState(profile.username as string);
-  const [email, setEmail] = useState(profile.email as string);
-  const [address, setAddress] = useState(profile.address);
   const [editMode, setEditMode] = useState(false);
 
   const switchEditMode = () => setEditMode(!editMode);
 
   const submitEditing = (values: UserContacts) => {
-    setUsername(values.name);
-    setEmail(values.email);
-    setAddress(values.address);
     profile.updateUserProfile(values.name, values.address, values.email);
     switchEditMode();
   };
@@ -56,20 +50,20 @@ export const ContactInfo = () => {
             style={styles.image}
           />
           {editMode ? (
-            <Formik initialValues={{name: username, email: email, address: address}} onSubmit={submitEditing}>
+            <Formik initialValues={{name: profile.username, email: profile.email, address: profile.address}} onSubmit={submitEditing}>
               {renderForm}
             </Formik>
           ) : (
             <View style={styles.infoText}>
               <View style={styles.infoContacts}>
                 <View style={styles.nameEmailContainer}>
-                  <TextWrapper style={styles.nameText}>{username}</TextWrapper>
-                  <Text style={styles.emailText}>{email}</Text>
+                  <TextWrapper style={styles.nameText}>{profile.username}</TextWrapper>
+                  <Text style={styles.emailText}>{profile.email}</Text>
                 </View>
                 <IconButton name="pen" iconType={IconTypes.FontAwesome5Icon} onPress={switchEditMode} color="#333" size={20} />
               </View>
               <Text numberOfLines={3} style={styles.addressText}>
-                {address}
+                {profile.address}
               </Text>
             </View>
           )}

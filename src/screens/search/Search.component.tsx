@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
 import {FlatList, StyleSheet} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -16,17 +16,25 @@ import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
-import {FoodStore} from '../../store/foodStore';
+import {SearchStore} from '../../store/searchStore';
 
 const numColumns = 2;
 const requestTimeout = 500;
 
 export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = ({navigation}) => {
   const [foods, setFoods] = useState<Array<Food>>([]);
-  const foodStore = useLocalObservable(() => new FoodStore());
+  const searchStore = useLocalObservable(() => new SearchStore());
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      setFoods([]);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const debouncedTextInputHandler = debounce(async (text: string) => {
-    const food = await foodStore.searchFoodByName(text);
+    const food = await searchStore.searchFoodByName(text);
     setFoods(food);
   }, requestTimeout);
 

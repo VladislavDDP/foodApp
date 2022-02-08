@@ -17,24 +17,24 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {localisation} from '../../../localization/localization';
-import {FoodStore} from '../../../store/foodStore';
+import {HomeStore} from '../../../store/homeStore';
 
 const startId = 1;
 const duration = 100;
 
 export const Home: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({navigation}) => {
-  const foodStore = useLocalObservable(() => new FoodStore());
+  const homeStore = useLocalObservable(() => new HomeStore());
   const [foods, setFoods] = useState<Array<Food>>([]);
   const [activeCategoryId, setActiveCategoryId] = useState(startId);
 
   const getFood = async (id: number) => {
-    const food = await foodStore.getFoodByCategory(id);
+    const food = await homeStore.getFoodByCategory(id);
     setFoods(food);
   };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      foodStore.initializeData();
+      homeStore.getCategories();
       getFood(activeCategoryId);
     });
 
@@ -74,8 +74,8 @@ export const Home: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({na
             <FakeSearch onPress={navigateToSearch} />
             <FlatList
               style={styles.flatlist}
-              data={foodStore.categories}
-              contentContainerStyle={foodStore.categories.length ? null : styles.activityIndicator}
+              data={homeStore.categories}
+              contentContainerStyle={homeStore.categories.length ? null : styles.activityIndicator}
               showsHorizontalScrollIndicator={false}
               keyExtractor={extractCategoryKey}
               renderItem={renderCategory}

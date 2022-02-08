@@ -3,7 +3,7 @@ import React from 'react';
 import {History} from '../../screens/dashboard/history/History.component';
 import {Home} from '../../screens/dashboard/home/Home.component';
 import {Favourites} from '../../screens/dashboard/favourites/Favourites.component';
-import {ProfileScreen} from '../../screens/drawer/profile/Profile.component';
+import {ProfileScreen} from '../../screens/dashboard/profile/ProfileScreen.component';
 import {Screens} from '../root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../root-stack/stack.types';
 

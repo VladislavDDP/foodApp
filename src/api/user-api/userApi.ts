@@ -5,6 +5,7 @@ import {Auth} from './dto/auth';
 import {OrderIn} from '../food-api/dto/orderIn';
 import {injector} from '../../utils/injector/Injector';
 import {Configs} from '../../config/configs';
+import {Storage} from '../../storage/storage';
 
 const badRequestError = 400;
 
@@ -26,7 +27,16 @@ const mapToOrders = (data: OrderIn) =>
 
 export class UserApi {
   public user?: User | null;
-  public http: HttpApi = injector.get<HttpApi>(Configs.Http);
+
+  private http: HttpApi = injector.get<HttpApi>(Configs.Http);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
+
+  public initAuth = async () => {
+    const response = await this.storage.getAuthData();
+    if (response.email && response.password) {
+      await this.authorizeUser(response.email, response.password);
+    }
+  };
 
   public authorizeUser = async (email: string, password: string) => {
     try {
