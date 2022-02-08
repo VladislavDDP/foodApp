@@ -13,6 +13,7 @@ export class Profile {
   public email: string = '';
   public address: string = '';
   public paymentOption: PaymentType;
+  public deliveryOption: DeliveryType;
 
   private profileRepository: ProfileService = injector.get<ProfileService>(Service.Profile);
   private userApi: UserApi = injector.get<UserApi>(Repository.userApi);
@@ -22,6 +23,7 @@ export class Profile {
     this.email = this.userApi.user?.email as string;
     this.address = this.profileRepository.Address;
     this.paymentOption = this.profileRepository.PaymentOption;
+    this.deliveryOption = this.profileRepository.DeliveryOption;
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
@@ -34,7 +36,7 @@ export class Profile {
   }
 
   public get DeliveryOption() {
-    return this.profileRepository.DeliveryOption;
+    return this.deliveryOption;
   }
 
   public setPaymentMethod = (value: PaymentType) => {
@@ -43,6 +45,7 @@ export class Profile {
   };
 
   public setDeliveryMethod = (value: DeliveryType) => {
+    this.deliveryOption = value;
     this.profileRepository.setDeliveryOption(value);
   };
 

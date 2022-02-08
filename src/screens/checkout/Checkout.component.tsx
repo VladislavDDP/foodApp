@@ -26,7 +26,6 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
   const profile = useLocalObservable(() => new Profile());
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [deliveryOption, setDeliveryOption] = useState(profile.deliveryMethod);
   const [loading, setLoading] = useState(false);
 
   const historyStore = useLocalObservable(() => new HistoryStore());
@@ -39,8 +38,8 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
     const item = {
       address: profile.address,
       phone: profile.phone,
-      deliveryMethod: profile.deliveryMethod,
-      payment: profile.paymentMethod,
+      deliveryMethod: profile.DeliveryOption,
+      payment: profile.PaymentOption,
       items: cart.items,
     };
 
@@ -65,7 +64,6 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
 
   const setOption = (option: DeliveryType) => {
     profile.setDeliveryMethod(option);
-    setDeliveryOption(option);
   };
 
   if (loading) {
@@ -83,7 +81,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
             </Modal>
             <TextWrapper style={styles.title}>{localisation.t('checkoutTitle')}</TextWrapper>
             <DeliveryDetails />
-            <DeliveryOptionsBox selectedOption={deliveryOption} setOption={setOption} />
+            <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
             <TotalPrice totalCartPrice={cart.totalCartPrice} />
           </View>
           <CustomButton text={localisation.t('buttons.proceedToPayment')} onPress={setVisable} />
