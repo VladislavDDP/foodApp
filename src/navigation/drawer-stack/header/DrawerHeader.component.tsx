@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {Observer, useLocalObservable} from 'mobx-react';
 import {View} from 'react-native';
+import React, {useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {Observer, useLocalObservable} from 'mobx-react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {styles} from './drawer-header.styles';
 import {ShoppingCartIcon} from './shopping-cart/ShoppingCartIcon.component';
 import {CartStore} from '../../../store/cartStore';
-import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   openDrawer: () => void;

@@ -33,7 +33,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
 
   useEffect(() => {
     cart.getCartItems();
-  });
+  }, []);
 
   const approvePayment = async () => {
     setLoading(true);
