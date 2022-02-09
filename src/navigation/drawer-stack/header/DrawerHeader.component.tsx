@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {styles} from './drawer-header.styles';
 import {ShoppingCartIcon} from './shopping-cart/ShoppingCartIcon.component';
-import {Cart} from '../../../store/cart';
+import {CartStore} from '../../../store/cartStore';
 import {useNavigation} from '@react-navigation/native';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const DrawerHeader: React.FC<Props> = ({openDrawer, navigateToCart}) => {
-  const cart = useLocalObservable(() => new Cart());
+  const cart = useLocalObservable(() => new CartStore());
   const navigation = useNavigation();
 
   useEffect(() => {

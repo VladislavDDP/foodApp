@@ -14,8 +14,14 @@ export class SearchStore {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
+  public fetchAllItems = async () => {
+    if (!this.allItems.length) {
+      this.allItems = await this.foodApi.getFood();
+    }
+  };
+
   public searchFoodByName = async (query: string) => {
-    this.allItems = await this.foodApi.getFood();
+    await this.fetchAllItems();
     return this.filterItems(query);
   };
 

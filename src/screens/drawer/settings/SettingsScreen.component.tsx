@@ -15,7 +15,7 @@ import {styles} from './settings.styles';
 import {CustomPicker} from '../../../components/custom-picker/CustomPicker.component';
 import {languageOptions, themeOptions} from './options';
 import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
-import {SettingsStore} from '../../../store/settings';
+import {SettingsStore} from '../../../store/settingsStore';
 import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 
 export const SettingsScreen = () => {

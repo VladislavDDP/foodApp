@@ -20,8 +20,7 @@ export class HistoryStore {
   public getShoppingHistory = async () => {
     const id = this.userApi.user?.id;
     if (id) {
-      const response = await this.userApi.getShoppingHistory(id);
-      this.orders = response.reverse();
+      this.orders = await this.userApi.getShoppingHistory(id);
     }
   };
 

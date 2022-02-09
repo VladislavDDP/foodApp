@@ -19,7 +19,7 @@ export class DetailsStore {
   }
 
   public addToCart = async (item: Food) => {
-    const cartItems = await this.cartService.getItems();
+    const cartItems = await this.cartService.getCartItems();
     const index = cartItems.findIndex((cartItem: CartFood) => cartItem.id === item.id);
 
     if (index > indexOutOfRange) {

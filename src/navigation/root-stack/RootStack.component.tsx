@@ -12,14 +12,14 @@ import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
 import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
 import {RecieptDetails} from '../../screens/reciept-details/RecieptDetails.component';
-import {Authentication} from '../../store/authentication';
+import {AuthenticationStore} from '../../store/authentication';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
 const sharedElements: SharedElementsComponentConfig = () => [{id: 'bg'}];
 
 export const RootStack = () => {
-  const authentication = useLocalObservable(() => new Authentication());
+  const authentication = useLocalObservable(() => new AuthenticationStore());
   const initialRouteName = authentication.authorized ? Screens.DrawerStack : Screens.AuthFlowStack;
 
   const setAnimation: StackCardStyleInterpolator = ({current: {progress}}) => ({

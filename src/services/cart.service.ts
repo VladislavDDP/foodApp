@@ -12,7 +12,18 @@ export class CartService {
     this.storage.setCartItems([item, ...cartItems]);
   };
 
-  public getItems = async () => this.storage.getCartItems();
+  public getCartItems = async () => {
+    const itemsFromCart = await this.storage.getCartItems();
+    const favouriteItems = await this.storage.getLikedFood();
+    const updatedCartItems = itemsFromCart.map((cartItem: CartFood) =>
+      favouriteItems.some((favouriteItem: Food) => favouriteItem.id === cartItem.id)
+        ? new CartFood(cartItem.id, cartItem.name, cartItem.price, cartItem.photo, cartItem.gallery, cartItem.qty, cartItem.categories, true)
+        : new CartFood(cartItem.id, cartItem.name, cartItem.price, cartItem.photo, cartItem.gallery, cartItem.qty, cartItem.categories, false),
+    );
+    await this.storage.setCartItems(updatedCartItems);
+
+    return updatedCartItems;
+  };
 
   public setItems = async (cartItems: Array<CartFood>) => {
     await this.storage.setCartItems(cartItems);

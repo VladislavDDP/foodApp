@@ -8,7 +8,7 @@ import {CustomButton} from '../../../components/custom-button/CustomButton.compo
 import {styles} from './login.styles';
 import {LoginForm} from './login-form/LoginForm.component';
 import {localisation} from '../../../localization/localization';
-import {Authentication} from '../../../store/authentication';
+import {AuthenticationStore} from '../../../store/authentication';
 
 interface Props {
   goToDashboard: () => void;
@@ -25,7 +25,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 export const Login: React.FC<Props> = ({goToDashboard}) => {
-  const authentication = useLocalObservable(() => new Authentication());
+  const authentication = useLocalObservable(() => new AuthenticationStore());
   const [loading, setLoading] = useState(false);
 
   const submitLogin = async (values: LoginValues, actions: FormikHelpers<LoginValues>) => {

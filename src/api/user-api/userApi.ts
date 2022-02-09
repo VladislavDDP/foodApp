@@ -92,6 +92,7 @@ export class UserApi {
   public getShoppingHistory = async (id: number) => {
     const response = await this.http.get<{data: Array<OrderIn>}>(`/orders`, {
       params: {
+        'sort[id]': 'desc',
         populate: '*',
         'filters[users_permissions_user][id][$eq]': id,
       },

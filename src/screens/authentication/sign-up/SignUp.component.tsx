@@ -8,7 +8,7 @@ import {CustomButton} from '../../../components/custom-button/CustomButton.compo
 import {styles} from './sign-up.styles';
 import {SignUpForm} from './sign-up-form/SignUpForm.component';
 import {localisation} from '../../../localization/localization';
-import {Authentication} from '../../../store/authentication';
+import {AuthenticationStore} from '../../../store/authentication';
 
 interface SignUpValues {
   username: string;
@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const SignUp: React.FC<Props> = ({goToDashboard}) => {
-  const authentication = useLocalObservable(() => new Authentication());
+  const authentication = useLocalObservable(() => new AuthenticationStore());
   const [loading, setLoading] = useState(false);
 
   const submitSignUp = async (values: SignUpValues, actions: FormikHelpers<SignUpValues>) => {

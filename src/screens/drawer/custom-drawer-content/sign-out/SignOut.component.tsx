@@ -10,14 +10,14 @@ import {styles} from './sign-out.styles';
 import {StackParamList} from '../../../../navigation/root-stack/stack.types';
 import {AuthFlowScreens} from '../../../../navigation/auth-flow-stack/routes.types';
 import {localisation} from '../../../../localization/localization';
-import {Authentication} from '../../../../store/authentication';
+import {AuthenticationStore} from '../../../../store/authentication';
 
 interface Props {
   navigation: NativeStackNavigationProp<StackParamList, Screens.DrawerStack>;
 }
 
 export const SignOut: React.FC<Props> = ({navigation}) => {
-  const authentication = useLocalObservable(() => new Authentication());
+  const authentication = useLocalObservable(() => new AuthenticationStore());
 
   const goToAuthentication = async () => {
     await authentication.logout();

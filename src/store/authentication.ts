@@ -7,7 +7,7 @@ import {User} from '../model/user';
 import {Storage} from '../storage/storage';
 import {injector} from '../utils/injector/Injector';
 
-export class Authentication {
+export class AuthenticationStore {
   private userApi: UserApi = injector.get<UserApi>(Repository.userApi);
   private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 

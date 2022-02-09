@@ -13,11 +13,11 @@ import {EmptyBox} from '../../components/empty-box/EmptyBox.component';
 import {CartFood} from '../../model/cartFood';
 import {localisation} from '../../localization/localization';
 import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.component';
-import {Cart} from '../../store/cart';
+import {CartStore} from '../../store/cartStore';
 import {FavouritesStore} from '../../store/favouritesStore';
 
 export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = ({navigation}) => {
-  const cart = useLocalObservable(() => new Cart());
+  const cart = useLocalObservable(() => new CartStore());
   const favouritesStore = useLocalObservable(() => new FavouritesStore());
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = ({n
     } else {
       favouritesStore.addToFavourites(item);
     }
-    cart.updateCart(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty, item.categories, !item.isLiked));
+    cart.getCartItems();
   };
 
   const deleteItem = (id: number) => cart.removeFromCart(id);

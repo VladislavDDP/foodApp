@@ -19,7 +19,7 @@ import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
 import {ProfileStore} from '../../store/profileStore';
-import {Cart} from '../../store/cart';
+import {CartStore} from '../../store/cartStore';
 import {HistoryStore} from '../../store/historyStore';
 
 export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({navigation}) => {
@@ -29,7 +29,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
   const [loading, setLoading] = useState(false);
 
   const historyStore = useLocalObservable(() => new HistoryStore());
-  const cart = useLocalObservable(() => new Cart());
+  const cart = useLocalObservable(() => new CartStore());
 
   useEffect(() => {
     cart.getCartItems();

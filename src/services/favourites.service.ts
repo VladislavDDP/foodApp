@@ -13,21 +13,9 @@ export class FavouritesService {
 
   public addToFavourite = async (item: Food) => {
     await this.storage.addToFavourite(item);
-    this.updateFavouriteInShoppingCart(item.id, true);
   };
 
   public removeFavouriteItem = async (id: number) => {
     await this.storage.removeLike(id);
-    this.updateFavouriteInShoppingCart(id, false);
-  };
-
-  private updateFavouriteInShoppingCart = async (id: number, isLiked: boolean) => {
-    const itemsFromCart = await this.storage.getCartItems();
-    const updatedCartItems = itemsFromCart.map((cartItem: CartFood) =>
-      cartItem.id === id
-        ? new CartFood(cartItem.id, cartItem.name, cartItem.price, cartItem.photo, cartItem.gallery, cartItem.qty, cartItem.categories, isLiked)
-        : cartItem,
-    );
-    await this.storage.setCartItems(updatedCartItems);
   };
 }

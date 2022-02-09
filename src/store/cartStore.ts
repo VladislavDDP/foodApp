@@ -1,7 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
 import {CartFood} from '../model/cartFood';
-import {Food} from '../model/food';
 import {injector} from '../utils/injector/Injector';
 import {Service} from '../services/service';
 import {CartService} from '../services/cart.service';
@@ -10,7 +9,7 @@ const defaultCartPrice = 0;
 const indexOutOfRange = -1;
 const one = 1;
 
-export class Cart {
+export class CartStore {
   public cartItems: Array<CartFood> = [];
 
   private cartService: CartService = injector.get<CartService>(Service.Cart);
@@ -32,21 +31,12 @@ export class Cart {
   }
 
   public getCartItems = async () => {
-    this.cartItems = await this.cartService.getItems();
+    this.cartItems = await this.cartService.getCartItems();
   };
 
   public getCartItemsQty = async () => {
-    const response = await this.cartService.getItems();
+    const response = await this.cartService.getCartItems();
     return response.length;
-  };
-
-  public updateCart = (item: CartFood | Food) => {
-    const index = this.findCartItemIndex(item.id);
-    if (index > indexOutOfRange) {
-      this.cartItems[index].isLiked = item.isLiked;
-      this.cartItems = [...this.cartItems];
-      this.cartService.setItems(this.cartItems);
-    }
   };
 
   public removeFromCart(id: number) {

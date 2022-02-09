@@ -1,7 +1,7 @@
 import {Configs} from '../src/config/configs';
 import {Food} from '../src/model/food';
 import {Storage} from '../src/storage/storage';
-import {Cart} from '../src/store/cart';
+import {CartStore} from '../src/store/cartStore';
 import {CartService} from '../src/services/cart.service';
 import {Service} from '../src/services/service';
 import {injector} from '../src/utils/injector/Injector';
@@ -18,12 +18,12 @@ const dumbFoodItem = new Food(
 );
 
 describe('Testing shopping cart', () => {
-  let cart: Cart;
+  let cart: CartStore;
 
   beforeEach(() => {
     injector.set(Configs.AsyncMemory, new Storage());
     injector.set(Service.Cart, new CartService());
-    cart = new Cart();
+    cart = new CartStore();
   });
 
   it('Add one item to cart', () => {
