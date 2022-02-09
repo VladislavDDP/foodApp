@@ -15,10 +15,18 @@ export class CartService {
   public getCartItems = async () => {
     const itemsFromCart = await this.storage.getCartItems();
     const favouriteItems = await this.storage.getLikedFood();
-    const updatedCartItems = itemsFromCart.map((cartItem: CartFood) =>
-      favouriteItems.some((favouriteItem: Food) => favouriteItem.id === cartItem.id)
-        ? new CartFood(cartItem.id, cartItem.name, cartItem.price, cartItem.photo, cartItem.gallery, cartItem.qty, cartItem.categories, true)
-        : new CartFood(cartItem.id, cartItem.name, cartItem.price, cartItem.photo, cartItem.gallery, cartItem.qty, cartItem.categories, false),
+    const updatedCartItems = itemsFromCart.map(
+      (cart: CartFood) =>
+        new CartFood(
+          cart.id,
+          cart.name,
+          cart.price,
+          cart.photo,
+          cart.gallery,
+          cart.qty,
+          cart.categories,
+          favouriteItems.some((favourite: Food) => favourite.id === cart.id),
+        ),
     );
     await this.storage.setCartItems(updatedCartItems);
 

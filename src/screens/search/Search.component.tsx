@@ -26,12 +26,13 @@ export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = ({navig
   const searchStore = useLocalObservable(() => new SearchStore());
 
   useEffect(() => {
+    searchStore.fetchAllItems();
     const unsubscribe = navigation.addListener('focus', async () => {
       setFoods([]);
     });
 
     return unsubscribe;
-  }, [navigation]);
+  }, []);
 
   const debouncedTextInputHandler = debounce(async (text: string) => {
     const food = await searchStore.searchFoodByName(text);

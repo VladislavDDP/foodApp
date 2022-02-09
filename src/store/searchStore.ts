@@ -15,15 +15,10 @@ export class SearchStore {
   }
 
   public fetchAllItems = async () => {
-    if (!this.allItems.length) {
-      this.allItems = await this.foodApi.getFood();
-    }
+    this.allItems = await this.foodApi.getFood();
   };
 
-  public searchFoodByName = async (query: string) => {
-    await this.fetchAllItems();
-    return this.filterItems(query);
-  };
+  public searchFoodByName = async (query: string) => this.filterItems(query);
 
   private filterItems = (query: string) => this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
 }

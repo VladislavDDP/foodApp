@@ -23,7 +23,7 @@ export const DrawerHeader: React.FC<Props> = ({openDrawer, navigateToCart}) => {
     });
 
     return unsubscribe;
-  }, [navigation]);
+  }, []);
 
   return (
     <Observer>

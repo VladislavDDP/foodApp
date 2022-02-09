@@ -25,8 +25,12 @@ export const SettingsScreen = () => {
   const settings = useLocalObservable(() => new SettingsStore());
 
   const switchTheme = async (nextTheme: ThemeNames) => {
-    await settings.switchTheme(nextTheme);
-    changeTheme(nextTheme);
+    if (settings.theme !== nextTheme) {
+      setLoading(true);
+      await settings.switchTheme(nextTheme);
+      setLoading(false);
+      changeTheme(nextTheme);
+    }
   };
 
   const switchLanguage = async (nextLanguage: Languages) => {

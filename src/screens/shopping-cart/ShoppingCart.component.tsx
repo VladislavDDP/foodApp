@@ -22,7 +22,7 @@ export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = ({n
 
   useEffect(() => {
     cart.getCartItems();
-  });
+  }, []);
 
   const toggleLike = (item: CartFood) => {
     if (item.isLiked) {

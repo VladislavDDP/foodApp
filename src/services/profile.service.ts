@@ -67,8 +67,8 @@ export class ProfileService {
   public loadUserProfile = async () => {
     const {address, paymentOption, deliveryOption} = await this.storage.getUserInfo();
     this.address = address;
-    this.paymentOption = paymentOption ? paymentOption : PaymentType.Card;
-    this.deliveryOption = deliveryOption ? deliveryOption : DeliveryType.DoorDelivery;
+    this.paymentOption = paymentOption || PaymentType.Card;
+    this.deliveryOption = deliveryOption || DeliveryType.DoorDelivery;
   };
 
   public updateUserProfile = async (name: string, address: string, email: string) => {

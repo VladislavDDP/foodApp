@@ -80,7 +80,7 @@ export class FoodApi {
           delivery_method: item.deliveryMethod,
           payment: item.payment,
           users_permissions_user: id,
-          items: items,
+          items,
         },
       };
 

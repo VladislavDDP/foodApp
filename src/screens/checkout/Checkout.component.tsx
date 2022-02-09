@@ -9,7 +9,6 @@ import {Screens} from '../../navigation/root-stack/routes.types';
 import {AppNavigatorScreenProps} from '../../navigation/root-stack/stack.types';
 import {styles} from './checkout.styles';
 import {DeliveryDetails} from './delivery-details-container/DeliveryDetails.component';
-import {DeliveryType} from '../../model/deliveryType';
 import {ModalCheckout} from './modal-checkout/ModalCheckout.component';
 import {TotalPrice} from './total-price/TotalPrice.component';
 import {LoadingScreen} from '../../components/loading-screen/LoadingScreen.component';
@@ -21,6 +20,7 @@ import {localisation} from '../../localization/localization';
 import {ProfileStore} from '../../store/profileStore';
 import {CartStore} from '../../store/cartStore';
 import {HistoryStore} from '../../store/historyStore';
+import {OrderDetails} from '../../model/orderDetails';
 
 export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({navigation}) => {
   const profile = useLocalObservable(() => new ProfileStore());
@@ -39,16 +39,10 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
     setLoading(true);
     setModalVisible(false);
 
-    const item = {
-      address: profile.address,
-      phone: profile.phone,
-      deliveryMethod: profile.DeliveryOption,
-      payment: profile.PaymentOption,
-      items: cart.items,
-    };
+    const orderDetails = new OrderDetails(profile.address, profile.phone, profile.DeliveryOption, profile.PaymentOption, cart.items);
 
     try {
-      const response = await historyStore.appendHistory(item);
+      const response = await historyStore.appendHistory(orderDetails);
       if (response) {
         cart.clearCart();
         InteractionManager.runAfterInteractions(() => {
@@ -66,10 +60,6 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
 
   const onRequestClose = () => setModalVisible(!modalVisible);
 
-  const setOption = (option: DeliveryType) => {
-    profile.setDeliveryMethod(option);
-  };
-
   if (loading) {
     return <LoadingScreen title="Ordering..." />;
   }
@@ -85,7 +75,7 @@ export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({n
             </Modal>
             <TextWrapper style={styles.title}>{localisation.t('checkoutTitle')}</TextWrapper>
             <DeliveryDetails />
-            <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={setOption} />
+            <DeliveryOptionsBox selectedOption={profile.deliveryOption} setOption={profile.setDeliveryMethod} />
             <TotalPrice totalCartPrice={cart.totalCartPrice} />
           </View>
           <CustomButton text={localisation.t('buttons.proceedToPayment')} onPress={setVisable} />
