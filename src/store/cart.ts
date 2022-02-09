@@ -16,7 +16,6 @@ export class Cart {
   private cartService: CartService = injector.get<CartService>(Service.Cart);
 
   public constructor() {
-    this.getCartItems();
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
@@ -24,9 +23,17 @@ export class Cart {
     return this.cartItems;
   }
 
+  public get cartItemsQty() {
+    return this.cartItems.length;
+  }
+
   public get totalCartPrice() {
     return this.cartItems.reduce((acc: number, item: CartFood) => acc + item.price * item.qty, defaultCartPrice);
   }
+
+  public getCartItems = async () => {
+    this.cartItems = await this.cartService.getItems();
+  };
 
   public getCartItemsQty = async () => {
     const response = await this.cartService.getItems();
@@ -47,17 +54,17 @@ export class Cart {
     this.cartService.setItems(this.cartItems);
   }
 
-  public increaseQty = (id: number) => {
+  public increaseQty = async (id: number) => {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       const item = this.cartItems[index];
       this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty + one, item.categories, item.isLiked);
       this.cartItems = [...this.cartItems];
-      this.cartService.setItems(this.cartItems);
+      await this.cartService.setItems(this.cartItems);
     }
   };
 
-  public decreaseQty = (id: number) => {
+  public decreaseQty = async (id: number) => {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       if (this.cartItems[index].qty - one) {
@@ -67,17 +74,13 @@ export class Cart {
       } else {
         this.removeFromCart(id);
       }
-      this.cartService.setItems(this.cartItems);
+      await this.cartService.setItems(this.cartItems);
     }
   };
 
-  public clearCart = () => {
+  public clearCart = async () => {
     this.cartItems = [];
-    this.cartService.setItems(this.cartItems);
-  };
-
-  private getCartItems = async () => {
-    this.cartItems = await this.cartService.getItems();
+    await this.cartService.setItems(this.cartItems);
   };
 
   private findCartItemIndex = (id: number): number => this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === id);

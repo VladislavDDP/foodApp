@@ -11,6 +11,17 @@ export class SettingsService {
 
   private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
+  public setCurrentTheme = async (name: ThemeNames) => {
+    await this.storage.setTheme(name);
+    this.currentTheme = name;
+  };
+
+  public setCurrentLanguage = async (language: Languages) => {
+    await this.storage.setLanguage(language);
+    this.currentLanguage = language;
+    localisation.selectLanguage(language);
+  };
+
   public initSettings = async () => {
     const themeResponse: string = await this.storage.getTheme();
     const languageResponse: string = await this.storage.getLanguage();

@@ -9,6 +9,10 @@ import {Orders} from './dto/orders';
 import {OrderDetails} from '../../model/orderDetails';
 import {injector} from '../../utils/injector/Injector';
 import {Configs} from '../../config/configs';
+import {Reciept} from '../../model/reciept';
+import {RecieptItem} from '../../model/recieptItem';
+import {OrderedItem} from './dto/item';
+import {RecieptFood} from '../../model/recieptFood';
 
 const unauthorizedError = 401;
 
@@ -27,8 +31,16 @@ const mapFoodOut = (el: CartFood) => ({
     photo: el.photo,
     price: el.price,
     gallery: el.gallery,
+    categories: el.categories.map((category: Category) => ({id: category.id, name: category.name})),
   },
 });
+
+const mapToRecieptItem = (item: OrderedItem) =>
+  new RecieptItem(
+    item.id,
+    item.qty,
+    new RecieptFood(item.attributes.name, item.attributes.photo, item.attributes.price, item.attributes.gallery, item.attributes.categories),
+  );
 
 export class FoodApi {
   public categories: Array<Category> = [];
@@ -61,20 +73,29 @@ export class FoodApi {
     try {
       const items = item.items.map(mapFoodOut);
 
-      const data = {
+      const body = {
         data: {
           address: item.address,
           phone: item.phone,
           delivery_method: item.deliveryMethod,
           payment: item.payment,
           users_permissions_user: id,
-          items,
+          items: items,
         },
       };
 
-      const response = await this.http.post<Orders>('/orders', data);
-
-      return response.id;
+      const {data} = await this.http.post<Orders>('/orders', body);
+      const responseItems = data.attributes.items.map(mapToRecieptItem);
+      const receipt = new Reciept(
+        data.id,
+        data.attributes.address,
+        data.attributes.payment,
+        data.attributes.phone,
+        data.attributes.delivery_method,
+        data.attributes.createdAt,
+        responseItems,
+      );
+      return receipt;
     } catch (e) {
       if (e.response.status === unauthorizedError) {
         throw new Error('User not auth');

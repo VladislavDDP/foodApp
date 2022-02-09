@@ -8,7 +8,7 @@ import {injector} from '../utils/injector/Injector';
 import {Service} from '../services/service';
 import {ProfileService} from '../services/profile.service';
 
-export class Profile {
+export class ProfileStore {
   public username: string = '';
   public email: string = '';
   public address: string = '';
@@ -39,21 +39,21 @@ export class Profile {
     return this.deliveryOption;
   }
 
-  public setPaymentMethod = (value: PaymentType) => {
+  public setPaymentMethod = async (value: PaymentType) => {
+    await this.profileRepository.setPaymentOption(value);
     this.paymentOption = value;
-    this.profileRepository.setPaymentOption(value);
   };
 
-  public setDeliveryMethod = (value: DeliveryType) => {
+  public setDeliveryMethod = async (value: DeliveryType) => {
+    await this.profileRepository.setDeliveryOption(value);
     this.deliveryOption = value;
-    this.profileRepository.setDeliveryOption(value);
   };
 
-  public updateUserProfile = (name: string, address: string, email: string) => {
+  public updateUserProfile = async (name: string, address: string, email: string) => {
+    await this.profileRepository.updateUserProfile(name, address, email);
     this.username = name;
     this.address = address;
     this.email = email;
-    this.profileRepository.updateUserProfile(name, address, email);
   };
 
   public updateDeliveryDetails = (name: string, address: string, phone: string) => {

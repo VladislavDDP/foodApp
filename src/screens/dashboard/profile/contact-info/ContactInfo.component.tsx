@@ -8,7 +8,7 @@ import {IconButton} from '../../../../components/icon-button/IconButton.componen
 import {TextWrapper} from '../../../../components/text-wrapper/TextWrapper.component';
 import {ColorIntencity} from '../../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../../components/view-theme/ViewTheme.component';
-import {Profile} from '../../../../store/profile';
+import {ProfileStore} from '../../../../store/profileStore';
 import {styles} from './contact-info.styles';
 import {FormUserContacts} from './form-user-contacts/FormUserContacts.component';
 
@@ -19,7 +19,7 @@ interface UserContacts {
 }
 
 export const ContactInfo = () => {
-  const profile = useLocalObservable(() => new Profile());
+  const profile = useLocalObservable(() => new ProfileStore());
   const [editMode, setEditMode] = useState(false);
 
   const switchEditMode = () => setEditMode(!editMode);

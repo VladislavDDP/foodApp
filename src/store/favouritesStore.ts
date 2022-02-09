@@ -15,7 +15,9 @@ export class FavouritesStore {
   }
 
   public addToFavourites = async (item: Food) => {
-    await this.favouriteService.addToFavourite(new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, true));
+    const likedItem = new Food(item.id, item.name, item.price, item.photo, item.gallery, item.categories, true);
+    await this.favouriteService.addToFavourite(likedItem);
+    this.favouriteItems.unshift(likedItem);
   };
 
   public getFavouriteItems = async () => {
@@ -23,7 +25,7 @@ export class FavouritesStore {
   };
 
   public removeFromFavourites = async (id: number) => {
-    this.favouriteItems = this.favouriteItems.filter((item: Food) => item.id !== id);
-    await this.favouriteService.updateFavouriteItem(id);
+    await this.favouriteService.removeFavouriteItem(id);
+    this.favouriteItems = await this.favouriteService.getFavouritesItems();
   };
 }

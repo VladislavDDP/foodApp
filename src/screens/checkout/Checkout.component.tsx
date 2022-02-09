@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
 import {InteractionManager, Modal} from 'react-native';
 import {View} from 'react-native-animatable';
@@ -18,18 +18,22 @@ import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
-import {Profile} from '../../store/profile';
+import {ProfileStore} from '../../store/profileStore';
 import {Cart} from '../../store/cart';
 import {HistoryStore} from '../../store/historyStore';
 
 export const Checkout: React.FC<AppNavigatorScreenProps<Screens.Checkout>> = ({navigation}) => {
-  const profile = useLocalObservable(() => new Profile());
+  const profile = useLocalObservable(() => new ProfileStore());
 
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const historyStore = useLocalObservable(() => new HistoryStore());
   const cart = useLocalObservable(() => new Cart());
+
+  useEffect(() => {
+    cart.getCartItems();
+  });
 
   const approvePayment = async () => {
     setLoading(true);

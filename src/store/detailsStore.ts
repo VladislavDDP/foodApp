@@ -36,6 +36,6 @@ export class DetailsStore {
   };
 
   public removeFromFavourites = (id: number) => {
-    this.favouriteService.updateFavouriteItem(id);
+    this.favouriteService.removeFavouriteItem(id);
   };
 }

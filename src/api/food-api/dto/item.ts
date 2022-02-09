@@ -1,3 +1,5 @@
+import {Category} from '../../../model/category';
+
 export interface OrderedItem {
   id: number;
   qty: number;
@@ -6,5 +8,6 @@ export interface OrderedItem {
     photo: string;
     price: number;
     gallery: Array<string>;
+    categories: Array<Category>;
   };
 }

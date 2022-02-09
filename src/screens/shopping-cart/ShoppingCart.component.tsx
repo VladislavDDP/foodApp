@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
 import {FlatList} from 'react-native';
 
@@ -19,6 +19,10 @@ import {FavouritesStore} from '../../store/favouritesStore';
 export const ShoppingCart: React.FC<AppNavigatorScreenProps<Screens.Cart>> = ({navigation}) => {
   const cart = useLocalObservable(() => new Cart());
   const favouritesStore = useLocalObservable(() => new FavouritesStore());
+
+  useEffect(() => {
+    cart.getCartItems();
+  });
 
   const toggleLike = (item: CartFood) => {
     if (item.isLiked) {

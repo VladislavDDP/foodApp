@@ -21,11 +21,11 @@ import {CartService} from './src/services/cart.service';
 import {SettingsService} from './src/services/settings.service';
 import {FavouritesService} from './src/services/favourites.service';
 
-configure({
-  enforceActions: 'never',
-});
+const initBussinessLogic = async () => {
+  configure({
+    enforceActions: 'never',
+  });
 
-const initBussinessLogin = async () => {
   const baseURL: string = 'https://rn-delivery-api.herokuapp.com/api';
 
   injector.set(Configs.Http, new HttpApi(baseURL));
@@ -52,7 +52,7 @@ export const App = () => {
 
   const initApp = useCallback(async () => {
     try {
-      const theme = await initBussinessLogin();
+      const theme = await initBussinessLogic();
       setCurrentTheme(themes[ThemeNames[theme]]);
     } finally {
       SplashScreen.hide();

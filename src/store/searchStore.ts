@@ -16,7 +16,7 @@ export class SearchStore {
 
   public searchFoodByName = async (query: string) => {
     this.allItems = await this.foodApi.getFood();
-    return [...this.filterItems(query)];
+    return this.filterItems(query);
   };
 
   private filterItems = (query: string) => this.allItems.filter((item: Food) => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));

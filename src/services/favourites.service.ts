@@ -16,8 +16,8 @@ export class FavouritesService {
     this.updateFavouriteInShoppingCart(item.id, true);
   };
 
-  public updateFavouriteItem = async (id: number) => {
-    this.storage.removeLike(id);
+  public removeFavouriteItem = async (id: number) => {
+    await this.storage.removeLike(id);
     this.updateFavouriteInShoppingCart(id, false);
   };
 
@@ -28,6 +28,6 @@ export class FavouritesService {
         ? new CartFood(cartItem.id, cartItem.name, cartItem.price, cartItem.photo, cartItem.gallery, cartItem.qty, cartItem.categories, isLiked)
         : cartItem,
     );
-    this.storage.setCartItems(updatedCartItems);
+    await this.storage.setCartItems(updatedCartItems);
   };
 }

@@ -28,7 +28,8 @@ export class HistoryStore {
   public appendHistory = async (item: OrderDetails) => {
     if (this.userApi.user) {
       try {
-        await this.foodApi.purchaseFood(item, this.userApi.user?.id);
+        const receipt = await this.foodApi.purchaseFood(item, this.userApi.user?.id);
+        this.orders.unshift(receipt);
         return true;
       } catch (e) {
         throw new Error('User not auth');

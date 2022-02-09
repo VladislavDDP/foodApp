@@ -10,7 +10,7 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {useTheme} from '../../../theme/theme';
 import {TextButton} from '../../../components/text-button/TextButton.component';
 import {localisation} from '../../../localization/localization';
-import {Profile} from '../../../store/profile';
+import {ProfileStore} from '../../../store/profileStore';
 
 interface Recipient {
   name: string;
@@ -20,7 +20,7 @@ interface Recipient {
 
 export const DeliveryDetails = () => {
   const {theme} = useTheme();
-  const profile = useLocalObservable(() => new Profile());
+  const profile = useLocalObservable(() => new ProfileStore());
   const [editMode, setEditMode] = useState(false);
 
   const submitEditing = (values: Recipient) => {

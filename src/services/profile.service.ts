@@ -54,15 +54,15 @@ export class ProfileService {
     this.address = address;
   }
 
-  public setPaymentOption(paymentOption: PaymentType) {
-    this.storage.setUserInfo({address: this.address, paymentOption: paymentOption, deliveryOption: this.deliveryOption});
+  public setPaymentOption = async (paymentOption: PaymentType) => {
+    await this.storage.setUserInfo({address: this.address, paymentOption: paymentOption, deliveryOption: this.deliveryOption});
     this.paymentOption = paymentOption;
-  }
+  };
 
-  public setDeliveryOption(deliveryOption: DeliveryType) {
-    this.storage.setUserInfo({address: this.address, paymentOption: this.paymentOption, deliveryOption: deliveryOption});
+  public setDeliveryOption = async (deliveryOption: DeliveryType) => {
+    await this.storage.setUserInfo({address: this.address, paymentOption: this.paymentOption, deliveryOption: deliveryOption});
     this.deliveryOption = deliveryOption;
-  }
+  };
 
   public loadUserProfile = async () => {
     const {address, paymentOption, deliveryOption} = await this.storage.getUserInfo();
@@ -71,11 +71,11 @@ export class ProfileService {
     this.deliveryOption = deliveryOption ? deliveryOption : DeliveryType.DoorDelivery;
   };
 
-  public updateUserProfile = (name: string, address: string, email: string) => {
+  public updateUserProfile = async (name: string, address: string, email: string) => {
+    await this.storage.setUserInfo({address, paymentOption: this.paymentOption, deliveryOption: this.deliveryOption});
     this.username = name;
     this.address = address;
     this.email = email;
-    this.storage.setUserInfo({address, paymentOption: this.paymentOption, deliveryOption: this.deliveryOption});
   };
 
   public updateDeliveryDetails = (name: string, address: string, phone: string) => {

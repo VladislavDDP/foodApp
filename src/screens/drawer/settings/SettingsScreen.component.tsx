@@ -15,14 +15,14 @@ import {styles} from './settings.styles';
 import {CustomPicker} from '../../../components/custom-picker/CustomPicker.component';
 import {languageOptions, themeOptions} from './options';
 import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
-import {Settings} from '../../../store/settings';
+import {SettingsStore} from '../../../store/settings';
 import {ActivityIndicatorTheme} from '../../../components/activity-indicator-theme/ActivityIndicatorTheme.component';
 
 export const SettingsScreen = () => {
   const {changeTheme} = useTheme();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-  const settings = useLocalObservable(() => new Settings());
+  const settings = useLocalObservable(() => new SettingsStore());
 
   const switchTheme = async (nextTheme: ThemeNames) => {
     await settings.switchTheme(nextTheme);

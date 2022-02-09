@@ -11,10 +11,10 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {localisation} from '../../../localization/localization';
-import {Profile} from '../../../store/profile';
+import {ProfileStore} from '../../../store/profileStore';
 
 export const ProfileScreen = () => {
-  const profile = useLocalObservable(() => new Profile());
+  const profile = useLocalObservable(() => new ProfileStore());
 
   const setCardOption = () => {
     profile.setPaymentMethod(PaymentType.Card);

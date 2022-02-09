@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
 import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -13,17 +13,13 @@ interface Props {
   navigateToCart: () => void;
 }
 
-const emptyLenght = 0;
-
 export const DrawerHeader: React.FC<Props> = ({openDrawer, navigateToCart}) => {
   const cart = useLocalObservable(() => new Cart());
-  const [qty, setQty] = useState<number>(emptyLenght);
   const navigation = useNavigation();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
-      const itemsQty = await cart.getCartItemsQty();
-      setQty(itemsQty);
+      await cart.getCartItems();
     });
 
     return unsubscribe;
@@ -34,7 +30,7 @@ export const DrawerHeader: React.FC<Props> = ({openDrawer, navigateToCart}) => {
       {() => (
         <View style={styles.container}>
           <Icon name="bars" color="#999" size={25} onPress={openDrawer} />
-          <ShoppingCartIcon qty={qty} onPress={navigateToCart} />
+          <ShoppingCartIcon qty={cart.cartItemsQty} onPress={navigateToCart} />
         </View>
       )}
     </Observer>
