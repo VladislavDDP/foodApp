@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     paddingTop: 20,
     marginHorizontal: 40,
   },
+  activityBox: {
+    flex: 1,
+  },
   separator: {
     marginVertical: 10,
   },

@@ -7,6 +7,12 @@ import {Storage} from '../../storage/storage';
 import {CartFood} from '../../model/cartFood';
 import {Orders} from './dto/orders';
 import {OrderDetails} from '../../model/orderDetails';
+import {injector} from '../../utils/injector/Injector';
+import {Configs} from '../../config/configs';
+import {Reciept} from '../../model/reciept';
+import {RecieptItem} from '../../model/recieptItem';
+import {OrderedItem} from './dto/item';
+import {RecieptFood} from '../../model/recieptFood';
 
 const unauthorizedError = 401;
 
@@ -25,17 +31,22 @@ const mapFoodOut = (el: CartFood) => ({
     photo: el.photo,
     price: el.price,
     gallery: el.gallery,
+    categories: el.categories.map((category: Category) => ({id: category.id, name: category.name})),
   },
 });
 
-export class FoodApi {
-  public http: HttpApi;
-  public storage: Storage;
+const mapToRecieptItem = (item: OrderedItem) =>
+  new RecieptItem(
+    item.id,
+    item.qty,
+    new RecieptFood(item.attributes.name, item.attributes.photo, item.attributes.price, item.attributes.gallery, item.attributes.categories),
+  );
 
-  public constructor(http: HttpApi, storage: Storage) {
-    this.storage = storage;
-    this.http = http;
-  }
+export class FoodApi {
+  public categories: Array<Category> = [];
+
+  private http: HttpApi = injector.get<HttpApi>(Configs.Http);
+  private storage: Storage = injector.get<Storage>(Configs.AsyncMemory);
 
   public getFood = async () => {
     const response = await this.http.get<{data: Array<FoodIn>}>('/foods', {params: {populate: '*'}});
@@ -54,6 +65,7 @@ export class FoodApi {
   public getCategories = async () => {
     const response = await this.http.get<{data: Array<CategoryIn>}>('/categories', {params: {populate: '*'}});
     const categories = response.data.map(mapToCategories);
+    this.categories = categories;
     return categories;
   };
 
@@ -61,7 +73,7 @@ export class FoodApi {
     try {
       const items = item.items.map(mapFoodOut);
 
-      const data = {
+      const body = {
         data: {
           address: item.address,
           phone: item.phone,
@@ -72,9 +84,18 @@ export class FoodApi {
         },
       };
 
-      const response = await this.http.post<Orders>('/orders', data);
-
-      return response.id;
+      const {data} = await this.http.post<Orders>('/orders', body);
+      const responseItems = data.attributes.items.map(mapToRecieptItem);
+      const receipt = new Reciept(
+        data.id,
+        data.attributes.address,
+        data.attributes.payment,
+        data.attributes.phone,
+        data.attributes.delivery_method,
+        data.attributes.createdAt,
+        responseItems,
+      );
+      return receipt;
     } catch (e) {
       if (e.response.status === unauthorizedError) {
         throw new Error('User not auth');

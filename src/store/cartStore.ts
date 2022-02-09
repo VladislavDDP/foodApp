@@ -1,17 +1,25 @@
 import {makeAutoObservable} from 'mobx';
 
 import {CartFood} from '../model/cartFood';
-import {Food} from '../model/food';
+import {injector} from '../utils/injector/Injector';
+import {Service} from '../services/service';
+import {CartService} from '../services/cart.service';
 
 const defaultCartPrice = 0;
 const indexOutOfRange = -1;
 const one = 1;
 
-export class Cart {
+export class CartStore {
   public cartItems: Array<CartFood> = [];
+
+  private cartService: CartService = injector.get<CartService>(Service.Cart);
 
   public constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
+  }
+
+  public get items() {
+    return this.cartItems;
   }
 
   public get cartItemsQty() {
@@ -22,38 +30,31 @@ export class Cart {
     return this.cartItems.reduce((acc: number, item: CartFood) => acc + item.price * item.qty, defaultCartPrice);
   }
 
-  public addToCart = (item: Food) => {
-    const index = this.findCartItemIndex(item.id);
-    if (index > indexOutOfRange) {
-      const cur = this.cartItems[index];
-      this.cartItems[index] = new CartFood(cur.id, cur.name, cur.price, cur.photo, cur.gallery, cur.qty + one, cur.categories, cur.isLiked);
-    } else {
-      this.cartItems.unshift(new CartFood(item.id, item.name, item.price, item.photo, item.gallery, one, item.categories, item.isLiked));
-    }
+  public getCartItems = async () => {
+    this.cartItems = await this.cartService.getCartItems();
   };
 
-  public updateCart = (item: CartFood | Food) => {
-    const index = this.findCartItemIndex(item.id);
-    if (index > indexOutOfRange) {
-      this.cartItems[index].isLiked = item.isLiked;
-      this.cartItems = [...this.cartItems];
-    }
+  public getCartItemsQty = async () => {
+    const response = await this.cartService.getCartItems();
+    return response.length;
   };
 
   public removeFromCart(id: number) {
     this.cartItems = this.cartItems.filter((item: CartFood) => item.id !== id);
+    this.cartService.setItems(this.cartItems);
   }
 
-  public increaseQty = (id: number) => {
+  public increaseQty = async (id: number) => {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       const item = this.cartItems[index];
       this.cartItems[index] = new CartFood(item.id, item.name, item.price, item.photo, item.gallery, item.qty + one, item.categories, item.isLiked);
       this.cartItems = [...this.cartItems];
+      await this.cartService.setItems(this.cartItems);
     }
   };
 
-  public decreaseQty = (id: number) => {
+  public decreaseQty = async (id: number) => {
     const index = this.findCartItemIndex(id);
     if (index > indexOutOfRange) {
       if (this.cartItems[index].qty - one) {
@@ -63,11 +64,13 @@ export class Cart {
       } else {
         this.removeFromCart(id);
       }
+      await this.cartService.setItems(this.cartItems);
     }
   };
 
-  public clearCart = () => {
+  public clearCart = async () => {
     this.cartItems = [];
+    await this.cartService.setItems(this.cartItems);
   };
 
   private findCartItemIndex = (id: number): number => this.cartItems.findIndex((cartItem: CartFood) => cartItem.id === id);

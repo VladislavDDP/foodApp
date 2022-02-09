@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: hMargin,
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: hMargin,
   },
   title: {
     textAlign: 'center',

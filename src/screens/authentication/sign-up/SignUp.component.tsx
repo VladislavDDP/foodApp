@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {Formik, type FormikHelpers, type FormikValues} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
-import {observer} from 'mobx-react';
+import {Observer, useLocalObservable} from 'mobx-react';
 import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/custom-button/CustomButton.component';
-import {useStore} from '../../../store/store';
 import {styles} from './sign-up.styles';
 import {SignUpForm} from './sign-up-form/SignUpForm.component';
 import {localisation} from '../../../localization/localization';
+import {AuthenticationStore} from '../../../store/authentication';
 
 interface SignUpValues {
   username: string;
@@ -30,8 +30,8 @@ interface Props {
   goToDashboard: () => void;
 }
 
-export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
-  const {authentication} = useStore();
+export const SignUp: React.FC<Props> = ({goToDashboard}) => {
+  const authentication = useLocalObservable(() => new AuthenticationStore());
   const [loading, setLoading] = useState(false);
 
   const submitSignUp = async (values: SignUpValues, actions: FormikHelpers<SignUpValues>) => {
@@ -58,10 +58,14 @@ export const SignUp: React.FC<Props> = observer(({goToDashboard}) => {
   );
 
   return (
-    <View style={styles.container}>
-      <Formik initialValues={{username: '', email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
-        {renderForm}
-      </Formik>
-    </View>
+    <Observer>
+      {() => (
+        <View style={styles.container}>
+          <Formik initialValues={{username: '', email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
+            {renderForm}
+          </Formik>
+        </View>
+      )}
+    </Observer>
   );
-});
+};

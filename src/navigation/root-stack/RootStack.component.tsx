@@ -1,6 +1,7 @@
 import React from 'react';
 import {createSharedElementStackNavigator, type SharedElementsComponentConfig} from 'react-navigation-shared-element';
 import type {StackCardStyleInterpolator} from '@react-navigation/stack';
+import {useLocalObservable} from 'mobx-react';
 
 import {Screens} from './routes.types';
 import {StackParamList} from './stack.types';
@@ -10,15 +11,15 @@ import {Search} from '../../screens/search/Search.component';
 import {ShoppingCart} from '../../screens/shopping-cart/ShoppingCart.component';
 import {Checkout} from '../../screens/checkout/Checkout.component';
 import {AuthFlowStack} from '../auth-flow-stack/AuthFlowStack.component';
-import {useStore} from '../../store/store';
 import {RecieptDetails} from '../../screens/reciept-details/RecieptDetails.component';
+import {AuthenticationStore} from '../../store/authentication';
 
 const Stack = createSharedElementStackNavigator<StackParamList>();
 
 const sharedElements: SharedElementsComponentConfig = () => [{id: 'bg'}];
 
 export const RootStack = () => {
-  const {authentication} = useStore();
+  const authentication = useLocalObservable(() => new AuthenticationStore());
   const initialRouteName = authentication.authorized ? Screens.DrawerStack : Screens.AuthFlowStack;
 
   const setAnimation: StackCardStyleInterpolator = ({current: {progress}}) => ({
