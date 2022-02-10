@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native';
 
-import {colors} from '../../../vars/variables';
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,7 +14,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   modalTitle: {
-    backgroundColor: colors.overlay,
+    backgroundColor: 'rgba(100, 100, 100, 0.4)',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingVertical: 20,
@@ -35,7 +33,7 @@ export const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: colors.light,
+    backgroundColor: '#999',
     marginVertical: 20,
   },
   controlButtons: {
@@ -49,13 +47,13 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
   leftBtn: {
-    color: colors.light,
+    color: '#999',
   },
   rightBtn: {
-    backgroundColor: colors.orange,
+    backgroundColor: '#FF460A',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,
-    color: colors.white,
+    color: '#fff',
   },
 });

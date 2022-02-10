@@ -7,7 +7,6 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {CartFood} from '../../../model/cartFood';
-import {colors} from '../../../vars/variables';
 import {styles} from './cart-item.styles';
 import {ItemActions} from './item-actions/ItemActions.component';
 
@@ -35,9 +34,9 @@ export const CartItem: React.FC<Props> = ({item, addOne, removeOne, ...props}) =
           <Text style={styles.itemPrice}>{item.price}</Text>
         </View>
         <View style={styles.qtyContainer}>
-          <IconButton name="minus" style={styles.qtyController} size={10} color={colors.white} onPress={remove} />
+          <IconButton name="minus" style={styles.qtyController} size={10} color="#fff" onPress={remove} />
           <Text style={styles.qtyNumber}>{item.qty}</Text>
-          <IconButton name="plus" style={styles.qtyController} size={10} color={colors.white} onPress={add} />
+          <IconButton name="plus" style={styles.qtyController} size={10} color="#fff" onPress={add} />
         </View>
       </ViewTheme>
     </Swipeable>

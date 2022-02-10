@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native';
 
-import {colors} from '../../../vars/variables';
-
 export const styles = StyleSheet.create({
   addressContainer: {
     marginVertical: 20,
@@ -18,7 +16,7 @@ export const styles = StyleSheet.create({
   addressTextContainer: {
     padding: 20,
     borderRadius: 20,
-    backgroundColor: colors.white,
+    backgroundColor: '#fff',
     marginBottom: 10,
   },
 });

@@ -18,9 +18,6 @@ import {SafeAreaTheme} from '../../components/safe-area-theme/SafeAreaTheme.comp
 import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
 import {localisation} from '../../localization/localization';
 import {DetailsStore} from '../../store/detailsStore';
-import {FlatList} from 'react-native-gesture-handler';
-
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const startValue = 0;
 
@@ -69,7 +66,7 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = ({nav
         <SuccessModal title="Done!" btnText={localisation.t('buttons.confirmAddToCart')} onPress={onRequestClose} />
       </Modal>
       <View style={styles.slider}>
-        <AnimatedFlatList
+        <Animated.FlatList
           data={foodItem.gallery}
           renderItem={renderSlide}
           onScroll={onScrollEvent}
