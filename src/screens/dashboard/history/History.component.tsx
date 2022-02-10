@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
-import {FlatList} from 'react-native';
+import {FlatList, InteractionManager} from 'react-native';
 
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
 import {HistoryItem} from './history-item/HistoryItem.component';
@@ -30,7 +30,11 @@ export const History: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = (
     getShoppingHistory();
   });
 
-  const goToRecieptDetails = (item: Reciept) => navigation.navigate(Screens.Reciept, {item});
+  const goToRecieptDetails = (item: Reciept) => {
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(Screens.Reciept, {item});
+    });
+  };
 
   const renderItem = ({item}: {item: Reciept}) => <HistoryItem item={item} goToRecieptDetails={goToRecieptDetails} />;
 

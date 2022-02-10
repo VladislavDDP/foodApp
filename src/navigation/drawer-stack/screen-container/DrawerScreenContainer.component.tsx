@@ -1,6 +1,7 @@
 import React from 'react';
-import Animated, {Adaptable, interpolateNode} from 'react-native-reanimated';
+import {InteractionManager} from 'react-native';
 import {useDrawerProgress} from '@react-navigation/drawer';
+import Animated, {Adaptable, interpolateNode} from 'react-native-reanimated';
 import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
 
 import {DrawerHeader} from '../header/DrawerHeader.component';
@@ -22,7 +23,7 @@ interface Props {
   children: Element;
 }
 
-export const DrawerScreenContainer: React.FC<Props> = props => {
+export const DrawerScreenContainer: React.FC<Props> = ({navigation, children}) => {
   const {theme} = useTheme();
   const progress = useDrawerProgress();
 
@@ -35,16 +36,18 @@ export const DrawerScreenContainer: React.FC<Props> = props => {
     outputRange: [animationVars.minRadius, animationVars.maxRadius],
   });
 
-  const openDrawer = () => props.navigation.openDrawer();
+  const openDrawer = () => navigation.openDrawer();
 
   const navigateToCart = () => {
-    props.navigation.navigate(Screens.Cart);
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(Screens.Cart);
+    });
   };
 
   return (
     <Animated.View style={[styles.container, {backgroundColor: theme.colorScheme.primaryLight, borderRadius, transform: [{scale}]}]}>
       <DrawerHeader openDrawer={openDrawer} navigateToCart={navigateToCart} />
-      {props.children}
+      {children}
     </Animated.View>
   );
 };

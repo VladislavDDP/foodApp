@@ -1,20 +1,25 @@
 import React from 'react';
-import {View} from 'react-native';
+import {InteractionManager, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {CustomButton} from '../../components/custom-button/CustomButton.component';
-import {OnboardingLogo} from './Logo.component';
-import {PeopleScene} from './PeopleScene.component';
-import {styles} from './styles/onboarding.styles';
-import {AuthFlowScreens} from '../../navigation/auth-flow-stack/routes.types';
-import {AuthFlowNavigatorScreenProps} from '../../navigation/auth-flow-stack/stack.types';
 import {useTheme} from '../../theme/theme';
-import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {OnboardingLogo} from './Logo.component';
+import {styles} from './styles/onboarding.styles';
+import {PeopleScene} from './PeopleScene.component';
 import {localisation} from '../../localization/localization';
+import {AuthFlowScreens} from '../../navigation/auth-flow-stack/routes.types';
+import {TextWrapper} from '../../components/text-wrapper/TextWrapper.component';
+import {CustomButton} from '../../components/custom-button/CustomButton.component';
+import {AuthFlowNavigatorScreenProps} from '../../navigation/auth-flow-stack/stack.types';
 
 export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.Onboarding>> = ({navigation}) => {
   const {theme} = useTheme();
-  const navigateToAuthentication = () => navigation.navigate(AuthFlowScreens.Authentication);
+
+  const navigateToAuthentication = () => {
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(AuthFlowScreens.Authentication);
+    });
+  };
 
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: theme.colorScheme.secondary}]}>

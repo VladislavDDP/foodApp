@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalObservable} from 'mobx-react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, InteractionManager, StyleSheet} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
 import debounce from 'lodash.debounce';
 
@@ -41,7 +41,11 @@ export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = ({navig
 
   const onChange = (text: string) => debouncedTextInputHandler(text);
 
-  const goToFoodDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
+  const goToFoodDetails = (item: Food) => {
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(Screens.Details, {item});
+    });
+  };
 
   const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
     <AnimatedFoodItem item={item} index={index} goToFoodDetails={goToFoodDetails} />

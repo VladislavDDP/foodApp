@@ -1,5 +1,5 @@
 import {Observer, useLocalObservable} from 'mobx-react';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {View} from 'react-native';
 
 import {RadioButton} from '../../../components/radio-button/RadioButton.components';
@@ -16,17 +16,17 @@ import {ProfileStore} from '../../../store/profileStore';
 export const ProfileScreen = () => {
   const profile = useLocalObservable(() => new ProfileStore());
 
-  const setCardOption = () => {
+  const setCardOption = useCallback(() => {
     profile.setPaymentMethod(PaymentType.Card);
-  };
+  }, []);
 
-  const setBankAccountOption = () => {
+  const setBankAccountOption = useCallback(() => {
     profile.setPaymentMethod(PaymentType.BankAccount);
-  };
+  }, []);
 
-  const setPaypalOption = () => {
+  const setPaypalOption = useCallback(() => {
     profile.setPaymentMethod(PaymentType.Paypal);
-  };
+  }, []);
 
   return (
     <Observer>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useLocalObservable} from 'mobx-react';
 import {Text, View, ScrollView, Modal} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -34,20 +34,20 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = ({nav
     scrollX.value = event.contentOffset.x;
   });
 
-  const likeFood = () => {
+  const likeFood = useCallback(() => {
     setLikedFood(true);
     detailStore.addToFavourites(foodItem);
-  };
+  }, []);
 
-  const removeLike = () => {
+  const removeLike = useCallback(() => {
     setLikedFood(false);
     detailStore.removeFromFavourites(foodItem.id);
-  };
+  }, []);
 
-  const addFoodToCart = () => {
+  const addFoodToCart = useCallback(() => {
     detailStore.addToCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, likedFood));
     setModalVisible(true);
-  };
+  }, []);
 
   const renderSlide = ({item}: {item: string}) => <SliderItem imageUrl={item} />;
 
