@@ -28,11 +28,11 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
     return unsubscribe;
   }, [navigation]);
 
-  const goToDetails = (item: Food) => {
+  const goToDetails = useCallback((item: Food) => {
     InteractionManager.runAfterInteractions(() => {
       navigation.navigate(Screens.Details, {item});
     });
-  };
+  }, []);
 
   const deleteItem = useCallback((item: Food) => {
     favouritesStore.removeFromFavourites(item.id);

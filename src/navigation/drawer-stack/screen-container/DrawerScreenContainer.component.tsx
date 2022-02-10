@@ -20,7 +20,6 @@ const animationVars = {
 
 interface Props {
   navigation: DrawerNavigationHelpers;
-  children: Element;
 }
 
 export const DrawerScreenContainer: React.FC<Props> = ({navigation, children}) => {

@@ -10,10 +10,8 @@ interface Props {
   scrollX: SharedValue<number>;
 }
 
-export const Paginator: React.FC<Props> = ({gallery, scrollX}) => (
-  <View style={styles.container}>
-    {gallery.map((_, i) => (
-      <Page key={i} i={i} scrollX={scrollX} />
-    ))}
-  </View>
-);
+export const Paginator: React.FC<Props> = ({gallery, scrollX}) => {
+  const renderPage = (_: string, i: number) => <Page key={Math.random()} i={i} scrollX={scrollX} />;
+
+  return <View style={styles.container}>{gallery.map(renderPage)}</View>;
+};

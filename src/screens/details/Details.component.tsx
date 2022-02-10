@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useLocalObservable} from 'mobx-react';
 import {Text, View, ScrollView, Modal} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
@@ -34,20 +34,20 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = ({nav
     scrollX.value = event.contentOffset.x;
   });
 
-  const likeFood = useCallback(() => {
+  const likeFood = () => {
     setLikedFood(true);
     detailStore.addToFavourites(foodItem);
-  }, []);
+  };
 
-  const removeLike = useCallback(() => {
+  const removeLike = () => {
     setLikedFood(false);
     detailStore.removeFromFavourites(foodItem.id);
-  }, []);
+  };
 
-  const addFoodToCart = useCallback(() => {
+  const addFoodToCart = () => {
     detailStore.addToCart(new Food(foodItem.id, foodItem.name, foodItem.price, foodItem.photo, foodItem.gallery, foodItem.categories, likedFood));
     setModalVisible(true);
-  }, []);
+  };
 
   const renderSlide = ({item}: {item: string}) => <SliderItem imageUrl={item} />;
 
@@ -72,9 +72,9 @@ export const Details: React.FC<AppNavigatorScreenProps<Screens.Details>> = ({nav
           onScroll={onScrollEvent}
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={32}
-          bounces={true}
           pagingEnabled
           horizontal
+          bounces
         />
         <Paginator gallery={foodItem.gallery} scrollX={scrollX} />
         <TextWrapper style={styles.foodTitle}>{foodItem.name}</TextWrapper>
