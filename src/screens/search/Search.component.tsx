@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Observer, useLocalObservable} from 'mobx-react';
+import {useLocalObservable} from 'mobx-react';
 import {FlatList, StyleSheet} from 'react-native';
 import {SharedElement} from 'react-navigation-shared-element';
 import debounce from 'lodash.debounce';
@@ -52,28 +52,24 @@ export const Search: React.FC<AppNavigatorScreenProps<Screens.Search>> = ({navig
   const extractItemKey = (item: Food) => item.id.toString();
 
   return (
-    <Observer>
-      {() => (
-        <SafeAreaTheme style={styles.container}>
-          <SearchHeader onPress={navigation.goBack} onChangeText={onChange} />
-          <SharedElement id="bg" style={[styles.sharedElement, StyleSheet.absoluteFill]}>
-            <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg}>
-              <TextWrapper style={styles.text}>
-                {localisation.t('searchFoundResults')} {foods.length}
-              </TextWrapper>
-              <FlatList
-                scrollEnabled
-                data={foods}
-                numColumns={numColumns}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={extractItemKey}
-                renderItem={renderFoodItem}
-                ListEmptyComponent={renderListEmpty}
-              />
-            </ViewTheme>
-          </SharedElement>
-        </SafeAreaTheme>
-      )}
-    </Observer>
+    <SafeAreaTheme style={styles.container}>
+      <SearchHeader onPress={navigation.goBack} onChangeText={onChange} />
+      <SharedElement id="bg" style={[styles.sharedElement, StyleSheet.absoluteFill]}>
+        <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.bg}>
+          <TextWrapper style={styles.text}>
+            {localisation.t('searchFoundResults')} {foods.length}
+          </TextWrapper>
+          <FlatList
+            scrollEnabled
+            data={foods}
+            numColumns={numColumns}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={extractItemKey}
+            renderItem={renderFoodItem}
+            ListEmptyComponent={renderListEmpty}
+          />
+        </ViewTheme>
+      </SharedElement>
+    </SafeAreaTheme>
   );
 };

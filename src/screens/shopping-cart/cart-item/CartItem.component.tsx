@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react';
 import React from 'react';
 import {Animated, Image, Text, View} from 'react-native';
 import {Swipeable} from 'react-native-gesture-handler';
@@ -20,7 +19,7 @@ interface Props {
   removeItem: (id: number) => void;
 }
 
-export const CartItem: React.FC<Props> = observer(({item, addOne, removeOne, ...props}) => {
+export const CartItem: React.FC<Props> = ({item, addOne, removeOne, ...props}) => {
   const renderRightActions = (dragX: Animated.AnimatedInterpolation) => <ItemActions dragX={dragX} item={item} {...props} />;
 
   const add = () => addOne(item.id);
@@ -43,4 +42,4 @@ export const CartItem: React.FC<Props> = observer(({item, addOne, removeOne, ...
       </ViewTheme>
     </Swipeable>
   );
-});
+};

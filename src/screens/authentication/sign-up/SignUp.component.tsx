@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Formik, type FormikHelpers, type FormikValues} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
-import {Observer, useLocalObservable} from 'mobx-react';
+import {useLocalObservable} from 'mobx-react';
 import * as Yup from 'yup';
 
 import {CustomButton} from '../../../components/custom-button/CustomButton.component';
@@ -58,14 +58,10 @@ export const SignUp: React.FC<Props> = ({goToDashboard}) => {
   );
 
   return (
-    <Observer>
-      {() => (
-        <View style={styles.container}>
-          <Formik initialValues={{username: '', email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
-            {renderForm}
-          </Formik>
-        </View>
-      )}
-    </Observer>
+    <View style={styles.container}>
+      <Formik initialValues={{username: '', email: '', password: '', passwordAgain: ''}} validationSchema={SignUpSchema} onSubmit={submitSignUp}>
+        {renderForm}
+      </Formik>
+    </View>
   );
 };

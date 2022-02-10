@@ -1,4 +1,4 @@
-import {Observer, useLocalObservable} from 'mobx-react';
+import {useLocalObservable} from 'mobx-react';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {StackActions, useNavigation} from '@react-navigation/native';
@@ -50,16 +50,12 @@ export const SettingsScreen = () => {
   }
 
   return (
-    <Observer>
-      {() => (
-        <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
-          <TextWrapper style={styles.text}>{localisation.t('settingsTheme')}</TextWrapper>
-          <CustomPicker selectedValue={settings.theme} onValueChange={switchThemeWithPicker} items={themeOptions} />
-          <View style={styles.separator} />
-          <TextWrapper style={styles.text}>{localisation.t('settingsLanguage')}</TextWrapper>
-          <CustomPicker selectedValue={settings.language} onValueChange={switchLanguageWithPicker} items={languageOptions} />
-        </ViewTheme>
-      )}
-    </Observer>
+    <ViewTheme colorIntencity={ColorIntencity.Weak} style={styles.container}>
+      <TextWrapper style={styles.text}>{localisation.t('settingsTheme')}</TextWrapper>
+      <CustomPicker selectedValue={settings.theme} onValueChange={switchThemeWithPicker} items={themeOptions} />
+      <View style={styles.separator} />
+      <TextWrapper style={styles.text}>{localisation.t('settingsLanguage')}</TextWrapper>
+      <CustomPicker selectedValue={settings.language} onValueChange={switchLanguageWithPicker} items={languageOptions} />
+    </ViewTheme>
   );
 };

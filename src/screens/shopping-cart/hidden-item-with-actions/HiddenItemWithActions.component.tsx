@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react';
 import React from 'react';
 import {View} from 'react-native';
 
@@ -12,7 +11,7 @@ interface Props {
   onDelete: (id: number) => void;
 }
 
-export const HiddenItemWithActions: React.FC<Props> = observer(({item, toggleLike, onDelete}) => {
+export const HiddenItemWithActions: React.FC<Props> = ({item, toggleLike, onDelete}) => {
   const toggleLikeOnItem = () => toggleLike(item);
   const onDeleteItem = () => onDelete(item.id);
 
@@ -22,4 +21,4 @@ export const HiddenItemWithActions: React.FC<Props> = observer(({item, toggleLik
       <HiddenButton icon="trash" buttonStyle={styles.backRightBtnRight} onPress={onDeleteItem} />
     </View>
   );
-});
+};

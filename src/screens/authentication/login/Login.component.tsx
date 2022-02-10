@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Observer, useLocalObservable} from 'mobx-react';
+import {useLocalObservable} from 'mobx-react';
 import {Formik, type FormikValues, type FormikHelpers} from 'formik';
 import {ActivityIndicator, View} from 'react-native';
 import * as Yup from 'yup';
@@ -56,14 +56,10 @@ export const Login: React.FC<Props> = ({goToDashboard}) => {
   };
 
   return (
-    <Observer>
-      {() => (
-        <View style={styles.container}>
-          <Formik initialValues={{email: '', password: ''}} validationSchema={LoginSchema} onSubmit={submitLogin}>
-            {renderForm}
-          </Formik>
-        </View>
-      )}
-    </Observer>
+    <View style={styles.container}>
+      <Formik initialValues={{email: '', password: ''}} validationSchema={LoginSchema} onSubmit={submitLogin}>
+        {renderForm}
+      </Formik>
+    </View>
   );
 };
