@@ -31,7 +31,7 @@ export const Onboarding: React.FC<AuthFlowNavigatorScreenProps<AuthFlowScreens.O
       <CustomButton
         text={localisation.t('buttons.getStarted')}
         style={styles.buttonStyle}
-        labelStyle={styles.labelStyle}
+        labelStyle={{color: theme.colorScheme.accent}}
         onPress={navigateToAuthentication}
       />
     </SafeAreaView>

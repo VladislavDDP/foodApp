@@ -26,6 +26,5 @@ export const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#FF460A',
   },
 });

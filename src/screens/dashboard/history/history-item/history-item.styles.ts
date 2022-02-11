@@ -27,11 +27,6 @@ export const styles = StyleSheet.create({
     color: '#666',
     marginVertical: 5,
   },
-  itemPrice: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#FF460A',
-  },
   priceContainer: {
     flexDirection: 'row',
   },
@@ -39,7 +34,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     bottom: 10,
-    backgroundColor: '#FF460A',
     padding: 5,
     color: '#fff',
     fontWeight: '600',

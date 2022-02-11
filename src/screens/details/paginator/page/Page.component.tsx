@@ -1,6 +1,7 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import Animated, {Extrapolate, interpolate, SharedValue, useAnimatedStyle} from 'react-native-reanimated';
+import {useTheme} from '../../../../theme/theme';
 
 import {styles} from './page.styles';
 
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export const Page: React.FC<Props> = ({scrollX, i}) => {
+  const {theme} = useTheme();
   const inputRange = [(i - step) * width, i * width, (i + step) * width];
 
   const rStyle = useAnimatedStyle(() => {
@@ -23,5 +25,5 @@ export const Page: React.FC<Props> = ({scrollX, i}) => {
     return {opacity};
   });
 
-  return <Animated.View key={i} style={[styles.dots, rStyle]} />;
+  return <Animated.View key={i} style={[styles.dots, {backgroundColor: theme.colorScheme.accent}, rStyle]} />;
 };

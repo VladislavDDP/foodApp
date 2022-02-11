@@ -7,6 +7,7 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {CartFood} from '../../../model/cartFood';
+import {useTheme} from '../../../theme/theme';
 import {styles} from './cart-item.styles';
 import {ItemActions} from './item-actions/ItemActions.component';
 
@@ -19,6 +20,8 @@ interface Props {
 }
 
 export const CartItem: React.FC<Props> = ({item, addOne, removeOne, ...props}) => {
+  const {theme} = useTheme();
+
   const renderRightActions = (dragX: Animated.AnimatedInterpolation) => <ItemActions dragX={dragX} item={item} {...props} />;
 
   const add = () => addOne(item.id);
@@ -31,9 +34,9 @@ export const CartItem: React.FC<Props> = ({item, addOne, removeOne, ...props}) =
         <Image source={{uri: item.photo}} style={styles.itemImage} />
         <View style={styles.itemDescription}>
           <TextWrapper style={styles.itemName}>{item.name}</TextWrapper>
-          <Text style={styles.itemPrice}>{item.price}</Text>
+          <Text style={[styles.itemPrice, {color: theme.colorScheme.accent}]}>{item.price}</Text>
         </View>
-        <View style={styles.qtyContainer}>
+        <View style={[styles.qtyContainer, {backgroundColor: theme.colorScheme.accent}]}>
           <IconButton name="minus" style={styles.qtyController} size={10} color="#fff" onPress={remove} />
           <Text style={styles.qtyNumber}>{item.qty}</Text>
           <IconButton name="plus" style={styles.qtyController} size={10} color="#fff" onPress={add} />

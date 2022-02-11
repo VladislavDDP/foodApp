@@ -7,11 +7,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  dots: {
-    height: 10,
-    width: 10,
-    margin: 10,
-    borderRadius: 50,
-    backgroundColor: '#FF460A',
-  },
 });

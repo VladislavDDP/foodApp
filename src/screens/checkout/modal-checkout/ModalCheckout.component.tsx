@@ -5,7 +5,7 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {localisation} from '../../../localization/localization';
 import {useTheme} from '../../../theme/theme';
 import {styles} from './modal-checkout.styles';
-import {ModalButton} from './ModalButton.component';
+import {ModalButton} from './modal-button/ModalButton.component';
 
 interface Props {
   approvePayment: () => void;
@@ -31,8 +31,16 @@ export const ModalCheckout: React.FC<Props> = ({approvePayment, setVisable}) => 
           <TextWrapper style={styles.infoText}>N2000 - N3000</TextWrapper>
         </View>
         <View style={styles.controlButtons}>
-          <ModalButton text={localisation.t('buttons.cancelOrder')} onPress={setUnvisable} style={[styles.btnText, styles.leftBtn]} />
-          <ModalButton text={localisation.t('buttons.confirmOrder')} onPress={approvePayment} style={[styles.btnText, styles.rightBtn]} />
+          <ModalButton
+            text={localisation.t('buttons.cancelOrder')}
+            onPress={setUnvisable}
+            style={[{backgroundColor: theme.colorScheme.accent}, styles.leftBtn]}
+          />
+          <ModalButton
+            text={localisation.t('buttons.confirmOrder')}
+            onPress={approvePayment}
+            style={[{backgroundColor: theme.colorScheme.accent}, styles.rightBtn]}
+          />
         </View>
       </View>
     </View>

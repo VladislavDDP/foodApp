@@ -42,15 +42,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 40,
   },
-  btnText: {
-    fontSize: 17,
-    fontWeight: '600',
-  },
   leftBtn: {
     color: '#999',
   },
   rightBtn: {
-    backgroundColor: '#FF460A',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,

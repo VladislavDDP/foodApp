@@ -22,7 +22,6 @@ export const styles = StyleSheet.create({
   foodPrice: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#FF460A',
     textAlign: 'center',
   },
   slider: {

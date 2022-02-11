@@ -27,12 +27,10 @@ export const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#FF460A',
   },
   qtyContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FF460A',
     borderRadius: 15,
     paddingVertical: 5,
     paddingHorizontal: 5,

@@ -7,7 +7,4 @@ export const styles = StyleSheet.create({
   flatlist: {
     marginBottom: 100,
   },
-  button: {
-    backgroundColor: '#FF460A',
-  },
 });
