@@ -25,7 +25,7 @@ export const HistoryItem: React.FC<Props> = ({item, goToRecieptDetails}) => {
           </TextWrapper>
           <Text style={styles.itemDate}>{item.createdAt}</Text>
         </View>
-        <Text style={styles.totalPrice}>
+        <Text style={[styles.totalPrice, {backgroundColor: theme.colorScheme.accent}]}>
           {localisation.t('total')}: {item.totalPrice}
         </Text>
       </TouchableOpacity>

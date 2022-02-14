@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native';
 
-import {colors} from '../../../../vars/variables';
-
 export const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
@@ -29,11 +27,6 @@ export const styles = StyleSheet.create({
     color: '#666',
     marginVertical: 5,
   },
-  itemPrice: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: colors.orange,
-  },
   priceContainer: {
     flexDirection: 'row',
   },
@@ -41,9 +34,8 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     bottom: 10,
-    backgroundColor: colors.orange,
     padding: 5,
-    color: colors.white,
+    color: '#fff',
     fontWeight: '600',
   },
 });

@@ -1,25 +1,17 @@
 import React from 'react';
-import {Animated, Dimensions, View} from 'react-native';
+import {View} from 'react-native';
+import {SharedValue} from 'react-native-reanimated';
 
+import {Page} from './page/Page.component';
 import {styles} from './paginator.styles';
-
-const {width} = Dimensions.get('window');
-const step = 1;
-const lowOpacity = 0.3;
-const maxOpacity = 1;
 
 interface Props {
   gallery: Array<string>;
-  scrollX: Animated.Value;
+  scrollX: SharedValue<number>;
 }
 
-export const Paginator: React.FC<Props> = props => (
-  <View style={styles.container}>
-    {props.gallery.map((_, i) => {
-      const inputRange = [(i - step) * width, i * width, (i + step) * width];
-      const opacity = props.scrollX.interpolate({inputRange, outputRange: [lowOpacity, maxOpacity, lowOpacity], extrapolate: 'clamp'});
+export const Paginator: React.FC<Props> = ({gallery, scrollX}) => {
+  const renderPage = (el: string, index: number) => <Page key={el} index={index} scrollX={scrollX} />;
 
-      return <Animated.View key={i} style={[styles.dots, {opacity}]} />;
-    })}
-  </View>
-);
+  return <View style={styles.container}>{gallery.map(renderPage)}</View>;
+};

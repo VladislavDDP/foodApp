@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
   },
   sectionDetails: {
-    color: '#FF460A',
     fontSize: 16,
     fontWeight: '600',
     flex: 1,

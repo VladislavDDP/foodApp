@@ -1,4 +1,3 @@
-import {observer} from 'mobx-react';
 import React from 'react';
 import {Animated, Image, Text, View} from 'react-native';
 import {Swipeable} from 'react-native-gesture-handler';
@@ -8,7 +7,7 @@ import {TextWrapper} from '../../../components/text-wrapper/TextWrapper.componen
 import {ColorIntencity} from '../../../components/view-theme/ColorIntencity';
 import {ViewTheme} from '../../../components/view-theme/ViewTheme.component';
 import {CartFood} from '../../../model/cartFood';
-import {colors} from '../../../vars/variables';
+import {useTheme} from '../../../theme/theme';
 import {styles} from './cart-item.styles';
 import {ItemActions} from './item-actions/ItemActions.component';
 
@@ -20,7 +19,9 @@ interface Props {
   removeItem: (id: number) => void;
 }
 
-export const CartItem: React.FC<Props> = observer(({item, addOne, removeOne, ...props}) => {
+export const CartItem: React.FC<Props> = ({item, addOne, removeOne, ...props}) => {
+  const {theme} = useTheme();
+
   const renderRightActions = (dragX: Animated.AnimatedInterpolation) => <ItemActions dragX={dragX} item={item} {...props} />;
 
   const add = () => addOne(item.id);
@@ -33,14 +34,14 @@ export const CartItem: React.FC<Props> = observer(({item, addOne, removeOne, ...
         <Image source={{uri: item.photo}} style={styles.itemImage} />
         <View style={styles.itemDescription}>
           <TextWrapper style={styles.itemName}>{item.name}</TextWrapper>
-          <Text style={styles.itemPrice}>{item.price}</Text>
+          <Text style={[styles.itemPrice, {color: theme.colorScheme.accent}]}>{item.price}</Text>
         </View>
-        <View style={styles.qtyContainer}>
-          <IconButton name="minus" style={styles.qtyController} size={10} color={colors.white} onPress={remove} />
+        <View style={[styles.qtyContainer, {backgroundColor: theme.colorScheme.accent}]}>
+          <IconButton name="minus" style={styles.qtyController} size={10} color="#fff" onPress={remove} />
           <Text style={styles.qtyNumber}>{item.qty}</Text>
-          <IconButton name="plus" style={styles.qtyController} size={10} color={colors.white} onPress={add} />
+          <IconButton name="plus" style={styles.qtyController} size={10} color="#fff" onPress={add} />
         </View>
       </ViewTheme>
     </Swipeable>
   );
-});
+};

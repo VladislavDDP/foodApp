@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components rendering renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#999",
+        "height": "100%",
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+        "zIndex": 10,
+      },
+      Object {
+        "backgroundColor": "#36153b",
+      },
+    ]
+  }
+>
+  <ActivityIndicator
+    size="large"
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#373737",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+      ]
+    }
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+        },
+        Object {
+          "fontSize": 25,
+          "fontWeight": "700",
+          "marginTop": 10,
+        },
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;

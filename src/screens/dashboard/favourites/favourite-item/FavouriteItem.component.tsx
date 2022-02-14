@@ -26,7 +26,7 @@ export const FavouriteItem: React.FC<Props> = ({item, onPress, deleteItem}) => {
       <Image source={{uri: item.photo}} style={styles.itemImage} />
       <View style={styles.itemDescription}>
         <TextWrapper style={styles.itemName}>{item.name}</TextWrapper>
-        <Text style={styles.itemPrice}>{item.price}</Text>
+        <Text style={[styles.itemPrice, {color: theme.colorScheme.accent}]}>{item.price}</Text>
       </View>
     </TouchableOpacity>
   );

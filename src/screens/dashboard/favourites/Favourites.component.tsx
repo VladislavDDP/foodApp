@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
-import {FlatList} from 'react-native';
+import {FlatList, InteractionManager} from 'react-native';
 
 import {Food} from '../../../model/food';
 import {EmptyBox} from '../../../components/empty-box/EmptyBox.component';
@@ -28,11 +28,15 @@ export const Favourites: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> 
     return unsubscribe;
   }, [navigation]);
 
-  const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
+  const goToDetails = useCallback((item: Food) => {
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(Screens.Details, {item});
+    });
+  }, []);
 
-  const deleteItem = (item: Food) => {
+  const deleteItem = useCallback((item: Food) => {
     favouritesStore.removeFromFavourites(item.id);
-  };
+  }, []);
 
   const renderItem = ({item}: {item: Food}) => <FavouriteItem item={item} onPress={goToDetails} deleteItem={deleteItem} />;
 

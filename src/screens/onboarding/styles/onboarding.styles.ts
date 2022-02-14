@@ -18,7 +18,4 @@ export const styles = StyleSheet.create({
   buttonStyle: {
     backgroundColor: '#fff',
   },
-  labelStyle: {
-    color: '#FF460A',
-  },
 });

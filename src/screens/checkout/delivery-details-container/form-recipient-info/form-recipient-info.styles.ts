@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native';
 
-import {colors} from '../../../../vars/variables';
-
 export const styles = StyleSheet.create({
   customerName: {
     fontSize: 17,
@@ -13,7 +11,7 @@ export const styles = StyleSheet.create({
   separator: {
     height: 1,
     width: '100%',
-    backgroundColor: colors.light,
+    backgroundColor: '#999',
     marginVertical: 10,
   },
 });

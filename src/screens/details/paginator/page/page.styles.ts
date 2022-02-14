@@ -1,10 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flatlist: {
-    marginBottom: 100,
+  dots: {
+    height: 10,
+    width: 10,
+    margin: 10,
+    borderRadius: 50,
   },
 });

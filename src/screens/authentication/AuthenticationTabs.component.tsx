@@ -1,5 +1,4 @@
-import React, {useCallback, useRef} from 'react';
-import {observer} from 'mobx-react';
+import React, {useRef} from 'react';
 import {Animated, Dimensions, InteractionManager, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -16,21 +15,19 @@ import {ViewTheme} from '../../components/view-theme/ViewTheme.component';
 import {ColorIntencity} from '../../components/view-theme/ColorIntencity';
 import {localisation} from '../../localization/localization';
 
-interface Props extends AppNavigatorScreenProps<Screens.AuthFlowStack> {}
-
 const startValue = 0;
 const {width} = Dimensions.get('window');
 
-export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
+export const AuthenticationTabs: React.FC<AppNavigatorScreenProps<Screens.AuthFlowStack>> = ({navigation}) => {
   const {theme} = useTheme();
   const scrollX = useRef(new Animated.Value(startValue)).current;
   const slidesRef = useRef<ScrollView>();
 
-  const goToDashboard = useCallback(() => {
+  const goToDashboard = () => {
     InteractionManager.runAfterInteractions(() => {
       navigation.replace(Screens.DrawerStack);
     });
-  }, [navigation]);
+  };
 
   const scrollToAuthProcess = (page: number) => slidesRef.current?.scrollTo({x: page * width});
 
@@ -64,4 +61,4 @@ export const AuthenticationTabs: React.FC<Props> = observer(({navigation}) => {
       </ViewTheme>
     </KeyboardAwareScrollView>
   );
-});
+};

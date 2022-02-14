@@ -9,7 +9,6 @@ import {DrawerContentItem} from './content-item/DrawerContentItem.component';
 import {drawerScreens} from '../../../navigation/drawer-stack/routes.types';
 import {styles} from './custom-drawer-content.styles';
 import {Drawers} from '../../../navigation/drawer-stack/drawer.types';
-import {colors} from '../../../vars/variables';
 import {StackParamList} from '../../../navigation/root-stack/stack.types';
 import {Screens} from '../../../navigation/root-stack/routes.types';
 import {SignOut} from './sign-out/SignOut.component';
@@ -31,7 +30,7 @@ export const CustomDrawerContent: React.FC<Props> = ({stackNavigation, drawerNav
             <DrawerContentItem
               key={drawer.id}
               name={drawer.name}
-              color={state.index === drawer.id ? colors.dark : colors.white}
+              color={state.index === drawer.id ? '#333' : '#fff'}
               icon={drawer.icon}
               goToDrawer={goToDrawer}
             />

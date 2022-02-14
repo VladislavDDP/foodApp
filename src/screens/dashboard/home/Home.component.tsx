@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Observer, useLocalObservable} from 'mobx-react';
-import {ActivityIndicator, FlatList, ScrollView} from 'react-native';
+import {ActivityIndicator, FlatList, InteractionManager, ScrollView} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {SharedElement} from 'react-navigation-shared-element';
 
@@ -41,18 +41,26 @@ export const Home: React.FC<AppNavigatorScreenProps<Screens.DrawerStack>> = ({na
     return unsubscribe;
   }, [navigation, activeCategoryId]);
 
-  const navigateToSearch = () => navigation.navigate(Screens.Search);
+  const navigateToSearch = () => {
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(Screens.Search);
+    });
+  };
 
-  const onSelectCategory = (id: number) => {
+  const onSelectCategory = useCallback((id: number) => {
     setActiveCategoryId(id);
     getFood(id);
-  };
+  }, []);
 
   const renderCategory = ({item}: {item: Category}) => (
     <CategoryItem item={item} activeCategoryId={activeCategoryId} onSelectCategory={onSelectCategory} />
   );
 
-  const goToDetails = (item: Food) => navigation.navigate(Screens.Details, {item});
+  const goToDetails = (item: Food) => {
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate(Screens.Details, {item});
+    });
+  };
 
   const renderFoodItem = ({item, index}: {item: Food; index: number}) => (
     <Animatable.View animation="zoomIn" delay={duration * index}>
