@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const Paginator: React.FC<Props> = ({gallery, scrollX}) => {
-  const renderPage = (el: string, i: number) => <Page key={el} i={i} scrollX={scrollX} />;
+  const renderPage = (el: string, index: number) => <Page key={el} index={index} scrollX={scrollX} />;
 
   return <View style={styles.container}>{gallery.map(renderPage)}</View>;
 };

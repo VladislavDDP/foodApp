@@ -13,17 +13,17 @@ const maxOpacity = 1;
 
 interface Props {
   scrollX: SharedValue<number>;
-  i: number;
+  index: number;
 }
 
-export const Page: React.FC<Props> = ({scrollX, i}) => {
+export const Page: React.FC<Props> = ({scrollX, index}) => {
   const {theme} = useTheme();
-  const inputRange = [(i - step) * width, i * width, (i + step) * width];
+  const inputRange = [(index - step) * width, index * width, (index + step) * width];
 
   const rStyle = useAnimatedStyle(() => {
     const opacity = interpolate(scrollX.value, inputRange, [lowOpacity, maxOpacity, lowOpacity], Extrapolate.CLAMP);
     return {opacity};
   });
 
-  return <Animated.View key={i} style={[styles.dots, {backgroundColor: theme.colorScheme.accent}, rStyle]} />;
+  return <Animated.View style={[styles.dots, {backgroundColor: theme.colorScheme.accent}, rStyle]} />;
 };

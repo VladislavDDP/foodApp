@@ -8,8 +8,8 @@ interface Props extends TouchableOpacityProps {
   textStyle?: StyleProp<TextStyle>;
 }
 
-export const ModalButton: React.FC<Props> = ({text, style, textStyle, ...rest}) => (
-  <TouchableOpacity style={[style]} {...rest}>
+export const ModalButton: React.FC<Props> = ({text, textStyle, ...rest}) => (
+  <TouchableOpacity {...rest}>
     <Text style={[styles.btnText, textStyle]}>{text}</Text>
   </TouchableOpacity>
 );
