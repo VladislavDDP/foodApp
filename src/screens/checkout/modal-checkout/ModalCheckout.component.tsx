@@ -31,15 +31,12 @@ export const ModalCheckout: React.FC<Props> = ({approvePayment, setVisable}) => 
           <TextWrapper style={styles.infoText}>N2000 - N3000</TextWrapper>
         </View>
         <View style={styles.controlButtons}>
-          <ModalButton
-            text={localisation.t('buttons.cancelOrder')}
-            onPress={setUnvisable}
-            style={[{backgroundColor: theme.colorScheme.accent}, styles.leftBtn]}
-          />
+          <ModalButton text={localisation.t('buttons.cancelOrder')} onPress={setUnvisable} textStyle={styles.leftBtnText} />
           <ModalButton
             text={localisation.t('buttons.confirmOrder')}
             onPress={approvePayment}
             style={[{backgroundColor: theme.colorScheme.accent}, styles.rightBtn]}
+            textStyle={styles.rightBtnText}
           />
         </View>
       </View>

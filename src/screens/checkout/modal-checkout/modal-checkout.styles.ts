@@ -42,13 +42,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 40,
   },
-  leftBtn: {
+  leftBtnText: {
     color: '#999',
   },
   rightBtn: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+  },
+  rightBtnText: {
     color: '#fff',
   },
 });

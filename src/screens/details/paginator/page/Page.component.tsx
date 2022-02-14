@@ -1,8 +1,8 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import Animated, {Extrapolate, interpolate, SharedValue, useAnimatedStyle} from 'react-native-reanimated';
-import {useTheme} from '../../../../theme/theme';
 
+import {useTheme} from '../../../../theme/theme';
 import {styles} from './page.styles';
 
 const {width} = Dimensions.get('window');
